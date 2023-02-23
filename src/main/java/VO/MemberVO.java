@@ -13,21 +13,19 @@ public class MemberVO {
 	public MemberVO() {
 	}
 
-	public MemberVO(String email, String pw, String name, String phoneNum, String address) {
-		super();
+	public MemberVO(String email, String pw, String name, String phonenum, String address) {
 		this.email = email;
 		this.pw = pw;
 		this.name = name;
-		this.phoneNum = phoneNum;
+		this.phoneNum = phonenum;
 		this.address = address;
 	}
 
-	public MemberVO(String email, String pw, String name, String phoneNum, String address, Date m_date) {
-		super();
+	public MemberVO(String email, String pw, String name, String phonenum, String address, Date m_date) {
 		this.email = email;
 		this.pw = pw;
 		this.name = name;
-		this.phoneNum = phoneNum;
+		this.phoneNum = phonenum;
 		this.address = address;
 		this.m_date = m_date;
 	}

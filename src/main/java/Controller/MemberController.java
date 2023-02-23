@@ -111,8 +111,11 @@ public class MemberController extends HttpServlet {
 			
 			nextPage="/greaitMain.jsp";
 		}
+		
+	//	
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
-			
+			String email = request.getParameter("email");
+			String pw = request.getParameter("pw");
 		}
 		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
@@ -120,8 +123,10 @@ public class MemberController extends HttpServlet {
 		}
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
+
 			
 		}		
+	//
 		
 		else if(action.equals("/mypage.me")) {//마이페이지로 이동
 			
