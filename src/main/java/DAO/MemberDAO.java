@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,7 +103,7 @@ public class MemberDAO {
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPw());
 			pstmt.setString(3, vo.getName());
-			pstmt.setString(4, vo.getPhonenum());
+			pstmt.setString(4, vo.getPhoneNum());
 			pstmt.setString(5, vo.getAddress());
 			
 			//PreparedStatement실행객체메모리에 설정된 insert전체 문장을 
@@ -117,10 +118,35 @@ public class MemberDAO {
 		}
 		
 	}
-
-
-			
 	
+	//회원 이메일을 이용해 회원 정보 조회
+	public MemberVO findMember(String _email) {
+		
+		MemberVO memInfo = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * from member where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, _email);
+			System.out.println(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			String email = rs.getString("email");
+			String pw = rs.getString("pw");
+			String name = rs.getString("name");
+			String phoneNum = rs.getString("phoneNum");
+			String address = rs.getString("address");
+			Date m_date = rs.getDate("m_date");
+			memInfo = new MemberVO(email,pw,name,phoneNum,address,m_date);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+		return memInfo;
+	}
+
 		
 
 }

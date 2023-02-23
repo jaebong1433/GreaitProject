@@ -54,12 +54,12 @@ public class MemberVO {
 		this.name = name;
 	}
 
-	public String getPhonenum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhonenum(String phonenum) {
-		this.phoneNum = phonenum;
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
 	public String getAddress() {
@@ -77,5 +77,5 @@ public class MemberVO {
 	public void setM_date(Date m_date) {
 		this.m_date = m_date;
 	}
-	
+
 }

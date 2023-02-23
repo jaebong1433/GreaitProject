@@ -116,8 +116,6 @@ public class MemberController extends HttpServlet {
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
-			
-					
 		}
 		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
@@ -125,19 +123,44 @@ public class MemberController extends HttpServlet {
 		}
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
-		
-			
+
 			
 		}		
 	//
-		
-		
 		
 		else if(action.equals("/mypage.me")) {//마이페이지로 이동
 			
 		}
 		
-		else if(action.equals("/update.me")) {//회원정보 수정
+		else if(action.equals("/m_charge.me")) {//마일리지 충전
+			
+		}
+		
+		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
+		else if(action.equals("/updateForm.do")){
+			String email = request.getParameter("email");
+			
+			MemberVO memInfo = memberdao.findMember(email);
+			
+			request.setAttribute("memInfo", memInfo);
+			
+			nextPage = "/greaitMain.jsp";
+		}
+		
+		//회원정보 수정창에서 수정하기 버튼을 클릭했을 때..
+		else if(action.equals("/update.me")) {
+			String email = request.getParameter("email");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String address3 = request.getParameter("address3");
+			String address4 = request.getParameter("address4");
+			String address5 = request.getParameter("address5");
+			String address = address1+address2+address3+address4+address5;
+			
+			MemberVO vo = new MemberVO(email,pw,name,phoneNum,address);
 			
 		}
 		
