@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
@@ -112,18 +113,50 @@ public class MemberController extends HttpServlet {
 			nextPage="/greaitMain.jsp";
 		}
 		
-	//	
+	//	2-27일 로그인 수행 작성
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
-			String email = request.getParameter("email");
-			String pw = request.getParameter("pw");
+			//중앙화면 주소 바인딩
+			request.setAttribute("center", "member/login.jsp");
+			
+			//전체 메인화면 주소 저장
+			nextPage = "/greaitMain.jsp";
 		}
 		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
+			String email = request.getParameter("email");
+			String pw = request.getParameter("pw");
 			
+			int check = memberdao.loginCheck(login_email,login_pw);
+			
+			if(check == 0) {//아이디는 맞고 비번 틀림
+				out.println("<script>");
+				out.println(" window.alert('비밀번호 틀림');");
+				out.println(" history.go(-1);");
+				out.println("</script>");
+				return;
+			}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
+				out.println("<script>");
+				out.println(" window.alert('아이디 틀림');");
+				out.println(" history.back();");
+				out.println("</script>");
+				return;				
+			}
+			//session메모리생성
+			HttpSession session = request.getSession();
+			//session메모리에 입력한 아이디 바인딩(저장)
+			session.setAttribute("email",login_email);
+			
+			//메인화면 VIEW 주소
+			nextPage = "/greaitMain.jsp";
+
 		}
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
-
+			//기존에 생성했던 session메모리 얻기
+			HttpSession session_ = request.getSession();
+			session_.invalidate();
+			
+			nextPage = "/greaitMain.jsp";
 			
 		}		
 	//
