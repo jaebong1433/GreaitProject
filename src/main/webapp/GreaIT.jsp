@@ -24,12 +24,13 @@
 </head>
 <body>
 	<center>
+	
 		<table width="100%" height="100%">
 			<tr align="left">
 				<td height="20%"><jsp:include page="top.jsp"/></td>	
 			</tr>
 			<tr>
-				<td height="55%"><jsp:include page="${center}"/></td>
+				<td height="55%"><jsp:include page="${center }"/></td>
 			</tr>
 			<tr>
 				<td height="25%"><jsp:include page="bottom.jsp"/> </td>

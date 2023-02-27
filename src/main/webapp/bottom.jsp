@@ -42,7 +42,7 @@
 		
 		<footer id="fh5co-footer">
 			<div class="container">
-			<hr style="border: solid 1px yellow">
+			<hr style="border: solid 1px gray">
 				<div class="row row-bottom-padded-md">
 					<div class="col-md-3 col-sm-6 col-xs-12 animate-box">
 						<div class="fh5co-footer-widget">
