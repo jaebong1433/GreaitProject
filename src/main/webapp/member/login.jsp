@@ -69,8 +69,9 @@
 		<br>
 		<div align = "center">
 			<h1>로그인</h1><br>
-			<input type = "text" value="아이디"><br>
-			<input type = "password" value="PASSWORD"><br>
+			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">
+			<input type = "text" placeholder="이메일입력하세요" name="login_email"><br>
+			<input type = "password" value="PASSWORD" name="login_pw"><br>
 			<a>아이디 찾기</a> / <a>비밀번호 찾기</a><br>
 			<a href="#" class="btn btn-common">로그인</a><br><br>
 			<a href="#"><img src="<%=contextPath%>/assets/img/login/kakao_icon.png" width="50px" height="50px"></a>
@@ -79,7 +80,7 @@
 			<a href="#"><img src="<%=contextPath%>/assets/img/login/insta_icon.png" width="50px" height="50px"></a>
 			<br><br><br>
 		</div>
-		
+		</form>
 	</div>
 </center>	
 
