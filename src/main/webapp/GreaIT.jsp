@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>    
-    
+<%
+	String contextPath = request.getContextPath();
+%>    
     
 <%-- 센터 중앙 화면 공간은  상위 메뉴를 클릭할떄 마다 계속 변화되어 나타나야 하기 떄문에
 	 request내장객체 영역으로 부터 중앙 화면 공간의 View주소를 얻어와 변수에 저장 해야 합니다.
@@ -30,7 +32,7 @@
 				<td height="20%"><jsp:include page="top.jsp"/></td>	
 			</tr>
 			<tr>
-				<td height="55%"><jsp:include page="${center }"/></td>
+				<td height="55%"><jsp:include page="${center}"/></td>
 			</tr>
 			<tr>
 				<td height="25%"><jsp:include page="bottom.jsp"/> </td>

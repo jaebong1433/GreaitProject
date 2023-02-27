@@ -22,95 +22,150 @@
 
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,600,400italic,700' rel='stylesheet' type='text/css'>
 	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Flexslider -->
-	<link rel="stylesheet" href="css/flexslider.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<link rel="stylesheet" href="css/style.css">
 	<style>
 	
+	
+	
+	
 	.lista{
-		background-color:white;
 		border: 1px solid black;
-		float: center;
-		width: 100%;
-		height: 100%;
+		height: 350px;
+		width : 1000px;
+		margin : 0 0 40px 0;
 	}
 	
-	.listbox{
-		border: 1px solid yellow;
-		width: 100%;
-		margin: auto;
+	.listb{
+		margin: 25px 25px 0 0;
+		float:left;
+		width: 450px;
 	}
 	
-	.imgbox{
-		margin-top: 30px;
-		width: 40%;
-		height: 100%;
+	.listc{
+		text-align: right;
+	}
+	
+	table{
+		text-align: left;
 		float: left;
-		
-		margin: auto;
+		margin-top: 25px;
+		width: 500px;
 	}
 	
-	.pbox{
 	
-		margin: auto;
-		align-text:left;
+	
+	button{
+		width : 150px;
+		height : 50px;
 	}
-	
-	.bbox{
-		margin: auto;
-		float:right;
-	}
-	
 	
 	</style>
 	
 	
 </head>
 <body>
-	<div class="lista">
-		<center>
-		
-			<div class="listbox">
-				<div class="imgbox">
-					<img src="<%=contextPath%>/images/img_1.jpg" width="40%" height="90%">
-				</div>
-				<div class="pbox"><br>
-					<h2>프론트 문의</h2>
-					asdsw
-				
-				</div>	
-				<div class="bbox">
-						<button>문의하기</button>
-				</div>	
+	<br><br><br><br>
+	<center>
+	<div class="list">
+		<h1>견적문의</h1>
+		<div class="lista">
+			<div class="listb">
+				<img src="<%=contextPath%>/images/img_1.jpg" width="400px" height="300px">
 			</div>	
 				
-			<div class="listbox">
-				<div class="imgbox">
-					<img src="<%=contextPath%>/images/img_1.jpg" width="40%" height="90%">
-				</div>
-				<div class="pbox"><br>
-					<h2>프론트 문의</h2>
-					asdsw
-				
-				</div>	
-				<div class="bbox">
-						<button>문의하기</button>
-				</div>	
-			</div>			
-				
+				<table>
+					<td>
+						<h2>프론트엔드</h2>
+					</td>
+				<tr>
+					<td>
+					대충 소개하는 글
+					</td>
+					</tr>
+					<tr>
+						<td>
+						내용<br>
+						내용1
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="listc">
+							<p>300,000</p>
+							<button>자세히보기</button>
+						</div>
+						</td>
+					</tr>
+				</table>
+		</div>
 		
-		</center>
-</div>
-
+		<div class="lista">
+			<div class="listb">
+				<img src="<%=contextPath%>/images/img_1.jpg" width="400px" height="300px">
+			</div>	
+				
+				<table>
+					<td>
+						<h2>프론트엔드</h2>
+					</td>
+				<tr>
+					<td>
+					대충 소개하는 글
+					</td>
+					</tr>
+					<tr>
+						<td>
+						내용<br>
+						내용1
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="listc">
+							<p>300,000</p>
+							<button>자세히보기</button>
+						</div>
+						</td>
+					</tr>
+				</table>
+		</div>
+		
+		<div class="lista">
+			<div class="listb">
+				<img src="<%=contextPath%>/images/img_1.jpg" width="400px" height="300px">
+			</div>	
+				
+				<table>
+					<td>
+						<h2>프론트엔드</h2>
+					</td>
+				<tr>
+					<td>
+					대충 소개하는 글
+					</td>
+					</tr>
+					<tr>
+						<td>
+						내용<br>
+						내용1
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<div class="listc">
+							<p>300,000</p>
+							<button>자세히보기</button>
+						</div>
+						</td>
+					</tr>
+				</table>
+		</div>
+		
+	
+	</div>	
+	</center>
+		
 
 
 

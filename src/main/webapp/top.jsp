@@ -22,17 +22,17 @@
 	<link rel="shortcut icon" href="<%=contextPath%>/images/Giticon.png">
 
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/icomoon.css">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/magnific-popup.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/bootstrap.css">
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<%=contextPath%>/css/style.css">
 
-	<link rel="stylesheet" id="theme-switch" href="css/style.css">
+	<link rel="stylesheet" id="theme-switch" href="<%=contextPath%>/css/style.css">
 	
 	</head>
 	<body>
@@ -68,21 +68,21 @@
 	
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="<%=contextPath%>/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="<%=contextPath%>/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="<%=contextPath%>/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="<%=contextPath%>/js/jquery.waypoints.min.js"></script>
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script src="<%=contextPath%>/js/jquery.flexslider-min.js"></script>
 	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
+	<script src="<%=contextPath%>/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=contextPath%>/js/magnific-popup-options.js"></script>
 
 	<!-- Main JS (Do not remove) -->
-	<script src="js/main.js"></script>
+	<script src="<%=contextPath%>/js/main.js"></script>
 
 	
 	</body>

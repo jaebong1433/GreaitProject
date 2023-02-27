@@ -64,7 +64,6 @@ public class MemberController extends HttpServlet {
 		if(action.equals("/join.me")) {
 			center = request.getParameter("center"); //members/join.jsp  중앙화면뷰 주소 얻기
 			request.setAttribute("center", center);//members/join.jsp  중앙화면뷰 주소 바인딩 
-			
 			nextPage = "/GreaIT.jsp";
 		}
 		
@@ -109,10 +108,9 @@ public class MemberController extends HttpServlet {
 									   );
 			
 			memberdao.insertMember(vo);
-			
-			
-			nextPage = "/GreaIT.jsp";
-			
+
+			nextPage="/GreaIT.jsp";
+
 		}
 		
 	//	2-27일 로그인 수행 작성
@@ -121,6 +119,7 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("center", "member/login.jsp");
 			
 			//전체 메인화면 주소 저장
+
 			nextPage = "/GreaIT.jsp";
 		}
 		
@@ -129,7 +128,7 @@ public class MemberController extends HttpServlet {
 			String login_pw = request.getParameter("login_pw");
 			
 			int check = memberdao.loginCheck(login_email, login_pw);
-			
+
 			if(check == 0) {//아이디는 맞고 비번 틀림
 				out.println("<script>");
 				out.println(" window.alert('비밀번호 틀림');");
@@ -151,15 +150,16 @@ public class MemberController extends HttpServlet {
 			//메인화면 VIEW 주소
 			nextPage = "/GreaIT.jsp";
 
+
 		}
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 			//기존에 생성했던 session메모리 얻기
 			HttpSession session_ = request.getSession();
 			session_.invalidate();
-			
+
 			nextPage = "/GreaIT.jsp";
-			
+
 		}		
 	//
 		
@@ -200,7 +200,13 @@ public class MemberController extends HttpServlet {
 		}
 		
 		else if(action.equals("/signOut.me")) {//회원탈퇴
+			String email = request.getParameter("email");
 			
+			memberdao.delMember(email);
+			
+			request.setAttribute("msg", "deleted");
+			
+			nextPage = "/listMembers.do";
 		}		
 		
 		//포워딩 (디스패처 방식)
