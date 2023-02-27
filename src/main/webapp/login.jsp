@@ -80,6 +80,10 @@
 		<div align = "center">
 		<br><br>
 			<h1>로그인</h1><br>
+			
+			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">
+			
+			
 			<div class="loga">
 			<div class="loginput">
 			<input type = "text" value="email" width="200px"><br>
@@ -97,6 +101,8 @@
 			<a href="#"><img src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px"></a>
 			<br><br>
 		</div>
+		
+		</form>
 		
 	</div>
 	</center>
