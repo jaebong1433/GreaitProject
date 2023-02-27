@@ -64,7 +64,7 @@ public class MemberController extends HttpServlet {
 		if(action.equals("/join.me")) {
 			center = request.getParameter("center"); //members/join.jsp  중앙화면뷰 주소 얻기
 			request.setAttribute("center", center);//members/join.jsp  중앙화면뷰 주소 바인딩 
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 		}
 		
 		else if(action.equals("/joinIdCheck.me")) {
@@ -110,7 +110,7 @@ public class MemberController extends HttpServlet {
 			memberdao.insertMember(vo);
 			
 			
-			nextPage="/greaitMain.jsp";
+			nextPage="/GreaIT.jsp";
 		}
 		
 	//	2-27일 로그인 수행 작성
@@ -169,17 +169,6 @@ public class MemberController extends HttpServlet {
 			
 		}
 		
-		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
-		else if(action.equals("/updateForm.do")){
-			String email = request.getParameter("email");
-			
-			MemberVO memInfo = memberdao.findMember(email);
-			
-			request.setAttribute("memInfo", memInfo);
-			
-			nextPage = "/greaitMain.jsp";
-		}
-		
 		//회원정보 수정창에서 수정하기 버튼을 클릭했을 때..
 		else if(action.equals("/update.me")) {
 			String email = request.getParameter("email");
@@ -198,7 +187,13 @@ public class MemberController extends HttpServlet {
 		}
 		
 		else if(action.equals("/signOut.me")) {//회원탈퇴
+			String email = request.getParameter("email");
 			
+			memberdao.delMember(email);
+			
+			request.setAttribute("msg", "deleted");
+			
+			nextPage = "/listMembers.do";
 		}		
 		
 		//포워딩 (디스패처 방식)
