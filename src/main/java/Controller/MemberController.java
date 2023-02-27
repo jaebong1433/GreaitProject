@@ -64,7 +64,8 @@ public class MemberController extends HttpServlet {
 		if(action.equals("/join.me")) {
 			center = request.getParameter("center"); //members/join.jsp  중앙화면뷰 주소 얻기
 			request.setAttribute("center", center);//members/join.jsp  중앙화면뷰 주소 바인딩 
-			nextPage = "/greaitMain.jsp";
+			
+			nextPage = "/GreaIT.jsp";
 		}
 		
 		else if(action.equals("/joinIdCheck.me")) {
@@ -110,7 +111,8 @@ public class MemberController extends HttpServlet {
 			memberdao.insertMember(vo);
 			
 			
-			nextPage="/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
+			
 		}
 		
 	//	2-27일 로그인 수행 작성
@@ -119,14 +121,14 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("center", "member/login.jsp");
 			
 			//전체 메인화면 주소 저장
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 		}
 		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
-			String email = request.getParameter("email");
-			String pw = request.getParameter("pw");
+			String login_email = request.getParameter("login_email");
+			String login_pw = request.getParameter("login_pw");
 			
-			int check = memberdao.loginCheck(login_email,login_pw);
+			int check = memberdao.loginCheck(login_email, login_pw);
 			
 			if(check == 0) {//아이디는 맞고 비번 틀림
 				out.println("<script>");
@@ -144,10 +146,10 @@ public class MemberController extends HttpServlet {
 			//session메모리생성
 			HttpSession session = request.getSession();
 			//session메모리에 입력한 아이디 바인딩(저장)
-			session.setAttribute("email",login_email);
+			session.setAttribute("email", login_email);
 			
 			//메인화면 VIEW 주소
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 
 		}
 		
@@ -156,7 +158,7 @@ public class MemberController extends HttpServlet {
 			HttpSession session_ = request.getSession();
 			session_.invalidate();
 			
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 			
 		}		
 	//
@@ -177,7 +179,7 @@ public class MemberController extends HttpServlet {
 			
 			request.setAttribute("memInfo", memInfo);
 			
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 		}
 		
 		//회원정보 수정창에서 수정하기 버튼을 클릭했을 때..
