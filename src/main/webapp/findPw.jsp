@@ -4,15 +4,12 @@
 <%
 	String contextPath = request.getContextPath();
 %>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Login - GreaIT</title>
+	<title>비밀번호 찾기 - GreaIT</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -37,72 +34,58 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<link rel="stylesheet" href="css/style.css">
-
-	<style type="text/css">
-    	.logBox {
-    		width: 400px;
+	<style>
+	.logBox {
+    		width: 70%;
 		  	margin-top: 30px;
 		  	text-align:center;
+		  	align:center;
 		  	float: center;
 		  	background-color: white;
+		  	
 		}
 		
+		.logq{
+			width:25%;
+			text-align:left;
+			margin: auto;
+		}
 		
+		.logq input{
+			width:100%
+		}
 		
-		.logbtn {
-	    height: 60px;
-	    width: 60px;
-	    float: right;
-	    border: none;
-	    font-size: 20px;
-	   
-	}
-	
-	.loginput{
-		float : left;
-	}
-	
-	.loga{
-		height: 60px;
-		width: 250px;
-	}
-    </style>
-
-
+		input{
+			width:17%
+		}
+		
+		</style>
 </head>
 <body>
-<div style="background-color: white">
-<center>
-
-		<br><br>
-		<br><br>
-	<div class="logBox">
-		<div align = "center">
-		<br><br>
-			<h1>로그인</h1><br>
-			<div class="loga">
-			<div class="loginput">
-			<input type = "text" value="email" width="200px"><br>
-			<input type = "password" value="Password" width="200px">
+<div style="background-color:white">
+		<center>
+		<br><br><br><br><br>
+			<div class="logBox">
+				<h2>비밀번호 찾기</h2>
+				<br>
+				
+				<div>
+					<div class="logq">
+						이메일<br>
+						<input type="text"><br>
+						이름<br>
+						<input type="text"><br>
+						전화번호<br>
+						<input type="tel">
+					</div><br>
+					<input type="button" value="찾기">
+					<br><br>
+				</div>
 			</div>
-			<a href="#" class="logbtn"><img src="<%=contextPath%>/images/log/go1.png" width="70px" height="70px"></a>
-			</div>
-			<br><br><br>
-			<a href="<%=contextPath%>/findId.jsp">아이디 찾기</a> / <a href="<%=contextPath%>/findPw.jsp"">비밀번호 찾기</a><br>
-			<br>
-			<p>간편로그인</p>
-			<a href="#"><img src="<%=contextPath%>/images/log/kakako-icon.png" width="50px" height="50px"></a>
-			<a href="#"><img src="<%=contextPath%>/images/log/naver-icon.png" width="50px" height="50px"></a>
-			<a href="#"><img src="<%=contextPath%>/images/log/google-icon.png" width="50px" height="50px"></a>
-			<a href="#"><img src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px"></a>
-			<br><br>
-		</div>
+</div>			
 		
-	</div>
-	</center>
-	</div>
-
-
+		</center>
+		
 <!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
