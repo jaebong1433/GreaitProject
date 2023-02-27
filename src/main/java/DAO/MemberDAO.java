@@ -118,6 +118,44 @@ public class MemberDAO {
 		}
 		
 	}
+	//2-27일 정경훈 수정함
+	//입력한 아이디와 비밀번호를 매개변수로 받아  DB의 테이블에 저장되어 있는지 확인하는 메소드
+	public int loginCheck(String login_email, String login_pw) {
+		int check = -1;
+		
+		try {
+			//DB접속
+			con = ds.getConnection();
+			//매개변수로 로그인 아이디 받는 입력한 아이디에 해당되는 행을 조회 SELECT문
+			String sql = "select * from member where email=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, login_email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
+				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
+				if(login_pw.equals(rs.getString("pw")) ) {
+					check = 1;
+				
+				}else { //아이디는 맞고 비번 틀림
+					check = 0;
+				}
+			}else {//아이디가 틀림
+			check = -1;
+			}
+		} catch (Exception e) {
+				System.out.println("loginCheck 메소드 내부에서 SQL문 실행 오류");
+				e.printStackTrace();	
+		}finally {
+			closeResource();
+		}
+		return check;
+		
+		}
+	
+	
 	
 	//회원 이메일을 이용해 회원 정보 조회
 	public MemberVO findMember(String _email) {
@@ -147,7 +185,21 @@ public class MemberDAO {
 		return memInfo;
 	}
 
-		
+	public void delMember(String email) {
+		try {
+			con = ds.getConnection();
+			String sql = "delete from member where email=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("delMember메소드 내부에서 SQL실행 오류 " + e);
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+	}	
 
 }
 

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
@@ -63,7 +64,7 @@ public class MemberController extends HttpServlet {
 		if(action.equals("/join.me")) {
 			center = request.getParameter("center"); //members/join.jsp  중앙화면뷰 주소 얻기
 			request.setAttribute("center", center);//members/join.jsp  중앙화면뷰 주소 바인딩 
-			nextPage = "/greaitMain.jsp";
+			nextPage = "/GreaIT.jsp";
 		}
 		
 		else if(action.equals("/joinIdCheck.me")) {
@@ -109,21 +110,53 @@ public class MemberController extends HttpServlet {
 			memberdao.insertMember(vo);
 			
 			
-			nextPage="/greaitMain.jsp";
+			nextPage="/GreaIT.jsp";
 		}
 		
-	//	
+	//	2-27일 로그인 수행 작성
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
-			String email = request.getParameter("email");
-			String pw = request.getParameter("pw");
+			//중앙화면 주소 바인딩
+			request.setAttribute("center", "member/login.jsp");
+			
+			//전체 메인화면 주소 저장
+			nextPage = "/greaitMain.jsp";
 		}
 		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
+			String email = request.getParameter("email");
+			String pw = request.getParameter("pw");
 			
+			int check = memberdao.loginCheck(login_email,login_pw);
+			
+			if(check == 0) {//아이디는 맞고 비번 틀림
+				out.println("<script>");
+				out.println(" window.alert('비밀번호 틀림');");
+				out.println(" history.go(-1);");
+				out.println("</script>");
+				return;
+			}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
+				out.println("<script>");
+				out.println(" window.alert('아이디 틀림');");
+				out.println(" history.back();");
+				out.println("</script>");
+				return;				
+			}
+			//session메모리생성
+			HttpSession session = request.getSession();
+			//session메모리에 입력한 아이디 바인딩(저장)
+			session.setAttribute("email",login_email);
+			
+			//메인화면 VIEW 주소
+			nextPage = "/greaitMain.jsp";
+
 		}
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
-
+			//기존에 생성했던 session메모리 얻기
+			HttpSession session_ = request.getSession();
+			session_.invalidate();
+			
+			nextPage = "/greaitMain.jsp";
 			
 		}		
 	//
@@ -134,17 +167,6 @@ public class MemberController extends HttpServlet {
 		
 		else if(action.equals("/m_charge.me")) {//마일리지 충전
 			
-		}
-		
-		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
-		else if(action.equals("/updateForm.do")){
-			String email = request.getParameter("email");
-			
-			MemberVO memInfo = memberdao.findMember(email);
-			
-			request.setAttribute("memInfo", memInfo);
-			
-			nextPage = "/greaitMain.jsp";
 		}
 		
 		//회원정보 수정창에서 수정하기 버튼을 클릭했을 때..
@@ -165,7 +187,13 @@ public class MemberController extends HttpServlet {
 		}
 		
 		else if(action.equals("/signOut.me")) {//회원탈퇴
+			String email = request.getParameter("email");
 			
+			memberdao.delMember(email);
+			
+			request.setAttribute("msg", "deleted");
+			
+			nextPage = "/listMembers.do";
 		}		
 		
 		//포워딩 (디스패처 방식)

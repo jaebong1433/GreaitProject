@@ -67,10 +67,7 @@
 			
 			
 		</div>
-	
 	</center>
-	
-	
 	
 </body>
 </html>
