@@ -147,7 +147,21 @@ public class MemberDAO {
 		return memInfo;
 	}
 
-		
+	public void delMember(String email) {
+		try {
+			con = ds.getConnection();
+			String sql = "delete from member where email=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("delMember메소드 내부에서 SQL실행 오류 " + e);
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+	}	
 
 }
 
