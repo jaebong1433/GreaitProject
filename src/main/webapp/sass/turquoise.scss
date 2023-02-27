@@ -125,11 +125,6 @@ body {
 	font-weight: 300;
 	color: $brand-tertiary;
 	
-	height: 100%;
-	position: relative;
-	&.fh5co-overflow {
-		overflow-x: auto;
-	}
 }
 a {
 	color: $brand-primary;

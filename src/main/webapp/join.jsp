@@ -31,7 +31,6 @@
 
 	<link rel="stylesheet" href="css/style.css">
 
-	<link rel="stylesheet" id="theme-switch" href="css/style.css">
 	<style>
 	.logBox {
     		width: 70%;
@@ -40,7 +39,6 @@
 		  	float: center;
 		  	background-color: white;
 		}
-		
 	
 	
 	input{

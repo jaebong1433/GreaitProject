@@ -125,11 +125,6 @@ body {
 	font-weight: 300;
 	color: $brand-tertiary;
 	
-	height: 100%;
-	position: relative;
-	&.fh5co-overflow {
-		overflow-x: auto;
-	}
 }
 a {
 	color: $brand-primary;
@@ -1194,41 +1189,6 @@ body {
 	} 
 }
 
-#fh5co-offcanvas {
-	display: none;
-	height: 100%;
-	right: 0;
-	overflow-y: auto;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	width: 275px;
-	background: rgba(0,0,0,1);
-	padding: 30px;
-	@media screen and (max-width: $screen-sm) {
-		display: block;
-	}
-	ul {
-		padding: 0;
-		margin: 0;
-		li {
-			padding: 0;
-			margin: 0 0 10px 0;
-			list-style: none;
-			line-height: 28px;
-			a {
-				font-size: 18px;
-				color: rgba(255,255,255,.7);
-			}	
-			&.active {
-				a {
-					color: $brand-primary;
-				}
-			}	
-		}
-	}
-	
-}
 
 
 // Burger Menu
