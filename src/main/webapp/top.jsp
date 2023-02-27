@@ -52,14 +52,14 @@
 					</ul>
 					<h1 id="fh5co-logo"><a href="#"><img src="<%=contextPath%>/images/Greaitlogo.png" width="150px" height="85px"></a></h1>
 					<ul class="pull-right right-menu">
-						<li><a href="#">로그인</a></li>
-						<li class="fh5co-cta-btn"><a href="#">회원가입</a></li>
+						<li><a href="<%=contextPath%>/login.jsp">로그인</a></li>
+						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/join.jsp">회원가입</a></li>
 					</ul>
 					
 				</nav>
-				
+				<br><br><br>
 			</div>
-			<br><br>
+			
 		</section>
 		<!-- #fh5co-header -->
 
