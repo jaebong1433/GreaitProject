@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import VO.MemberVO;
+import VO.OrderVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
 public class OrderDAO {
@@ -44,6 +45,69 @@ public class OrderDAO {
 		if(pstmt != null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
+	
+	public Vector getAllList() {
+		Vector vector = new Vector();
+		
+		OrderVO vo = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			String sql = "select * from order_list";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				vo = new OrderVO(rs.getInt("idx"), 
+								 rs.getString("itemname"), 
+								 rs.getString("image"), 
+								 rs.getString("info"), 
+								 rs.getString("managername"), 
+								 rs.getInt("price"), 
+								 rs.getString("paymentmethod"));
+				vector.add(vo);
+			}
+		} catch(Exception e) {
+			System.out.println("getAllList");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vector;
+	};
+	
+	public OrderVO getVO(int idx) {
+		OrderVO vo = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * from order_list where idx=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new OrderVO(rs.getInt("idx"), 
+						 rs.getString("itemname"), 
+						 rs.getString("image"), 
+						 rs.getString("info"), 
+						 rs.getString("managername"), 
+						 rs.getInt("price"), 
+						 rs.getString("paymentmethod"));
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vo;
+	}
 
 }
 
