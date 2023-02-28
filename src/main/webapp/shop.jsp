@@ -8,6 +8,7 @@
 	
 	Vector vector = (Vector)request.getAttribute("vector");
 %>
+<%-- 정태영이 만든 임의의 쇼핑 리스트 페이지. --%>
 
 <!DOCTYPE html>
 <html>
@@ -24,23 +25,28 @@
 			<td>상품설명</td>
 			<td>담당자</td>
 			<td>가격</td>
-			<td>수량</td>
 			<td>결제수단</td>
+			<td>이동</td>
 		</tr>
 		<%
 			for(int i=0; i<vector.size(); i++) {
 				OrderVO vo = (OrderVO)vector.get(i);
 		%>
-				<tr>
-					<td><%= vo.getIdx() %></td>
-					<td><%= vo.getItemname() %></td>
-					<td><%= vo.getImage() %></td>
-					<td><%= vo.getInfo() %></td>
-					<td><%= vo.getIdx() %></td>
-					<td><%= vo.getIdx() %></td>
-					<td><%= vo.getIdx() %></td>
-					<td><%= vo.getIdx() %></td>
-				</tr>
+				<form action="order_detail.do" method="post">
+					<tr>
+						<td><%= vo.getIdx() %></td>
+						<td><%= vo.getItemname()%></td>
+						<td><%= vo.getImage() %></td>
+						<td><%= vo.getInfo() %></td>
+						<td><%= vo.getManagername() %></td>
+						<td><%= vo.getPrice() %></td>
+						<td><%= vo.getPaymentmethod() %></td>
+						<td>
+							<input type="hidden" name="detail" value="<%=vo.getIdx()%>">
+							<input type="submit" value="이동">
+						</td>
+					</tr>
+				</form>
 		<%
 			}
 		%>	

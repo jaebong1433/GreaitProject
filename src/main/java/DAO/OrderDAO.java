@@ -65,7 +65,6 @@ public class OrderDAO {
 								 rs.getString("info"), 
 								 rs.getString("managername"), 
 								 rs.getInt("price"), 
-								 rs.getInt("quentity"), 
 								 rs.getString("paymentmethod"));
 				vector.add(vo);
 			}
@@ -73,11 +72,42 @@ public class OrderDAO {
 			System.out.println("getAllList");
 			e.printStackTrace();
 		} finally {
-			
+			closeResource();
 		}
 		
 		return vector;
 	};
+	
+	public OrderVO getVO(int idx) {
+		OrderVO vo = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * from order_list where idx=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new OrderVO(rs.getInt("idx"), 
+						 rs.getString("itemname"), 
+						 rs.getString("image"), 
+						 rs.getString("info"), 
+						 rs.getString("managername"), 
+						 rs.getInt("price"), 
+						 rs.getString("paymentmethod"));
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vo;
+	}
 
 }
 

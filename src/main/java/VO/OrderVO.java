@@ -7,22 +7,21 @@ public class OrderVO {
 //    info varchar2(1000), -- 상품 설명
 //    managername varchar2(10),
 //    price number not null, -- 가격
-//    quentity number not null, -- 수량
 //    paymentmethod varchar2(20) not null
 	
-	private int idx;
-	private String itemname;
-	private String image;
-	private String info;
-	private String managername;
-	private int price;
-	private int quentity;
-	private String paymentmethod;
+	private int idx; //글번호
+	private String itemname; //상품명
+	private String image; //이미지명
+	private String info; //상품 설명
+	private String managername; //담당자명
+	private int price; //가격
+	private String paymentmethod; //결제수단
 	
+	//생성자 
 	public OrderVO() {
 	}
 	
-	public OrderVO(int idx, String itemnam, String image, String info, String managername, int price, int quentity,
+	public OrderVO(int idx, String itemname, String image, String info, String managername, int price,
 			String paymentmethod) {
 		super();
 		this.idx = idx;
@@ -31,21 +30,21 @@ public class OrderVO {
 		this.info = info;
 		this.managername = managername;
 		this.price = price;
-		this.quentity = quentity;
 		this.paymentmethod = paymentmethod;
 	}
 	
+	//getter setter
 	public int getIdx() {
 		return idx;
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getItemnam() {
+	public String getItemname() {
 		return itemname;
 	}
-	public void setItemnam(String itemnam) {
-		this.itemname = itemnam;
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
 	}
 	public String getImage() {
 		return image;
@@ -71,18 +70,16 @@ public class OrderVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getQuentity() {
-		return quentity;
-	}
-	public void setQuentity(int quentity) {
-		this.quentity = quentity;
-	}
 	public String getPaymentmethod() {
 		return paymentmethod;
 	}
 	public void setPaymentmethod(String paymentmethod) {
 		this.paymentmethod = paymentmethod;
 	}
+	
+	
+	
+	
 	
 	
 	

@@ -64,22 +64,40 @@ public class OrderController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
-		if(action.equals("/order.do")) {
+		//주문리스트 페이지에 들어갔을 때
+		if(action.equals("/orderList.do")) {
+			
 			Vector vector = dao.getAllList();
-			for(int i = 0; i < vector.size(); i++) {
-				OrderVO vo = (OrderVO)vector.get(i);
-				System.out.println(vo.getIdx());
-			}
+			//getAllList()메소드를 사용하여 벡터에 모든 상품을 저장하여 리퀘스트를 통해 shop.jsp로 전달한다.
 			
-//			request.setAttribute("vector", vector);
-//			request.setAttribute("center", "shop.jsp");
-//			nextPage="/GreaIT.jsp";
+			request.setAttribute("vector", vector);
+			request.setAttribute("center", "shop.jsp");
+			nextPage="/GreaIT.jsp";
 		}
+		
+		//주문리스트 디테일 페이지에 들어갔을 때
+		else if(action.equals("/order_detail.do")) {
+			//주문리스트 페이지에서 idx를 전달받아 getVO메소드를 통해 vo에 해당 idx의 정보를 저장하고
+			//리퀘스트를 통해 주문 디테일 페이지로 전달한다.
 			
+			int idx =  Integer.parseInt(request.getParameter("detail"));
+			OrderVO vo = dao.getVO(idx);
+			
+			request.setAttribute("vo", vo);
+			request.setAttribute("center", "shopDetail.jsp");
+			nextPage="/GreaIT.jsp";
+		}
+		
+		else if(action.equals("/orderPro.do")) {
+			
+		}
+		
+		else if(action.equals("/orderHistory.do")) {
+			
+		}
 		
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-		
 		dispatch.forward(request, response);
 	}
 	
