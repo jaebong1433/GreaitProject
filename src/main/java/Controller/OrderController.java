@@ -17,6 +17,7 @@ import javax.sql.rowset.serial.SerialException;
 import DAO.MemberDAO;
 import DAO.OrderDAO;
 import VO.MemberVO;
+import VO.OrderHistoryVO;
 import VO.OrderVO;
 
 @WebServlet("/order1/*") 
@@ -89,7 +90,24 @@ public class OrderController extends HttpServlet {
 		}
 		
 		else if(action.equals("/orderPro.do")) {
+			int idx =  Integer.parseInt(request.getParameter("idx"));
+			OrderVO vo = dao.getVO(idx);
 			
+			String buyername = request.getParameter("buyername");
+			String address = request.getParameter("address");
+			String phonenumber = request.getParameter("phonenumber");
+			int quentity = Integer.parseInt(request.getParameter("quentity"));
+			String paymentmethod = request.getParameter("paymentmethod");
+			
+			String image = vo.getImage();
+			String info = vo.getInfo();
+			int price = vo.getPrice();
+			
+			OrderHistoryVO vo2 = new OrderHistoryVO(image, info, quentity, price, buyername, phonenumber, address, paymentmethod, idx);
+			dao.order(vo2);
+			
+			
+			nextPage="/GreaIT.jsp";
 		}
 		
 		else if(action.equals("/orderHistory.do")) {
