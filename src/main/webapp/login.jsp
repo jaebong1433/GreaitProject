@@ -90,8 +90,6 @@
 					<img onclick="login();"type="image" src="<%=contextPath%>/images/log/go1.png" width="60px" height="65px">
 				</div>
 			</form>
-				
-			
 			<br><br><br>
 		
 			<a href="<%=contextPath%>/findId.jsp">아이디 찾기</a> / <a href="<%=contextPath%>/findPw.jsp"">비밀번호 찾기</a><br>

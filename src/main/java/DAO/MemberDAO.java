@@ -155,9 +155,7 @@ public class MemberDAO {
 		
 		}
 	
-	
-	
-	//회원 이메일을 이용해 회원 정보 조회
+	//회원 이메일을 이용해 회원 정보 조회 2/28 재봉
 	public MemberVO findMember(String _email) {
 		
 		MemberVO memInfo = null;
@@ -178,27 +176,58 @@ public class MemberDAO {
 			Date m_date = rs.getDate("m_date");
 			memInfo = new MemberVO(email,pw,name,phoneNum,address,m_date);
 		}catch(Exception e) {
+			System.out.println("findMember메소드 내부에서 SQL실행 오류 " + e);
 			e.printStackTrace();
 		}finally {
 			closeResource();
 		}
 		return memInfo;
 	}
-
-	public void delMember(String email) {
+	
+	//회원정보수정하는 메소드 2/28 재봉
+	public void updateMember(MemberVO vo) {
 		try {
 			con = ds.getConnection();
-			String sql = "delete from member where email=?";
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, email);
+			String sql = "update member set pw=?, name=?, phoneNum=?, address=?, where email=?";
+			pstmt.setString(1, vo.getPw());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getPhoneNum());
+			pstmt.setString(4, vo.getAddress());
 			pstmt.executeUpdate();
+			
 		}catch(Exception e) {
-			System.out.println("delMember메소드 내부에서 SQL실행 오류 " + e);
-			e.printStackTrace();
+			System.out.println("updateMember메소드 내부에서 SQL실행 오류 " + e);
+			e.printStackTrace();	
 		}finally {
 			closeResource();
 		}
+	}
+	
+	//회원정보삭제시키는 메소드 2/28 재봉
+	public int MemberDelete(int email, String pw) {
+		
+		int result = 0;
+		
+		try {
+			con = ds.getConnection();
+			
+			String sql = "delete from member where eamil=? and pw=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, email);
+			pstmt.setString(2, pw);
+			
+			result = pstmt.executeUpdate();
+					
+		} catch (Exception e) {
+			System.out.println("OrderDelete메소드 내부에서 SQL실행 오류 ");
+			e.printStackTrace();
+		} finally {
+			//자원해제
+			closeResource();
+		}	
+		
+		return   result;
 	}	
 
 }
