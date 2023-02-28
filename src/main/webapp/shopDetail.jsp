@@ -25,6 +25,20 @@ pageEncoding="UTF-8"
 	<body>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		
-		<input type="text">
+		<%= vo.getItemname() %><br>
+		<%= vo.getImage() %><br>
+		<%= vo.getInfo() %><br>
+		<%= vo.getManagername() %><br>
+		<%= vo.getPrice() %><br>
+		
+		<form action="orderPro.do" method="post">
+			구매자 이름 : <input type="text" name="buyername"><br>
+			주소 : <input type="text" name="address"><br>
+			휴대폰 번호 : <input type="text" name="phonenumber"><br>
+			수량 : <input type="text" name="quentity"><br>
+			결제수단 : <input type="text" name="paymentmethod"><br>
+			<input type="hidden" name="idx" value="<%= vo.getIdx() %>">
+			<input type="submit" value="login">
+		</form>
 	</body>
 </html>

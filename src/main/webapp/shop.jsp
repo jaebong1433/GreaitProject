@@ -17,6 +17,7 @@
 <title>쇼핑 리스트가 뜨는 화면입니다.</title>
 </head>
 <body>
+	<br><br><br><br><br><br><br><br><br><br>
 	<table border="1">
 		<tr>
 			<td>글번호</td>

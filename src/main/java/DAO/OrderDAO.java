@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import VO.MemberVO;
+import VO.OrderHistoryVO;
 import VO.OrderVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
@@ -107,6 +108,40 @@ public class OrderDAO {
 		}
 		
 		return vo;
+	}
+	
+	public void order(OrderHistoryVO vo) {
+		try {
+			con = ds.getConnection();
+			
+			String sql = "insert into orderhistory VALUES (?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "SYSTIMESTAMP, "
+														+ "ORDER_IDX.nextval)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getImage());
+			pstmt.setString(2, vo.getInfo());
+			pstmt.setInt(3, vo.getQuentity());
+			pstmt.setInt(4, vo.getPrice());
+			pstmt.setString(5, vo.getName());
+			pstmt.setString(6, vo.getPhonenumber());
+			pstmt.setString(7, vo.getAddress());
+			pstmt.setString(8, vo.getPaymentmethod());
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("order");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
 	}
 
 }
