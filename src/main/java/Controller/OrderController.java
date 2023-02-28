@@ -2,6 +2,8 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +15,18 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
+import DAO.OrderDAO;
 import VO.MemberVO;
+import VO.OrderVO;
 
 @WebServlet("/order1/*") 
 public class OrderController extends HttpServlet {
 
-	MemberDAO memberdao;
+	OrderDAO dao;
 	
 	@Override
 	public void init() throws ServletException {
-		memberdao = new MemberDAO();
+		dao = new OrderDAO();
 	}
 	
 	@Override
@@ -60,7 +64,17 @@ public class OrderController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
-		
+		if(action.equals("/order.do")) {
+			Vector vector = dao.getAllList();
+			for(int i = 0; i < vector.size(); i++) {
+				OrderVO vo = (OrderVO)vector.get(i);
+				System.out.println(vo.getIdx());
+			}
+			
+//			request.setAttribute("vector", vector);
+//			request.setAttribute("center", "shop.jsp");
+//			nextPage="/GreaIT.jsp";
+		}
 			
 		
 		//포워딩 (디스패처 방식)
