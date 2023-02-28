@@ -81,16 +81,18 @@
 		<br><br>
 			<h1>로그인</h1><br>
 			
-			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">
+			
 			
 			
 			<div class="loga">
 			<div class="loginput">
-			<input type = "text" value="email" width="200px"><br>
-			<input type = "password" value="Password" width="200px">
+			<input type = "text" value="email" width="200px" name="login_email"><br>
+			<input type = "password" value="Password" width="200px" name="login_pw">
+			
 			</div>
-			<a href="#" class="logbtn"><img src="<%=contextPath%>/images/log/go1.png" width="70px" height="70px"></a>
+			<a href="<%=contextPath%>/member1/loginPro.me"><img src="<%=contextPath%>/images/log/go1.png" width="70px" height="70px"></a>
 			</div>
+			
 			<br><br><br>
 			<a href="<%=contextPath%>/findId.jsp">아이디 찾기</a> / <a href="<%=contextPath%>/findPw.jsp"">비밀번호 찾기</a><br>
 			<br>
@@ -102,7 +104,7 @@
 			<br><br>
 		</div>
 		
-		</form>
+		
 		
 	</div>
 	</center>
