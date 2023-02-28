@@ -51,11 +51,41 @@
 						<li><a href="#">쇼핑</a></li>
 					</ul>
 					<h1 id="fh5co-logo"><a href="#"><img src="<%=contextPath%>/images/Greaitlogo.png" width="150px" height="85px"></a></h1>
+					<!-- 로그인 로그아웃  마이페이지버튼만생성 구현  2월 28일-->
+					<%
+					
+					String email = (String)session.getAttribute("email");
+					if(email == null){
+					
+					%>
 					<ul class="pull-right right-menu">
 						<li><a href="<%=contextPath%>/login.jsp">로그인</a></li>
 						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/join.jsp">회원가입</a></li>
 					</ul>
 					
+					<%
+					
+					}else{
+					
+					%>
+					
+					<ul class="pull-right right-menu" >
+						<li style="color:white;"><%=email%> </li>
+						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
+					</ul>
+				
+					<ul class="pull-right right-menu" >
+						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/mypage.me">마이페이지</a></li>
+					</ul>
+					
+					
+					
+					<%
+					}
+					%>
+					
+					<!-- 수정끝 로그인 로그아웃 마이페이지버튼만생성 구현  2월 28일-->
+				
 				</nav>
 				<br><br><br>
 			</div>

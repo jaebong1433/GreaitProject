@@ -9,23 +9,25 @@ public class MemberVO {
 	private String phoneNum; //폰번호
 	private String address; //주소
 	private Date m_date; //회원가입 날짜	
-	
+
 	public MemberVO() {
 	}
 
-	public MemberVO(String email, String pw, String name, String phonenum, String address) {
+	public MemberVO(String email, String pw, String name, String phoneNum, String address) {
+
 		this.email = email;
 		this.pw = pw;
 		this.name = name;
-		this.phoneNum = phonenum;
+		this.phoneNum = phoneNum;
 		this.address = address;
 	}
 
-	public MemberVO(String email, String pw, String name, String phonenum, String address, Date m_date) {
+	public MemberVO(String email, String pw, String name, String phoneNum, String address, Date m_date) {
+
 		this.email = email;
 		this.pw = pw;
 		this.name = name;
-		this.phoneNum = phonenum;
+		this.phoneNum = phoneNum;
 		this.address = address;
 		this.m_date = m_date;
 	}
@@ -77,5 +79,8 @@ public class MemberVO {
 	public void setM_date(Date m_date) {
 		this.m_date = m_date;
 	}
-
+	
+	
+	
+	
 }
