@@ -31,6 +31,7 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 						 HttpServletResponse response) 
 						 throws ServletException, IOException {
+		
 		doHandle(request, response);
 	}
 	@Override
@@ -117,8 +118,12 @@ public class MemberController extends HttpServlet {
 		
 	//	2-27일 로그인 수행 작성
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
+			
+			center = request.getParameter("center");
+			
 			//중앙화면 주소 바인딩
-			request.setAttribute("center", "login.jsp");
+
+			request.setAttribute("center", center);
 			
 			//전체 메인화면 주소 저장
 
@@ -157,13 +162,25 @@ public class MemberController extends HttpServlet {
 		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 			//기존에 생성했던 session메모리 얻기
-			HttpSession session_ = request.getSession();
-			session_.invalidate();
+			HttpSession session = request.getSession();
+			session.invalidate();
 
 			nextPage = "/GreaIT.jsp";
 
 		}		
-	//
+	
+		else if (action.equals("/logout.me")) {//로그아웃
+			
+			HttpSession session = request.getSession();
+			
+			session.invalidate();
+					
+			nextPage = "/GreaIT.jsp";
+			
+		}
+		
+		
+		//
 		
 		else if(action.equals("/mypage.me")) {//마이페이지로 이동
 			

@@ -80,27 +80,39 @@
 		<div align = "center">
 		<br><br>
 			<h1>로그인</h1><br>
-			
-			
-			
-			
-			<div class="loga">
-			<div class="loginput">
-			<input type = "text" value="email" width="200px" name="login_email"><br>
-			<input type = "password" value="Password" width="200px" name="login_pw">
-			
-			</div>
-			<a href="<%=contextPath%>/member1/loginPro.me"><img src="<%=contextPath%>/images/log/go1.png" width="70px" height="70px"></a>
-			</div>
-			
+			<!-- 로그인 궇 -->
+			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">		
+				<div class="loga">
+					<div class="loginput">
+						<input type = "text"  width="200px" name="login_email"><br>
+						<input type = "password"  width="200px" name="login_pw">
+					</div>
+					<img onclick="login();"type="image" src="<%=contextPath%>/images/log/go1.png" width="60px" height="65px">
+				</div>
+			</form>
 			<br><br><br>
+		
 			<a href="<%=contextPath%>/findId.jsp">아이디 찾기</a> / <a href="<%=contextPath%>/findPw.jsp"">비밀번호 찾기</a><br>
 			<br>
 			<p>간편로그인</p>
-			<a href="#"><img src="<%=contextPath%>/images/log/kakako-icon.png" width="50px" height="50px"></a>
+			<!-- 카카오 간편로그인 -->
+			<img onclick="KoKologin();"type="image" src="<%=contextPath%>/images/log/kakako-icon.png" width="50px" height="50px">
+			
+			
+			
+			
+			<!-- 네이버 간편로그인 -->
 			<a href="#"><img src="<%=contextPath%>/images/log/naver-icon.png" width="50px" height="50px"></a>
+			
+			
+			<!-- 구글 간편로그인 -->
 			<a href="#"><img src="<%=contextPath%>/images/log/google-icon.png" width="50px" height="50px"></a>
+			
+			
+			<!-- 인스타 간편로그인 -->
 			<a href="#"><img src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px"></a>
+
+
 			<br><br>
 		</div>
 		
@@ -124,6 +136,20 @@
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
+
+
+	<script type="text/javascript">
+	
+		function login() {
+			$("#login").submit();
+		}
+		
+		function KoKologin() {
+			$("#login").submit();
+		}
+	
+	</script>
+
 
 </body>
 </html>
