@@ -26,7 +26,7 @@ pageEncoding="UTF-8"
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		
 		<%= vo.getItemname() %><br>
-		<%= vo.getImage() %><br>
+		<img src="<%= contextPath %>/shopping_Image/<%= vo.getImage() %>" width="300"><br>
 		<%= vo.getInfo() %><br>
 		<%= vo.getManagername() %><br>
 		<%= vo.getPrice() %><br>

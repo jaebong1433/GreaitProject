@@ -26,7 +26,6 @@
 			<td>상품설명</td>
 			<td>담당자</td>
 			<td>가격</td>
-			<td>결제수단</td>
 			<td>이동</td>
 		</tr>
 		<%
@@ -34,16 +33,16 @@
 				OrderVO vo = (OrderVO)vector.get(i);
 		%>
 				<form action="order_detail.do" method="post">
+					<input type="hidden" name="detail" value="<%=vo.getIdx()%>">
 					<tr>
 						<td><%= vo.getIdx() %></td>
-						<td><%= vo.getItemname()%></td>
-						<td><%= vo.getImage() %></td>
+						<td><%= vo.getItemname() %></td>
+						<td><img height="50" src="<%= contextPath %>/shopping_Image/<%= vo.getImage() %>"/></td>
 						<td><%= vo.getInfo() %></td>
 						<td><%= vo.getManagername() %></td>
 						<td><%= vo.getPrice() %></td>
-						<td><%= vo.getPaymentmethod() %></td>
 						<td>
-							<input type="hidden" name="detail" value="<%=vo.getIdx()%>">
+							
 							<input type="submit" value="이동">
 						</td>
 					</tr>

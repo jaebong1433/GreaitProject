@@ -15,14 +15,12 @@ public class OrderVO {
 	private String info; //상품 설명
 	private String managername; //담당자명
 	private int price; //가격
-	private String paymentmethod; //결제수단
 	
-	//생성자 
 	public OrderVO() {
+		// TODO Auto-generated constructor stub
 	}
 	
-	public OrderVO(int idx, String itemname, String image, String info, String managername, int price,
-			String paymentmethod) {
+	public OrderVO(int idx, String itemname, String image, String info, String managername, int price) {
 		super();
 		this.idx = idx;
 		this.itemname = itemname;
@@ -30,10 +28,8 @@ public class OrderVO {
 		this.info = info;
 		this.managername = managername;
 		this.price = price;
-		this.paymentmethod = paymentmethod;
 	}
-	
-	//getter setter
+
 	public int getIdx() {
 		return idx;
 	}
@@ -70,12 +66,8 @@ public class OrderVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getPaymentmethod() {
-		return paymentmethod;
-	}
-	public void setPaymentmethod(String paymentmethod) {
-		this.paymentmethod = paymentmethod;
-	}
+	
+	
 	
 	
 	
