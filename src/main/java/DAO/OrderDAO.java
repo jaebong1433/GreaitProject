@@ -65,8 +65,7 @@ public class OrderDAO {
 								 rs.getString("image"), 
 								 rs.getString("info"), 
 								 rs.getString("managername"), 
-								 rs.getInt("price"), 
-								 rs.getString("paymentmethod"));
+								 rs.getInt("price"));
 				vector.add(vo);
 			}
 		} catch(Exception e) {
@@ -96,8 +95,7 @@ public class OrderDAO {
 						 rs.getString("image"), 
 						 rs.getString("info"), 
 						 rs.getString("managername"), 
-						 rs.getInt("price"), 
-						 rs.getString("paymentmethod"));
+						 rs.getInt("price"));
 			}
 			
 		} catch(Exception e) {

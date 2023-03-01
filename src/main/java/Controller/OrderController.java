@@ -112,6 +112,9 @@ public class OrderController extends HttpServlet {
 		
 		else if(action.equals("/orderHistory.do")) {
 			
+			
+			
+			nextPage="/GreaIT.jsp";
 		}
 		
 		//포워딩 (디스패처 방식)
