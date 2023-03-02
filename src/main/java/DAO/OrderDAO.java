@@ -112,7 +112,7 @@ public class OrderDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "insert into orderhistory VALUES (?, "
+			String sql = "insert into orderhistory VALUES (ORDER_IDX.nextval, "
 														+ "?, "
 														+ "?, "
 														+ "?, "
@@ -120,17 +120,26 @@ public class OrderDAO {
 														+ "?, "
 														+ "?, "
 														+ "?, "
-														+ "SYSTIMESTAMP, "
-														+ "ORDER_IDX.nextval)";
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "SYSTIMESTAMP)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getImage());
-			pstmt.setString(2, vo.getInfo());
-			pstmt.setInt(3, vo.getQuentity());
-			pstmt.setInt(4, vo.getPrice());
-			pstmt.setString(5, vo.getName());
-			pstmt.setString(6, vo.getPhonenumber());
-			pstmt.setString(7, vo.getAddress());
-			pstmt.setString(8, vo.getPaymentmethod());
+			pstmt.setString(1, vo.getItemname());
+			pstmt.setString(2, vo.getImage());
+			pstmt.setString(3, vo.getInfo());
+			pstmt.setString(4, vo.getManagername());
+			pstmt.setInt(5, vo.getPrice());
+			pstmt.setInt(6, vo.getQuentity());
+			pstmt.setInt(7, vo.getTotalprice());
+			pstmt.setString(8, vo.getName());
+			pstmt.setString(9, vo.getEmail());
+			pstmt.setString(10, vo.getPhonenumber());
+			pstmt.setString(11, vo.getAddress());
+			pstmt.setString(12, vo.getPaymentmethod());
+			
 			
 			pstmt.executeUpdate();
 			
@@ -140,6 +149,47 @@ public class OrderDAO {
 		} finally {
 			closeResource();
 		}
+	}
+	public Vector getAllOrderHistory(String email) {
+		Vector vector = new Vector();
+		OrderHistoryVO vo = null;
+		
+		try {
+			con = ds.getConnection();
+			
+			String sql="select * from orderHistory where email=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new OrderHistoryVO(rs.getInt("idx"), 
+										rs.getString("itemname"), 
+										rs.getString("image"), 
+										rs.getString("info"), 
+										rs.getString("managername"), 
+										rs.getInt("price"), 
+										rs.getInt("quentity"), 
+										rs.getInt("totalprice"), 
+										rs.getString("name"), 
+										rs.getString("email"), 
+										rs.getString("phonenumber"), 
+										rs.getString("address"), 
+										rs.getString("paymentmethod"), 
+										rs.getTimestamp("paytime"));
+				vector.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getAllOrderHistory");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vector;
 	}
 
 }
