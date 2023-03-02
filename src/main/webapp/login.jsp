@@ -74,11 +74,12 @@
 <div style="background-color: white">
 <center>
 
-		<br><br>
-		<br><br>
+		<br>
 	<div class="logBox">
 		<div align = "center">
-		<br><br>
+		<h1 id="fh5co-logo"><a href="<%=contextPath%>/GreaIT.jsp">
+		<img src="<%=contextPath%>/images/Greaitlogo.png" width="180px" height="100px">
+		</a></h1>
 			<h1>로그인</h1><br>
 			<!-- 로그인 궇 -->
 			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">		
@@ -113,7 +114,7 @@
 			<a href="#"><img src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px"></a>
 
 
-			<br><br>
+			<br><br><br><br><br><br><br><br>
 		</div>
 		
 		
