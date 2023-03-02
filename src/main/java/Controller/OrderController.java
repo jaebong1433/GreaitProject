@@ -67,11 +67,9 @@ public class OrderController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
-		//임시로 만들 파일
 		HttpSession session = request.getSession();
-		session.setAttribute("email", "okuo94@naver.com");
-		//---------------------------------------------------
 		
+		//http://localhost:8090/greaitProject/order1/orderList.do
 		//주문리스트 페이지에 들어갔을 때
 		if(action.equals("/orderList.do")) {
 			
@@ -83,6 +81,7 @@ public class OrderController extends HttpServlet {
 			nextPage="/GreaIT.jsp";
 		}
 		
+		//http://localhost:8090/greaitProject/order1/order_detail.do
 		//주문리스트 디테일 페이지에 들어갔을 때
 		else if(action.equals("/order_detail.do")) {
 			//주문리스트 페이지에서 idx를 전달받아 getVO메소드를 통해 vo에 해당 idx의 정보를 저장하고
@@ -91,11 +90,17 @@ public class OrderController extends HttpServlet {
 			int idx =  Integer.parseInt(request.getParameter("detail"));
 			OrderVO vo = dao.getVO(idx);
 			
+			String email = (String)session.getAttribute("email");
+			MemberVO membervo = dao.getUser(email);
+			
 			request.setAttribute("vo", vo);
+			request.setAttribute("membervo", membervo);
 			request.setAttribute("center", "shopDetail.jsp");
 			nextPage="/GreaIT.jsp";
 		}
 		
+		//http://localhost:8090/greaitProject/order1/orderPro.do
+		//주문하기 눌렀을 때 주문 실행
 		else if(action.equals("/orderPro.do")) {
 			int idx =  Integer.parseInt(request.getParameter("idx"));
 			OrderVO vo = dao.getVO(idx);
@@ -110,7 +115,12 @@ public class OrderController extends HttpServlet {
 			String buyername = request.getParameter("buyername");
 			String email = request.getParameter("email");
 			String phonenumber = request.getParameter("phonenumber");
-			String address = request.getParameter("address");
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String address3 = request.getParameter("address3");
+			String address4 = request.getParameter("address4");
+			String address5 = request.getParameter("address5");
+			String address = address1 + address2 + address3 + address4 + address5;
 			String paymentmethod = request.getParameter("paymentmethod");
 			
 			
@@ -126,6 +136,7 @@ public class OrderController extends HttpServlet {
 		}
 		
 		//http://localhost:8090/greaitProject/order1/orderHistory.do
+		//주문내역 들어갔을 때
 		else if(action.equals("/orderHistory.do")) {
 			String email = (String)session.getAttribute("email");
 			

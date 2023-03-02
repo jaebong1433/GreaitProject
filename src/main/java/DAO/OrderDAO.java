@@ -108,6 +108,41 @@ public class OrderDAO {
 		return vo;
 	}
 	
+	public MemberVO getUser(String email) {
+		MemberVO vo = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from member where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				vo = new MemberVO(rs.getString("email"), 
+								rs.getString("pw"), 
+								rs.getString("name"), 
+								rs.getString("phoneNum"), 
+								rs.getString("address1"), 
+								rs.getString("address2"), 
+								rs.getString("address3"), 
+								rs.getString("address4"), 
+								rs.getString("address5"), 
+								rs.getDate("m_date")); 
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getUser");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vo;
+	}
+	
+	
 	public void order(OrderHistoryVO vo) {
 		try {
 			con = ds.getConnection();
