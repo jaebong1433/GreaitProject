@@ -2,6 +2,8 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +15,21 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
+import DAO.OrderDAO;
 import VO.MemberVO;
+import VO.OrderHistoryVO;
+import VO.OrderVO;
 
 @WebServlet("/order1/*") 
 public class OrderController extends HttpServlet {
-
-	MemberDAO memberdao;
+	
+	
+	OrderDAO dao;
+	
 	
 	@Override
 	public void init() throws ServletException {
-		memberdao = new MemberDAO();
+		dao = new OrderDAO();
 	}
 	
 	@Override
@@ -60,12 +67,77 @@ public class OrderController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
+		//임시로 만들 파일
+		HttpSession session = request.getSession();
+		session.setAttribute("email", "okuo94@naver.com");
+		//---------------------------------------------------
 		
+		//주문리스트 페이지에 들어갔을 때
+		if(action.equals("/orderList.do")) {
 			
+			Vector vector = dao.getAllList();
+			//getAllList()메소드를 사용하여 벡터에 모든 상품을 저장하여 리퀘스트를 통해 shop.jsp로 전달한다.
+			
+			request.setAttribute("vector", vector);
+			request.setAttribute("center", "shop.jsp");
+			nextPage="/GreaIT.jsp";
+		}
+		
+		//주문리스트 디테일 페이지에 들어갔을 때
+		else if(action.equals("/order_detail.do")) {
+			//주문리스트 페이지에서 idx를 전달받아 getVO메소드를 통해 vo에 해당 idx의 정보를 저장하고
+			//리퀘스트를 통해 주문 디테일 페이지로 전달한다.
+			
+			int idx =  Integer.parseInt(request.getParameter("detail"));
+			OrderVO vo = dao.getVO(idx);
+			
+			request.setAttribute("vo", vo);
+			request.setAttribute("center", "shopDetail.jsp");
+			nextPage="/GreaIT.jsp";
+		}
+		
+		else if(action.equals("/orderPro.do")) {
+			int idx =  Integer.parseInt(request.getParameter("idx"));
+			OrderVO vo = dao.getVO(idx);
+			
+			String itemname = vo.getItemname();
+			String image = vo.getImage();
+			String info = vo.getInfo();
+			String managername = vo.getManagername();
+			int price = vo.getPrice();
+			int quentity = Integer.parseInt(request.getParameter("quentity"));
+			int totalprice = price * quentity;
+			String buyername = request.getParameter("buyername");
+			String email = request.getParameter("email");
+			String phonenumber = request.getParameter("phonenumber");
+			String address = request.getParameter("address");
+			String paymentmethod = request.getParameter("paymentmethod");
+			
+			
+			OrderHistoryVO vo2 = new OrderHistoryVO(idx, itemname, image,
+													info, managername, price, 
+													quentity, totalprice, buyername, 
+													email, phonenumber, address, 
+													paymentmethod);
+			dao.order(vo2);
+			
+			
+			nextPage="/GreaIT.jsp";
+		}
+		
+		//http://localhost:8090/greaitProject/order1/orderHistory.do
+		else if(action.equals("/orderHistory.do")) {
+			String email = (String)session.getAttribute("email");
+			
+			Vector vector = dao.getAllOrderHistory(email);
+			
+			request.setAttribute("vector", vector);
+			request.setAttribute("center", "orderHistory.jsp");
+			nextPage="/GreaIT.jsp";
+		}
 		
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-		
 		dispatch.forward(request, response);
 	}
 	

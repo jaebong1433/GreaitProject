@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -88,7 +89,8 @@ public class MemberController extends HttpServlet {
 			}
 		}
 		
-		else if(action.equals("/joinPro.me")) {//회원가입 실행
+		//회원가입 실행 수정완료 3.2 재봉
+		else if(action.equals("/joinPro.me")) {
 			//요청한 값 얻기
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
@@ -99,13 +101,16 @@ public class MemberController extends HttpServlet {
 			String address3 = request.getParameter("address3");
 			String address4 = request.getParameter("address4");
 			String address5 = request.getParameter("address5");
-			String address = address1+address2+address3+address4+address5;
 			
 			MemberVO vo = new MemberVO(email,
 									   pw,
 									   name,
 									   phoneNum,
-									   address
+									   address1,
+									   address2,
+									   address3,
+									   address4,
+									   address5
 									   );
 			
 			memberdao.insertMember(vo);
@@ -120,6 +125,7 @@ public class MemberController extends HttpServlet {
 			center = request.getParameter("center");
 			
 			//중앙화면 주소 바인딩
+
 			request.setAttribute("center", center);
 			
 			//전체 메인화면 주소 저장
@@ -176,8 +182,9 @@ public class MemberController extends HttpServlet {
 			
 		}
 		
-		else if(action.equals("/mypage.me")) {//마이페이지로 이동
-			
+		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
+		else if(action.equals("/mypage.me")) { 
+
 		}
 		
 		else if(action.equals("/findId.me")) {//아이디 찾기
@@ -218,16 +225,39 @@ public class MemberController extends HttpServlet {
 		
 		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
 		else if(action.equals("/updateForm.do")){
+
+			//요청한 값 얻기
 			String email = request.getParameter("email");
 			
-			MemberVO memInfo = memberdao.findMember(email);
+			MemberVO vo = memberdao.findMember(email);
 			
-			request.setAttribute("memInfo", memInfo);
+			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
+			request.setAttribute("vo", vo);
+			
+			//View중앙화면의 주소를 request에 바인딩
+			request.setAttribute("center", "memberInfo.jsp");
 			
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		//회원정보 수정창에서 수정하기 버튼을 클릭했을 때..
+		//회원정보 수정을 위해 회원정보 수정창 요청! 3.2 재봉
+		else if(action.equals("/mypageUpdate.me")) { 
+			
+			//요청한 값 얻기
+			String email = request.getParameter("email");
+			
+			MemberVO vo = memberdao.findMember(email);
+			
+			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
+			request.setAttribute("vo", vo);
+			
+			//View중앙화면의 주소를 request에 바인딩
+			request.setAttribute("center", "modMemberForm.jsp");
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 2/28재봉
 		else if(action.equals("/update.me")) {
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
@@ -238,20 +268,58 @@ public class MemberController extends HttpServlet {
 			String address3 = request.getParameter("address3");
 			String address4 = request.getParameter("address4");
 			String address5 = request.getParameter("address5");
-			String address = address1+address2+address3+address4+address5;
 			
-			MemberVO vo = new MemberVO(email,pw,name,phoneNum,address);
+			MemberVO vo = new MemberVO(email,pw,name,phoneNum,address1,address2,address3,address4,address5);
 			
+			memberdao.updateMember(vo);
+			
+			nextPage = "/GreaIT.jsp";
 		}
 		
-		else if(action.equals("/signOut.me")) {//회원탈퇴
-			String email = request.getParameter("email");
+		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
+		else if(action.equals("/delete.do")) {
 			
-			memberdao.delMember(email);
+			request.setAttribute("center", "Delete.jsp"); //Delete.jsp
 			
-			request.setAttribute("msg", "deleted");
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		//회원탈퇴 3.2 재봉
+		else if(action.equals("/signOut.me")) {
+			//요청한 값 얻기
+			//삭제할 예약아이디, 삭제를 위해 입력한 비밀번호 
+			String email = request.getParameter("email")  ;
+			String pw = request.getParameter("pw");
 			
-			nextPage = "/listMembers.do";
+			
+			//응답할 값 마련 
+			//예약정보를 삭제(취소)하기 위해 CarDAO객체의 OrderDelete메소드 호출할떄...
+			//매개변수로 삭제할 예약아이디와 입력한 비밀번호 전달하여 DB에서 DELETE시키자
+			//삭제에 성공하면 OrderDelete메소드의 반환값은 삭제에 성공한 레코드 개수 1을 반환 받고
+			//실패하면 0을 반환 받습니다.
+			int result = memberdao.MemberDelete(email,pw);
+			
+			System.out.println(result);
+			
+			if(result == 1) {//삭제 성공
+				
+				
+				out.print("<script>" 
+							+ "  alert('회원정보가 탈퇴되었습니다.');" 
+							+ " location.href='" + request.getContextPath()
+		                    + "/webapp/GreaIT.jsp'" 
+	                  + "</script>");
+
+				return;
+				
+			}else {
+				
+				out.print("<script>"
+						+ " alert('회원정보 탈퇴 실패!');"
+						+ " history.back();"
+						+ "</script>");
+				return;
+			}
 		}		
 		
 		//포워딩 (디스패처 방식)

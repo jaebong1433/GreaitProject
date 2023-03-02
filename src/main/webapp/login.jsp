@@ -74,11 +74,12 @@
 <div style="background-color: white">
 <center>
 
-		<br><br>
-		<br><br>
+		<br>
 	<div class="logBox">
 		<div align = "center">
-		<br><br>
+		<h1 id="fh5co-logo"><a href="<%=contextPath%>/GreaIT.jsp">
+		<img src="<%=contextPath%>/images/Greaitlogo.png" width="180px" height="100px">
+		</a></h1>
 			<h1>로그인</h1><br>
 			<!-- 로그인 로그아웃  마이페이지 버튼만 생성  로그인버튼 카카오버튼 겨오로 펑션 경로변경 수정  -->
 			<!-- 3월2일 아이디 찾기 구현  -->
@@ -91,8 +92,6 @@
 					<img onclick="login();"type="image" src="<%=contextPath%>/images/log/go1.png" width="60px" height="65px">
 				</div>
 			</form>
-				
-			
 			<br><br><br>
 		
 			<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
@@ -120,7 +119,7 @@
 			<img onclick="instagramlogin();" type="image" src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px">
 
 
-			<br><br>
+			<br><br><br><br><br><br><br><br>
 		</div>
 		
 		
