@@ -160,8 +160,78 @@ public class MemberDAO {
 		
 		}
 	
-	//회원 이메일을 이용해 회원 정보 조회 2/28 재봉
-	public MemberVO findMember(String email) {
+
+	//3월 2일 아이디찾기 구현중
+		public MemberVO findId(String name, String phoneNum) {
+	
+		MemberVO vo = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			
+			String sql = "select email  from member where name=? and phoneNum =? ";
+				pstmt = con.prepareStatement(sql);	
+				
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) 
+					vo = new MemberVO();
+					vo.setEmail(rs.getString("email"));
+				
+					
+		}catch (Exception e) {
+			
+			System.out.println("findId 메소드 내부에서 SQL문 실행 오류");
+			e.printStackTrace();
+			
+		}finally {
+			
+		}
+		
+		return vo;
+		
+	}
+		public MemberVO findPw(String name, String phoneNum, String email) {
+			
+			MemberVO vo = null;
+			
+			try {
+				
+				con = ds.getConnection();
+				
+				String sql = "select email  from member where name=? and phoneNum =? and email =?";
+					pstmt = con.prepareStatement(sql);	
+					
+					rs = pstmt.executeQuery();
+					
+					if (rs.next()) 
+						vo = new MemberVO();
+						vo.setEmail(rs.getString("Pw"));
+					
+						
+			}catch (Exception e) {
+				
+				System.out.println("findPw 메소드 내부에서 SQL문 실행 오류");
+				e.printStackTrace();
+				
+			}finally {
+				
+			}
+			
+			return vo;
+			
+			
+			
+			
+		}
+		
+		//3월 2일 아이디찾기 비번호 찾기 구현중
+	
+		
+		
+	//회원 이메일을 이용해 회원 정보 조회
+	public MemberVO findMember(String _email) {
 		
 			MemberVO vo = null;
 			
@@ -169,7 +239,7 @@ public class MemberDAO {
 				//DB접속 : 커넥션풀에 만들어져 있는 커넥션 얻기
 				con = ds.getConnection();
 				
-				String sql = "SELECT * FROM member WHERE email='"+ email+"'";
+				String sql = "SELECT * FROM member WHERE email='"+ _email+"'";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -178,7 +248,7 @@ public class MemberDAO {
 				if (rs.next()) {
 					
 					vo = new MemberVO();
-					vo.setEmail(email);
+					vo.setEmail(_email);
 					vo.setPw(rs.getString("pw"));
 					vo.setName(rs.getString("name"));
 					vo.setPhoneNum(rs.getString("phoneNum"));

@@ -74,12 +74,17 @@
 				
 				<div>
 					<div class="logq">
+						
 						이름<br>
-						<input type="text"><br>
+						<input type="text" name="name"  placeholder="등록한 이름"><br>
+						
 						전화번호<br>
-						<input type="tel">
+						<input type="tel"  name="phoneNum" placeholder="휴대폰번로를'-'없이 입력"> 
+					
 					</div><br>
-					<input type="button" value="찾기">
+					<input type="button" value="찾기" >
+					<input type="button" value="취소" onClick="history.back();">
+					
 					<br><br>
 				</div>
 			</div>
@@ -100,6 +105,29 @@
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
+
+	<script type="text/javascript">
+
+	var frm = document.idfindscreen;
+
+ 	if (frm.member_name.value.length < 1) {
+	  alert("이름을 입력해주세요");
+	  return;
+	 }
+
+	 if (frm.member_phone.value.length != 13) {
+		  alert("핸드폰번호를 정확하게 입력해주세요");
+		  return;
+	 }
+
+	 frm.method = "post";
+	 frm.action = "findIdResult.jsp"; //넘어간화면
+	 frm.submit();  
+	 }
+	
+	
+	
+	</script>
 
 </body>
 </html>

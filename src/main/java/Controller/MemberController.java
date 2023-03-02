@@ -184,7 +184,48 @@ public class MemberController extends HttpServlet {
 		
 		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
 		else if(action.equals("/mypage.me")) { 
+
+		}
+		
+		else if(action.equals("/findId.me")) {//아이디 찾기
 			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			
+			
+			MemberVO vo = memberdao.findId(name,phoneNum);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findId.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		else if (action.equals("/findPw.me")) {//비밀번호 찾기
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			String email = request.getParameter("email");
+			
+			
+			MemberVO vo = memberdao.findPw(name,phoneNum,email);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findPw.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+			
+	
+			
+		}
+		
+		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
+		else if(action.equals("/updateForm.do")){
+
 			//요청한 값 얻기
 			String email = request.getParameter("email");
 			
