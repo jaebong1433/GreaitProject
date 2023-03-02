@@ -80,7 +80,8 @@
 		<div align = "center">
 		<br><br>
 			<h1>로그인</h1><br>
-			<!-- 로그인 궇 -->
+			<!-- 로그인 로그아웃  마이페이지 버튼만 생성  로그인버튼 카카오버튼 겨오로 펑션 경로변경 수정  -->
+			<!-- 3월2일 아이디 찾기 구현  -->
 			<form class="form-signin" action="<%=contextPath%>/member1/loginPro.me" id="login">		
 				<div class="loga">
 					<div class="loginput">
@@ -94,25 +95,29 @@
 			
 			<br><br><br>
 		
-			<a href="<%=contextPath%>/findId.jsp">아이디 찾기</a> / <a href="<%=contextPath%>/findPw.jsp"">비밀번호 찾기</a><br>
+			<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
+			
+			
+			<a href="<%=contextPath%>/member1/findPw.me">비밀번호 찾기</a><br>
+			
 			<br>
+			
 			<p>간편로그인</p>
 			<!-- 카카오 간편로그인 -->
-			<img onclick="KoKologin();"type="image" src="<%=contextPath%>/images/log/kakako-icon.png" width="50px" height="50px">
-			
+			<img onclick="kakaologin();"type="image" src="<%=contextPath%>/images/log/kakako-icon.png" width="50px" height="50px">
 			
 			
 			
 			<!-- 네이버 간편로그인 -->
-			<a href="#"><img src="<%=contextPath%>/images/log/naver-icon.png" width="50px" height="50px"></a>
+			<img onclick="naverlogin();"type="image" src="<%=contextPath%>/images/log/naver-icon.png" width="50px" height="50px">
 			
 			
 			<!-- 구글 간편로그인 -->
-			<a href="#"><img src="<%=contextPath%>/images/log/google-icon.png" width="50px" height="50px"></a>
+			<img onclick="googlelogin();"type="image" src="<%=contextPath%>/images/log/google-icon.png" width="50px" height="50px">
 			
 			
 			<!-- 인스타 간편로그인 -->
-			<a href="#"><img src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px"></a>
+			<img onclick="instagramlogin();" type="image" src="<%=contextPath%>/images/log/Instagram-icon.png" width="50px" height="50px">
 
 
 			<br><br>
@@ -146,12 +151,26 @@
 			$("#login").submit();
 		}
 		
-		function KoKologin() {
+		function kakaologin() {
 			$("#login").submit();
 		}
 	
+		function naverlogin() {
+			$("#login").submit();
+		}
+		
+		function googlelogin() {
+			$("#login").submit();
+		}	
+		
+		function instagramlogin() {
+			$("#login").submit();
+		}
+		
+		
+		
 	</script>
-
+<!--  로그인 로그아웃  마이페이지 버튼만 생성  로그인버튼 카카오버튼 겨오로 펑션 경로변경 수정 -->
 
 </body>
 </html>

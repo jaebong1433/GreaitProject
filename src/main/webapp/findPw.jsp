@@ -72,13 +72,14 @@
 				<div>
 					<div class="logq">
 						이메일<br>
-						<input type="text"><br>
+						<input type="text" name="email" class="btn-email" placeholder="등록한 이메일"><br>
 						이름<br>
-						<input type="text"><br>
+						<input type="text" name="mame" class="" placeholder="등록한 이름"><br>
 						전화번호<br>
-						<input type="tel">
+						<input type="tel" name="phoneNum" >
 					</div><br>
-					<input type="button" value="찾기">
+					<input type="button" value="찾기" onClick="">
+					<input type="button" value="취소" onClick="history.back();">
 					<br><br>
 				</div>
 			</div>

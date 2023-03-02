@@ -176,14 +176,43 @@ public class MemberController extends HttpServlet {
 			
 		}
 		
-		
-		//
-		
 		else if(action.equals("/mypage.me")) {//마이페이지로 이동
 			
 		}
 		
-		else if(action.equals("/m_charge.me")) {//마일리지 충전
+		else if(action.equals("/findId.me")) {//아이디 찾기
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			
+			
+			MemberVO vo = memberdao.findId(name,phoneNum);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findId.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		else if (action.equals("/findPw.me")) {//비밀번호 찾기
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			String email = request.getParameter("email");
+			
+			
+			MemberVO vo = memberdao.findPw(name,phoneNum,email);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findPw.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+			
+	
 			
 		}
 		

@@ -57,6 +57,7 @@
 						</div>
 					</div>
 
+						<!-- 지도 AIP구현 위치  -->
 					<div class="col-md-3 col-sm-6 col-xs-12 animate-box">
 						<div class="fh5co-footer-widget">
 							<h3>About Us</h3>
