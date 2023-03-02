@@ -52,16 +52,16 @@
 			<%-- name속성값 address1 부터 ~~ address5 까지 입력되어 있는 주소를 모두 합쳐서 DB에 address열에  INSERT 하자. --%>
 			<br>주소<br>
 			<p id="addressInput"></p>
-			<input type="text" id="sample4_postcode" name="address1" placeholder="우편번호"><br>
+			<input type="text" id="sample4_postcode" name="address1" placeholder="우편번호" value="<%=vo.getAddress1()%>"><br>
 			<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" ><br>
 			
-			<input type="text" id="sample4_roadAddress" name="address2" placeholder="도로명주소"><br>
-			<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="address3"><br>
+			<input type="text" id="sample4_roadAddress" name="address2" placeholder="도로명주소" value="<%=vo.getAddress2()%>"><br>
+			<input type="text" id="sample4_jibunAddress" placeholder="지번주소" name="address3" value="<%=vo.getAddress3()%>"><br>
 			
 			<span id="guide" style="color:#999;display:none"></span>
 			
-			<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address4"><br>
-			<input type="text" id="sample4_extraAddress" placeholder="참고항목"  name="address5">
+			<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address4" value="<%=vo.getAddress4()%>"><br>
+			<input type="text" id="sample4_extraAddress" placeholder="참고항목"  name="address5" value="<%=vo.getAddress5()%>">
 		</div>
 		
 		<tr>

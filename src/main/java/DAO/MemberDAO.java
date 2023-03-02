@@ -87,7 +87,8 @@ public class MemberDAO {
 	
 		return result;//true 또는 false를  MemberController로 반환 
 	}
-
+	
+	//주소 업데이트 완료 3.2 재봉
 	public void insertMember(MemberVO vo) {
 	
 		try {
@@ -96,15 +97,19 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO MEMBER (EMAIL, PW, NAME, phoneNum, address, m_date) " 
-									+ "values(?,      ?,   ?,     ?,      ?,     sysdate) ";
+			String sql = "INSERT INTO MEMBER (EMAIL, PW, NAME, phoneNum, address1, address2, address3, address4, address5, m_date) " 
+									+ "values(?,      ?,   ?,     ?,      ?,       ?,        ?,        ?,        ?,       sysdate) ";
                          
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getEmail());
 			pstmt.setString(2, vo.getPw());
 			pstmt.setString(3, vo.getName());
 			pstmt.setString(4, vo.getPhoneNum());
-			pstmt.setString(5, vo.getAddress());
+			pstmt.setString(5, vo.getAddress1());
+			pstmt.setString(6, vo.getAddress2());
+			pstmt.setString(7, vo.getAddress3());
+			pstmt.setString(8, vo.getAddress4());
+			pstmt.setString(9, vo.getAddress5());
 			
 			//PreparedStatement실행객체메모리에 설정된 insert전체 문장을 
 			//DB의 테이블에 실행!
@@ -156,43 +161,55 @@ public class MemberDAO {
 		}
 	
 	//회원 이메일을 이용해 회원 정보 조회 2/28 재봉
-	public MemberVO findMember(String _email) {
+	public MemberVO findMember(String email) {
 		
-		MemberVO memInfo = null;
-		try {
-			con = ds.getConnection();
+			MemberVO vo = null;
 			
-			String sql = "select * from member where email=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, _email);
-			System.out.println(sql);
-			rs = pstmt.executeQuery();
-			rs.next();
-			String email = rs.getString("email");
-			String pw = rs.getString("pw");
-			String name = rs.getString("name");
-			String phoneNum = rs.getString("phoneNum");
-			String address = rs.getString("address");
-			Date m_date = rs.getDate("m_date");
-			memInfo = new MemberVO(email,pw,name,phoneNum,address,m_date);
-		}catch(Exception e) {
-			System.out.println("findMember메소드 내부에서 SQL실행 오류 " + e);
-			e.printStackTrace();
-		}finally {
-			closeResource();
-		}
-		return memInfo;
+			try {
+				//DB접속 : 커넥션풀에 만들어져 있는 커넥션 얻기
+				con = ds.getConnection();
+				
+				String sql = "SELECT * FROM member WHERE email='"+ email+"'";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					
+					vo = new MemberVO();
+					vo.setEmail(email);
+					vo.setPw(rs.getString("pw"));
+					vo.setName(rs.getString("name"));
+					vo.setPhoneNum(rs.getString("phoneNum"));
+					vo.setAddress1(rs.getString("address1"));
+					vo.setAddress2(rs.getString("address2"));
+					vo.setAddress3(rs.getString("address3"));
+					vo.setAddress4(rs.getString("address4"));
+					vo.setAddress5(rs.getString("address5"));
+					vo.setM_date(rs.getDate("m_date"));
+				}		
+			}catch(Exception e) {
+				System.out.println("getOneOrder메소드 에서  SQL오류 : " + e);
+			}finally {
+				closeResource(); //자원 해제
+			}
+			return vo;//조회된 차량 한대정보가 저장된 CarConfirmVo객체를 CarController서블릿으로 반환!
 	}
 	
 	//회원정보수정하는 메소드 2/28 재봉
 	public void updateMember(MemberVO vo) {
 		try {
 			con = ds.getConnection();
-			String sql = "update member set pw=?, name=?, phoneNum=?, address=?, where email=?";
+			String sql = "update member set pw=?, name=?, phoneNum=?, address1=?, address2=?, address3=?, address4=?, address5=?, where email=?";
 			pstmt.setString(1, vo.getPw());
 			pstmt.setString(2, vo.getName());
 			pstmt.setString(3, vo.getPhoneNum());
-			pstmt.setString(4, vo.getAddress());
+			pstmt.setString(4, vo.getAddress1());
+			pstmt.setString(5, vo.getAddress2());
+			pstmt.setString(6, vo.getAddress3());
+			pstmt.setString(7, vo.getAddress4());
+			pstmt.setString(8, vo.getAddress5());
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -203,8 +220,8 @@ public class MemberDAO {
 		}
 	}
 	
-	//회원정보삭제시키는 메소드 2/28 재봉
-	public int MemberDelete(int email, String pw) {
+	//회원정보삭제시키는 메소드 3.2 재봉
+	public int MemberDelete(String email, String pw) {
 		
 		int result = 0;
 		
@@ -214,7 +231,7 @@ public class MemberDAO {
 			String sql = "delete from member where eamil=? and pw=?";
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, email);
+			pstmt.setString(1, email);
 			pstmt.setString(2, pw);
 			
 			result = pstmt.executeUpdate();

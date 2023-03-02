@@ -15,14 +15,14 @@
 		
 	<form action="<%=request.getContextPath()%>/member1/signOut.me" method="post">
 		
-		<input type="hidden" name="email" value="${param.orderid}">
+		<input type="hidden" name="email" value="${param.email}">
 	
 		<table width="100%">
 			<tr align="center">
 				<td align="center">
 					비밀번호 입력 : 
 					<input type="password" name="pw">
-					<input type="submit" value="예약취소">
+					<input type="submit" value="회원탈퇴">
 				</td>
 			</tr>
 		</table>
