@@ -46,7 +46,8 @@
 				<nav role="navigation">
 					<ul class="pull-left left-menu">
 						<li><a href="#">견적문의</a></li>
-						<li><a href="#">공지사항</a></li>
+						<!-- 공지사항 페이지 -->
+						<li><a href="<%=contextPath%>/boardList.jsp">공지사항</a></li>
 						<li><a href="#">고객센터</a></li>
 						<li><a href="#">쇼핑</a></li>
 					</ul>
