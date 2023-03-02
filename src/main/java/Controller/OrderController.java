@@ -22,8 +22,10 @@ import VO.OrderVO;
 
 @WebServlet("/order1/*") 
 public class OrderController extends HttpServlet {
-
+	
+	
 	OrderDAO dao;
+	
 	
 	@Override
 	public void init() throws ServletException {
@@ -65,6 +67,11 @@ public class OrderController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
+		//임시로 만들 파일
+		HttpSession session = request.getSession();
+		session.setAttribute("email", "okuo94@naver.com");
+		//---------------------------------------------------
+		
 		//주문리스트 페이지에 들어갔을 때
 		if(action.equals("/orderList.do")) {
 			
@@ -93,27 +100,39 @@ public class OrderController extends HttpServlet {
 			int idx =  Integer.parseInt(request.getParameter("idx"));
 			OrderVO vo = dao.getVO(idx);
 			
-			String buyername = request.getParameter("buyername");
-			String address = request.getParameter("address");
-			String phonenumber = request.getParameter("phonenumber");
-			int quentity = Integer.parseInt(request.getParameter("quentity"));
-			String paymentmethod = request.getParameter("paymentmethod");
-			
+			String itemname = vo.getItemname();
 			String image = vo.getImage();
 			String info = vo.getInfo();
+			String managername = vo.getManagername();
 			int price = vo.getPrice();
+			int quentity = Integer.parseInt(request.getParameter("quentity"));
+			int totalprice = price * quentity;
+			String buyername = request.getParameter("buyername");
+			String email = request.getParameter("email");
+			String phonenumber = request.getParameter("phonenumber");
+			String address = request.getParameter("address");
+			String paymentmethod = request.getParameter("paymentmethod");
 			
-			OrderHistoryVO vo2 = new OrderHistoryVO(image, info, quentity, price, buyername, phonenumber, address, paymentmethod, idx);
+			
+			OrderHistoryVO vo2 = new OrderHistoryVO(idx, itemname, image,
+													info, managername, price, 
+													quentity, totalprice, buyername, 
+													email, phonenumber, address, 
+													paymentmethod);
 			dao.order(vo2);
 			
 			
 			nextPage="/GreaIT.jsp";
 		}
 		
+		//http://localhost:8090/greaitProject/order1/orderHistory.do
 		else if(action.equals("/orderHistory.do")) {
+			String email = (String)session.getAttribute("email");
 			
+			Vector vector = dao.getAllOrderHistory(email);
 			
-			
+			request.setAttribute("vector", vector);
+			request.setAttribute("center", "orderHistory.jsp");
 			nextPage="/GreaIT.jsp";
 		}
 		

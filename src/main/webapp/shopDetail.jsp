@@ -33,6 +33,7 @@ pageEncoding="UTF-8"
 		
 		<form action="orderPro.do" method="post">
 			구매자 이름 : <input type="text" name="buyername"><br>
+			이메일 : <input type="text" name="email"><br>
 			주소 : <input type="text" name="address"><br>
 			휴대폰 번호 : <input type="text" name="phonenumber"><br>
 			수량 : <input type="text" name="quentity"><br>
