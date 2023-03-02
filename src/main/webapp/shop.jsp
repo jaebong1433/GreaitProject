@@ -37,7 +37,7 @@
 					<tr>
 						<td><%= vo.getIdx() %></td>
 						<td><%= vo.getItemname() %></td>
-						<td><img height="50" src="<%= contextPath %>/shopping_Image/<%= vo.getImage() %>"/></td>
+						<td><img height="50" src="<%= contextPath %>/images/<%= vo.getImage() %>"/></td>
 						<td><%= vo.getInfo() %></td>
 						<td><%= vo.getManagername() %></td>
 						<td><%= vo.getPrice() %></td>
