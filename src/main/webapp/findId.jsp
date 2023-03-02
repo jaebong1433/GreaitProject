@@ -64,7 +64,10 @@
 <body>
 <div style="background-color:white">
 		<center>
-		<br><br><br><br>
+		<br><br>
+		<h1 id="fh5co-logo"><a href="<%=contextPath%>/GreaIT.jsp">
+		<img src="<%=contextPath%>/images/Greaitlogo.png" width="180px" height="100px">
+		</a></h1>
 			<div class="logBox">
 				<h2>아이디 찾기</h2>
 				<br>

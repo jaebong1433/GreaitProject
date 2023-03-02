@@ -23,6 +23,10 @@
 <head>
 <meta charset="UTF-8">
 <title>GreaIT</title>
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="<%=contextPath%>/images/Giticon.png">
+	
 </head>
 <body>
 	<center>

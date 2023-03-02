@@ -51,9 +51,11 @@
 <form action="<%=contextPath%>/member1/joinPro.me" class="form">
 <div style="background-color: white">
 <center>
-<br><br>
-		<br><br>
+<br>
 	<div class="logBox">
+	<h1 id="fh5co-logo"><a href="<%=contextPath%>/GreaIT.jsp">
+		<img src="<%=contextPath%>/images/Greaitlogo.png" width="180px" height="100px">
+		</a></h1>
 	<br>
 	<h1>회원가입</h1>
 		<div>
