@@ -241,7 +241,7 @@ public class MemberController extends HttpServlet {
 		
 		
 		
-		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
+		//회원정보 수정을 위해 회원정보 조회 요청! 3.3 재봉
 		else if(action.equals("/mypage.me")) { 
 			//요청한 값 얻기
 			String email = request.getParameter("email");
@@ -250,14 +250,14 @@ public class MemberController extends HttpServlet {
 			
 			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 			request.setAttribute("vo", vo);
-			
+
 			//View중앙화면의 주소를 request에 바인딩
 			request.setAttribute("center", "memberInfo.jsp");
 			
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		//회원정보 수정을 위해 회원정보 수정창 요청! 3.2 재봉
+		//회원정보 수정을 위해 회원정보 수정창 요청! 3.3 재봉
 		else if(action.equals("/mypageUpdate.me")) { 
 			
 			//요청한 값 얻기
@@ -274,6 +274,31 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
+
+		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
+		else if(action.equals("/update.me")) {
+			int result = memberdao.updateMember(request);
+				
+				if(result == 1) {//수정 성공
+					
+					
+					out.print("<script>" + "  alert('회원정보가 수정 되었습니다.');" 
+					                     + " location.href='" + request.getContextPath()
+										 + "/member1/main.me'"
+		                  + "</script>");
+
+					return;
+					
+				}else {
+					
+					out.print("<script>"
+							+ " alert('회원정보 수정 실패!');"
+							+ " history.back();"
+							+ "</script>");
+					return;
+				}
+		}
+
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
 		else if(action.equals("/delete.do")) {

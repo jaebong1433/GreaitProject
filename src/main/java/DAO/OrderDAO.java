@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import VO.InquiryHistoryVO;
 import VO.MemberVO;
 import VO.OrderHistoryVO;
 import VO.OrderVO;
@@ -47,7 +48,7 @@ public class OrderDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
 	
-	public Vector getAllList() {
+	public Vector getAllTechList() {
 		Vector vector = new Vector();
 		
 		OrderVO vo = null;
@@ -55,7 +56,38 @@ public class OrderDAO {
 		try {
 			
 			con = ds.getConnection();
-			String sql = "select * from order_list";
+			String sql = "select * from order_list where itemtype='tech'";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				vo = new OrderVO(rs.getInt("idx"), 
+								 rs.getString("itemname"), 
+								 rs.getString("image"), 
+								 rs.getString("info"), 
+								 rs.getString("managername"), 
+								 rs.getInt("price"));
+				vector.add(vo);
+			}
+		} catch(Exception e) {
+			System.out.println("getAllList");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vector;
+	};
+	
+	public Vector getAllGoodsList() {
+		Vector vector = new Vector();
+		
+		OrderVO vo = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			String sql = "select * from order_list where itemtype='goods'";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery(); 
 			
@@ -142,6 +174,43 @@ public class OrderDAO {
 		return vo;
 	}
 	
+	public void inquiry(InquiryHistoryVO vo) {
+		try {
+			con = ds.getConnection();
+			
+			String sql = "insert into inquiryhistory VALUES (inquiry_idx.nextval, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "?, "
+														+ "SYSTIMESTAMP)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getItemname());
+			pstmt.setString(2, vo.getImage());
+			pstmt.setString(3, vo.getInfo());
+			pstmt.setString(4, vo.getManagername());
+			pstmt.setInt(5, vo.getPrice());
+			pstmt.setString(6, vo.getName());
+			pstmt.setString(7, vo.getEmail());
+			pstmt.setString(8, vo.getPhonenumber());
+			pstmt.setString(9, vo.getAddress());
+			
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("order");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+	}
+	
 	
 	public void order(OrderHistoryVO vo) {
 		try {
@@ -213,6 +282,45 @@ public class OrderDAO {
 										rs.getString("phonenumber"), 
 										rs.getString("address"), 
 										rs.getString("paymentmethod"), 
+										rs.getTimestamp("paytime"));
+				vector.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getAllOrderHistory");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vector;
+	}
+	
+	public Vector getAllInquiryHistory(String email) {
+		Vector vector = new Vector();
+		InquiryHistoryVO vo = null;
+		
+		try {
+			con = ds.getConnection();
+			
+			String sql="select * from inquiryhistory where email=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new InquiryHistoryVO(rs.getInt("idx"), 
+										rs.getString("itemname"), 
+										rs.getString("image"), 
+										rs.getString("info"), 
+										rs.getString("managername"), 
+										rs.getInt("price"), 
+										rs.getString("name"), 
+										rs.getString("email"), 
+										rs.getString("phonenumber"), 
+										rs.getString("address"), 
 										rs.getTimestamp("paytime"));
 				vector.add(vo);
 			}

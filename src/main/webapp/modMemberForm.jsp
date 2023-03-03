@@ -8,9 +8,8 @@
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	
-	String email = (String)session.getAttribute("email");
-	MemberDAO dao = new MemberDAO();
-	MemberVO vo = dao.findMember(email);
+	MemberVO vo = (MemberVO)request.getAttribute("vo");
+	
 	%> 
 <!DOCTYPE html>
 <html>
@@ -26,12 +25,13 @@
 </head>
 
 <body>
+	<form action="<%=contextPath%>/member1/update.me" class="form" method="post">
 	<h1 style="text-align:center">회원정보 수정창</h1>
 	<table align="center">
 		<tr>
 			<td width="200"><p align="right">이메일</p></td>
 			<td width="400"><input type="text" name="email"
-			value="<%=email%>" readonly="readonly"></td>
+			value="<%=vo.getEmail()%>" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td width="200"><p align="right">비밀번호</p></td>
@@ -72,11 +72,12 @@
 		</tr>
 		<tr align="center">
 			<td colspan="5" width="400">
-			<td><a href="<%=contextPath%>/member1/update.me">수정완료</a></td>
+			<td><a href="#" onclick="check(); return false;" 
+					class="btn btn-common">수정완료</a></td>
 			</td>
 		</tr>
 	</table>
-	
+	</form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -134,6 +135,14 @@
             }
         }).open();
     }
-</script>	
+</script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function check(){
+		
+		$("form").submit();
+		
+	}
+</script>
 </body>
 </html>
