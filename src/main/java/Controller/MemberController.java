@@ -181,16 +181,11 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 			
 		}
-		
+		//3월3일 아이디 찾기 완료 비밀번호 찾기 작업중 
 		else if(action.equals("/findId.me")) {//아이디 찾기
 			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
-			
-			
-			MemberVO vo = memberdao.findId(name,phoneNum);
-			
-			request.setAttribute("vo", vo);
 			
 			request.setAttribute("center","findId.jsp");
 			
@@ -198,23 +193,53 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		else if (action.equals("/findPw.me")) {//비밀번호 찾기
+		else if(action.equals("/findIdResult.me")) {//아이디 찾기
+			
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			
+			MemberVO vo = memberdao.findId(name,phoneNum);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findIdResult.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		
+		else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
 			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
 			String email = request.getParameter("email");
 			
-			
-			MemberVO vo = memberdao.findPw(name,phoneNum,email);
-			
-			request.setAttribute("vo", vo);
-			
 			request.setAttribute("center","findPw.jsp");
-			
 			
 			nextPage = "/GreaIT.jsp";
 			
 		}
+		else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
+			
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			String email = request.getParameter("email");
+
+			MemberVO vo = memberdao.findPw(name,phoneNum,email);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findPwResult.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		//3월3일 수정끝부분
+		
+		
 		
 		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
 		else if(action.equals("/mypage.me")) { 
@@ -249,36 +274,6 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
-		else if(action.equals("/update.me")) {
-			int result = memberdao.updateMember(request);
-			
-			
-				String email = request.getParameter("email");
-						
-			//추가 끝
-				
-				PrintWriter pw = response.getWriter();
-				
-				if(result == 1) {//수정 성공
-					
-					
-					pw.print("<script>" + "  alert('예약정보가 수정 되었습니다.');" 
-					                    + " location.href='" + request.getContextPath()
-										+"/member1/main.me'"
-		                  + "</script>");
-
-					return;
-					
-				}else {
-					
-					pw.print("<script>"
-							+ " alert('예약정보 수정 실패!');"
-							+ " history.back();"
-							+ "</script>");
-					return;
-				}
-		}
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
 		else if(action.equals("/delete.do")) {
