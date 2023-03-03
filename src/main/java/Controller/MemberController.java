@@ -62,10 +62,10 @@ public class MemberController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
-		
-		if(action.equals("/join.me")) {
-			center = request.getParameter("center"); //members/join.jsp  중앙화면뷰 주소 얻기
-			request.setAttribute("center", center);//members/join.jsp  중앙화면뷰 주소 바인딩 
+		//메인화면 요청주소 3.3 재봉
+		if(action.equals("/main.me")) {
+			center = request.getParameter("center"); 
+			request.setAttribute("center", center);
 			nextPage = "/GreaIT.jsp";
 		}
 		
@@ -182,11 +182,6 @@ public class MemberController extends HttpServlet {
 			
 		}
 		
-		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
-		else if(action.equals("/mypage.me")) { 
-
-		}
-		
 		else if(action.equals("/findId.me")) {//아이디 찾기
 			
 			String name = request.getParameter("name");
@@ -219,13 +214,10 @@ public class MemberController extends HttpServlet {
 			
 			nextPage = "/GreaIT.jsp";
 			
-	
-			
 		}
 		
-		//메인화면에서 회원정보 수정버튼을 클릭했을 때...
-		else if(action.equals("/updateForm.do")){
-
+		//회원정보 수정을 위해 회원정보 조회 요청! 3.2 재봉
+		else if(action.equals("/mypage.me")) { 
 			//요청한 값 얻기
 			String email = request.getParameter("email");
 			
@@ -257,23 +249,35 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 2/28재봉
+		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
 		else if(action.equals("/update.me")) {
-			String email = request.getParameter("email");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String phoneNum = request.getParameter("phoneNum");
-			String address1 = request.getParameter("address1");
-			String address2 = request.getParameter("address2");
-			String address3 = request.getParameter("address3");
-			String address4 = request.getParameter("address4");
-			String address5 = request.getParameter("address5");
+			int result = memberdao.updateMember(request);
 			
-			MemberVO vo = new MemberVO(email,pw,name,phoneNum,address1,address2,address3,address4,address5);
 			
-			memberdao.updateMember(vo);
-			
-			nextPage = "/GreaIT.jsp";
+				String email = request.getParameter("email");
+						
+			//추가 끝
+				
+				PrintWriter pw = response.getWriter();
+				
+				if(result == 1) {//수정 성공
+					
+					
+					pw.print("<script>" + "  alert('예약정보가 수정 되었습니다.');" 
+					                    + " location.href='" + request.getContextPath()
+										+"/member1/main.me'"
+		                  + "</script>");
+
+					return;
+					
+				}else {
+					
+					pw.print("<script>"
+							+ " alert('예약정보 수정 실패!');"
+							+ " history.back();"
+							+ "</script>");
+					return;
+				}
 		}
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
@@ -307,7 +311,7 @@ public class MemberController extends HttpServlet {
 				out.print("<script>" 
 							+ "  alert('회원정보가 탈퇴되었습니다.');" 
 							+ " location.href='" + request.getContextPath()
-		                    + "/webapp/GreaIT.jsp'" 
+		                    + "/member1/logout.me'" 
 	                  + "</script>");
 
 				return;

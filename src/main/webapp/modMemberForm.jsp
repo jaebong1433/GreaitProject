@@ -7,9 +7,10 @@
     <%  
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
+	
 	String email = (String)session.getAttribute("email");
 	MemberDAO dao = new MemberDAO();
-	MemberVO vo = dao.findMember("email");
+	MemberVO vo = dao.findMember(email);
 	%> 
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
 		<tr>
 			<td width="200"><p align="right">이메일</p></td>
 			<td width="400"><input type="text" name="email"
-			value="<%=vo.getEmail()%>" readonly="readonly"></td>
+			value="<%=email%>" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td width="200"><p align="right">비밀번호</p></td>

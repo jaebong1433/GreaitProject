@@ -1,5 +1,16 @@
+<%@page import="VO.MemberVO"%>
+<%@page import="DAO.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    request.setCharacterEncoding("utf-8");
+    String contextPath = request.getContextPath();
+    
+    String email = (String)session.getAttribute("email");
+	MemberDAO dao = new MemberDAO();
+	MemberVO vo = dao.findMember(email);
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +24,9 @@
 	
 	<br><br><br>
 		
-	<form action="<%=request.getContextPath()%>/member1/signOut.me" method="post">
+	<form action="<%=contextPath%>/member1/signOut.me" method="post">
 		
-		<input type="hidden" name="email" value="${param.email}">
+		<input type="hidden" name="email" value="<%=vo.getEmail()%>">
 	
 		<table width="100%">
 			<tr align="center">
