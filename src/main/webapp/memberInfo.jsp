@@ -72,7 +72,7 @@
 		</tr>
 		<tr align="center">
 			<td colspan="5" width="400">
-			<input type="button" value="뒤로가기" onclick="<%=contextPath%>/webapp/GreaIT.jsp">
+			<td><a href="<%=contextPath%>/member1/main.me">뒤로가기</a></td>	
 			<td><a href="<%=contextPath%>/member1/mypageUpdate.me">회원정보 수정하기</a></td>
 			<td><a href="<%=contextPath%>/member1/delete.do">회원탈퇴</a></td>
 			</td>

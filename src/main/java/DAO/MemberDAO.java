@@ -231,7 +231,7 @@ public class MemberDAO {
 		
 		
 	//회원 이메일을 이용해 회원 정보 조회
-	public MemberVO findMember(String _email) {
+	public MemberVO findMember(String email) {
 		
 			MemberVO vo = null;
 			
@@ -239,7 +239,7 @@ public class MemberDAO {
 				//DB접속 : 커넥션풀에 만들어져 있는 커넥션 얻기
 				con = ds.getConnection();
 				
-				String sql = "SELECT * FROM member WHERE email='"+ _email+"'";
+				String sql = "SELECT * FROM member WHERE email='"+ email+"'";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -248,7 +248,7 @@ public class MemberDAO {
 				if (rs.next()) {
 					
 					vo = new MemberVO();
-					vo.setEmail(_email);
+					vo.setEmail(email);
 					vo.setPw(rs.getString("pw"));
 					vo.setName(rs.getString("name"));
 					vo.setPhoneNum(rs.getString("phoneNum"));
@@ -267,7 +267,7 @@ public class MemberDAO {
 			return vo;//조회된 차량 한대정보가 저장된 CarConfirmVo객체를 CarController서블릿으로 반환!
 	}
 	
-	//회원정보수정하는 메소드 2/28 재봉
+	//회원정보수정하는 메소드 3.3 재봉
 	public void updateMember(MemberVO vo) {
 		try {
 			con = ds.getConnection();
@@ -298,7 +298,7 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "delete from member where eamil=? and pw=?";
+			String sql = "delete from member where email=? and pw=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
@@ -307,14 +307,14 @@ public class MemberDAO {
 			result = pstmt.executeUpdate();
 					
 		} catch (Exception e) {
-			System.out.println("OrderDelete메소드 내부에서 SQL실행 오류 ");
+			System.out.println("MemberDelete메소드 내부에서 SQL실행 오류 ");
 			e.printStackTrace();
 		} finally {
 			//자원해제
 			closeResource();
 		}	
 		
-		return   result;
+		return result;
 	}	
 
 }
