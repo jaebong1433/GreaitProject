@@ -170,15 +170,20 @@ public class MemberDAO {
 			
 			con = ds.getConnection();
 			
-			String sql = "select email  from member where name=? and phoneNum =? ";
+			String sql = "select email from member where name=? and phoneNum=?";
 				pstmt = con.prepareStatement(sql);	
+				
+				pstmt.setString(1, name);
+				pstmt.setString(2, phoneNum);
 				
 				rs = pstmt.executeQuery();
 				
-				if (rs.next()) 
+				if (rs.next()) {
+					
 					vo = new MemberVO();
 					vo.setEmail(rs.getString("email"));
-				
+					
+				}
 					
 		}catch (Exception e) {
 			
@@ -200,16 +205,21 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				String sql = "select email  from member where name=? and phoneNum =? and email =?";
+				String sql = "select pw  from member where name=? and phoneNum=? and email=?";
+				
 					pstmt = con.prepareStatement(sql);	
+					
+					pstmt.setString(1, name);
+					pstmt.setString(2, phoneNum);
+					pstmt.setString(3, email);
 					
 					rs = pstmt.executeQuery();
 					
-					if (rs.next()) 
+					if (rs.next()) {
 						vo = new MemberVO();
-						vo.setEmail(rs.getString("Pw"));
+						vo.setPw(rs.getString("pw"));
 					
-						
+					}
 			}catch (Exception e) {
 				
 				System.out.println("findPw 메소드 내부에서 SQL문 실행 오류");
@@ -220,9 +230,6 @@ public class MemberDAO {
 			}
 			
 			return vo;
-			
-			
-			
 			
 		}
 		
