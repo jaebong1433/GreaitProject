@@ -52,7 +52,7 @@
 		}
 		
 		.tra{
-			height: 50px;
+			height: 40px;
 			
 		}
 		
