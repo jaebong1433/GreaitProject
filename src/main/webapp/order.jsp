@@ -32,7 +32,7 @@
 			for(int i=0; i<vector.size(); i++) {
 				OrderVO vo = (OrderVO)vector.get(i);
 		%>
-				<form action="shop_detail.do" method="post">
+				<form action="inquiry_detail.do" method="post">
 					<input type="hidden" name="detail" value="<%=vo.getIdx()%>">
 					<tr>
 						<td><%= vo.getIdx() %></td>

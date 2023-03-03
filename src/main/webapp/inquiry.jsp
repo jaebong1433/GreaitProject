@@ -33,7 +33,7 @@ pageEncoding="UTF-8"
 		<%= vo.getManagername() %><br>
 		<%= vo.getPrice() %><br>
 		
-		<form action="orderPro.do" method="post">
+		<form action="inquiryPro.do" method="post">
 			구매자 이름 : <input type="text" name="buyername" value="<%= membervo.getName() %>"><br>
 			이메일 : <input type="text" name="email" value="<%= membervo.getEmail() %>"><br>
 			주소 : <input type="text" name="address1" value="<%= membervo.getAddress1() %>"><br>
@@ -42,10 +42,8 @@ pageEncoding="UTF-8"
 				  <input type="text" name="address4" value="<%= membervo.getAddress4() %>"><br>
 				  <input type="text" name="address5" value="<%= membervo.getAddress5() %>"><br>
 			휴대폰 번호 : <input type="text" name="phonenumber" value="<%= membervo.getPhoneNum() %>"><br>
-			수량 : <input type="text" name="quentity"><br>
-			결제수단 : <input type="text" name="paymentmethod"><br>
 			<input type="hidden" name="idx" value="<%= vo.getIdx() %>">
-			<input type="submit" value="주문하기">
+			<input type="submit" value="문의하기">
 		</form>
 	</body>
 </html>
