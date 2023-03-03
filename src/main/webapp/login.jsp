@@ -80,6 +80,7 @@
 		<h1 id="fh5co-logo"><a href="<%=contextPath%>/GreaIT.jsp">
 		<img src="<%=contextPath%>/images/Greaitlogo.png" width="180px" height="100px">
 		</a></h1>
+		
 			<h1>로그인</h1><br>
 			<!-- 로그인 로그아웃  마이페이지 버튼만 생성  로그인버튼 카카오버튼 겨오로 펑션 경로변경 수정  -->
 			<!-- 3월2일 아이디 찾기 구현  -->
@@ -89,7 +90,7 @@
 						<input type = "text"  width="200px" name="login_email"><br>
 						<input type = "password"  width="200px" name="login_pw">
 					</div>
-					<img onclick="login();"type="image" src="<%=contextPath%>/images/log/go1.png" width="60px" height="65px">
+					<img onclick="login();" type="image" src="<%=contextPath%>/images/log/go1.png" width="60px" height="65px">
 				</div>
 			</form>
 			<br><br><br>

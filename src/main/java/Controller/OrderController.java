@@ -16,6 +16,8 @@ import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
 import DAO.OrderDAO;
+import VO.InquiryHistoryVO;
+import VO.InquiryHistoryVO;
 import VO.MemberVO;
 import VO.OrderHistoryVO;
 import VO.OrderVO;
@@ -71,9 +73,19 @@ public class OrderController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/order1/orderList.do
 		//주문리스트 페이지에 들어갔을 때
-		if(action.equals("/orderList.do")) {
+		if(action.equals("/inquiryList.do")) {
 			
-			Vector vector = dao.getAllList();
+			Vector vector = dao.getAllTechList();
+			//getAllList()메소드를 사용하여 벡터에 모든 상품을 저장하여 리퀘스트를 통해 shop.jsp로 전달한다.
+			
+			request.setAttribute("vector", vector);
+			request.setAttribute("center", "order.jsp");
+			nextPage="/GreaIT.jsp";
+		}
+		
+		if(action.equals("/shoppingList.do")) {
+			
+			Vector vector = dao.getAllGoodsList();
 			//getAllList()메소드를 사용하여 벡터에 모든 상품을 저장하여 리퀘스트를 통해 shop.jsp로 전달한다.
 			
 			request.setAttribute("vector", vector);
@@ -83,7 +95,23 @@ public class OrderController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/order1/order_detail.do
 		//주문리스트 디테일 페이지에 들어갔을 때
-		else if(action.equals("/order_detail.do")) {
+		else if(action.equals("/inquiry_detail.do")) {
+			//주문리스트 페이지에서 idx를 전달받아 getVO메소드를 통해 vo에 해당 idx의 정보를 저장하고
+			//리퀘스트를 통해 주문 디테일 페이지로 전달한다.
+			
+			int idx =  Integer.parseInt(request.getParameter("detail"));
+			OrderVO vo = dao.getVO(idx);
+			
+			String email = (String)session.getAttribute("email");
+			MemberVO membervo = dao.getUser(email);
+			
+			request.setAttribute("vo", vo);
+			request.setAttribute("membervo", membervo);
+			request.setAttribute("center", "inquiry.jsp");
+			nextPage="/GreaIT.jsp";
+		}
+		
+		else if(action.equals("/shop_detail.do")) {
 			//주문리스트 페이지에서 idx를 전달받아 getVO메소드를 통해 vo에 해당 idx의 정보를 저장하고
 			//리퀘스트를 통해 주문 디테일 페이지로 전달한다.
 			
@@ -101,6 +129,36 @@ public class OrderController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/order1/orderPro.do
 		//주문하기 눌렀을 때 주문 실행
+		else if(action.equals("/inquiryPro.do")) {
+			int idx =  Integer.parseInt(request.getParameter("idx"));
+			OrderVO vo = dao.getVO(idx);
+			
+			String itemname = vo.getItemname();
+			String image = vo.getImage();
+			String info = vo.getInfo();
+			String managername = vo.getManagername();
+			int price = vo.getPrice();
+			String buyername = request.getParameter("buyername");
+			String email = request.getParameter("email");
+			String phonenumber = request.getParameter("phonenumber");
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String address3 = request.getParameter("address3");
+			String address4 = request.getParameter("address4");
+			String address5 = request.getParameter("address5");
+			String address = address1 + address2 + address3 + address4 + address5;
+			String paymentmethod = request.getParameter("paymentmethod");
+			
+			
+			InquiryHistoryVO vo2 = new InquiryHistoryVO(idx, itemname, image,
+													info, managername, price, buyername, 
+													email, phonenumber, address);
+			dao.inquiry(vo2);
+			
+			
+			nextPage="/GreaIT.jsp";
+		}
+		
 		else if(action.equals("/orderPro.do")) {
 			int idx =  Integer.parseInt(request.getParameter("idx"));
 			OrderVO vo = dao.getVO(idx);
@@ -140,9 +198,12 @@ public class OrderController extends HttpServlet {
 		else if(action.equals("/orderHistory.do")) {
 			String email = (String)session.getAttribute("email");
 			
-			Vector vector = dao.getAllOrderHistory(email);
+			Vector shopVector = dao.getAllOrderHistory(email);
+			Vector techVector = dao.getAllInquiryHistory(email);
 			
-			request.setAttribute("vector", vector);
+			request.setAttribute("shopVector", shopVector);
+			request.setAttribute("techVector", techVector);
+			
 			request.setAttribute("center", "orderHistory.jsp");
 			nextPage="/GreaIT.jsp";
 		}

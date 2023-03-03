@@ -75,11 +75,15 @@
 						<li style="color:white;"><%=email%> </li>
 						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
 					</ul>
-				
-					<ul class="pull-right right-menu" >
-						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/mypage.me">마이페이지</a></li>
-					</ul>
 					
+					<!-- 추가 3.3 재봉 -->
+					<form action="<%=contextPath%>/member1/mypage.me" class="form" method="post">
+					<ul class="pull-right right-menu" >
+						<input type="hidden" name="email" value="<%=email%>">
+						<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
+						class="btn btn-common">마이페이지</a></li>
+					</ul>
+					</form>
 					
 					
 					<%
@@ -117,7 +121,12 @@
 
 	<!-- Main JS (Do not remove) -->
 	<script src="<%=contextPath%>/js/main.js"></script>
-
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    	function check(){
+    		$("form").submit();
+    	}
+    </script>
 	
 	</body>
 </html>

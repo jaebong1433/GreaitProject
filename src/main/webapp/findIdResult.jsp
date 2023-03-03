@@ -1,8 +1,18 @@
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
+
 	String contextPath = request.getContextPath();
+	
+	request.setCharacterEncoding("utf-8");
+	
+	String name = (String)session.getAttribute("name");
+	String phoneNum = (String)session.getAttribute("phoneNum");
+
+	MemberVO vo = (MemberVO)request.getAttribute("vo");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -59,10 +69,15 @@
 				
 				<div>
 					
-					<h1>찾으신 아이디는 Master 입니다.</h1>
+					<h1>찾으신 아이디는 <%=vo.getEmail()%> 입니다.</h1>
 					
-					<input type="button" value="홈으로">
-					<input type="button" value="로그인">
+					
+					<input type="button" value="홈으로" onclick="hone();" >
+					
+					
+					<input type="button" value="로그인" onclick="login();">
+
+
 					
 					<br><br>
 				</div>
@@ -71,7 +86,16 @@
 		
 		</center>
 		
-
+<script>
+	function login(){
+		location.href="<%=contextPath%>/login.jsp";
+	}
+	
+	function hone() {
+		location.href="<%=contextPath%>/GreaIT.jsp";
+	}
+	
+</script>
 	
 
 </body>
