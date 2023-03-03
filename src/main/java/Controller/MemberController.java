@@ -273,7 +273,6 @@ public class MemberController extends HttpServlet {
 			
 			nextPage = "/GreaIT.jsp";
 		}
-		
 
 		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
 		else if(action.equals("/update.me")) {
@@ -298,6 +297,7 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 		}
+
 
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
