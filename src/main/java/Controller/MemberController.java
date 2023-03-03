@@ -249,36 +249,7 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
-		else if(action.equals("/update.me")) {
-			int result = memberdao.updateMember(request);
-			
-			
-				String email = request.getParameter("email");
-						
-			//추가 끝
-				
-				PrintWriter pw = response.getWriter();
-				
-				if(result == 1) {//수정 성공
-					
-					
-					pw.print("<script>" + "  alert('예약정보가 수정 되었습니다.');" 
-					                    + " location.href='" + request.getContextPath()
-										+"/member1/main.me'"
-		                  + "</script>");
-
-					return;
-					
-				}else {
-					
-					pw.print("<script>"
-							+ " alert('예약정보 수정 실패!');"
-							+ " history.back();"
-							+ "</script>");
-					return;
-				}
-		}
+		
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
 		else if(action.equals("/delete.do")) {
