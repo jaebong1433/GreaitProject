@@ -268,27 +268,52 @@ public class MemberDAO {
 	}
 	
 	//회원정보수정하는 메소드 3.3 재봉
-	public void updateMember(MemberVO vo) {
-		try {
-			con = ds.getConnection();
-			String sql = "update member set pw=?, name=?, phoneNum=?, address1=?, address2=?, address3=?, address4=?, address5=?, where email=?";
-			pstmt.setString(1, vo.getPw());
-			pstmt.setString(2, vo.getName());
-			pstmt.setString(3, vo.getPhoneNum());
-			pstmt.setString(4, vo.getAddress1());
-			pstmt.setString(5, vo.getAddress2());
-			pstmt.setString(6, vo.getAddress3());
-			pstmt.setString(7, vo.getAddress4());
-			pstmt.setString(8, vo.getAddress5());
-			pstmt.executeUpdate();
+	//입력한 회원정보를 수정하는 메소드 
+		public int updateMember(HttpServletRequest request) {
 			
-		}catch(Exception e) {
-			System.out.println("updateMember메소드 내부에서 SQL실행 오류 " + e);
-			e.printStackTrace();	
-		}finally {
-			closeResource();
+			int result = 0; //수정성공시 1이 저장되고 , 수정 실패하면 0이 저장될 변수 
+			
+			try {
+				//커넥션 풀에서 DB와 미리 연결을 맺어 만들어져 있는 Connection객체 빌려오기 
+				//요약 : DB접속
+				con = ds.getConnection();
+				
+				String sql = "UPDATE member set"
+						   + " pw=?,"
+						   + " name=?,"
+						   + " phoneNum=?,"
+						   + " address1=?,"
+						   + " address2=?,"
+						   + " address3=?,"
+						   + " address4=?,"
+						   + " address5=?"
+						   + " WHERE email=? ";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, request.getParameter("pw"));
+				pstmt.setString(2, request.getParameter("name"));
+				pstmt.setString(3, request.getParameter("phoneNum"));
+				pstmt.setString(4, request.getParameter("address1"));
+				pstmt.setString(5, request.getParameter("address2"));
+				pstmt.setString(6, request.getParameter("address3"));
+				pstmt.setString(7, request.getParameter("address4"));
+				pstmt.setString(8, request.getParameter("address5"));
+				pstmt.setString(9, request.getParameter("email"));
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				
+				System.out.println("updateMember메소드 내부에서 SQL실행 오류 ");
+				e.printStackTrace();
+				
+			} finally {
+				//자원해제
+				closeResource();
+			}
+			
+			return result;
 		}
-	}
 	
 	//회원정보삭제시키는 메소드 3.2 재봉
 	public int MemberDelete(String email, String pw) {

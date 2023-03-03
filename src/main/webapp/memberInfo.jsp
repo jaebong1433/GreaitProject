@@ -9,11 +9,9 @@
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	
-	String email = (String)session.getAttribute("email");
-	MemberDAO dao = new MemberDAO();
-	MemberVO vo = dao.findMember(email);
+	MemberVO vo = (MemberVO)request.getAttribute("vo");
 	
-%>
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +28,10 @@
 <body>
 	<h1 style="text-align:center">회원정보</h1>
 	<table align="center">
+		<form action="<%=contextPath%>/member1/mypageUpdate.me" class="form" method="post">
 		<tr>
 			<td width="200"><p align="right">이메일</p></td>
-			<td width="200"><p align="right"><%=vo.getEmail() %></p></td>
+			<td width="200"><p align="right"><%=vo.getEmail()%></p></td>
 		</tr>
 		<tr>
 			<td width="200"><p align="right">비밀번호</p></td>
@@ -48,11 +47,11 @@
 		</tr>
 		<tr>
 			<td width="200"><p align="right">주소1</p></td>
-			<td width="200"><p align="right"><%=vo.getAddress1()%></p></td>
+			<td width="200"><p align="right"><%=vo.getAddress1() %></p></td>
 		</tr>
 		<tr>
 			<td width="200"><p align="right">주소2</p></td>
-			<td width="200"><p align="right"><%=vo.getAddress2()%></p></td>
+			<td width="200"><p align="right"><%=vo.getAddress2() %></p></td>
 		</tr>
 		<tr>
 			<td width="200"><p align="right">주소3</p></td>
@@ -70,13 +69,21 @@
 			<td width="200"><p align="right">가입일</p></td>
 			<td width="200"><p align="right"><%=vo.getM_date() %></p></td>
 		</tr>
+		</form>
 		<tr align="center">
 			<td colspan="5" width="400">
 			<td><a href="<%=contextPath%>/member1/main.me">뒤로가기</a></td>	
-			<td><a href="<%=contextPath%>/member1/mypageUpdate.me">회원정보 수정하기</a></td>
+			<td><a href="#" onclick="check(); return false;" 
+					class="btn btn-common">회원정보 수정하기</a></td>
 			<td><a href="<%=contextPath%>/member1/delete.do">회원탈퇴</a></td>
 			</td>
 		</tr>
 	</table>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    	function check(){
+    		$("form").submit();
+    	}
+    </script>
 </body>
 </html>
