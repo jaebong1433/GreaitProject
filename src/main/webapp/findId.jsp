@@ -71,20 +71,23 @@
 			<div class="logBox">
 				<h2>아이디 찾기</h2>
 				<br>
-				
+				<!-- 3월 3일 폼테그 추가함 정경훈 -->
+				<form class="form-signin" action="<%=contextPath%>/member1/findIdResult.me" id="findId">
 				<div>
 					<div class="logq">
 						
 						이름<br>
-						<input type="text" name="name"  placeholder="등록한 이름"><br>
+						<input type="text" name="name"  placeholder="이름"><br>
 						
 						전화번호<br>
 						<input type="tel"  name="phoneNum" placeholder="휴대폰번로를'-'없이 입력"> 
 					
 					</div><br>
-					<input type="button" value="찾기" >
+					
+					<input type="button" value="찾기" onclick="findId();">
 					<input type="button" value="취소" onClick="history.back();">
 					
+					</form>
 					<br><br>
 				</div>
 			</div>
@@ -108,22 +111,12 @@
 
 	<script type="text/javascript">
 
-	var frm = document.idfindscreen;
-
- 	if (frm.member_name.value.length < 1) {
-	  alert("이름을 입력해주세요");
-	  return;
-	 }
-
-	 if (frm.member_phone.value.length != 13) {
-		  alert("핸드폰번호를 정확하게 입력해주세요");
-		  return;
-	 }
-
-	 frm.method = "post";
-	 frm.action = "findIdResult.jsp"; //넘어간화면
-	 frm.submit();  
-	 }
+	
+	function findId() {
+		
+		$("#findId").submit();
+		
+	}
 	
 	
 	

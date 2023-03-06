@@ -34,11 +34,12 @@
 
 	<link rel="stylesheet" id="theme-switch" href="<%=contextPath%>/css/style.css">
 	
+	
+	
 	</head>
 	<body>
 	
-	<!-- Loader -->
-	<div class="fh5co-loader"></div>
+	
 	
 	<div id="fh5co-page">
 		<section id="fh5co-header" style="background-color : gray">
@@ -51,7 +52,7 @@
 						<li><a href="#">고객센터</a></li>
 						<li><a href="#">쇼핑</a></li>
 					</ul>
-					<h1 id="fh5co-logo"><a href="#"><img src="<%=contextPath%>/images/Greaitlogo.png" width="150px" height="85px"></a></h1>
+					<h1 id="fh5co-logo"><a href="#"><img src="<%=contextPath%>/images/Greaitlogo.png" width="150px" height="85px" class="adad"></a></h1>
 					<!-- 로그인 로그아웃  마이페이지버튼만생성 구현  2월 28일-->
 					<%
 					
@@ -92,18 +93,20 @@
 					<!-- 수정끝 로그인 로그아웃 마이페이지버튼만생성 구현  2월 28일-->
 				
 				</nav>
-				<br><br><br>
+				<br><br>
 			</div>
 			
 		</section>
 		<!-- #fh5co-header -->
-
+		
 		
 	</div>
 	
 	
+	
+	
 	<!-- jQuery -->
-	<script src="<%=contextPath%>/js/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="<%=contextPath%>/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->

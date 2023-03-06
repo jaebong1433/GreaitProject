@@ -71,32 +71,64 @@ public class BoardController extends HttpServlet{
 		//글 개수 조회
 		int count = 0;
 		
-		if (action.equals("/write.bo")) {
+		if (action.equals("/write.bo")) { //새글  입력하는 화면 요청!
 			
 			HttpSession session = request.getSession();
-			String memberemail = (String)session.getAttribute("이메일");
+			String email = (String)session.getAttribute("email");
 			
 			//새글을 입력하는 화면에 로그인한 회원의 이름, 이메일을 보여주기 위해
 			//member테이블에서 SELECT하여 가져와 합니다.
-			//MemberVO memberVo = memberdao.findMember(memberemail);
+			MemberVO memberVO = memberdao.findMember(email);
 			
-			//페이징 처리 를 위해 담는다.
+			//페이징 처리를 위해 담는다.
 			request.setAttribute("nowPage", request.getParameter("nowPage"));
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
-		}else if (action.equals("/writePro.bo")) {
+			request.setAttribute("membervo", memberVO);
+			request.setAttribute("center", "board/boardWrite.jsp");
+			nextPage = "/CarMain.jsp";
+			
+		}else if (action.equals("/writePro.bo")) { //입력한 새글 정보를 DB에 추가 해줘~ 요청!
 			
 			
+		
 			
-		}else if (action.equals("/list.bo")) {
+		}else if (action.equals("/list.bo")) { //게시판 모든 글 조회 요청	
 			
+			//요청한 값을 이용해  응답할 값을 마련
+			//(글조회)
+			list = boarddao.boardListAll();
+			//(글 개수 조회)
+			count = boarddao.getTotalRecord();
+			System.out.println(count + "개");
+			//list.jsp페이지의 페이징 처리 부분에서
+			//이전 또는 다음 또는 각 페이지번호를 클릭했을때... 요청받는 값얻기
+			String nowPage = request.getParameter("nowPage");
+			String nowBlock = request.getParameter("nowBlock");
+			System.out.println(nowPage + "페이지번호");
+			System.out.println(nowBlock + "블럭위치번호");		
 			
+			request.setAttribute("center", "board/boardList.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("count", count);
+			
+			//페이징 처리 를 위해 담는다.
+			request.setAttribute("nowPage", nowPage);
+			request.setAttribute("nowBlock", nowBlock);
+			
+			nextPage = "/CarMain.jsp";
 			
 		}else if (action.equals("/searchlist.bo")) {
 			
 			
 			
+		}else if (action.equals("/read.bo")) {
+			
+			
+			
 		}
+		
+		
 		
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);

@@ -72,17 +72,24 @@
 				<h2>비밀번호 찾기</h2>
 				<br>
 				
+				<form class="form-signin" action="<%=contextPath%>/member1/findPwResult.me" id="findPw">
+				
 				<div>
 					<div class="logq">
-						이메일<br>
-						<input type="text" name="email" class="btn-email" placeholder="등록한 이메일"><br>
+						
 						이름<br>
-						<input type="text" name="mame" class="" placeholder="등록한 이름"><br>
+						<input type="text" name="mame"  placeholder="이름"><br>
 						전화번호<br>
-						<input type="tel" name="phoneNum" >
+						<input type="tel" name="phoneNum" placeholder="휴대폰번로를'-'없이 입력" >
+						이메일<br>
+						<input type="text" name="email"  placeholder="이메일"><br>
+					
 					</div><br>
-					<input type="button" value="찾기" onClick="">
+					
+					<input type="button" value="찾기" onclick="findPw();">
 					<input type="button" value="취소" onClick="history.back();">
+					
+					</form>
 					<br><br>
 				</div>
 			</div>
@@ -103,6 +110,20 @@
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
+
+	<script type="text/javascript">
+	
+		function findPw() {
+			$("#findPw").submit();
+		}
+	
+	
+	
+	</script>
+
+
+
+
 
 </body>
 </html>
