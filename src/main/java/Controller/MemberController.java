@@ -251,10 +251,7 @@ public class MemberController extends HttpServlet {
 			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 			request.setAttribute("vo", vo);
 
-			//View중앙화면의 주소를 request에 바인딩
-			request.setAttribute("center", "memberInfo.jsp");
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/myPage.jsp";
 		}
 		
 		//회원정보 수정을 위해 회원정보 수정창 요청! 3.3 재봉
@@ -268,10 +265,7 @@ public class MemberController extends HttpServlet {
 			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 			request.setAttribute("vo", vo);
 			
-			//View중앙화면의 주소를 request에 바인딩
-			request.setAttribute("center", "modMemberForm.jsp");
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/modMemberForm.jsp";
 		}
 
 		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
@@ -303,9 +297,7 @@ public class MemberController extends HttpServlet {
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
 		else if(action.equals("/delete.do")) {
 			
-			request.setAttribute("center", "Delete.jsp"); //Delete.jsp
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/Delete.jsp";
 		}
 		
 		//회원탈퇴 3.2 재봉
