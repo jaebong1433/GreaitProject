@@ -75,12 +75,12 @@
 						<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
 					</ul>
 					
-					<!-- 추가 3.3 재봉 -->
-					<form action="<%=contextPath%>/member1/mypage.me" class="form" method="post">
+					<!-- 추가 3.6 재봉 -->
+					<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
 					<ul class="pull-right right-menu" >
 						<input type="hidden" name="email" value="<%=email%>">
-						<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
-						class="btn btn-common">마이페이지</a></li>
+					<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
+					class="btn btn-common">myPage</a></li>
 					</ul>
 					</form>
 					

@@ -9,6 +9,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	
+	String email = (String)session.getAttribute("email");
 	MemberVO vo = (MemberVO)request.getAttribute("vo");
 	
 	%>
@@ -32,6 +33,7 @@
 		<tr>
 			<td width="200"><p align="right">이메일</p></td>
 			<td width="200"><p align="right"><%=vo.getEmail()%></p></td>
+			<input type="hidden" name="email" value="<%=email%>">
 		</tr>
 		<tr>
 			<td width="200"><p align="right">비밀번호</p></td>

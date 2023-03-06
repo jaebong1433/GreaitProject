@@ -1,7 +1,11 @@
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	
+	String email = (String)session.getAttribute("email");
+	MemberVO vo = (MemberVO)request.getAttribute("vo");
 %>
 
 <!DOCTYPE html>
@@ -56,6 +60,11 @@
 			
 		}
 		
+		.diva input{
+			width: 100px;
+			height: 40px;
+		}
+		
 	</style>
 	
 </head>
@@ -64,6 +73,7 @@
 <div style="background-color: white">
 <center>
 	<br><br>
+		<form action="<%=contextPath%>/member1/mypageUpdate.me" class="form" method="post">
 		<div class="rema">
 			<h1>마이페이지</h1>
 			<hr><br>
@@ -72,34 +82,41 @@
 					<td><span style = " font-size:1.5em;">
 						이름
 					</span></td>
-					<td>홍길동</td>
+					<td><%=vo.getName() %></td>
 					<td><span style = " font-size:1.5em;">
 						전화번호
 					</span></td>
-					<td>010-1234-5678</td>
+					<td><%=vo.getPhoneNum() %></td>
 				</tr>
 				
 				<tr>
 					<td><span style = " font-size:1.5em;">
 						이메일
 					</span></td>
-					<td>dwpa@naver.com</td>
+					<td><%=vo.getEmail()%></td>
+					<input type="hidden" name="email" value="<%=email%>">
 					<td><span style = " font-size:1.5em;">
 						주소
 					</span></td>
-					<td>부산</td>
+					<td><%=vo.getAddress1() %></td>
+					<td><%=vo.getAddress2() %></td>
+					<td><%=vo.getAddress3() %></td>
+					<td><%=vo.getAddress4() %></td>
+					<td><%=vo.getAddress5() %></td>
 				</tr>
 				<tr>
 					<td><span style = " font-size:1.5em;">
 						가입일자
 					</span></td>
-					<td>2023/03/01</td>
+					<td><%=vo.getM_date() %></td>
 				</tr>
 			</table>
-			<button>회원 수정</button>
-			<button>회원 탈퇴</button>
+			<div class="diva">
+			<input type="button" value="회원수정" onClick="check(); return false;">
+			<input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath%>/member1/delete.do'">
+			</div>
 		</div>
-	
+		</form>
 		<div class="rema">
 			<h1>구매내역</h1>
 			<hr><br>
@@ -124,5 +141,11 @@
 	
 		</div>
 </center>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    	function check(){
+    		$("form").submit();
+    	}
+    </script>
 </body>
 </html>

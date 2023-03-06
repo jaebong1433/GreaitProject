@@ -181,16 +181,11 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 			
 		}
-		
+		//3월3일 아이디 찾기 완료 비밀번호 찾기 작업중 
 		else if(action.equals("/findId.me")) {//아이디 찾기
 			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
-			
-			
-			MemberVO vo = memberdao.findId(name,phoneNum);
-			
-			request.setAttribute("vo", vo);
 			
 			request.setAttribute("center","findId.jsp");
 			
@@ -198,23 +193,53 @@ public class MemberController extends HttpServlet {
 			nextPage = "/GreaIT.jsp";
 		}
 		
-		else if (action.equals("/findPw.me")) {//비밀번호 찾기
+		else if(action.equals("/findIdResult.me")) {//아이디 찾기
+			
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			
+			MemberVO vo = memberdao.findId(name,phoneNum);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findIdResult.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		
+		
+		else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
 			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
 			String email = request.getParameter("email");
 			
-			
-			MemberVO vo = memberdao.findPw(name,phoneNum,email);
-			
-			request.setAttribute("vo", vo);
-			
 			request.setAttribute("center","findPw.jsp");
-			
 			
 			nextPage = "/GreaIT.jsp";
 			
 		}
+		else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
+			
+			
+			String name = request.getParameter("name");
+			String phoneNum = request.getParameter("phoneNum");
+			String email = request.getParameter("email");
+
+			MemberVO vo = memberdao.findPw(name,phoneNum,email);
+			
+			request.setAttribute("vo", vo);
+			
+			request.setAttribute("center","findPwResult.jsp");
+			
+			
+			nextPage = "/GreaIT.jsp";
+		}
+		//3월3일 수정끝부분
+		
+		
 		
 		//회원정보 수정을 위해 회원정보 조회 요청! 3.3 재봉
 		else if(action.equals("/mypage.me")) { 
@@ -226,10 +251,7 @@ public class MemberController extends HttpServlet {
 			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 			request.setAttribute("vo", vo);
 
-			//View중앙화면의 주소를 request에 바인딩
-			request.setAttribute("center", "memberInfo.jsp");
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/myPage.jsp";
 		}
 		
 		//회원정보 수정을 위해 회원정보 수정창 요청! 3.3 재봉
@@ -243,12 +265,9 @@ public class MemberController extends HttpServlet {
 			//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 			request.setAttribute("vo", vo);
 			
-			//View중앙화면의 주소를 request에 바인딩
-			request.setAttribute("center", "modMemberForm.jsp");
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/modMemberForm.jsp";
 		}
-		
+
 		//회원정보 수정창에서 수정완료 버튼을 클릭했을 때.. 3.3 재봉
 		else if(action.equals("/update.me")) {
 			int result = memberdao.updateMember(request);
@@ -272,13 +291,13 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 		}
+
+
 		
 		//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 2/28재봉
 		else if(action.equals("/delete.do")) {
 			
-			request.setAttribute("center", "Delete.jsp"); //Delete.jsp
-			
-			nextPage = "/GreaIT.jsp";
+			nextPage = "/Delete.jsp";
 		}
 		
 		//회원탈퇴 3.2 재봉

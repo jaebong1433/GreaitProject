@@ -48,7 +48,7 @@
 	</style>
 </head>
 <body>
-<form action="<%=contextPath%>/member1/joinPro.me" class="form">
+<form action="<%=contextPath%>/member1/joinPro.me" class="form" method="post">
 <div style="background-color: white">
 <center>
 <br>
