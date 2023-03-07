@@ -74,7 +74,7 @@ public class BoardController extends HttpServlet{
 		if (action.equals("/write.bo")) { //새글  입력하는 화면 요청!
 			
 			HttpSession session = request.getSession();
-			String email = (String)session.getAttribute("email");
+			String email = (String)session.getAttribute("emailId");
 			
 			//새글을 입력하는 화면에 로그인한 회원의 이름, 이메일을 보여주기 위해
 			//member테이블에서 SELECT하여 가져와 합니다.
@@ -85,8 +85,9 @@ public class BoardController extends HttpServlet{
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
 			request.setAttribute("membervo", memberVO);
-			request.setAttribute("center", "board/boardWrite.jsp");
-			nextPage = "/CarMain.jsp";
+			//경로 수정
+			request.setAttribute("center", "boardWrite.jsp");
+			nextPage = "/GreaIT.jsp";
 			
 		}else if (action.equals("/writePro.bo")) { //입력한 새글 정보를 DB에 추가 해줘~ 요청!
 			
@@ -108,7 +109,8 @@ public class BoardController extends HttpServlet{
 			System.out.println(nowPage + "페이지번호");
 			System.out.println(nowBlock + "블럭위치번호");		
 			
-			request.setAttribute("center", "board/boardList.jsp");
+			//경로 수정
+			request.setAttribute("center", "boardList.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("count", count);
 			
@@ -116,7 +118,7 @@ public class BoardController extends HttpServlet{
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
 			
-			nextPage = "/CarMain.jsp";
+			nextPage = "/GreaIT.jsp";
 			
 		}else if (action.equals("/searchlist.bo")) {
 			

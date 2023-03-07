@@ -66,80 +66,18 @@
 										<td align="left">날짜</td>
 										<td align="left">조회수</td>
 									</tr>
-<!-- 									<tr align="center"> -->
-<!-- 										<td align="left">1</td> -->
-<!-- 										<td align="left">aaa</td> -->
-<!-- 										<td align="left">김길동</td> -->
-<!-- 										<td align="left"> -->
-<%-- 											<a href="mailto:<%=vo.getB_email()%>">admin@gmail.com</a> --%>
-<!-- 										</td> -->
-<!-- 										<td align="left">2023-03-03</td> -->
-<!-- 										<td align="left">0</td> -->
-<!-- 									</tr> -->
-				<%-- <%
-					//게시판 board테이블에서 조회된 글이 없다면?
-					if(list.isEmpty()){
-				%>		
-							<tr align="center">
-								<td colspan="6">등록된 글이 없습니다.</td>
-							</tr>
-				<%		
-					}else{//게시판 board테이블에서 조회된 글들이 있다면?
-				
-						for(int i=beginPerPage; i<(beginPerPage+numPerPage); i++){
-							
-							//만약 각페이지마다 보여지는 시작글번호가  게시판의 총글의 개수와 같으면 
-							if(i == totalRecord){
-								break;
-							}
-							
-								BoardVO vo = (BoardVO)list.get(i);
-								
-				%>
-							<tr>
-								<td align="left"><%=vo.getB_idx()%></td>				
-								<td>
-								<%
-								
-									int width = 0;  //답변글에 대한 이미지의 들여쓰기 너비값
-									
-									//글의 들여쓰기정도 level값이 0보다 크다면?답변글
-									if(vo.getB_level() > 0){
-										
-										width = vo.getB_level() * 10;
-								%>
-									<img src="../board/images/level.gif" width="<%=width%>" height="15">
-									<img src="../board/images/re.gif">
-								<%	
-									}
-								%>		
-									글제목 나타내는 곳
-									<a href="javascript:fnRead('<%=vo.getB_idx()%>')">
-										<%=vo.getB_title()%>
-									</a>
-								</td>
-								<td align="left">
-									<a href="mailto:<%=vo.getB_email()%>">
-										<%=vo.getB_name()%>
-									</a>
-								</td>
-								<td align="left"><%=vo.getB_date()%></td>
-								<td align="left"><%=vo.getB_cnt()%></td>
-							</tr>
-					
-				<% 
-						}//for		
-					}
-				%> --%>
-				<%-- 새글쓰기 버튼이미지 --%>
-		            <td width="38%" style="text-align: left"> 
-		             	<button onclick="location.href='<%=contextPath%>/board1/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">
-		             		새글쓰기
-		             	</button>
-		        	</td>
-		        	<tr>
-	       				<td colspan="6">&nbsp;</td>
-	       			</tr>
+									<tr align="center">
+											<td colspan="5">등록된 글이 없습니다.</td>
+									</tr>
+									<%-- 새글쓰기 버튼이미지 --%>
+						            <td width="38%" style="text-align: left"> 
+						             	<button onclick="location.href='<%=contextPath%>/board1/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">
+						             		새글쓰기
+						             	</button>
+						        	</td>
+						        	<tr>
+					       				<td colspan="4">&nbsp;</td>
+					       			</tr>
 								</table>
 							 </td>	
 						  </tr>
