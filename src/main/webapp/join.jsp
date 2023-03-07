@@ -219,13 +219,13 @@
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
 	
-  //이메일 입력시 
+  //이메일 입력시 유효성검사 동일하게 수정 3.6 재봉
 	$("#emailId").focusout(function() {
 		var email = $("#emailId");
 		
 		var emailValue = email.val();
 		
-		var emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+		var emailReg = /^\w{5,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
 		
 		var resultEmail = emailReg.test(emailValue);
 		
