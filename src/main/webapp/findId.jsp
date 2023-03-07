@@ -84,7 +84,7 @@
 					
 					</div><br>
 					
-					<input type="button" value="찾기" onclick="findId();">
+					<input type="button" value="찾기" onclick="submit();">
 					<input type="button" value="취소" onClick="history.back();">
 					
 					</form>
@@ -110,13 +110,6 @@
 	<script src="js/magnific-popup-options.js"></script>
 
 	<script type="text/javascript">
-
-	
-	function findId() {
-		
-		$("#findId").submit();
-		
-	}
 	
 	
 	

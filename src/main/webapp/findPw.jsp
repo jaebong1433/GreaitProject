@@ -78,7 +78,7 @@
 					<div class="logq">
 						
 						이름<br>
-						<input type="text" name="mame"  placeholder="이름"><br>
+						<input type="text" name="name"  placeholder="이름"><br>
 						전화번호<br>
 						<input type="tel" name="phoneNum" placeholder="휴대폰번로를'-'없이 입력" >
 						이메일<br>
@@ -86,7 +86,7 @@
 					
 					</div><br>
 					
-					<input type="button" value="찾기" onclick="findPw();">
+					<input type="button" value="찾기" onclick="submit();">
 					<input type="button" value="취소" onClick="history.back();">
 					
 					</form>
@@ -112,12 +112,6 @@
 	<script src="js/magnific-popup-options.js"></script>
 
 	<script type="text/javascript">
-	
-		function findPw() {
-			$("#findPw").submit();
-		}
-	
-	
 	
 	</script>
 

@@ -95,7 +95,7 @@
 			</form>
 			<br><br><br>
 		
-			<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
+			<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> /
 			
 			
 			<a href="<%=contextPath%>/member1/findPw.me">비밀번호 찾기</a><br>

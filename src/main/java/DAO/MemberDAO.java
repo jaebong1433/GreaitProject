@@ -161,11 +161,10 @@ public class MemberDAO {
 		}
 	
 
-	//3월 2일 아이디찾기 구현중
-		public MemberVO findId(String name, String phoneNum) {
+	//3월 6일 아이디찾기 구현중
+		public String findId(String name, String phoneNum) {
+			String id = null;
 	
-		MemberVO vo = null;
-		
 		try {
 			
 			con = ds.getConnection();
@@ -177,35 +176,31 @@ public class MemberDAO {
 				pstmt.setString(2, phoneNum);
 				
 				rs = pstmt.executeQuery();
-				
-				if (rs.next()) {
-					
-					vo = new MemberVO();
-					vo.setEmail(rs.getString("email"));
-					
+				if(rs.next()) {
+					id = rs.getString("email");
 				}
-					
+				
 		}catch (Exception e) {
 			
 			System.out.println("findId 메소드 내부에서 SQL문 실행 오류");
 			e.printStackTrace();
 			
 		}finally {
-			
+			closeResource();
 		}
 		
-		return vo;
+		return id;
 		
 	}
-		public MemberVO findPw(String name, String phoneNum, String email) {
+		public String findPw(String name, String phoneNum, String email) {
 			
-			MemberVO vo = null;
+			String pw = null;
 			
 			try {
 				
 				con = ds.getConnection();
 				
-				String sql = "select pw  from member where name=? and phoneNum=? and email=?";
+				String sql = "select pw from member where name=? and phoneNum=? and email=?";
 				
 					pstmt = con.prepareStatement(sql);	
 					
@@ -216,24 +211,22 @@ public class MemberDAO {
 					rs = pstmt.executeQuery();
 					
 					if (rs.next()) {
-						vo = new MemberVO();
-						vo.setPw(rs.getString("pw"));
-					
+						pw = rs.getString("pw");
 					}
+					
 			}catch (Exception e) {
 				
 				System.out.println("findPw 메소드 내부에서 SQL문 실행 오류");
 				e.printStackTrace();
 				
 			}finally {
-				
+				closeResource();
 			}
-			
-			return vo;
+			return pw;
 			
 		}
 		
-		//3월 2일 아이디찾기 비번호 찾기 구현중
+		//3월 6일 아이디찾기 비번호 찾기 구현중
 	
 		
 		
