@@ -38,9 +38,9 @@
 							</ul>
 						</div>
 					</div>
-
+					
 						<!-- 지도 AIP구현 위치  -->
-					<div class="col-md-3 col-sm-6 col-xs-12 animate-box">
+					<!-- <div class="col-md-3 col-sm-6 col-xs-12 animate-box">
 						<div class="fh5co-footer-widget">
 							<h3>About Us</h3>
 							<ul class="fh5co-links">
@@ -51,9 +51,8 @@
 								<li><a href="#">Team</a></li>
 							</ul>
 						</div>
-					</div>
-
-
+					</div> -->
+					
 					<div class="col-md-3 col-sm-6 col-xs-12 animate-box">
 						<div class="fh5co-footer-widget">
 							<h3>Contact Us</h3>
@@ -65,6 +64,8 @@
 						</div>
 					</div>
 
+					<div id="map" class="col-md-3 col-sm-6 col-xs-12 animate-box" style="width:500px;height:300px;"></div>
+					
 					<div class="col-md-3 col-sm-6 col-xs-12 animate-box">
 						<div class="fh5co-footer-widget">
 							<h3>Follow Us</h3>
@@ -77,7 +78,6 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
 				
 			</div>
@@ -129,8 +129,37 @@
 			});
 		});
 	</script>
-	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6cb75fad35a02632878674fd5f7cb92"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+	<!-- services 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
+	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	<script>
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(35.33791,129.0275), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+		
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		var marker = new kakao.maps.Marker();
 
+		// 타일 로드가 완료되면 지도 중심에 마커를 표시합니다
+		kakao.maps.event.addListener(map, 'tilesloaded', displayMarker);
+
+		function displayMarker() {
+		    
+		    // 마커의 위치를 지도중심으로 설정합니다 
+		    marker.setPosition(map.getCenter()); 
+		    marker.setMap(map); 
+
+		    // 아래 코드는 최초 한번만 타일로드 이벤트가 발생했을 때 어떤 처리를 하고 
+		    // 지도에 등록된 타일로드 이벤트를 제거하는 코드입니다 
+		    // kakao.maps.event.removeListener(map, 'tilesloaded', displayMarker);
+		}
+		
+	</script>
 	</body>
 </html>
 
