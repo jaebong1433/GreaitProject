@@ -1,4 +1,3 @@
-<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -11,7 +10,7 @@
 	String name = (String)session.getAttribute("name");
 	String phoneNum = (String)session.getAttribute("phoneNum");
 
-	MemberVO vo = (MemberVO)request.getAttribute("vo");
+	String id = (String)request.getAttribute("id");
 
 %>
 <!DOCTYPE html>
@@ -69,7 +68,7 @@
 				
 				<div>
 					
-					<h1>찾으신 아이디는 <%=vo.getEmail()%> 입니다.</h1>
+					<h1>찾으신 아이디는 <%=id%> 입니다.</h1>
 					
 					
 					<input type="button" value="홈으로" onclick="hone();" >

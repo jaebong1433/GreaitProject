@@ -11,7 +11,7 @@
 	String phoneNum = (String)session.getAttribute("phoneNum");
 	String email = (String)session.getAttribute("email");
 	
-	MemberVO vo = (MemberVO)request.getAttribute("vo");
+	String pw = (String)request.getAttribute("pw");
 	
 	
 
@@ -71,7 +71,7 @@
 				
 				<div>
 					
-					<h1>찾으시는 비밀번호는 <%=vo.getPw()%>입니다.</h1>
+					<h1>찾으시는 비밀번호는 <%=pw%>입니다.</h1>
 					
 					<input type="button" value="홈으로" onclick="hone();">
 					

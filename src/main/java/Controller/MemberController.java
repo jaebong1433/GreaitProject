@@ -67,8 +67,9 @@ public class MemberController extends HttpServlet {
 			center = request.getParameter("center"); 
 			request.setAttribute("center", center);
 			nextPage = "/GreaIT.jsp";
+			
+			
 		}
-		
 		else if(action.equals("/joinIdCheck.me")) {
 			//입력한 아이디 얻기
 			String id = request.getParameter("emailId");
@@ -87,8 +88,9 @@ public class MemberController extends HttpServlet {
 				out.write("usable");
 				return;
 			}
+			
+			
 		}
-		
 		//회원가입 실행 수정완료 3.2 재봉
 		else if(action.equals("/joinPro.me")) {
 			//요청한 값 얻기
@@ -117,8 +119,8 @@ public class MemberController extends HttpServlet {
 
 			nextPage="/GreaIT.jsp";
 
+			
 		}
-		
 	//	2-27일 로그인 수행 작성
 		else if(action.equals("/login.me")) {//로그인 창으로 이동
 			
@@ -131,9 +133,11 @@ public class MemberController extends HttpServlet {
 			//전체 메인화면 주소 저장
 
 			nextPage = "/GreaIT.jsp";
+			
+			
 		}
-		
 		else if(action.equals("/loginPro.me")) {//로그인 수행
+			
 			String login_email = request.getParameter("login_email");
 			String login_pw = request.getParameter("login_pw");
 			
@@ -162,16 +166,15 @@ public class MemberController extends HttpServlet {
 
 
 		}
-		
 		else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 			//기존에 생성했던 session메모리 얻기
 			HttpSession session = request.getSession();
 			session.invalidate();
 
 			nextPage = "/GreaIT.jsp";
-
+ 
+			
 		}		
-	
 		else if (action.equals("/logout.me")) {//로그아웃
 			
 			HttpSession session = request.getSession();
@@ -180,67 +183,75 @@ public class MemberController extends HttpServlet {
 					
 			nextPage = "/GreaIT.jsp";
 			
+			
 		}
 		//3월3일 아이디 찾기 완료 비밀번호 찾기 작업중 
 		else if(action.equals("/findId.me")) {//아이디 찾기
 			
-			String name = request.getParameter("name");
-			String phoneNum = request.getParameter("phoneNum");
-			
 			request.setAttribute("center","findId.jsp");
 			
-			
 			nextPage = "/GreaIT.jsp";
+			
+			
 		}
-		
 		else if(action.equals("/findIdResult.me")) {//아이디 찾기
 			
-			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
 			
-			MemberVO vo = memberdao.findId(name,phoneNum);
-			
-			request.setAttribute("vo", vo);
-			
-			request.setAttribute("center","findIdResult.jsp");
-			
+			String resultId = memberdao.findId(name,phoneNum);
+			if(resultId != null) {// 회원가입된 아이디가 있으면
+				request.setAttribute("id", resultId);
+				
+				request.setAttribute("center","findIdResult.jsp");
+				
+			}else {// 회원가입 등록된 아이디가 없으면
+				out.println("<script>");
+				out.println(" window.alert('등록된 정보가 없습니다.');");
+				out.println(" history.go(-1);");
+				out.println("</script>");
+				return;
+				
+			}
 			
 			nextPage = "/GreaIT.jsp";
-		}
-		
-		
-		else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
 			
-			String name = request.getParameter("name");
-			String phoneNum = request.getParameter("phoneNum");
-			String email = request.getParameter("email");
+			
+		}
+		else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
 			
 			request.setAttribute("center","findPw.jsp");
 			
 			nextPage = "/GreaIT.jsp";
 			
+			
 		}
 		else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
-			
 			
 			String name = request.getParameter("name");
 			String phoneNum = request.getParameter("phoneNum");
 			String email = request.getParameter("email");
 
-			MemberVO vo = memberdao.findPw(name,phoneNum,email);
+			String resultPw = memberdao.findPw(name, phoneNum, email);
+
+			if(resultPw != null) {//회원가입된 비밀번호가 있으면
+				request.setAttribute("pw", resultPw);
+				
+				request.setAttribute("center","findPwResult.jsp");
+				
+			}else {// 회원가입 등록된 비밀번호가 없으면 	
+				out.println("<script>");
+				out.println(" window.alert('등록된 정보가 없습니다 ');");
+				out.println(" history.back();");
+				out.println("</script>");
+				return;				
 			
-			request.setAttribute("vo", vo);
-			
-			request.setAttribute("center","findPwResult.jsp");
-			
+			}
 			
 			nextPage = "/GreaIT.jsp";
+		
+		//3월6일 수정끝부분
 		}
-		//3월3일 수정끝부분
-		
-		
-		
 		//회원정보 수정을 위해 회원정보 조회 요청! 3.3 재봉
 		else if(action.equals("/mypage.me")) { 
 			//요청한 값 얻기
