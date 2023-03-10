@@ -101,7 +101,7 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/list.jsp";
 		}
-		
+		//글 작성 요청을 했을때
 		else if(action.equals("/write.bo")) {
 			String membernickname = (String)session.getAttribute("nickname");
 			
