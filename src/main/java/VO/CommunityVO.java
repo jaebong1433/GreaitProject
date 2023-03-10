@@ -13,6 +13,9 @@ public class CommunityVO {
 	private int c_group;
 	private int c_level;
 	
+	public CommunityVO() {
+	}
+	
 	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_content, Date c_date, int c_views,
 			int c_like, int c_group, int c_level) {
 		super();

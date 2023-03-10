@@ -17,7 +17,23 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
-			
+		function fnSearch(){
+			var word = document.getElementById("word").value;
+			if(word == null || word == ""){
+				alert("검색어를 입력하세요."); 
+				document.getElementById("word").focus();
+				return false;
+			}
+			else{
+				document.frmSearch.submit();
+			}
+		}
+		
+		function fnRead(val){
+			document.frmRead.action = "<%=contextPath%>/com/read.bo";
+			document.frmRead.c_idx.value = val;
+			document.frmRead.submit();
+		}
 		</script>
 	</head>
 <%

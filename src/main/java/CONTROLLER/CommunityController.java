@@ -32,9 +32,7 @@ import VO.CommunityVO;
 @WebServlet("/com/*")
 public class CommunityController extends HttpServlet {
 
-	//CarDAO객체를 저장할 참조변수 선언
 	CommunityDAO dao;
-	//MemberDAO객체를 저장할 참조변수 선언  ----
 	
 	@Override
 	public void init() throws ServletException {
@@ -72,6 +70,8 @@ public class CommunityController extends HttpServlet {
 		
 		ArrayList list = null;
 		
+		CommunityVO vo = null;
+		
 		int count = 0;
 		
 		HttpSession session = request.getSession();
@@ -84,6 +84,7 @@ public class CommunityController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/com/list.bo
 		else if(action.equals("/list.bo")) {
+			System.out.println(true);
 			list = dao.boardListAll();
 			count = dao.getTotalRecord();
 			
@@ -99,16 +100,32 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
 			
-			nextPage = "/list.jsp";
+			nextPage = "/board/list.jsp";
 		}
 		
-		else if(action.equals("/write.bo")) {
-			String membernickname = (String)session.getAttribute("nickname");
+		else if(action.equals("/read.bo")) {
+			String c_idx = request.getParameter("c_idx");
+			String nowPage_ = request.getParameter("nowPage");
+			String nowBlock_ = request.getParameter("nowBlock");
 			
+			vo = dao.boardRead(c_idx);
 			
+			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
+			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
+			request.setAttribute("nowBlock", nowBlock_);
+			request.setAttribute("c_idx", c_idx);
+			
+			nextPage = "/board/detail.jsp";
 		}
 		
-	
+		else if(action.equals("/like.bo")) {
+			int c_idx = Integer.parseInt(request.getParameter("c_idx"));
+			
+			dao.addLike(c_idx);
+			
+			return;
+		}
+		
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
