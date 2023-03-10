@@ -216,7 +216,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
  							alert("로그인 하고 글을 작성하세요!"); 
  							history.back();
  						</script>
- 				<%	
+ 				 <%	
  					}
  				%>         
 	            	<%-- 새글쓰기 버튼이미지 --%>
