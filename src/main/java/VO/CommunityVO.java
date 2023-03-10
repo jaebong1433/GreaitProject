@@ -2,7 +2,7 @@ package VO;
 
 import java.sql.Date;
 
-public class ComunityVO {
+public class CommunityVO {
 	private int c_idx;
 	private String c_title;
 	private String c_nickname;
@@ -13,7 +13,7 @@ public class ComunityVO {
 	private int c_group;
 	private int c_level;
 	
-	public ComunityVO(int c_idx, String c_title, String c_nickname, String c_content, Date c_date, int c_views,
+	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_content, Date c_date, int c_views,
 			int c_like, int c_group, int c_level) {
 		super();
 		this.c_idx = c_idx;

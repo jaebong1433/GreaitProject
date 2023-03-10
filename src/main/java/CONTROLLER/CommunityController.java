@@ -9,7 +9,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -21,21 +23,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.ComunityDAO;
+import DAO.CommunityDAO;
+import VO.CommunityVO;
 
 
 //http://localhost:8090/greaitProject/com/Main 
 
 @WebServlet("/com/*")
-public class ComunityController extends HttpServlet {
+public class CommunityController extends HttpServlet {
 
 	//CarDAO객체를 저장할 참조변수 선언
-	ComunityDAO cardao;
+	CommunityDAO dao;
 	//MemberDAO객체를 저장할 참조변수 선언  ----
 	
 	@Override
 	public void init() throws ServletException {
-		cardao = new ComunityDAO();
+		dao = new CommunityDAO();
 	}
 		
 	@Override
@@ -67,13 +70,42 @@ public class ComunityController extends HttpServlet {
 		
 		String nextPage = null;
 		
+		ArrayList list = null;
+		
+		int count = 0;
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("nickname", "admin");
 		
 		if(action.equals("/Main")) {
 			
-			
 			nextPage = "/main.jsp";
+		}
+		
+		//http://localhost:8090/greaitProject/com/list.bo
+		else if(action.equals("/list.bo")) {
+			list = dao.boardListAll();
+			count = dao.getTotalRecord();
+			
+			String nowPage = request.getParameter("nowPage");
+			String nowBlock = request.getParameter("nowBlock");
+			System.out.println(nowPage + "페이지번호");
+			System.out.println(nowBlock + "블럭위치번호");	
+			
+			request.setAttribute("list", list);
+			request.setAttribute("count", count);
+			
+			//페이징 처리 를 위해 담는다.
+			request.setAttribute("nowPage", nowPage);
+			request.setAttribute("nowBlock", nowBlock);
+			
+			nextPage = "/list.jsp";
+		}
+		
+		else if(action.equals("/write.bo")) {
+			String membernickname = (String)session.getAttribute("nickname");
+			
+			
 		}
 		
 	

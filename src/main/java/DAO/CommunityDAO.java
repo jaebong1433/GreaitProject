@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.naming.Context;
@@ -13,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import VO.CommunityVO;
+
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
-public class ComunityDAO {
+public class CommunityDAO {
 	
 	Connection con;
 	PreparedStatement pstmt;
@@ -22,7 +26,7 @@ public class ComunityDAO {
 	DataSource ds;
 	
 	//커넥션풀 생성 후 커넥션 객체 얻는 생성자
-	public ComunityDAO() {
+	public CommunityDAO() {
 		//context.xml파일에 설정한
 		//Resource태그에 적힌  DataSource커넥션풀 객체 받아오기	
 		try {
@@ -43,8 +47,61 @@ public class ComunityDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
 	
+	public ArrayList boardListAll() {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community order by c_group asc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"), 
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardListAll");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return list;
+	}
 	
-	
+	public int getTotalRecord() {
+		int total = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select count(*) as cnt from community";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			total = rs.getInt("cnt");
+			
+		} catch(Exception e) {
+			System.out.println("getTotalRecord");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return total;
+	}
 		
 
 }//CarDAO클래스 끝
