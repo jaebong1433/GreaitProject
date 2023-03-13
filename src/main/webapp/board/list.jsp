@@ -17,6 +17,7 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
+
 		function fnSearch(){
 			var word = document.getElementById("word").value;
 			if(word == null || word == ""){
@@ -34,6 +35,7 @@ pageEncoding="UTF-8"
 			document.frmRead.c_idx.value = val;
 			document.frmRead.submit();
 		}
+
 		</script>
 	</head>
 <%
@@ -187,6 +189,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
+									<a href="mailto:<%=vo.getC_nickname()%>">
+										<%=vo.getC_nickname()%>
+									</a>
+								</td>
 							</tr>
 					
 				<% 
@@ -204,6 +210,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        		<td colspan="4">&nbsp;</td>
 	        	</tr>
 				<tr>
+
 					<form action="<%=contextPath%>/com/searchlist.bo" 
 						  method="post" 
 						  name="frmSearch" 

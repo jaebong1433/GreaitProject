@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CommunityDAO;
 import VO.CommunityVO;
+import VO.MemberVO;
 
 
 //http://localhost:8090/greaitProject/com/Main 
@@ -32,6 +33,7 @@ import VO.CommunityVO;
 @WebServlet("/com/*")
 public class CommunityController extends HttpServlet {
 
+	//CommunityDAO객체를 저장할 참조변수 선언
 	CommunityDAO dao;
 	
 	@Override
@@ -130,6 +132,20 @@ public class CommunityController extends HttpServlet {
 			out.write(like);
 			
 			return;
+    }
+		//글 작성 화면 요청을 했을때
+		else if(action.equals("/write.bo")) {
+			String loginNick = (String)session.getAttribute("nickname");
+			
+			MemberVO membervo = dao.oneMember(loginNick);
+			request.setAttribute("center", "board/write.jsp");
+			request.setAttribute("membervo", membervo);
+			
+			request.setAttribute("nowPage", request.getParameter("nowPage"));
+			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
+			
+			nextPage = "/CarMain.jsp";
+
 		}
 		
 		//포워딩 (디스패처 방식)
