@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import VO.CommunityVO;
+import VO.MemberVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
 public class CommunityDAO {
@@ -101,6 +102,38 @@ public class CommunityDAO {
 		
 		
 		return total;
+	}
+	
+	//세션에 저장된 닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
+	public MemberVO oneMember(String loginNick) {
+		MemberVO vo = null;
+		try {    
+			//DB접속
+			con = ds.getConnection();
+			//SELECT문
+			String sql = "select * from m_member where m_nickname='"+loginNick+"'";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면? (아이디가 있으면?)
+				
+				vo = new MemberVO();
+				vo.setM_nickname(rs.getString("m_nickname"));
+				vo.setM_id(rs.getString("m_id"));
+				vo.setM_pw(rs.getString("m_pw"));
+				vo.setM_name(rs.getString("m_name"));
+				vo.setM_email(rs.getString("m_email"));
+				vo.setM_date(rs.getDate("m_date"));
+			}
+			
+		} catch (Exception e) {
+			System.out.println("oneMember 메소드 내부에서 오류!");
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+		
+		return vo;
 	}
 		
 
