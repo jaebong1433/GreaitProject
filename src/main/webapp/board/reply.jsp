@@ -30,6 +30,7 @@ pageEncoding="UTF-8"
 			제목 : <input type="text" name="title"><br>
 			작성자 : <input type="text" name="writer" value="${ membervo.m_nickname }"><br>
 			내용 : <input type="text" name="content"><br>
+			<input type="hidden" name="c_idx" value="<%=c_idx%>">
 			<button onclick="javascript:replyPro()">게시</button>
 		</form>
 	</body>

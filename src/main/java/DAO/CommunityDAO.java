@@ -260,6 +260,29 @@ public class CommunityDAO {
 		return vo;	
 	}
 	
+	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content) {
+		String sql = null;
+		try {
+			con = ds.getConnection();
+			sql = "SELECT c_group, c_level from community where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, super_c_idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			String c_group = rs.getString("c_group");
+			String c_level = rs.getString("c_level");
+			
+			sql = "";
+			
+		} catch(Exception e) {
+			System.out.println("replyInsertBoard");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+	}
+	
+	
 }
 
 

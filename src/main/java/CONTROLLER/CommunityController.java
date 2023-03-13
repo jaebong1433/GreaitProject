@@ -166,12 +166,10 @@ public class CommunityController extends HttpServlet {
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
 			String content = request.getParameter("content");
-			
-			System.out.println(title);
-			System.out.println(nickname);
-			System.out.println(content);
+			String super_c_idx = request.getParameter("c_idx");
 			
 			
+			dao.replyInsertBoard(super_c_idx, title, nickname, content);
 			return;
 		}
 		
