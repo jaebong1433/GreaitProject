@@ -7,12 +7,11 @@
 	String nowBlock = request.getParameter("nowBlock");
 	MemberVO vo = (MemberVO)request.getAttribute("membervo");
 	String email = vo.getM_email();
-	String name = vo.getM_name();
 %>
 
 <%
-	String id = (String)session.getAttribute("id");
-	if(id == null){//로그인 하지 않았을경우
+	String loginNick = (String)session.getAttribute("nickname");
+	if(loginNick == null){//로그인 하지 않았을경우
 %>		
 	<script>	
 		alert("로그인 하고 글을 작성하세요!"); 
@@ -55,7 +54,7 @@
                     	<div align="center">작 성 자</div>
                     </td>
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="text" name="writer" size="20" class="text2" value="<%=name%>" readonly />
+                    	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
                     </td>
                     <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
                     	<div align="center">아 이 디</div>
@@ -65,7 +64,7 @@
                     
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="writer_id" 
-                    	size="20" class="text2" value="<%=id%>" readonly/>
+                    	size="20" class="text2" value="<%=vo.getM_id()%>" readonly/>
                     </td>
                    </tr>
                    <tr>
@@ -92,14 +91,6 @@
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<textarea name="content" rows="15" cols="100"></textarea>
-                    </td>
-                  </tr>
-                  <tr> 
-                    <td bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">패스워드</div>
-                    </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="password" name="pass"/>
                     </td>
                   </tr>
                 </table>

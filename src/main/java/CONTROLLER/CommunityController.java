@@ -88,6 +88,8 @@ public class CommunityController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/com/list.bo
 		else if(action.equals("/list.bo")) {
+			
+			String loginNick = (String)session.getAttribute("nickname");
 			System.out.println(true);
 			list = dao.boardListAll();
 			count = dao.getTotalRecord();
@@ -99,12 +101,13 @@ public class CommunityController extends HttpServlet {
 			
 			request.setAttribute("list", list);
 			request.setAttribute("count", count);
+//			request.setAttribute("center","/board/list.jsp");
 			
 			//페이징 처리 를 위해 담는다.
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
-			
 			nextPage = "/board/list.jsp";
+//			nextPage = "/index.jsp";
 		}
 		
 		else if(action.equals("/read.bo")) {
@@ -145,8 +148,6 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/board/reply.jsp";
 		}
-			
-			
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
 			String loginNick = (String)session.getAttribute("nickname");
@@ -158,7 +159,7 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", request.getParameter("nowPage"));
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
-			nextPage = "/CarMain.jsp";
+			nextPage = "/board/write.jsp";
 
 		}
 		
