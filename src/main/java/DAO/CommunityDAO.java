@@ -148,11 +148,11 @@ public class CommunityDAO {
 		String sql = null;
 		
 		try {
-			con = ds.getConnection();
-			sql = "update community set c_views = c_views - 1 where c_idx = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, c_idx);
-			pstmt.executeQuery();
+//			con = ds.getConnection();
+//			sql = "update community set c_views = c_views - 1 where c_idx = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, c_idx);
+//			pstmt.executeQuery();
 			
 			
 			con = ds.getConnection();
@@ -167,6 +167,37 @@ public class CommunityDAO {
 		} finally {
 			closeResource();
 		}
+	}
+	
+	public CommunityVO getVO(int c_idx) {
+		CommunityVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"), 
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+			}
+			
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
 	}
 	
 }

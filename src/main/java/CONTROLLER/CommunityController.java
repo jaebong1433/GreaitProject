@@ -77,6 +77,8 @@ public class CommunityController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("nickname", "admin");
 		
+		PrintWriter out = response.getWriter();
+		
 		if(action.equals("/Main")) {
 			
 			nextPage = "/main.jsp";
@@ -122,6 +124,10 @@ public class CommunityController extends HttpServlet {
 			int c_idx = Integer.parseInt(request.getParameter("c_idx"));
 			
 			dao.addLike(c_idx);
+			vo = dao.getVO(c_idx);
+			String like = String.valueOf(vo.getC_like());
+			System.out.println(like);
+			out.write(like);
 			
 			return;
 		}

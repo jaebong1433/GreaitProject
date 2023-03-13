@@ -28,6 +28,7 @@ pageEncoding="UTF-8"
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script>
 			
 		</script>
@@ -37,23 +38,36 @@ pageEncoding="UTF-8"
 		<%= writer %><br>
 		<%= content %><br>
 		<%= writeDate %><br>
-		<%= views %><br>
-		<%= like %><br>
+		<p>조회수 : <%= views %></p>
+		<p id="like">추천 수 : <%= like %></p>
 		
-		<button id="like">좋아요</button>
+		<button id="like_btn">좋아요</button>
+		
+		<button onclick="javascript:replyBoard()">답글</button>
 		
 		<script type="text/javascript">
-			$("#like").on("click", function() {
-				$.ajax({
-					type: "post",
-					async : true,
-					url : "<%= contextPath %>/com/like.bo",
-					data : { c_idx : <%= c_idx %>},
-					dataType : "text",
-					success : function(data) {
-						location.reload(true);
-					}
-				})
+			function replyBoard() {
+				alert("안녕");
+			}	
+		
+		
+			$("#like_btn").on("click", function() {
+				if($.cookie("likeCookie") == null) {
+					$.ajax({
+						type: "post",
+						async : true,
+						url : "<%= contextPath %>/com/like.bo",
+						data : { c_idx : ${c_idx}},
+						dataType : "text",
+						success : function(data) {
+							$("#like").text(data);
+						}
+					});
+					$.cookie("likeCookie", "true", {expires:1, path:"/"});
+				} else {
+					alert("추천은 하루에 한 번만 가능합니다.");
+					return;
+				}
 			});
 		</script>
 	</body>
