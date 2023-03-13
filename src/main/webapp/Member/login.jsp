@@ -10,7 +10,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Login - GreaIT</title>
+	<title>Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -54,11 +54,17 @@
 <center>
 <body align="center">
 	<div class="logf">
-   		<h1>Login</h1><br><br>
+		<a href="<%=contextPath%>/index.jsp">
+			<img src="<%=contextPath%>/eq/img/mm2.png" width="200px">
+   		</a><br><br><br>
    		<input class="loginp" type="text" value="아이디"><br>
    		<input class="loginp" type="password" value="password"><br><br>
+   		<button>로그인</button><br>
+   		<a href="#"><strong>회원가입하기</strong></a><br><br>
    		<a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a><br><br>
-   		<button>로그인</button><br><br>
+   		
+   		<br><br>
+   		
    		<p>간편로그인</p>
    		<a href="#"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
 		<a href="#"><img src="<%=contextPath%>/eq/img/naver_icon.png" width="50px" height="50px"></a>
