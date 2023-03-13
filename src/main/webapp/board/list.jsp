@@ -219,7 +219,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 		            <td width="38%" style="text-align: left"> 
 		             	<input type="image" 
 		             		   src="<%=contextPath%>/board/images/write.gif" 
-		             		   onclick="location.href='<%=contextPath%>/board1/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'"/>
+		             		   onclick="location.href='<%=contextPath%>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'"/>
 		        	</td>
 		        </tr>
 	       		<tr>

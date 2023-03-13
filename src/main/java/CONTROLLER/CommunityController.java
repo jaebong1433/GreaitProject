@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CommunityDAO;
 import VO.CommunityVO;
+import VO.MemberVO;
 
 
 //http://localhost:8090/greaitProject/com/Main 
@@ -32,7 +33,7 @@ import VO.CommunityVO;
 @WebServlet("/com/*")
 public class CommunityController extends HttpServlet {
 
-	//CarDAO객체를 저장할 참조변수 선언
+	//CommunityDAO객체를 저장할 참조변수 선언
 	CommunityDAO dao;
 	//MemberDAO객체를 저장할 참조변수 선언  ----
 	
@@ -99,13 +100,20 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
 			
-			nextPage = "/list.jsp";
+			nextPage = "/board/list.jsp";
 		}
-		//글 작성 요청을 했을때
+		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
-			String membernickname = (String)session.getAttribute("nickname");
+			String loginNick = (String)session.getAttribute("nickname");
 			
+			MemberVO membervo = dao.oneMember(loginNick);
+			request.setAttribute("center", "board/write.jsp");
+			request.setAttribute("membervo", membervo);
 			
+			request.setAttribute("nowPage", request.getParameter("nowPage"));
+			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
+			
+			nextPage = "/CarMain.jsp";
 		}
 		
 	
