@@ -126,15 +126,27 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		else if(action.equals("/like.bo")) {
-			int c_idx = Integer.parseInt(request.getParameter("c_idx"));
+			String c_idx = request.getParameter("c_idx");
 			
 			dao.addLike(c_idx);
-			vo = dao.getVO(c_idx);
+			vo = dao.getComVO(c_idx);
 			String like = String.valueOf(vo.getC_like());
 			System.out.println(like);
 			out.write(like);
 			
 			return;
+    }
+		
+		else if(action.equals("/replyBoard.bo")) {
+			String nickname = (String)session.getAttribute("nickname");
+			MemberVO membervo = dao.getMemVO(nickname);
+			
+			String c_idx = request.getParameter("c_idx");
+			
+			request.setAttribute("membervo", membervo);
+			request.setAttribute("c_idx", c_idx);
+			
+			nextPage = "/board/reply.jsp";
 		}
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
@@ -149,6 +161,17 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/board/write.jsp";
 
+		}
+		
+		else if(action.equals("/replyPro.bo")) {
+			String title = request.getParameter("title");
+			String nickname = request.getParameter("writer");
+			String content = request.getParameter("content");
+			String super_c_idx = request.getParameter("c_idx");
+			
+			
+			dao.replyInsertBoard(super_c_idx, title, nickname, content);
+			return;
 		}
 		
 		//포워딩 (디스패처 방식)

@@ -39,15 +39,23 @@ pageEncoding="UTF-8"
 		<%= content %><br>
 		<%= writeDate %><br>
 		<p>조회수 : <%= views %></p>
-		<p id="like">추천 수 : <%= like %></p>
+		추천 수 : <p id="like"><%= like %></p>
 		
 		<button id="like_btn">좋아요</button>
 		
-		<button onclick="javascript:replyBoard()">답글</button>
+		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+		
+		<form name="reply">
+			<input type="hidden" name="c_idx">
+			<input type="hidden" name="nowPage" value="<%=nowPage%>">
+			<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
+		</form>
 		
 		<script type="text/javascript">
-			function replyBoard() {
-				alert("안녕");
+			function replyBoard(val) {
+				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
+				document.reply.c_idx.value = val;
+				document.reply.submit();
 			}	
 		
 		
@@ -64,6 +72,7 @@ pageEncoding="UTF-8"
 						}
 					});
 					$.cookie("likeCookie", "true", {expires:1, path:"/"});
+					return;
 				} else {
 					alert("추천은 하루에 한 번만 가능합니다.");
 					return;
