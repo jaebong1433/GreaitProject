@@ -45,9 +45,13 @@ pageEncoding="UTF-8"
 		
 		<button onclick="javascript:replyBoard()">답글</button>
 		
+		
+		<form action="<%= contextPath %>/com/replyBoard.do">
+			<input type="hidden" name="c_idx" value="<%= c_idx %>">
+		</form>
 		<script type="text/javascript">
 			function replyBoard() {
-				alert("안녕");
+				
 			}	
 		
 		
