@@ -17,7 +17,25 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
-			
+
+		function fnSearch(){
+			var word = document.getElementById("word").value;
+			if(word == null || word == ""){
+				alert("검색어를 입력하세요."); 
+				document.getElementById("word").focus();
+				return false;
+			}
+			else{
+				document.frmSearch.submit();
+			}
+		}
+		
+		function fnRead(val){
+			document.frmRead.action = "<%=contextPath%>/com/read.bo";
+			document.frmRead.c_idx.value = val;
+			document.frmRead.submit();
+		}
+
 		</script>
 	</head>
 <%
@@ -70,7 +88,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 
 %>
 <form name="frmRead">
-		<input type="hidden" name="b_idx">
+		<input type="hidden" name="c_idx">
 		<input type="hidden" name="nowPage" value="<%=nowPage%>">
 		<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 </form>
@@ -106,9 +124,11 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							<tr align="center" bgcolor="#D0D0D0" height="120%">
 								<td align="left">번호</td>
 								<td align="left">제목</td>
-								<td align="left">이름</td>
-								<td align="left">날짜</td>
+								<td align="left">내용</td>
+								<td align="left">작성자</td>
+								<td align="left">작성일</td>
 								<td align="left">조회수</td>
+								<td align="left">추천</td>
 							</tr>	
 				<%
 					//게시판 board테이블에서 조회된 글이 없다면?
@@ -161,12 +181,18 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									</a>
 								</td>
 								<td align="left">
+<%-- 									<a href="mailto:<%=vo.getC_nickname()%>"> --%>
+										<%=vo.getC_content()%>
+									</a>
+								</td>
+								<td align="left"><%=vo.getC_nickname()%></td>
+								<td align="left"><%=vo.getC_date()%></td>
+								<td align="left"><%=vo.getC_views()%></td>
+								<td align="left"><%=vo.getC_like()%></td>
 									<a href="mailto:<%=vo.getC_nickname()%>">
 										<%=vo.getC_nickname()%>
 									</a>
 								</td>
-								<td align="left"><%=vo.getC_date()%></td>
-								<td align="left"><%=vo.getC_content()%></td>
 							</tr>
 					
 				<% 
@@ -184,7 +210,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        		<td colspan="4">&nbsp;</td>
 	        	</tr>
 				<tr>
-					<form action="<%=contextPath%>/board1/searchlist.bo" 
+
+					<form action="<%=contextPath%>/com/searchlist.bo" 
 						  method="post" 
 						  name="frmSearch" 
 						  onsubmit="javascript:fnSearch();">
@@ -237,7 +264,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 					
 				if(nowBlock > 0){//현재 클릭한 페이지번호가 속한 블럭위치가 0 보다 크다면?
 		%>			
-					<a href="<%=contextPath%>/board1/list.bo?nowBlock=<%=nowBlock-1%>&nowPage=<%=((nowBlock-1) * pagePerBlock)%>">
+					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock-1%>&nowPage=<%=((nowBlock-1) * pagePerBlock)%>">
 						◀ 이전<%=pagePerBlock%>개
 					</a>
 		<%		}//안쪽 if %>
@@ -247,7 +274,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 				for(int i=0; i<pagePerBlock; i++){
 		%>			
 					&nbsp;&nbsp;
-					<a href="<%=contextPath%>/board1/list.bo?nowBlock=<%=nowBlock%>&nowPage=<%=(nowBlock * pagePerBlock)+i%>">
+					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock%>&nowPage=<%=(nowBlock * pagePerBlock)+i%>">
 						<%=(nowBlock * pagePerBlock)+i+1 %>	
 						<%if((nowBlock * pagePerBlock)+i+1 == totalPage) break; %>
 					</a>
@@ -261,7 +288,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 				if(totalBlock > nowBlock + 1){
 		%>			
 					
-					<a href="<%=contextPath%>/board1/list.bo?nowBlock=<%=nowBlock+1%>&nowPage=<%=((nowBlock+1) * pagePerBlock)%>">
+					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock+1%>&nowPage=<%=((nowBlock+1) * pagePerBlock)%>">
 						  ▶ 다음 <%=pagePerBlock%>개
 					</a>
 				

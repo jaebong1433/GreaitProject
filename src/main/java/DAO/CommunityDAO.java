@@ -103,7 +103,47 @@ public class CommunityDAO {
 		
 		return total;
 	}
-	
+
+	public CommunityVO boardRead(String c_idx) {
+		CommunityVO vo = null;
+		String sql = null;
+ 	try {
+			con = ds.getConnection();
+			sql = "update community set c_views = c_views + 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.executeQuery();
+			
+			
+			//--------------------------------------------
+			con = ds.getConnection();
+			sql = "select * from community where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+									rs.getString("c_title"),
+									rs.getString("c_nickname"), 
+									rs.getString("c_content"), 
+									rs.getDate("c_date"),
+									rs.getInt("c_views"),
+									rs.getInt("c_like"),
+									rs.getInt("c_group"),
+									rs.getInt("c_level"));
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vo;
+	}
+ 
 	//세션에 저장된 닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
 	public MemberVO oneMember(String loginNick) {
 		MemberVO vo = null;
@@ -135,9 +175,67 @@ public class CommunityDAO {
 		
 		return vo;
 	}
-		
 
-}//CarDAO클래스 끝
+		
+	
+	
+	public void addLike(int c_idx) {
+		String sql = null;
+		
+		try {
+//			con = ds.getConnection();
+//			sql = "update community set c_views = c_views - 1 where c_idx = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, c_idx);
+//			pstmt.executeQuery();
+			
+			
+			con = ds.getConnection();
+			sql = "update community set c_like = c_like + 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+	}
+	
+	public CommunityVO getVO(int c_idx) {
+		CommunityVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"), 
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+			}
+			
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
+	
+}
 
 
 
