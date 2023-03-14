@@ -56,27 +56,8 @@
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
                     </td>
-                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">아 이 디</div>
-                    </td>
-                    
-                    
-                    
-                    <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="text" name="writer_id" 
-                    	size="20" class="text2" value="<%=vo.getM_id()%>" readonly/>
-                    </td>
                    </tr>
-                   <tr>
-                    <td width="13%" bgcolor="#e4e4e4">
-                    	<div align="center"> 
-                        	<p class="text2">메일주소</p>
-                      	</div>
-                    </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                        <input type="text" name="email" size="40" class="text2" value="<%=email%>" readonly/>
-                    </td>
-                  </tr>             
+                             
                   <tr> 
                     <td height="31" bgcolor="#e4e4e4" class="text2">
                     	<div align="center">제&nbsp;&nbsp;&nbsp;목</div>
@@ -131,7 +112,7 @@
 		$("#list").click(function(event) {
 			event.preventDefault();
 			//board테이블에 저장된 글을 조회 하는 요청!
-			location.href = "<%=contextPath%>/board1/list.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			location.href = "<%=contextPath%>/com/list.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 			
 		})
 		
@@ -144,35 +125,28 @@
 			
 			//작성자 명을 입력할 <input>을 선택해
 			var writer = $("input[name=writer]").val();
-			//아이디 명을 입력할 <input>을 선택해
-			var id = $("input[name=writer_id]").val();
-			//작성자의 이메일을 입력 받아 얻는다.
-			var email = $("input[name=email]").val();
 			//글제목을 입력받아 얻는다.
 			var title = $("input[name=title]").val();
 			//글내용을 입력받아 얻는다.
 			var content = $("textarea[name=content]").val();
-			//글 비밀번호를 입력받아 얻는다.
-			var pass = $("input[name=pass]").val();
+			
 			
 			$.ajax({
 				type:"post",
 				async:true,
-				url:"<%=contextPath%>/board1/writePro.bo",
+				url:"<%=contextPath%>/com/writePro.bo",
 				data:{
 					w : writer,
-					i : id,
-					e : email,
 					t : title,
-					c : content,
-					p : pass
+					c : content
 				},
 				dataType : "text",
 				success:function(data){
 					console.log(data);
 					
 					if(data == "1"){
-						$("#resultInsert").text("글 작성 완료!").css("color","green");
+						alert("글 등록 완료!");
+						location.href="<%=contextPath%>/com/list.bo";
 					}else{//"0"
 						$("#resultInsert").text("글 작성 실패!").css("color","red");
 					}

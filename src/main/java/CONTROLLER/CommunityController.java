@@ -162,7 +162,28 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/write.jsp";
 
 		}
-		
+		//글 작성 버튼을 눌러 글 작성 요청을 했을때
+		else if(action.equals("/writePro.bo")) {
+			String nick = request.getParameter("w");
+			String title = request.getParameter("t");
+			String content = request.getParameter("c");
+			
+			vo = new CommunityVO();
+			vo.setC_nickname(nick);
+			vo.setC_title(title);
+			vo.setC_content(content);
+			int result = dao.insertBoard(vo);
+			// "1" 또는 "0"
+			String go = String.valueOf(result);
+			
+			//write.jsp로 ($.ajax()메소드 내부의 success:function(data)의 data매개변수로 전달)
+			if(go.equals("1")) {
+				out.print(go);
+			}else {
+				out.print(go);
+			}
+			return;
+		}
 		else if(action.equals("/replyPro.bo")) {
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");

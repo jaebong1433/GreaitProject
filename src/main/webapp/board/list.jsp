@@ -181,7 +181,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									</a>
 								</td>
 								<td align="left">
-<%-- 									<a href="mailto:<%=vo.getC_nickname()%>"> --%>
 										<%=vo.getC_content()%>
 									</a>
 								</td>
@@ -189,9 +188,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
-									<a href="mailto:<%=vo.getC_nickname()%>">
-										<%=vo.getC_nickname()%>
-									</a>
 								</td>
 							</tr>
 					
