@@ -415,7 +415,32 @@ public class MemberDAO {
 		}	
 		
 		return result;
-	}	
+	}
+	
+	public MemberVO getMemVO(String nickname) {
+		MemberVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member where m_nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO(	rs.getString("m_nickname"),
+									rs.getString("m_id"), 
+									rs.getString("m_pw"), 
+									rs.getString("m_name"),
+									rs.getString("m_email"));
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
 
 }
 
