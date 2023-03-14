@@ -68,12 +68,35 @@ public class MemberController extends HttpServlet {
 			
 			//메인화면 요청주소
 			if(action.equals("/main.me")) {
-				center = request.getParameter("center"); 
-				request.setAttribute("center", center);
-				nextPage = "/GreaIT.jsp";
+				
+				
+				nextPage = "/main.jsp";
 			
+				
+			}
+			//회원가입 실행 
+			else if(action.equals("/joinPro.me")) {
+				//요청한 값 얻기
+				String m_nickname = request.getParameter("m_nickname");
+				String m_id = request.getParameter("m_id");
+				String m_pw = request.getParameter("m_pw");
+				String m_name = request.getParameter("name");
+				String m_email = request.getParameter("m_email");
 			
-			//회원가입 닉네임 얻기
+				
+				MemberVO vo = new MemberVO(
+											m_nickname,
+											m_id,
+											m_pw,
+											m_name,
+											m_email);
+				
+				memberdao.insertMember(vo);
+
+				nextPage="/main.jsp";
+
+
+				//회원가입 닉네임 얻기
 			}else if (action.equals("/joinNicknameCheck.me")) {
 				//입력한 닉네임 얻기
 				String m_nickname = request.getParameter("m_nickname");
@@ -94,7 +117,6 @@ public class MemberController extends HttpServlet {
 			//입력한 아이디 얻기
 				String m_id = request.getParameter("m_id");
 			
-
 				//입력한 아이디가 DB에 저장되어 있는지 중복 체크 작업 
 				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
 				boolean result = memberdao.overlappedId(m_id);
@@ -117,7 +139,6 @@ public class MemberController extends HttpServlet {
 			//입력한 이메일 얻기
 				String m_email = request.getParameter("m_email");
 				
-
 				//입력한 이메일이 DB에 저장되어 있는지 중복 체크 작업 
 				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
 				boolean result = memberdao.overlappedEmail(m_email);
@@ -133,30 +154,6 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 			
-			}
-			
-			
-			//회원가입 실행 
-			else if(action.equals("/joinPro.me")) {
-				//요청한 값 얻기
-				String m_nickname = request.getParameter("m_nickname");
-				String m_id = request.getParameter("m_id");
-				String m_pw = request.getParameter("m_pw");
-				String m_name = request.getParameter("name");
-				String m_email = request.getParameter("m_email");
-			
-				
-				MemberVO vo = new MemberVO(
-											m_nickname,
-											m_id,
-											m_pw,
-											m_name,
-											m_email);
-				
-				memberdao.insertMember(vo);
-
-				nextPage="/GreaIT.jsp";
-
 				
 			}
 			//로그인 수행
@@ -170,7 +167,7 @@ public class MemberController extends HttpServlet {
 			
 				//전체 메인화면 주소 저장
 
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 				
 				
 			}
@@ -202,45 +199,42 @@ public class MemberController extends HttpServlet {
 				session.setAttribute("m_id", m_id);
 				
 				//메인화면 VIEW 주소
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 
 
 			}
-				
+			//로그아웃 수행	
 			else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 					//기존에 생성했던 session메모리 얻기
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 		
 				
 			}		
-			
+			//로그아웃 실행
 			else if (action.equals("/logout.me")) {//로그아웃
 					
 				HttpSession session = request.getSession();
 					
 				session.invalidate();
 							
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 				
 				
 			}
-			// 아이디 찾기 완료 비밀번호 찾기
+			// 아이디 찾기 
 			else if(action.equals("/findId.me")) {//아이디 찾기
-					
 					
 				request.setAttribute("center","findId.jsp");
 					
-					
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 				
 				
 			}
-				
+			//아이디 찾기 수행	
 			else if(action.equals("/findIdResult.me")) {//아이디 찾기
-					
 					
 				String m_name = request.getParameter("n_name");
 				String m_email = request.getParameter("m_email");
@@ -265,23 +259,21 @@ public class MemberController extends HttpServlet {
 //					return;				
 //				}
 					
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 					
 					
 			}
-		
+			//비밀번호 찾기수행
 			else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
-					
 					
 					request.setAttribute("center","findPw.jsp");
 					
-					nextPage = "/GreaIT.jsp";
+					nextPage = "/main.jsp";
 					
 					
 			}
-		
+			//비밀번호 찾기 실행
 			else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
-					
 					
 				String m_name = request.getParameter("m_name");
 				String m_id= request.getParameter("m_id");
@@ -306,7 +298,7 @@ public class MemberController extends HttpServlet {
 //					out.println("</script>");
 //					return;				
 //				}
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 				
 				
 			}
@@ -317,7 +309,7 @@ public class MemberController extends HttpServlet {
 				
 					
 				//메인화면 view 주소
-				nextPage = "/GreaIT.jsp";
+				nextPage = "/main.jsp";
 			}
 		
 			//회원정보 수정을 위해 회원정보 조회 요청!
@@ -385,7 +377,6 @@ public class MemberController extends HttpServlet {
 				//삭제할 예약아이디, 삭제를 위해 입력한 비밀번호 
 				String m_id = request.getParameter("m_id")  ;
 				String m_pw = request.getParameter("m_pw");
-				
 				
 				//응답할 값 마련 
 				//예약정보를 삭제(취소)하기 위해 CarDAO객체의 OrderDelete메소드 호출할떄...
