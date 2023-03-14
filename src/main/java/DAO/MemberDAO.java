@@ -45,7 +45,7 @@ public class MemberDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
 	
-	//닉네임 중복 체크 !
+		//닉네임 중복 체크 !
 		public boolean overlappedNickname(String m_nickname) {//입력한 닉네임를 매개변수 닉네임로 받는다
 			
 			boolean result = false;
@@ -54,9 +54,12 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				
+				//오라클의 decode()함수를 이용하여 서블릿에서 전달되는
+				//입력한 ID에 해당하는 데이터를 검색하여 true 또는 false를 반환하는데
+				//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
+				//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
 				String sql = "select decode(count(*),1,'true','false') ";
-					   sql	+= "as result from member";
+					   sql	+= "as result from m_member";
 					   sql  += " where m_nickname=?";
 				
 				pstmt = con.prepareStatement(sql);
@@ -76,7 +79,7 @@ public class MemberDAO {
 				
 			}catch(Exception e) {
 
-				System.out.println("overlappednickname 메소드 내부에서 오류");
+				System.out.println("overlappedNickname 메소드 내부에서 오류");
 				e.printStackTrace();
 			}finally {
 				closeResource();//자원해제
@@ -102,7 +105,7 @@ public class MemberDAO {
 			//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
 			//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
 			String sql = "select decode(count(*),1,'true','false') ";
-				   sql	+= "as result from member";
+				   sql	+= "as result from m_member";
 				   sql  += " where m_id=?";
 			
 			pstmt = con.prepareStatement(sql);
@@ -131,6 +134,49 @@ public class MemberDAO {
 		return result;//true 또는 false를  MemberController로 반환 
 	}
 	
+	//아이디 중복 체크 !
+		public boolean overlappedEmail(String m_email) {//입력한 아이디를 매개변수 id로 받는다
+			
+			boolean result = false;
+			
+			try {
+				
+				con = ds.getConnection();
+				
+				//오라클의 decode()함수를 이용하여 서블릿에서 전달되는
+				//입력한 ID에 해당하는 데이터를 검색하여 true 또는 false를 반환하는데
+				//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
+				//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
+				String sql = "select decode(count(*),1,'true','false') ";
+					   sql	+= "as result from m_member";
+					   sql  += " where m_email=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, m_email);
+				
+				rs = pstmt.executeQuery();
+				
+				rs.next();//조회된 제목줄에 커서(화살표)가 있다가 조회된 줄로 내려가 위치함
+				
+				String value = rs.getString("result");//"true"
+				
+				//문자열 "true" 또는 "false"를   Boolean자료형으로 형변환 하여 저장
+				result = Boolean.parseBoolean(value);//true 또는 false
+							
+				//true -> 아이디 중복
+				//false-> 아이디가 DB에 없으므로 중복 아님 
+				
+			}catch(Exception e) {
+
+				System.out.println("overlappedEmail 메소드 내부에서 오류");
+				e.printStackTrace();
+			}finally {
+				closeResource();//자원해제
+			}
+		
+			return result;//true 또는 false를  MemberController로 반환 
+		}
+	
 	//주소 업데이트 완료 
 	public void insertMember(MemberVO vo) {
 	
@@ -140,7 +186,7 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO MEMBER (m_nickname, m_id, m_pw, m_name, m_email, m_date) " 
+			String sql = "INSERT INTO M_MEMBER (m_nickname, m_id, m_pw, m_name, m_email, m_date) " 
 									+ "values(   ?,        ?,    ?,    ?,      ?,      sysdate) ";
                          
 			pstmt = con.prepareStatement(sql);
@@ -172,7 +218,7 @@ public class MemberDAO {
 			//DB접속
 			con = ds.getConnection();
 			//매개변수로 로그인 아이디 받는 입력한 아이디에 해당되는 행을 조회 SELECT문
-			String sql = "select * from member where m_id=?";
+			String sql = "select * from M_member where m_id=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
@@ -210,7 +256,7 @@ public class MemberDAO {
 			
 			con = ds.getConnection();
 			
-			String sql = "select m_id from member where m_name=? and m_email=?";
+			String sql = "select m_id from m_member where m_name=? and m_email=?";
 				pstmt = con.prepareStatement(sql);	
 				
 				pstmt.setString(1, m_name);
@@ -246,7 +292,7 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				String sql = "select m_pw  from member where m_name=? and m_id=? and m_email=?";
+				String sql = "select m_pw  from m_member where m_name=? and m_id=? and m_email=?";
 				
 					pstmt = con.prepareStatement(sql);	
 					
@@ -287,7 +333,7 @@ public class MemberDAO {
 				//DB접속 : 커넥션풀에 만들어져 있는 커넥션 얻기
 				con = ds.getConnection();
 				
-				String sql = "SELECT * FROM member WHERE m_id='"+ m_id+"'";
+				String sql = "SELECT * FROM m_member WHERE m_id='"+ m_id+"'";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -323,7 +369,7 @@ public class MemberDAO {
 				//요약 : DB접속
 				con = ds.getConnection();
 				
-				String sql = "UPDATE member set"
+				String sql = "UPDATE m_member set"
 						   + " m_pw=?,"
 						   + " m_name=?,"
 						   + " m_email=?,"
@@ -358,7 +404,7 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "delete from member where m_id=? and m_pw=?";
+			String sql = "delete from m_member where m_id=? and m_pw=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
