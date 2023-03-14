@@ -54,26 +54,81 @@
 <center>
 <body align="center">
 	<div class="logf">
-		<a href="<%=contextPath%>/index.jsp">
-			<img src="<%=contextPath%>/eq/img/mm2.png" width="200px">
-   		</a><br><br><br>
-   		<input class="loginp" type="text" value="아이디"><br>
-   		<input class="loginp" type="password" value="password"><br><br>
-   		<button>로그인</button><br>
-   		<a href="#"><strong>회원가입하기</strong></a><br><br>
-   		<a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a><br><br>
+   		<h1>Login</h1><br><br>
    		
-   		<br><br>
+   		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login">
+   		
+   		
+   		
+   		<input class="loginp" type="text" value="아이디"><br>
+   		
+   		
+   		
+   		<input class="loginp" type="password" value="password"><br><br>
+   		
+   		
+   		
+   		<button>로그인</button><br><br>
+   		
+   		
+   		</form>
+   		
+   		
+   		
+   		<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
+   		
+   		
+   		
+   		<a href="<%=contextPath%>/member1/findPw.me">비밀번호 찾기</a><br><br>
    		
    		<p>간편로그인</p>
-   		<a href="#"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
-		<a href="#"><img src="<%=contextPath%>/eq/img/naver_icon.png" width="50px" height="50px"></a>
-		<a href="#"><img src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a>
-		<a href="#"><img src="<%=contextPath%>/eq/img/insta_icon.png" width="50px" height="50px"></a>
+   		
+   		
+   		
+   		<a href="#"><img onclick="kakaologin();" src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
+		
+		
+		
+		<a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="50px" height="50px"></a>
+		
+		
+		
+		<a href="#"><img onclick="googlelogin();" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a>
+		
+		
+		
+		<a href="#"><img onclick="instagramlogin();" src="<%=contextPath%>/eq/img/insta_icon.png" width="50px" height="50px"></a>
+   		
    		
    		
 	</div>
-</center>	
+</center>
+
+
+<script type="text/javascript">
+	
+		function login() {
+			$("#login").submit();
+		}
+		
+		function kakaologin() {
+			$("#login").submit();
+		}
+	
+		function naverlogin() {
+			$("#login").submit();
+		}
+		
+		function googlelogin() {
+			$("#login").submit();
+		}	
+		
+		function instagramlogin() {
+			$("#login").submit();
+		}
+		
+	</script>
+	
 </body>
 </html>
 
