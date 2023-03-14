@@ -1,9 +1,13 @@
+<%@page import="VO.CrawlingVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
+	
+	
 %>    
-    
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,66 +125,38 @@
 				<td>	
 				<div id="best_bg">
 					<ul>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_1.png" alt="" width="230px" />
-								<span> <strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_2.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_3.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_4.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_5.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_6.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_7.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_8.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="<%=contextPath %>/eq/img/bestbook_list_9.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span> 
-							</a>
-						</li>
-						<li>
-							<a href="#"> 
-								<img src="<%=contextPath %>/eq/img/bestbook_list_10.png" alt="" width="230px" /> 
-								<span><strong>책 제목</strong><br>책 저자</span>
-							</a>
-						</li>
+						<%
+						
+						ArrayList list = (ArrayList)request.getAttribute("mainList");
+						
+						 CrawlingVO vo = null;
+						 String rating2 ; //영화 관람가
+					     String movie; // 영화 제목
+					     String imgSrc; // 포스터 이미지
+					     Double naverScore;
+						 for (int i = 0; i < 10; i++) {
+						
+							 vo= (CrawlingVO)list.get(i);
+							 rating2 = vo.getRating2();
+							 movie = vo.getMovie();
+							 imgSrc = vo.getImgSrc();
+							 naverScore = vo.getNaverScore();
+						%>	 
+							 <li>
+								<a href="#">
+									<img src="<%=imgSrc%>" alt="" width="230px" />
+									<span> 
+										<strong><%=movie %></strong><br>
+										<strong>영화 관람가:<%=rating2%></strong><br>
+										<strong>평점:<%=naverScore%></strong><br>
+									</span>
+								</a>
+							</li>
+						<%	 
+						 }
+						
+						%>
+						
 					</ul>
 					</td>
 					<td width="20px">
