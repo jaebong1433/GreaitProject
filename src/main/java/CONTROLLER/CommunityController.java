@@ -88,6 +88,8 @@ public class CommunityController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/com/list.bo
 		else if(action.equals("/list.bo")) {
+			
+			String loginNick = (String)session.getAttribute("nickname");
 			System.out.println(true);
 			list = dao.boardListAll();
 			count = dao.getTotalRecord();
@@ -99,12 +101,13 @@ public class CommunityController extends HttpServlet {
 			
 			request.setAttribute("list", list);
 			request.setAttribute("count", count);
+//			request.setAttribute("center","/board/list.jsp");
 			
 			//페이징 처리 를 위해 담는다.
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
-			
 			nextPage = "/board/list.jsp";
+//			nextPage = "/index.jsp";
 		}
 		
 		else if(action.equals("/read.bo")) {
@@ -123,16 +126,28 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		else if(action.equals("/like.bo")) {
-			int c_idx = Integer.parseInt(request.getParameter("c_idx"));
+			String c_idx = request.getParameter("c_idx");
 			
 			dao.addLike(c_idx);
-			vo = dao.getVO(c_idx);
+			vo = dao.getComVO(c_idx);
 			String like = String.valueOf(vo.getC_like());
 			System.out.println(like);
 			out.write(like);
 			
 			return;
     }
+		
+		else if(action.equals("/replyBoard.bo")) {
+			String nickname = (String)session.getAttribute("nickname");
+			MemberVO membervo = dao.getMemVO(nickname);
+			
+			String c_idx = request.getParameter("c_idx");
+			
+			request.setAttribute("membervo", membervo);
+			request.setAttribute("c_idx", c_idx);
+			
+			nextPage = "/board/reply.jsp";
+		}
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
 			String loginNick = (String)session.getAttribute("nickname");
@@ -144,8 +159,40 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", request.getParameter("nowPage"));
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
-			nextPage = "/CarMain.jsp";
+			nextPage = "/board/write.jsp";
 
+		}
+		//글 작성 버튼을 눌러 글 작성 요청을 했을때
+		else if(action.equals("/writePro.bo")) {
+			String nick = request.getParameter("w");
+			String title = request.getParameter("t");
+			String content = request.getParameter("c");
+			
+			vo = new CommunityVO();
+			vo.setC_nickname(nick);
+			vo.setC_title(title);
+			vo.setC_content(content);
+			int result = dao.insertBoard(vo);
+			// "1" 또는 "0"
+			String go = String.valueOf(result);
+			
+			//write.jsp로 ($.ajax()메소드 내부의 success:function(data)의 data매개변수로 전달)
+			if(go.equals("1")) {
+				out.print(go);
+			}else {
+				out.print(go);
+			}
+			return;
+		}
+		else if(action.equals("/replyPro.bo")) {
+			String title = request.getParameter("title");
+			String nickname = request.getParameter("writer");
+			String content = request.getParameter("content");
+			String super_c_idx = request.getParameter("c_idx");
+			
+			
+			dao.replyInsertBoard(super_c_idx, title, nickname, content);
+			return;
 		}
 		
 		//포워딩 (디스패처 방식)

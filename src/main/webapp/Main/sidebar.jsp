@@ -52,6 +52,9 @@
 			margin-top: 30px;
 		}
 		
+		.sidelogo{
+			margin-left: 15px;
+		}
 		
 		
 		
@@ -61,11 +64,11 @@
 <body>
 <div class="mobject">
 	<div class="flex-shrink-0 p-3" style="width: 215px;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-      <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-      <span class="fs-5 fw-semibold"> MoodMovie</span>
+    <div class="sidelogo">
+    <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <img src="<%=contextPath%>/eq/img/mm2.png" width="100%">
     </a>
-   
+   	</div>
     <ul class="list-unstyled ps-0">
     	<div class="logf">
     		<a href="<%=contextPath%>/Member/login.jsp"><button>로그인</button></a>
@@ -97,7 +100,8 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+        		data-bs-target="#orders-collapse" aria-expanded="false" onclick="communityMove();">
           커뮤니티
         </button>
       </li>
@@ -119,6 +123,12 @@
     	}
     </script>
 	
-
+	<script>
+		function communityMove(){
+			
+			location.href="<%=contextPath%>/com/list.bo";
+		}
+		
+	</script>
 </body>
 </html>

@@ -179,7 +179,7 @@ public class CommunityDAO {
 		
 	
 	
-	public void addLike(int c_idx) {
+	public void addLike(String c_idx) {
 		String sql = null;
 		
 		try {
@@ -193,7 +193,7 @@ public class CommunityDAO {
 			con = ds.getConnection();
 			sql = "update community set c_like = c_like + 1 where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, c_idx);
+			pstmt.setString(1, c_idx);
 			rs = pstmt.executeQuery();
 			
 		} catch(Exception e) {
@@ -203,14 +203,39 @@ public class CommunityDAO {
 			closeResource();
 		}
 	}
+	public MemberVO getMemVO(String nickname) {
+		MemberVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member where m_nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO(	rs.getString("m_nickname"),
+									rs.getString("m_id"), 
+									rs.getString("m_pw"), 
+									rs.getString("m_name"),
+									rs.getString("m_email"));
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
 	
-	public CommunityVO getVO(int c_idx) {
+	
+	public CommunityVO getComVO(String c_idx) {
 		CommunityVO vo = null;
 		try {
 			con = ds.getConnection();
 			String sql = "select * from community where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, c_idx);
+			pstmt.setString(1, c_idx);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -235,23 +260,72 @@ public class CommunityDAO {
 		return vo;	
 	}
 	
+	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content) {
+		String sql = null;
+		try {
+			con = ds.getConnection();
+			sql = "SELECT c_group, c_level from community where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, super_c_idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			String c_group = rs.getString("c_group");
+			String c_level = rs.getString("c_level");
+			
+			sql = "";
+			
+		} catch(Exception e) {
+			System.out.println("replyInsertBoard");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+	}
+	
+	//새글 작성 메소드
+	public int insertBoard(CommunityVO vo) {
+		int result = 0;
+		String sql = null;
+		try {
+			//DB접속
+			con = ds.getConnection();
+			
+			//두번째 부터 입력되는 주글 들의 pos를 1증가 시킨다.
+			sql = "update community set c_group = c_group +1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			//insert SQL문 만들기 //b_group , b_level 0 0 으로 insert 규칙3
+			sql = "insert into community (b_idx, b_id, b_pw, b_name, "
+							+ "b_email, b_title, b_content, b_group, "
+							+ "b_level, b_date, b_cnt) "
+							+ " values (border_b_idx.nextVal, ?,?,?,?,?,?,0,0,sysdate,0)";
+			
+			sql = "insert into community (c_idx, c_title, c_nickname, c_content, "
+					+ "c_date, c_views, c_like, c_group, c_level) "
+					+ " values (community_idx.nextVal, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getC_title());
+			pstmt.setString(2, vo.getC_nickname());
+			pstmt.setString(3, vo.getC_content());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("insertBoard 메소드 내부에서 오류 !");
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+		
+		return result;
+	}
+	
+	
 }
 
 
 
-
-
-//DELETE문은?  테이블에 저장된 데이터들을 삭제하는 구문이다
-//테이블 자체를 삭제하려면? DROP문을 사용 해야 한다.
-
-//문법1 -> DELETE FROM 삭제할테이블명  WHERE 조건열명=조건값;
-//설명1 -> 조건열에 해당하는 조건값이 참인  행을 삭제 합니다.
-
-//문법2 -> DELETE FROM 삭제할테이블명;
-//설명2 -> 테이블에 저장된 모든 행을 삭제 합니다.
-
-//문법3 -> DROP TABLE 삭제할테이블명;    
-//설명3 -> 테이블 삭제 시킴!!   테이블에 저장된 모든 데이터 다~~ 삭제됨.
 
 
 
