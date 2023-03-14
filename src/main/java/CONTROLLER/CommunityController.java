@@ -228,9 +228,9 @@ public class CommunityController extends HttpServlet {
 			String word = request.getParameter("word");//검색어
 			
 			//(글조회)
-			list = dao.boardList(key,word);
+			list = comDAO.boardList(key,word);
 			//(글 개수 조회)
-			count = dao.getTotalRecord(key,word);
+			count = comDAO.getTotalRecord(key,word);
 			
 //			request.setAttribute("center", "board/list.jsp");
 			request.setAttribute("list", list);
