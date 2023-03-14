@@ -305,30 +305,6 @@ public class CommunityDAO {
 			closeResource();
 		}
 	}
-	public MemberVO getMemVO(String nickname) {
-		MemberVO vo = null;
-		try {
-			con = ds.getConnection();
-			String sql = "select * from m_member where m_nickname = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, nickname);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				vo = new MemberVO(	rs.getString("m_nickname"),
-									rs.getString("m_id"), 
-									rs.getString("m_pw"), 
-									rs.getString("m_name"),
-									rs.getString("m_email"));
-			}
-		} catch(Exception e) {
-			System.out.println("getMemVO");
-			e.printStackTrace();
-		} finally {
-			closeResource();
-		}
-		return vo;	
-	}
 	
 	
 	public CommunityVO getComVO(String c_idx) {
@@ -374,7 +350,27 @@ public class CommunityDAO {
 			String c_group = rs.getString("c_group");
 			String c_level = rs.getString("c_level");
 			
-			sql = "";
+			sql = "update community set c_group = c_group + 1 where c_group > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_group);
+			pstmt.executeUpdate();
+			
+			sql = "insert into community values (COMMUNITY_IDX.nextval,"
+												+ "?,"
+												+ "?,"
+												+ "?,"
+												+ "sysdate,"
+												+ "0,"
+												+ "0,"
+												+ "?,"
+												+ "?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, nickname);
+			pstmt.setString(3, content);
+			pstmt.setInt(4, Integer.parseInt(c_group)+1);
+			pstmt.setInt(5, Integer.parseInt(c_level)+1);
+			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
 			System.out.println("replyInsertBoard");
@@ -422,6 +418,112 @@ public class CommunityDAO {
 		
 		return result;
 	}
+	
+	public ArrayList boardList(String key, String word) {
+		ArrayList list = new ArrayList();
+		String sql = null;
+		
+		if(!word.equals("")) {//검색어를 입력했다면?
+			
+			if(key.equals("titleContent")) {//검색기준값  제목+내용을 선택했다면? 
+			
+				sql = "select * from community "
+					+ " where c_title like '%"+ word + "%' or"
+						  + " c_content like '%"+ word+"%' order by c_group asc";
+			
+			}else {//"name" 검색기준값 작성자를 선택했다면?
+			
+				sql = "select * from community "
+					+ " where c_nickname like '%"+ word + "%' order by c_group asc";				
+			}
+			
+		}else {//검색어를 입력하지 않았다면?
+			//모든 글 조회   
+			//조건-> b_dix열의 글번호 데이터들을 기준으로 해서 내림 차순으로 정렬 후 조회 !
+			sql = "select * from community order by c_group asc";
+			
+			//참고. 정렬 조회 -> order by 정렬기준열명  desc또는asc
+			// desc 내림 차순 정렬 
+			// asc 오름 차순 정렬
+			
+		}
+			
+		try {
+				con = ds.getConnection();
+							
+				pstmt = con.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				
+				//조회된 Result의 정보를 한행 단위로 꺼내서
+				//BoardVo객체에 한행씩 저장 후
+				//BoardVo객체들을? ArrayList배열에 하나씩 추가해서 저장
+				while(rs.next()) {
+					
+					CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+													rs.getString("c_title"),
+													rs.getString("c_nickname"), 
+													rs.getString("c_content"), 
+													rs.getDate("c_date"),
+													rs.getInt("c_views"),
+													rs.getInt("c_like"),
+													rs.getInt("c_group"),
+													rs.getInt("c_level"));
+					list.add(vo); 
+				}					
+		}catch(Exception e) {
+			
+			System.out.println("boardList메소드 내부에서 SQL오류");
+			e.printStackTrace();	
+			
+		}finally {
+			closeResource();
+		}
+		return list;
+	}
+
+	public int getTotalRecord(String key, String word) {
+		//조회된 글의 글수 저장
+		int total = 0;
+		
+		String sql = null;
+		
+		if(!word.equals("")) {//검색어를 입력했다면?
+			
+			if(key.equals("titleContent")) {//검색기준값  제목+내용을 선택했다면? 
+			
+				sql = "select count(*) as cnt from community "
+					+ " where c_title like '%"+ word + "%' or"
+						  + " c_content like '%"+ word+"%'";
+				
+				
+			}else {//"name" 검색기준값 작성자를 선택했다면?
+			
+				sql = "select count(*) as cnt from community "
+					+ " where c_nickname like '%"+ word + "%'";				
+			}
+			
+		}else {//검색어 입력 안했다면?
+			
+			sql = "select count(*) as cnt from community";
+		}
+			
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			total = rs.getInt("cnt");
+			 
+		}catch (Exception e) {
+			System.out.println("getTotalRecord메소드에서 오류");
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+	
+		return total;
+	}	
 	
 	
 }

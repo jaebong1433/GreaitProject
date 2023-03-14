@@ -88,9 +88,6 @@ public class MemberDAO {
 			return result;//true 또는 false를  MemberController로 반환 
 		}
 		
-	
-	
-	
 	//아이디 중복 체크 !
 	public boolean overlappedId(String m_id) {//입력한 아이디를 매개변수 id로 받는다
 		
@@ -134,7 +131,7 @@ public class MemberDAO {
 		return result;//true 또는 false를  MemberController로 반환 
 	}
 	
-	//아이디 중복 체크 !
+		//이메일 중복 체크 !
 		public boolean overlappedEmail(String m_email) {//입력한 아이디를 매개변수 id로 받는다
 			
 			boolean result = false;
@@ -187,7 +184,7 @@ public class MemberDAO {
 			
 			//insert문장 완성하기
 			String sql = "INSERT INTO M_MEMBER (m_nickname, m_id, m_pw, m_name, m_email, m_date) " 
-									+ "values(   ?,        ?,    ?,    ?,      ?,      sysdate) ";
+									+ "values(   ?,          ?,    ?,    ?,      ?,      sysdate) ";
                          
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getM_nickname());
@@ -321,9 +318,6 @@ public class MemberDAO {
 		}
 		
 		
-	
-		
-		
 	//회원 이메일을 이용해 회원 정보 조회
 	public MemberVO findMember(String m_id) {
 		
@@ -373,7 +367,7 @@ public class MemberDAO {
 						   + " m_pw=?,"
 						   + " m_name=?,"
 						   + " m_email=?,"
-						   + " WHERE id=? ";
+						   + " WHERE m_id=? ";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, request.getParameter("m_pw"));
@@ -396,7 +390,7 @@ public class MemberDAO {
 			return result;
 		}
 	
-	//회원정보삭제시키는 메소드 3.2 재봉
+	//회원정보삭제시키는 메소드
 	public int MemberDelete(String m_id, String m_pw) {
 		
 		int result = 0;
@@ -421,7 +415,32 @@ public class MemberDAO {
 		}	
 		
 		return result;
-	}	
+	}
+	
+	public MemberVO getMemVO(String nickname) {
+		MemberVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member where m_nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO(	rs.getString("m_nickname"),
+									rs.getString("m_id"), 
+									rs.getString("m_pw"), 
+									rs.getString("m_name"),
+									rs.getString("m_email"));
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
 
 }
 

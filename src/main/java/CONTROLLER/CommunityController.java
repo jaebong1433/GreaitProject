@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.CommunityDAO;
+import DAO.MemberDAO;
 import VO.CommunityVO;
 import VO.MemberVO;
 
@@ -34,11 +35,13 @@ import VO.MemberVO;
 public class CommunityController extends HttpServlet {
 
 	//CommunityDAO객체를 저장할 참조변수 선언
-	CommunityDAO dao;
+	CommunityDAO comDAO;
+	MemberDAO memberDAO;
 	
 	@Override
 	public void init() throws ServletException {
-		dao = new CommunityDAO();
+		comDAO = new CommunityDAO();
+		memberDAO = new MemberDAO();
 	}
 		
 	@Override
@@ -87,19 +90,20 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		//http://localhost:8090/greaitProject/com/list.bo
+		//커뮤니티 버튼을 누르면 게시판으로 이동
 		else if(action.equals("/list.bo")) {
 			
-			String loginNick = (String)session.getAttribute("nickname");
+			String loginNick = (String)session.getAttribute("nickname"); //세션에 저장된 nickname을 가져옴
 			System.out.println(true);
-			list = dao.boardListAll();
-			count = dao.getTotalRecord();
+			list = comDAO.boardListAll();//모든 CommunityVO를 List에 저장
+			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
 			
 			String nowPage = request.getParameter("nowPage");
 			String nowBlock = request.getParameter("nowBlock");
 			System.out.println(nowPage + "페이지번호");
 			System.out.println(nowBlock + "블럭위치번호");	
 			
-			request.setAttribute("list", list);
+			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
 			request.setAttribute("count", count);
 //			request.setAttribute("center","/board/list.jsp");
 			
@@ -110,12 +114,13 @@ public class CommunityController extends HttpServlet {
 //			nextPage = "/index.jsp";
 		}
 		
+		//게시글을 클릭하였을 때 게시글 읽기
 		else if(action.equals("/read.bo")) {
-			String c_idx = request.getParameter("c_idx");
+			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
 			
-			vo = dao.boardRead(c_idx);
+			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
@@ -125,21 +130,23 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/detail.jsp";
 		}
 		
+		//좋아요 버튼 눌렀을 때
 		else if(action.equals("/like.bo")) {
-			String c_idx = request.getParameter("c_idx");
+			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			
-			dao.addLike(c_idx);
-			vo = dao.getComVO(c_idx);
-			String like = String.valueOf(vo.getC_like());
-			System.out.println(like);
-			out.write(like);
+			comDAO.addLike(c_idx); //게시글 DB의 c_like에 1을 추가하는 메서드
+			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
+			System.out.println(like); 
+			out.write(like);//ajax가 success하였으므로 data로 전송
 			
 			return;
-    }
+		}
 		
+		//답글 버튼을 눌렀을 때
 		else if(action.equals("/replyBoard.bo")) {
-			String nickname = (String)session.getAttribute("nickname");
-			MemberVO membervo = dao.getMemVO(nickname);
+			String nickname = (String)session.getAttribute("nickname"); //답글 달 때 자동으로 닉네임을 넣기 위해 session에서 nickname을 받아온다.
+			MemberVO membervo = memberDAO.getMemVO(nickname); //nickname으로 DB에 저장된 값을 얻어 membervo에 저장함
 			
 			String c_idx = request.getParameter("c_idx");
 			
@@ -152,7 +159,7 @@ public class CommunityController extends HttpServlet {
 		else if(action.equals("/write.bo")) {
 			String loginNick = (String)session.getAttribute("nickname");
 			
-			MemberVO membervo = dao.oneMember(loginNick);
+			MemberVO membervo = memberDAO.getMemVO(loginNick);
 			request.setAttribute("center", "board/write.jsp");
 			request.setAttribute("membervo", membervo);
 			
@@ -172,7 +179,7 @@ public class CommunityController extends HttpServlet {
 			vo.setC_nickname(nick);
 			vo.setC_title(title);
 			vo.setC_content(content);
-			int result = dao.insertBoard(vo);
+			int result = comDAO.insertBoard(vo);
 			// "1" 또는 "0"
 			String go = String.valueOf(result);
 			
@@ -184,15 +191,35 @@ public class CommunityController extends HttpServlet {
 			}
 			return;
 		}
+		//답글 달기 버튼을 눌렀을 때
 		else if(action.equals("/replyPro.bo")) {
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
 			String content = request.getParameter("content");
-			String super_c_idx = request.getParameter("c_idx");
+			String super_c_idx = request.getParameter("c_idx"); //답글화면에서 입력한 title, writer, content를 받아오고, super_c_idx도 받음
 			
 			
-			dao.replyInsertBoard(super_c_idx, title, nickname, content);
-			return;
+			comDAO.replyInsertBoard(super_c_idx, title, nickname, content); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
+			System.out.println(true);
+			
+			nextPage="/com/list.bo";
+		}
+		
+		else if(action.equals("/searchlist.bo")) {
+			String key = request.getParameter("key");//제목 + 내용 or 작성자
+			String word = request.getParameter("word");
+			
+			list = comDAO.boardList(key, word);
+			
+			count = comDAO.getTotalRecord(key, word);
+			
+			System.out.println(key);
+			System.out.println(word);
+			
+			request.setAttribute("list", list);
+			request.setAttribute("count", count);
+			
+			nextPage = "/board/list.jsp";
 		}
 		
 		else if (action.equals("/searchlist.bo")) {
