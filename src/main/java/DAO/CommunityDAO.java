@@ -384,6 +384,45 @@ public class CommunityDAO {
 		}
 	}
 	
+	//새글 작성 메소드
+	public int insertBoard(CommunityVO vo) {
+		int result = 0;
+		String sql = null;
+		try {
+			//DB접속
+			con = ds.getConnection();
+			
+			//두번째 부터 입력되는 주글 들의 pos를 1증가 시킨다.
+			sql = "update community set c_group = c_group +1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			//insert SQL문 만들기 //b_group , b_level 0 0 으로 insert 규칙3
+			sql = "insert into community (b_idx, b_id, b_pw, b_name, "
+							+ "b_email, b_title, b_content, b_group, "
+							+ "b_level, b_date, b_cnt) "
+							+ " values (border_b_idx.nextVal, ?,?,?,?,?,?,0,0,sysdate,0)";
+			
+			sql = "insert into community (c_idx, c_title, c_nickname, c_content, "
+					+ "c_date, c_views, c_like, c_group, c_level) "
+					+ " values (community_idx.nextVal, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getC_title());
+			pstmt.setString(2, vo.getC_nickname());
+			pstmt.setString(3, vo.getC_content());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("insertBoard 메소드 내부에서 오류 !");
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+		
+		return result;
+	}
+	
 	
 }
 
