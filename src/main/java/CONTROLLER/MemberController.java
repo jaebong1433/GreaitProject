@@ -20,97 +20,122 @@ import VO.MemberVO;
 public class MemberController extends HttpServlet {
 	//멤버 서비스 추가
 	
-	MemberDAO memberdao;
+		MemberDAO memberdao;
 	
-	@Override
-	public void init() throws ServletException {
-		memberdao = new MemberDAO();
-		//멤버 서비스 
+		@Override
+		public void init() throws ServletException {
+			memberdao = new MemberDAO();
+			//멤버 서비스 
 		
-	}
+		}
 	
-	@Override
-	protected void doGet(HttpServletRequest request, 
-						 HttpServletResponse response) 
-						 throws ServletException, IOException {
+		@Override
+		protected void doGet(HttpServletRequest request, 
+							 HttpServletResponse response) 
+							 throws ServletException, IOException {
 		
-		doHandle(request, response);
-	}
-	@Override
-	protected void doPost(HttpServletRequest request, 
-						 HttpServletResponse response) 
-						 throws ServletException, IOException {
-		doHandle(request, response);
-	}
+			doHandle(request, response);
+		}
+		
+		@Override
+		protected void doPost(HttpServletRequest request, 
+							  HttpServletResponse response) 
+							  throws ServletException, IOException {
+			doHandle(request, response);
+		}
 	
-	protected void doHandle(HttpServletRequest request, 
-			HttpServletResponse response) 
-			 throws ServletException, IOException {
+		protected void doHandle(HttpServletRequest request, 
+								HttpServletResponse response) 
+								throws ServletException, IOException {
 		
-		//한글처리
-		request.setCharacterEncoding("UTF-8");
+			//한글처리
+			request.setCharacterEncoding("UTF-8");
 		
-		//웹브라우저로 응답할 데이터 종류 설정
-		response.setContentType("text/html; charset=utf-8");
+			//웹브라우저로 응답할 데이터 종류 설정
+			response.setContentType("text/html; charset=utf-8");
 		
-		//웹브라우저와 연결된 출력 스트림 통로 만들기
-		PrintWriter out = response.getWriter();
+			//웹브라우저와 연결된 출력 스트림 통로 만들기
+			PrintWriter out = response.getWriter();
 		
-		//서블릿으로 요청한 주소를 request에서 얻기
-		String action = request.getPathInfo();
-		System.out.println("요청한 주소 : " + action);
+			//서블릿으로 요청한 주소를 request에서 얻기
+			String action = request.getPathInfo();
+			System.out.println("요청한 주소 : " + action);
 		
-		//조건에 따라서  포워딩 또는 보여줄 VIEW주소 경로를 저장할 변수 
-		String nextPage = null;
-		// 요청한 중앙화면  뷰 주소를 저장할 변수 
-		String center = null;
-		
-		//메인화면 요청주소
-		if(action.equals("/main.me")) {
-			center = request.getParameter("center"); 
-			request.setAttribute("center", center);
-			nextPage = "/main.jsp";
+			//조건에 따라서  포워딩 또는 보여줄 VIEW주소 경로를 저장할 변수 
+			String nextPage = null;
+			// 요청한 중앙화면  뷰 주소를 저장할 변수 
+			String center = null;
+			
+			//메인화면 요청주소
+			if(action.equals("/main.me")) {
+				center = request.getParameter("center"); 
+				request.setAttribute("center", center);
+				nextPage = "/GreaIT.jsp";
 			
 			
 			//회원가입 닉네임 얻기
-		}else if (action.equals("/joinnicknameCheck.me")) {
-			//입력한 닉네임 얻기
-			String m_nickname = request.getParameter("nickname");
-			
-			boolean result = memberdao.overlappedNickname(m_nickname);
-			
-			if(result == true) {
-				out.write("not_usable");
-				return;
-			}else {
-				out.write("usable");
-				return;
-			}
+			}else if (action.equals("/joinNicknameCheck.me")) {
+				//입력한 닉네임 얻기
+				String m_nickname = request.getParameter("m_nickname");
 				
-		}
-		//회원가입 아이디 얻기
-		else if(action.equals("/joinIdCheck.me")) {
+				boolean result = memberdao.overlappedNickname(m_nickname);
+			
+				if(result == true) {
+					out.write("not_usable");
+					return;
+				}else {
+					out.write("usable");
+					return;
+				}
+				
+			}
+			//회원가입 아이디 얻기
+			else if(action.equals("/joinIdCheck.me")) {
 			//입력한 아이디 얻기
-			String m_id = request.getParameter("m_id");
+				String m_id = request.getParameter("m_id");
 			
 
-			//입력한 아이디가 DB에 저장되어 있는지 중복 체크 작업 
-			//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
-			boolean result = memberdao.overlappedId(m_id);
+				//입력한 아이디가 DB에 저장되어 있는지 중복 체크 작업 
+				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
+				boolean result = memberdao.overlappedId(m_id);
 			
-			//아이디 중복결과를 다시 한번 확인 하여 조건값을 
-			//join.jsp파일과 연결된 join.js파일에 작성해 놓은
-			//success:function의 data매개변수로 웹브라우저를 거쳐 보냅니다!
-			if(result == true) {
-				out.write("not_usable");
-				return;
-			}else {
-				out.write("usable");
-				return;
+				//아이디 중복결과를 다시 한번 확인 하여 조건값을 
+				//join.jsp파일과 연결된 join.js파일에 작성해 놓은
+				//success:function의 data매개변수로 웹브라우저를 거쳐 보냅니다!
+				if(result == true) {
+					out.write("not_usable");
+					return;
+				}else {
+					out.write("usable");
+					return;
+				}
+			
+			}	
+				
+			//회원가입 이메일 얻기
+			else if(action.equals("/joinEmailCheck.me")) {
+			//입력한 이메일 얻기
+				String m_email = request.getParameter("m_email");
+				
+
+				//입력한 이메일이 DB에 저장되어 있는지 중복 체크 작업 
+				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
+				boolean result = memberdao.overlappedEmail(m_email);
+				
+				//이메일 중복결과를 다시 한번 확인 하여 조건값을 
+				//join.jsp파일과 연결된 join.js파일에 작성해 놓은
+				//success:function의 data매개변수로 웹브라우저를 거쳐 보냅니다!
+				if(result == true) {
+					out.write("not_usable");
+					return;
+				}else {
+					out.write("usable");
+					return;
+				}
+			
 			}
 			
 			
-			}
 			//회원가입 실행 
 			else if(action.equals("/joinPro.me")) {
 				//요청한 값 얻기
@@ -130,7 +155,7 @@ public class MemberController extends HttpServlet {
 				
 				memberdao.insertMember(vo);
 
-				nextPage="/main.jsp";
+				nextPage="/GreaIT.jsp";
 
 				
 			}
@@ -145,11 +170,11 @@ public class MemberController extends HttpServlet {
 			
 				//전체 메인화면 주소 저장
 
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 				
 				
 			}
-			//로그인 유효성 
+			//로그인 유효성검
 			else if(action.equals("/loginPro.me")) {//로그인 수행
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
@@ -177,7 +202,7 @@ public class MemberController extends HttpServlet {
 				session.setAttribute("m_id", m_id);
 				
 				//메인화면 VIEW 주소
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 
 
 			}
@@ -187,7 +212,7 @@ public class MemberController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 		
 				
 			}		
@@ -198,7 +223,7 @@ public class MemberController extends HttpServlet {
 					
 				session.invalidate();
 							
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 				
 				
 			}
@@ -209,7 +234,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("center","findId.jsp");
 					
 					
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 				
 				
 			}
@@ -240,7 +265,7 @@ public class MemberController extends HttpServlet {
 //					return;				
 //				}
 					
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 					
 					
 			}
@@ -250,7 +275,7 @@ public class MemberController extends HttpServlet {
 					
 					request.setAttribute("center","findPw.jsp");
 					
-					nextPage = "/main.jsp";
+					nextPage = "/GreaIT.jsp";
 					
 					
 			}
@@ -281,7 +306,7 @@ public class MemberController extends HttpServlet {
 //					out.println("</script>");
 //					return;				
 //				}
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 				
 				
 			}
@@ -292,7 +317,7 @@ public class MemberController extends HttpServlet {
 				
 					
 				//메인화면 view 주소
-				nextPage = "/main.jsp";
+				nextPage = "/GreaIT.jsp";
 			}
 		
 			//회원정보 수정을 위해 회원정보 조회 요청!
