@@ -10,8 +10,13 @@
 			margin : auto;
 			width : 80%;
 			font-size: 1em;
+			
 		}
 		
+		a{
+			text-decoration: none;
+			color: gray;
+		}
 		
 	</style>
 
