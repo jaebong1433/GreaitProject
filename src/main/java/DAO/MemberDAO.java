@@ -46,7 +46,7 @@ public class MemberDAO {
 	}	
 	
 		//닉네임 중복 체크 !
-		public boolean overlappedNickname(String m_nickname) {//입력한 닉네임를 매개변수 닉네임로 받는다
+		public boolean overlappedNickname(String m_nickname) {
 			
 			boolean result = false;
 			
@@ -54,10 +54,7 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				//오라클의 decode()함수를 이용하여 서블릿에서 전달되는
-				//입력한 ID에 해당하는 데이터를 검색하여 true 또는 false를 반환하는데
-				//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
-				//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
+				
 				String sql = "select decode(count(*),1,'true','false') ";
 					   sql	+= "as result from m_member";
 					   sql  += " where m_nickname=?";
@@ -89,7 +86,7 @@ public class MemberDAO {
 		}
 		
 	//아이디 중복 체크 !
-	public boolean overlappedId(String m_id) {//입력한 아이디를 매개변수 id로 받는다
+	public boolean overlappedId(String m_id) {
 		
 		boolean result = false;
 		
@@ -97,10 +94,7 @@ public class MemberDAO {
 			
 			con = ds.getConnection();
 			
-			//오라클의 decode()함수를 이용하여 서블릿에서 전달되는
-			//입력한 ID에 해당하는 데이터를 검색하여 true 또는 false를 반환하는데
-			//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
-			//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
+			
 			String sql = "select decode(count(*),1,'true','false') ";
 				   sql	+= "as result from m_member";
 				   sql  += " where m_id=?";
@@ -132,7 +126,7 @@ public class MemberDAO {
 	}
 	
 		//이메일 중복 체크 !
-		public boolean overlappedEmail(String m_email) {//입력한 아이디를 매개변수 id로 받는다
+		public boolean overlappedEmail(String m_email) {
 			
 			boolean result = false;
 			
@@ -140,10 +134,7 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				//오라클의 decode()함수를 이용하여 서블릿에서 전달되는
-				//입력한 ID에 해당하는 데이터를 검색하여 true 또는 false를 반환하는데
-				//검색한 갯수가 1(검색한 레코드가 존재하면)이면 'true'를 반환,
-				//존재하지 않으면 'false'를 문자열로 반환하여 조회합니다.
+				
 				String sql = "select decode(count(*),1,'true','false') ";
 					   sql	+= "as result from m_member";
 					   sql  += " where m_email=?";
@@ -160,8 +151,7 @@ public class MemberDAO {
 				//문자열 "true" 또는 "false"를   Boolean자료형으로 형변환 하여 저장
 				result = Boolean.parseBoolean(value);//true 또는 false
 							
-				//true -> 아이디 중복
-				//false-> 아이디가 DB에 없으므로 중복 아님 
+				
 				
 			}catch(Exception e) {
 
@@ -207,6 +197,9 @@ public class MemberDAO {
 		
 	}
 	
+	
+	
+	
 	//입력한 아이디와 비밀번호를 매개변수로 받아  DB의 테이블에 저장되어 있는지 확인하는 메소드
 	public int loginCheck(String m_id, String m_pw) {
 		int check = -1;
@@ -215,13 +208,12 @@ public class MemberDAO {
 			//DB접속
 			con = ds.getConnection();
 			//매개변수로 로그인 아이디 받는 입력한 아이디에 해당되는 행을 조회 SELECT문
-			String sql = "select * from M_member where m_id=?";
+			String sql = "select * from m_member where m_id=?";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_id);
 			
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
 				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
 				if(m_pw.equals(rs.getString("m_pw")) ) {
@@ -230,9 +222,10 @@ public class MemberDAO {
 				}else { //아이디는 맞고 비번 틀림
 					check = 0;
 				}
-			}else {//아이디가 틀림
-			check = -1;
-			}
+				
+				}else {//아이디가 틀림
+					check = -1;
+				}
 		} catch (Exception e) {
 				System.out.println("loginCheck 메소드 내부에서 SQL문 실행 오류");
 				e.printStackTrace();	
@@ -440,6 +433,29 @@ public class MemberDAO {
 			closeResource();
 		}
 		return vo;	
+	}
+	
+	//아이디를 이용해 멤버의 닉네임을 얻어 오는 메소드
+	public String oneIdSelcet(String m_id) {
+		String userNick = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select m_nickname from m_member where m_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				userNick = rs.getString("m_nickname");
+			}
+		} catch(Exception e) {
+			System.out.println("oneIdSelcet 메소드 내부에서 오류!");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return userNick;
 	}
 
 }
