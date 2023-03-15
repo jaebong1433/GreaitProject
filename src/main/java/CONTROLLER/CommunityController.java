@@ -204,33 +204,19 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage="/com/list.bo";
 		}
-		
-		else if(action.equals("/searchlist.bo")) {
-			String key = request.getParameter("key");//제목 + 내용 or 작성자
-			String word = request.getParameter("word");
-			
-			list = comDAO.boardList(key, word);
-			
-			count = comDAO.getTotalRecord(key, word);
-			
-			System.out.println(key);
-			System.out.println(word);
-			
-			request.setAttribute("list", list);
-			request.setAttribute("count", count);
-			
-			nextPage = "/board/list.jsp";
-		}
-		
+		//검색 기능을 사용했을때 //한성준 03-14
 		else if (action.equals("/searchlist.bo")) {
 			
-			String key = request.getParameter("key");//검색기준값
+			String key = request.getParameter("key");//제목 + 내용 or 작성자
 			String word = request.getParameter("word");//검색어
 			
 			//(글조회)
 			list = comDAO.boardList(key,word);
 			//(글 개수 조회)
 			count = comDAO.getTotalRecord(key,word);
+			
+			System.out.println(key);
+			System.out.println(word);
 			
 //			request.setAttribute("center", "board/list.jsp");
 			request.setAttribute("list", list);
