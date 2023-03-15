@@ -64,7 +64,6 @@
 			});
 		  //-----------------------------------------------------------
 	});
-
 </script>
 	<style type="text/css">
 		.centertb1{
@@ -202,30 +201,32 @@
 			<hr>
 			<table class="centertb2">
 				<tr>
-					<td>
-					<a href="#">
-						<img src="<%=contextPath %>/eq/img/123.jpg" width="200px"><br>
-						<span><strong>타이타닉</strong></span>
-					</a>	
-					</td>
-					<td>
-					<a href="#">
-						<img src="<%=contextPath %>/eq/img/123.jpg" width="200px"><br>
-						<span><strong>타이타닉</strong></span>
-					</a>	
-					</td>
-					<td>
-					<a href="#">
-						<img src="<%=contextPath %>/eq/img/123.jpg" width="200px"><br>
-						<span><strong>타이타닉</strong></span>
-					</a>	
-					</td>
-					<td>
-					<a href="#">
-						<img src="<%=contextPath %>/eq/img/123.jpg" width="200px"><br>
-						<span><strong>타이타닉</strong></span>
-					</a>	
-					</td>
+<%
+						
+						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
+						
+						CrawlingVO vo2 = null;
+						 String clipTitle; //예고편 제목
+					     String clipImg; // 포스터 이미지
+					     
+					     for (int i = 0; i < 4; i++) {
+								
+							 vo2 = (CrawlingVO)list2.get(i);
+							 clipTitle = vo2.getClipTitle();
+							 clipImg = vo2.getClipImg();
+						%>	 				
+			
+							<td>
+								<a href="#">
+									<img src="<%=clipImg%>" width="200px" height="200px"><br>
+									<span><strong><%=clipTitle%></strong></span>
+								</a>	
+							</td>
+							
+					<%	 
+						 }
+						
+					%>
 				</tr>
 			</table>
 			
@@ -237,56 +238,42 @@
 			<hr>
 			<table class="centertb3">
 				<tr>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo1.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo2.jpg" width="130px"><br>
-						<span><strong>무슨영화노</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo3.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo1.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo2.jpg" width="130px"><br>
-						<span><strong>무슨영화노</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo3.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
+					<%
+						
+						ArrayList list3 = (ArrayList)request.getAttribute("mainPhotoList");
+						System.out.print(list3.size());
+						 CrawlingVO vo3 = null;
+						String photo; // 포스터 이미지
+						
+						for (int i = 0; i < 6; i++) {
+							
+							 vo3 = (CrawlingVO)list3.get(i);
+							 photo = vo3.getPhoto();
+				     %>			
+							<td>
+								<img src="<%=photo%>" width="130px" height="150px"><br>
+								
+							</td>
+						<%	 
+						 }
+						
+						%>
 				</tr>
 				<tr>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo1.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo2.jpg" width="130px"><br>
-						<span><strong>무슨영화노</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo3.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo1.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo2.jpg" width="130px"><br>
-						<span><strong>무슨영화노</strong></span>
-					</td>
-					<td>
-						<img src="<%=contextPath%>/eq/img/photo3.jpg" width="130px"><br>
-						<span><strong>모름</strong></span>
-					</td>
+				 		<%
+						 for (int i = 6; i < 12; i++) {
+						
+							 vo3 = (CrawlingVO)list3.get(i);
+							 photo = vo3.getPhoto();
+						%>	 
+							<td>
+								<img src="<%=photo%>" width="130px" height="150px"><br>
+								
+							</td>
+						<%	 
+						 }	
+						
+						%>
 				</tr>
 			</table>
 			

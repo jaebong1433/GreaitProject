@@ -18,11 +18,10 @@ import VO.CrawlingVO;
 
 public class CrawlingDAO {
 	  String naverRankUrl = "https://movie.naver.com/movie/running/current.nhn?order=reserve";
-//	  String naverCilpUrl = "https://movie.naver.com/movie/running/movieclip.naver?subcategoryid=TRAILER&order=";
-//	 
+	  String naverCilpUrl = "https://tv.naver.com/navermovie";
+	  String daumPhotoUrl = "https://www.dureraum.org/bcc/board/list.do?rbsIdx=325";	 
 		 // 비즈니스로직 : 네이버, 다음 영화정보 크롤링 및 DB에 저장
 	      
-//	      List<MovieDTO> rankList = new ArrayList<>();
 		  public List<CrawlingVO> getMainDatas() throws IOException{
 			  List<CrawlingVO> mainList = new ArrayList<CrawlingVO>();
 			  
@@ -51,9 +50,50 @@ public class CrawlingDAO {
 		      }   
 		      return mainList;
 	      }
-
-	       
+		  	
+		  public List<CrawlingVO> getMainClipDatas() throws IOException{
+			  List<CrawlingVO> mainClipList = new ArrayList<CrawlingVO>();
+			  
+			  // 네이버 영화 예고편 4편까지 수집
+		      Document ClipDoc = Jsoup.connect(naverCilpUrl).get();
+		      Elements clipList = ClipDoc.select("dt.title a");
+		      Elements clipImgSrc = ClipDoc.select("a.cds_thm img");
+		      
+		      // 최신 영화 예고편 4편 추출
+		      for (int i = 0; i < 4; i++) {
+		    	 CrawlingVO vo = new CrawlingVO();
+		         // 영화제목, 포스터이미지
+		    	 String clipTitle = clipList.get(i).text(); // 영화 제목
+		         String clipImg = clipImgSrc.get(i).attr("src"); // 포스터 이미지
+		         
+		         vo.setClipTitle(clipTitle);
+		         vo.setClipImg(clipImg);
+		         
+		         mainClipList.add(vo);
+		      }   
+		      return mainClipList;
+	      } 
 	      
+		  public List<CrawlingVO> getMainPhotoDatas() throws IOException{
+			  List<CrawlingVO> mainPhotoList = new ArrayList<CrawlingVO>();
+			  
+			  // 다음 영화 뉴스 포토 수집
+		      Document PhotoDoc = Jsoup.connect(daumPhotoUrl).get();
+		      Elements photoSrc = PhotoDoc.select("p.pto_img img");
+		      
+		      // 최신 영화 포토 12개 추출
+		      for (int i = 0; i < 12; i++) {
+		    	 CrawlingVO vo = new CrawlingVO();
+		         // 포스터이미지
+		    	 String photo = photoSrc.get(i).attr("src"); // 포스터 이미지
+		         
+		    	 vo.setPhoto(photo);
+		         
+		         mainPhotoList.add(vo);
+		      }   
+		      return mainPhotoList;
+	      } 
+		  
 	}
 	
 
