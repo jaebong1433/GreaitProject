@@ -100,10 +100,10 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
-        		data-bs-target="#orders-collapse" aria-expanded="false" onclick="communityMove();">
+        <a href="<%=contextPath%>/com/list.bo"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+        		data-bs-target="#orders-collapse" aria-expanded="false">
           커뮤니티
-        </button>
+        </button></a>
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
@@ -123,12 +123,5 @@
     	}
     </script>
 	
-	<script>
-		function communityMove(){
-			
-			location.href="<%=contextPath%>/com/list.bo";
-		}
-		
-	</script>
 </body>
 </html>

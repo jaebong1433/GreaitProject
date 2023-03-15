@@ -91,6 +91,7 @@ public class CommunityController extends HttpServlet {
 		
 		//http://localhost:8090/greaitProject/com/list.bo
 		//커뮤니티 버튼을 누르면 게시판으로 이동
+		//정태영
 		else if(action.equals("/list.bo")) {
 			
 			String loginNick = (String)session.getAttribute("nickname"); //세션에 저장된 nickname을 가져옴
@@ -115,22 +116,26 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		//게시글을 클릭하였을 때 게시글 읽기
+		//정태영
 		else if(action.equals("/read.bo")) {
 			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
-			
+			String nickname = (String)session.getAttribute("nickname");
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
 			request.setAttribute("nowBlock", nowBlock_);
 			request.setAttribute("c_idx", c_idx);
+			session.setAttribute("nickname", nickname);
+			
 			
 			nextPage = "/board/detail.jsp";
 		}
 		
 		//좋아요 버튼 눌렀을 때
+		//정태영
 		else if(action.equals("/like.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			
@@ -144,6 +149,7 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		//답글 버튼을 눌렀을 때
+		//정태영
 		else if(action.equals("/replyBoard.bo")) {
 			String nickname = (String)session.getAttribute("nickname"); //답글 달 때 자동으로 닉네임을 넣기 위해 session에서 nickname을 받아온다.
 			MemberVO membervo = memberDAO.getMemVO(nickname); //nickname으로 DB에 저장된 값을 얻어 membervo에 저장함
@@ -193,6 +199,7 @@ public class CommunityController extends HttpServlet {
 		}
 		//답글 달기 버튼을 눌렀을 때
 		else if(action.equals("/replyPro.bo")) {
+			//정태영
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
 			String content = request.getParameter("content");
@@ -216,23 +223,6 @@ public class CommunityController extends HttpServlet {
 			System.out.println(key);
 			System.out.println(word);
 			
-			request.setAttribute("list", list);
-			request.setAttribute("count", count);
-			
-			nextPage = "/board/list.jsp";
-		}
-		
-		else if (action.equals("/searchlist.bo")) {
-			
-			String key = request.getParameter("key");//검색기준값
-			String word = request.getParameter("word");//검색어
-			
-			//(글조회)
-			list = comDAO.boardList(key,word);
-			//(글 개수 조회)
-			count = comDAO.getTotalRecord(key,word);
-			
-//			request.setAttribute("center", "board/list.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("count", count);
 			
