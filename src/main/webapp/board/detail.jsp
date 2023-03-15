@@ -1,3 +1,4 @@
+<%@page import="VO.BoardLikeVO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="VO.CommunityVO"%>
 <%@ page
@@ -5,6 +6,8 @@ language="java"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
@@ -20,6 +23,14 @@ pageEncoding="UTF-8"
 	String nowPage = (String)request.getAttribute("nowPage");
 	String nowBlock = (String)request.getAttribute("nowBlock");
 	String c_idx = (String)request.getAttribute("c_idx");
+	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
+	String check;
+	
+	if(boardLikeVO == null) {
+		check = "no";
+	} else {
+		check = "yes";
+	}
 %>
 
 <!DOCTYPE html>
@@ -42,8 +53,11 @@ pageEncoding="UTF-8"
 		추천 수 : <p id="like"><%= like %></p>
 		
 		<button id="like_btn">좋아요</button>
+		<button id="cancel_like_btn">좋아요 취소</button><br>
 		
 		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+		
+		<br>
 		
 		<form name="reply">
 			<input type="hidden" name="c_idx">
@@ -58,9 +72,11 @@ pageEncoding="UTF-8"
 				document.reply.submit();
 			}	
 		
-		
+		var check = "<%= check %>";
 			$("#like_btn").on("click", function() {
-				if($.cookie("likeCookie") == null) {
+				if(check == "yes") {
+					alert("이미 좋아요를 눌렀습니다.");
+				} else {
 					$.ajax({
 						type: "post",
 						async : true,
@@ -69,14 +85,30 @@ pageEncoding="UTF-8"
 						dataType : "text",
 						success : function(data) {
 							$("#like").text(data);
+							check = "yes";
 						}
 					});
-					$.cookie("likeCookie", "true", {expires:1, path:"/"});
 					return;
+				}	
+			});
+			
+			$("#cancel_like_btn").on("click", function() {
+				if(check == "no") {
+					alert("좋아요를 누르지 않았으므로 취소할 수 없습니다.");
 				} else {
-					alert("추천은 하루에 한 번만 가능합니다.");
+					$.ajax({
+						type: "post",
+						async : true,
+						url : "<%= contextPath %>/com/likeCancel.bo",
+						data : { c_idx : ${c_idx}},
+						dataType : "text",
+						success : function(data) {
+							$("#like").text(data);
+							check = "no";
+						}
+					});
 					return;
-				}
+				}	
 			});
 		</script>
 	</body>

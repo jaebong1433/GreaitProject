@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
+import VO.BoardLikeVO;
 import VO.CommunityVO;
 import VO.MemberVO;
 
@@ -48,6 +48,8 @@ public class CommunityDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
 	
+	//커뮤니티 들어갔을 때 화면을 띄워주는 기능
+	//정태영
 	public ArrayList boardListAll() {
 		ArrayList list = new ArrayList();
 		
@@ -82,6 +84,8 @@ public class CommunityDAO {
 		return list;
 	}
 	
+	//모든 게시글의 개수를 구하는 기능
+	//정태영
 	public int getTotalRecord() {
 		int total = 0;
 		
@@ -103,7 +107,9 @@ public class CommunityDAO {
 		
 		return total;
 	}
-
+	
+	//게시글을 클릭했을 때 자세히 보는 기능
+	//정태영
 	public CommunityVO boardRead(String c_idx) {
 		CommunityVO vo = null;
 		String sql = null;
@@ -178,20 +184,86 @@ public class CommunityDAO {
 
 		
 	
-	
-	public void addLike(String c_idx) {
+	//좋아요 눌렀을 때
+	//정태영
+	public BoardLikeVO addLike(String c_idx, String nickname) {
 		String sql = null;
+		BoardLikeVO boardLikeVO = null;
 		
 		try {
+			//조회수를 1 감소시키는 방법, 안 쓸 거임
 //			con = ds.getConnection();
 //			sql = "update community set c_views = c_views - 1 where c_idx = ?";
 //			pstmt = con.prepareStatement(sql);
 //			pstmt.setInt(1, c_idx);
 //			pstmt.executeQuery();
 			
-			
+			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
 			con = ds.getConnection();
+			sql = "insert into boardlike values (?, ?, 'yes')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			pstmt.executeQuery();
+			
+			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
+			sql = "select * from boardlike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+			
 			sql = "update community set c_like = c_like + 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return boardLikeVO;
+	}
+	
+	//좋아요 취소 기능
+	//정태영
+	public BoardLikeVO CancelLike(String c_idx, String nickname) {
+		String sql = null;
+		BoardLikeVO boardLikeVO = null;
+		
+		try {
+			
+			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
+			con = ds.getConnection();
+			sql = "delete from boardlike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			pstmt.executeQuery();
+			
+			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
+			sql = "select * from boardlike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+			
+			sql = "update community set c_like = c_like - 1 where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
 			rs = pstmt.executeQuery();
@@ -202,9 +274,12 @@ public class CommunityDAO {
 		} finally {
 			closeResource();
 		}
+		return boardLikeVO;
 	}
 	
 	
+	//게시글을 vo로 얻는 기능
+	//정태영
 	public CommunityVO getComVO(String c_idx) {
 		CommunityVO vo = null;
 		try {
@@ -236,6 +311,8 @@ public class CommunityDAO {
 		return vo;	
 	}
 	
+	//답글 달기 기능
+	//정태영
 	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content) {
 		String sql = null;
 		try {
@@ -317,6 +394,8 @@ public class CommunityDAO {
 		return result;
 	}
 	
+	//검색했을 때
+	//정태영(?)
 	public ArrayList boardList(String key, String word) {
 		ArrayList list = new ArrayList();
 		String sql = null;
@@ -379,7 +458,8 @@ public class CommunityDAO {
 		}
 		return list;
 	}
-
+	//검색했을 때
+	//정태영(?)
 	public int getTotalRecord(String key, String word) {
 		//조회된 글의 글수 저장
 		int total = 0;
@@ -421,6 +501,36 @@ public class CommunityDAO {
 		}
 	
 		return total;
+	}
+	
+	//boardlikevo를 얻어오는 기능
+	//정태영
+	public BoardLikeVO getBoardlikeVO(String c_idx, HttpSession session) {
+		String nickname = (String)session.getAttribute("nickname");
+		BoardLikeVO boardLikeVO = null;
+		String sql = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			sql = "select * from boardlike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			System.out.println("안녕");
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		
+		return boardLikeVO;
 	}	
 	
 	

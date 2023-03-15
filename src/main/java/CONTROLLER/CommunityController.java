@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.CommunityDAO;
 import DAO.MemberDAO;
+import VO.BoardLikeVO;
 import VO.CommunityVO;
 import VO.MemberVO;
 
@@ -77,6 +78,8 @@ public class CommunityController extends HttpServlet {
 		
 		CommunityVO vo = null;
 		
+		BoardLikeVO boardLikeVO = null;
+		
 		int count = 0;
 		
 		HttpSession session = request.getSession();
@@ -84,13 +87,15 @@ public class CommunityController extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
+		
 		if(action.equals("/Main")) {
 			
-			nextPage = "/main.jsp";
+			nextPage = "/index.jsp";
 		}
 		
 		//http://localhost:8090/greaitProject/com/list.bo
 		//커뮤니티 버튼을 누르면 게시판으로 이동
+		//정태영
 		else if(action.equals("/list.bo")) {
 			
 			String loginNick = (String)session.getAttribute("nickname"); //세션에 저장된 nickname을 가져옴
@@ -115,6 +120,7 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		//게시글을 클릭하였을 때 게시글 읽기
+		//정태영
 		else if(action.equals("/read.bo")) {
 			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
 			String nowPage_ = request.getParameter("nowPage");
@@ -122,6 +128,11 @@ public class CommunityController extends HttpServlet {
 			
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			
+			boardLikeVO = comDAO.getBoardlikeVO(c_idx, session);
+			
+			
+			request.setAttribute("two", "10");
+			request.setAttribute("boardLikeVO", boardLikeVO);
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
 			request.setAttribute("nowBlock", nowBlock_);
@@ -131,17 +142,32 @@ public class CommunityController extends HttpServlet {
 		}
 		
 		//좋아요 버튼 눌렀을 때
+		//정태영
 		else if(action.equals("/like.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
+			String nickname = (String)session.getAttribute("nickname");
 			
-			comDAO.addLike(c_idx); //게시글 DB의 c_like에 1을 추가하는 메서드
+			boardLikeVO = comDAO.addLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
-			System.out.println(like); 
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			
 			return;
 		}
+		//좋아요 취소를 클릭했을 때
+		//정태영
+		else if(action.equals("/likeCancel.bo")) {
+			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
+			String nickname = (String)session.getAttribute("nickname");
+			
+			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
+			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
+			out.write(like);//ajax가 success하였으므로 data로 전송
+			
+			return;
+		}
+		
 		
 		//답글 버튼을 눌렀을 때
 		else if(action.equals("/replyBoard.bo")) {
@@ -192,6 +218,7 @@ public class CommunityController extends HttpServlet {
 			return;
 		}
 		//답글 달기 버튼을 눌렀을 때
+		//정태영
 		else if(action.equals("/replyPro.bo")) {
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
@@ -205,6 +232,8 @@ public class CommunityController extends HttpServlet {
 			nextPage="/com/list.bo";
 		}
 		
+		//검색 버튼을 눌렀을 때
+		//정태영
 		else if(action.equals("/searchlist.bo")) {
 			String key = request.getParameter("key");//제목 + 내용 or 작성자
 			String word = request.getParameter("word");
