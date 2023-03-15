@@ -170,8 +170,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										
 										width = vo.getC_level() * 10;
 								%>
-									<img src="../board/images/level.gif" width="<%=width%>" height="15">
-									<img src="../board/images/re.gif">
+									<img src="<%=contextPath %>/board/images/level.gif" width="<%=width%>" height="15">
+									<img src="<%=contextPath %>/board/images/re.gif">
 								<%	
 									}
 								%>		
@@ -182,13 +182,13 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								</td>
 								<td align="left">
 										<%=vo.getC_content()%>
-									</a>
+									
 								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
-								</td>
+								
 							</tr>
 					
 				<% 

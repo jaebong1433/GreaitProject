@@ -69,9 +69,15 @@ public class CrawlingController extends HttpServlet {
 		if(action.equals("/maincenter.me")) {
 			
 			List<CrawlingVO> mainList = dao.getMainDatas();
+			List<CrawlingVO> mainClipList = dao.getMainClipDatas();
+			List<CrawlingVO> mainPhotoList = dao.getMainPhotoDatas();
+			
 			request.setAttribute("mainList", mainList);
+			request.setAttribute("mainClipList", mainClipList);
+			request.setAttribute("mainPhotoList", mainPhotoList);
 			
 			nextPage = "/index.jsp";
+			
 		}
 		
 		//포워딩 (디스패처 방식)

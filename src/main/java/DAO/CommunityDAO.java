@@ -86,6 +86,59 @@ public class CommunityDAO {
 	
 	//모든 게시글의 개수를 구하는 기능
 	//정태영
+	public ArrayList boardList(String key, String word) {
+		
+		String sql = null;
+		
+		ArrayList list = new ArrayList();
+		
+		if(!word.equals("")) //검색어를 입력했다면?
+		{
+			if(key.equals("titleContent"))//"제목+내용"
+			{
+				sql = "select * from community "
+					+ " where c_title like '%"+word+"%'or "
+						  + " c_content like '%"+word+"%'order by c_group asc";
+			}
+			else //"닉네임"
+			{
+				sql = "select * from community"
+					+ " where c_nickname like '%"+ word +"%' order by c_group asc";
+			}
+		}
+		else //검색어 입력X
+		{
+			//모든 글 조회
+			sql = "select * from community order by c_group asc"; 
+		}
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"), 
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardListAll");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+
+		return list;
+	}
+	
 	public int getTotalRecord() {
 		int total = 0;
 		
@@ -107,9 +160,57 @@ public class CommunityDAO {
 		
 		return total;
 	}
-	
 	//게시글을 클릭했을 때 자세히 보는 기능
 	//정태영
+	public int getTotalRecord(String key, String word) {
+		
+		int total = 0;
+		
+		String sql = null;
+		
+		if(!word.equals("")) //검색어를 입력했다면? 
+		{
+			//"제목+내용"
+			if(key.equals("titleContent")) 
+			{ 
+				sql = "select count(*) as cnt from community "
+					+ " where c_title like '%"+ word + "%' or"
+					+ " c_content like '%"+ word+"%'";
+			}
+			//"닉네임"
+			else 
+			{			
+				sql = "select count(*) as cnt from community "
+					+ " where c_nickname like '%"+ word + "%'";				
+			}
+		}
+			//검색어 입력X
+			else 
+			{			
+				sql = "select count(*) as cnt from community";
+			}
+				
+			try 
+			{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				rs.next();
+				total = rs.getInt("cnt");			 
+			}
+			catch (Exception e) 
+			{
+				System.out.println("getTotalRecord메소드에서 오류");
+				e.printStackTrace();
+			}
+			finally 
+			{
+				closeResource();
+			}
+		
+			return total;
+	}
+	
 	public CommunityVO boardRead(String c_idx) {
 		CommunityVO vo = null;
 		String sql = null;
@@ -149,40 +250,6 @@ public class CommunityDAO {
 		
 		return vo;
 	}
- 
-	//세션에 저장된 닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
-	public MemberVO oneMember(String loginNick) {
-		MemberVO vo = null;
-		try {    
-			//DB접속
-			con = ds.getConnection();
-			//SELECT문
-			String sql = "select * from m_member where m_nickname='"+loginNick+"'";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면? (아이디가 있으면?)
-				
-				vo = new MemberVO();
-				vo.setM_nickname(rs.getString("m_nickname"));
-				vo.setM_id(rs.getString("m_id"));
-				vo.setM_pw(rs.getString("m_pw"));
-				vo.setM_name(rs.getString("m_name"));
-				vo.setM_email(rs.getString("m_email"));
-				vo.setM_date(rs.getDate("m_date"));
-			}
-			
-		} catch (Exception e) {
-			System.out.println("oneMember 메소드 내부에서 오류!");
-			e.printStackTrace();
-		}finally {
-			closeResource();
-		}
-		
-		return vo;
-	}
-
-		
 	
 	//좋아요 눌렀을 때
 	//정태영
@@ -394,6 +461,7 @@ public class CommunityDAO {
 		return result;
 	}
 	
+
 	//검색했을 때
 	//정태영(?)
 	public ArrayList boardList(String key, String word) {
@@ -532,7 +600,6 @@ public class CommunityDAO {
 		
 		return boardLikeVO;
 	}	
-	
 	
 }
 

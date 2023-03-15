@@ -54,31 +54,23 @@
 <center>
 <body align="center">
 	<div class="logf">
-   		<h1>Login</h1><br><br>
+   		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
    		
    		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login">
    		
-   		
-   		
    		<input class="loginp" type="text" value="아이디"><br>
-   		
-   		
    		
    		<input class="loginp" type="password" value="password"><br><br>
    		
-   		
-   		
-   		<button>로그인</button><br><br>
-   		
-   		
+   		<button>로그인</button><br>
+   		<a href="<%=contextPath%>/Member/join1.jsp">회원가입하기</a>
+   		<br>
+   	
    		</form>
-   		
+   		<br>
    		
    		
    		<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
-   		
-   		
-   		
    		<a href="<%=contextPath%>/member1/findPw.me">비밀번호 찾기</a><br><br>
    		
    		<p>간편로그인</p>

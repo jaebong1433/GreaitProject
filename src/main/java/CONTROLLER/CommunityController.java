@@ -125,7 +125,7 @@ public class CommunityController extends HttpServlet {
 			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
-			
+			String nickname = (String)session.getAttribute("nickname");
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, session);
@@ -137,6 +137,8 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
 			request.setAttribute("nowBlock", nowBlock_);
 			request.setAttribute("c_idx", c_idx);
+			session.setAttribute("nickname", nickname);
+			
 			
 			nextPage = "/board/detail.jsp";
 		}
@@ -170,6 +172,7 @@ public class CommunityController extends HttpServlet {
 		
 		
 		//답글 버튼을 눌렀을 때
+		//정태영
 		else if(action.equals("/replyBoard.bo")) {
 			String nickname = (String)session.getAttribute("nickname"); //답글 달 때 자동으로 닉네임을 넣기 위해 session에서 nickname을 받아온다.
 			MemberVO membervo = memberDAO.getMemVO(nickname); //nickname으로 DB에 저장된 값을 얻어 membervo에 저장함
@@ -220,6 +223,7 @@ public class CommunityController extends HttpServlet {
 		//답글 달기 버튼을 눌렀을 때
 		//정태영
 		else if(action.equals("/replyPro.bo")) {
+			//정태영
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
 			String content = request.getParameter("content");
@@ -231,17 +235,17 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage="/com/list.bo";
 		}
-		
-		//검색 버튼을 눌렀을 때
-		//정태영
-		else if(action.equals("/searchlist.bo")) {
+
+		//검색 기능을 사용했을때 //한성준 03-14
+		else if (action.equals("/searchlist.bo")) {
+			
 			String key = request.getParameter("key");//제목 + 내용 or 작성자
-			String word = request.getParameter("word");
+			String word = request.getParameter("word");//검색어
 			
-			list = comDAO.boardList(key, word);
-			
-			count = comDAO.getTotalRecord(key, word);
-			
+			//(글조회)
+			list = comDAO.boardList(key,word);
+			//(글 개수 조회)
+			count = comDAO.getTotalRecord(key,word);
 			System.out.println(key);
 			System.out.println(word);
 			
