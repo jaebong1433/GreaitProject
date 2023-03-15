@@ -222,6 +222,23 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/list.jsp";
 		}
 		
+		else if (action.equals("/searchlist.bo")) {
+			
+			String key = request.getParameter("key");//검색기준값
+			String word = request.getParameter("word");//검색어
+			
+			//(글조회)
+			list = comDAO.boardList(key,word);
+			//(글 개수 조회)
+			count = comDAO.getTotalRecord(key,word);
+			
+//			request.setAttribute("center", "board/list.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("count", count);
+			
+			nextPage = "/board/list.jsp";
+		}
+		
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
