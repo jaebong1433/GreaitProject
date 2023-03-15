@@ -20,6 +20,7 @@ pageEncoding="UTF-8"
 	String nowPage = (String)request.getAttribute("nowPage");
 	String nowBlock = (String)request.getAttribute("nowBlock");
 	String c_idx = (String)request.getAttribute("c_idx");
+	String loginNick = (String)session.getAttribute("nickname");
 %>
 
 <!DOCTYPE html>
@@ -34,16 +35,33 @@ pageEncoding="UTF-8"
 		</script>
 	</head>
 	<body>
+	
+	<h1>세션값 : <%=loginNick %></h1>
 		<%= title %><br>
 		<%= writer %><br>
 		<%= content %><br>
 		<%= writeDate %><br>
 		<p>조회수 : <%= views %></p>
 		추천 수 : <p id="like"><%= like %></p>
-		
+		<table style="visibility:hidden" id="updatePw">
+		<tr>
+		<td bgcolor="#e4e4e4" class="text2">
+			<div align="center">패스워드</div>
+		</td>
+		<td colspan="2" bgcolor="#f5f5f5" style="text-align: left">
+			<input type="password" name="pass" id="pass" />
+		</td>
+		</table>
+		<tr>
 		<button id="like_btn">좋아요</button>
 		
 		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+		
+		<input type="button" onclick="javascript:update()" style="visibility:hidden" id="update" value="수정">
+		<input type="button" onclick="javascript:updatePro()" style="visibility:hidden" id="updatePro" value="수정요청">
+		<input type="button" onclick="javascript:delete()" style="visibility:hidden" id="delete" value="삭제">
+<!-- 		<button onclick="javascript:update()" id="update">수정</button> -->
+<!-- 		<button onclick="javascript:delete()" id="delete">삭제</button> -->
 		
 		<form name="reply">
 			<input type="hidden" name="c_idx">
@@ -52,6 +70,22 @@ pageEncoding="UTF-8"
 		</form>
 		
 		<script type="text/javascript">
+		 function update(){
+			 $("#updatePw").css("visibility","visible");
+			 $("#updatePro").css("visibility","visible");
+			 $("#update").css("visibility","hidden");
+		 }
+		
+		  window.onload = function(){
+			  var nick = "<%=loginNick%>";
+			  var writer = "<%=writer%>";
+			  if( nick == writer){
+					$("#update").css("visibility","visible");
+					$("#delete").css("visibility","visible");
+				}
+		  };
+		
+		
 			function replyBoard(val) {
 				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
 				document.reply.c_idx.value = val;
@@ -78,6 +112,15 @@ pageEncoding="UTF-8"
 					return;
 				}
 			});
+			
+			$("#update").on("click", function(){
+				
+				
+				
+			});
+			
+			
+			
 		</script>
 	</body>
 </html>
