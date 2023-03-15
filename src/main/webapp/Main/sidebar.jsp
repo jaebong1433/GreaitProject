@@ -3,8 +3,9 @@
     
     
     <%
+    
 	String contextPath = request.getContextPath();
-%>
+	%>
 <!DOCTYPE html>
 	<html class="no-js">
 	<head>
@@ -70,8 +71,47 @@
     </a>
    	</div>
     <ul class="list-unstyled ps-0">
+    <!-- 로그인 로그아웃  마이페이지버튼만생성 구현-->
+    <%
+    
+    	String m_nickname = (String)session.getAttribute("m_nickname");
+    	if(m_nickname == null){
+    
+    %>
+    
     	<div class="logf">
     		<a href="<%=contextPath%>/Member/login.jsp"><button>로그인</button></a>
+    		
+    <%
+    
+    	}else{
+    		
+    	
+    %>		
+    	
+    	<ul class="pull-right right-menu" >
+    	
+			<li><%=m_nickname%></li>
+			<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
+		</ul>	
+    		
+    	<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
+			
+			<ul class="pull-right right-menu" >
+				
+				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
+			
+			<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
+					
+					class="btn btn-common">myPage</a></li>
+			</ul>
+		</form>
+    		
+    		<%
+    		}
+    		%>
+    		
+    		
     	</div>
     <li class="border-top my-3"></li>
       
