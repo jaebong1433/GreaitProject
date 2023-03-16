@@ -1,3 +1,4 @@
+<%@page import="VO.BoardLikeVO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="VO.CommunityVO"%>
 <%@ page
