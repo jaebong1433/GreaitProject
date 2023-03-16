@@ -131,6 +131,7 @@
 				<td>	
 				<div id="best_bg">
 					<ul>
+						<!-- 3.16 재봉 수정 -->
 						<%
 						
 						ArrayList list = (ArrayList)request.getAttribute("mainList");
@@ -211,7 +212,7 @@
 			<hr>
 			<table class="centertb2">
 				<tr>
-<%
+						<%
 						
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
 						
@@ -237,6 +238,7 @@
 						 }
 						
 					%>
+					
 				</tr>
 			</table>
 			
@@ -249,7 +251,7 @@
 			<table class="centertb3">
 				<tr>
 					<%
-						
+					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
 						ArrayList list3 = (ArrayList)request.getAttribute("mainPhotoList");
 						CrawlingVO vo3 = null;
 						String photo; // 포스터 이미지
@@ -261,7 +263,6 @@
 				     %>			
 							<td>
 								<img src="<%=photo%>" width="200px" height="150px"><br>
-								
 							</td>
 						<%	 
 						 }
@@ -277,7 +278,6 @@
 						%>	 
 							<td>
 								<img src="<%=photo%>" width="200px" height="150px"><br>
-								
 							</td>
 						<%	 
 						 }	
