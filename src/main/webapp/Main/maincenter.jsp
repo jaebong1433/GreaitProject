@@ -178,6 +178,7 @@
 						
 						%>
 						
+						
 					</ul>
 					</td>
 					<td width="30px">
@@ -191,7 +192,7 @@
 				</div>
 				</tr>
 			</table>
-			<br><br>
+			<br><br><br><br>
 		</div>
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
