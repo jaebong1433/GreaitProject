@@ -259,11 +259,3 @@ public class CommunityController extends HttpServlet {
 	
 	}//doHandle()메소드 끝 
 }//클래스 끝
-
-
-
-
-
-
-
-
