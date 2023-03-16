@@ -56,7 +56,7 @@
 	<div class="logf">
    		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
    		
-   		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login" onsubmit="return login();">
+   		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login" onsubmit="return login();" method="post">
    		
 	   		<input id="m_id" class="loginp" type="text" name="m_id" placeholder="아이디"><br>
 	   		<input id="m_pw" class="loginp" type="password" name="m_pw" placeholder="password"><br><br>
@@ -64,9 +64,9 @@
    		<br>
    		</form>	
    		<br>
-   			<a href="<%=contextPath%>/Member/join.jsp">회원가입</a><br><br>
-   			<a href="<%=contextPath%>/Member/findID.jsp">아이디 찾기</a>
-   			<a href="<%=contextPath%>/Member/findPW.jsp">비밀번호 찾기</a><br><br>		
+   			<a href="<%=contextPath%>/member1/join.jsp">회원가입</a><br><br>
+   			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a>/
+   			<a href="<%=contextPath%>/member1/findPW.me">비밀번호 찾기</a><br><br>		
    		<p>간편로그인</p>
    		
    		

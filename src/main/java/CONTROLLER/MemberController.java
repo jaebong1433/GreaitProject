@@ -70,7 +70,9 @@ public class MemberController extends HttpServlet {
 			if(action.equals("/main.me")) {
 				
 				
-				nextPage = "/main.jsp";
+				
+				
+				nextPage = "/index.jsp";
 			
 				
 			}
@@ -163,18 +165,18 @@ public class MemberController extends HttpServlet {
 			
 				//중앙화면 주소 바인딩
 
-				request.setAttribute("center","/Member/login.jsp" );
+//				request.setAttribute("center","/Member/login.jsp" );
 			
 				//전체 메인화면 주소 저장
 
-				nextPage = "/main.jsp";			
+				nextPage = "/Member/login.jsp";			
 				
 			}
 			//로그인 유효성검
 			else if(action.equals("/loginPro.me")) {//로그인 수행
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
-			
+				String nickname = null;
 				int check = memberdao.loginCheck(m_id, m_pw);
 
 				if(check == 0) {//아이디는 맞고 비번 틀림
@@ -189,26 +191,28 @@ public class MemberController extends HttpServlet {
 					out.println(" history.back();");
 					out.println("</script>");
 					return;				
+				}else if(check == 1){
+					nickname = memberdao.logName(m_id);
 				}
-				
 				//session메모리생성
 				HttpSession session = request.getSession();
 				
 				//session메모리에 입력한 아이디 바인딩(저장)
-				session.setAttribute("m_id", m_id);
+				session.setAttribute("m_nickname", nickname);
 				
 				//메인화면 VIEW 주소
-				nextPage = "/main.jsp";
+				nextPage = "/index.jsp";
 
 
 			}
+		
 			//로그아웃 수행	
 			else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 					//기존에 생성했던 session메모리 얻기
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/main.jsp";
+				nextPage = "/index.jsp";
 		
 				
 			}		
@@ -219,16 +223,16 @@ public class MemberController extends HttpServlet {
 					
 				session.invalidate();
 							
-				nextPage = "/main.jsp";
+				nextPage = "/index.jsp";
 				
 				
 			}
 			// 아이디 찾기 
-			else if(action.equals("/findId.me")) {//아이디 찾기
+			else if(action.equals("/findID.me")) {//아이디 찾기
 					
-				request.setAttribute("center","findId.jsp");
+				//request.setAttribute("center","findId.jsp");
 					
-				nextPage = "/main.jsp";
+				nextPage = "/Member/findID.jsp";
 				
 				
 			}

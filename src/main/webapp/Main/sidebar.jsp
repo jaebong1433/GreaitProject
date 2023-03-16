@@ -5,7 +5,15 @@
     <%
     
 	String contextPath = request.getContextPath();
+    
+    
+    
+    
+    
 	%>
+	
+	
+	
 <!DOCTYPE html>
 	<html class="no-js">
 	<head>
@@ -75,12 +83,13 @@
     <%
     
     	String m_nickname = (String)session.getAttribute("m_nickname");
+    
     	if(m_nickname == null){
     
     %>
     
     	<div class="logf">
-    		<a href="<%=contextPath%>/Member/login.jsp"><button>로그인</button></a>
+    		<a href="<%=contextPath%>/member1/login.me"><button>로그인</button></a>
     		
     <%
     

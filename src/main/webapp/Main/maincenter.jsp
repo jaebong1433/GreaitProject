@@ -189,7 +189,7 @@
 						%>
 						
 						
-					</ul>
+					</ul> --%>
 					</td>
 					<td width="30px">
 					<p class="next_btn">
@@ -212,8 +212,7 @@
 			<hr>
 			<table class="centertb2">
 				<tr>
-						<%
-						
+						<%				
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
 						
 						CrawlingVO vo2 = null;
@@ -222,7 +221,7 @@
 					     
 					     for (int i = 0; i < 4; i++) {
 								
-							 vo2 = (CrawlingVO)list2.get(i);
+ 							 vo2 = (CrawlingVO)list2.get(i);
 							 clipTitle = vo2.getClipTitle();
 							 clipImg = vo2.getClipImg();
 						%>	 				
@@ -237,8 +236,7 @@
 					<%	 
 						 }
 						
-					%>
-					
+					%>					
 				</tr>
 			</table>
 			
@@ -248,7 +246,7 @@
 		<div>
 			<h2>포토</h2>
 			<hr>
-			<table class="centertb3">
+			<%-- <table class="centertb3">
 				<tr>
 					<%
 					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
@@ -284,7 +282,7 @@
 						
 						%>
 				</tr>
-			</table>
+			</table> --%>
 			
 		</div>
 		
