@@ -1,6 +1,6 @@
 package VO;
+// 3.16 재봉 VO 자체수정 
 
-//3.16 재봉 수정
 public class CrawlingVO {
 	private String age;
 	private String imgSrc; 

@@ -18,13 +18,14 @@ import VO.CrawlingVO;
 
 
 public class CrawlingDAO {
+		//3.16 재봉 수정 
 	  String daumRankUrl = "https://movie.daum.net/ranking/reservation";
 	  String naverCilpUrl = "https://tv.naver.com/navermovie";
 	  String daumPhotoUrl = "https://www.dureraum.org/bcc/board/list.do?rbsIdx=325";	 
 		 // 비즈니스로직 : 네이버, 다음 영화정보 크롤링 및 DB에 저장
 	      
-	  	  //3.16 재봉 수정
-		  public List<CrawlingVO> getMainDatas() throws IOException{
+		
+	  	public List<CrawlingVO> getMainDatas() throws IOException{
 			  List<CrawlingVO> mainList = new ArrayList<CrawlingVO>();
 			  
 			//다음 영화 실시간 예매 순위 1~10위까지 수집
@@ -62,12 +63,10 @@ public class CrawlingDAO {
 		  public List<CrawlingVO> getMainClipDatas() throws IOException{
 			  List<CrawlingVO> mainClipList = new ArrayList<CrawlingVO>();
 			  
-			  // 네이버 영화 예고편 4편까지 수집
 		      Document ClipDoc = Jsoup.connect(naverCilpUrl).get();
 		      Elements clipList = ClipDoc.select("dt.title a");
 		      Elements clipImgSrc = ClipDoc.select("a.cds_thm img");
 		      
-		      // 최신 영화 예고편 4편 추출
 		      for (int i = 0; i < 4; i++) {
 		    	 CrawlingVO vo = new CrawlingVO();
 		         // 영화제목, 포스터이미지
@@ -89,8 +88,8 @@ public class CrawlingDAO {
 		      Document PhotoDoc = Jsoup.connect(daumPhotoUrl).get();
 		      Elements photoSrc = PhotoDoc.select("p.pto_img img");
 		      
-		      // 최신 영화 포토 12개 추출
-		      for (int i = 0; i < 12; i++) {
+		      // 3.16 최신 영화 포토 10개 추출로 수정
+		      for (int i = 0; i < 10; i++) {
 		    	 CrawlingVO vo = new CrawlingVO();
 		         // 포스터이미지
 		    	 String photo = photoSrc.get(i).attr("src"); // 포스터 이미지
