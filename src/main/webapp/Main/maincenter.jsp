@@ -5,7 +5,6 @@
 <%
 	String contextPath = request.getContextPath();
 	
-	
 %>    
    
 <!DOCTYPE html>
@@ -131,42 +130,53 @@
 				</td>
 				<td>	
 				<div id="best_bg">
-					<%-- <ul>
+					<ul>
+						<!-- 3.16 재봉 수정 -->
 						<%
 						
 						ArrayList list = (ArrayList)request.getAttribute("mainList");
 						
 						 CrawlingVO vo = null;
-						 String rating2 ; //영화 관람가
-					     String movie; // 영화 제목
-					     String imgSrc; // 포스터 이미지
-					     Double naverScore;
+						 String age;
+						 String imgSrc; 
+						 String title; 
+						 String dScore; 
+						 String dNum; 
+						 String dDate;
 						 for (int i = 0; i < 10; i++) {
 						
 							 vo= (CrawlingVO)list.get(i);
-							 rating2 = vo.getRating2();
-							 movie = vo.getMovie();
+							 age = vo.getAge();
 							 imgSrc = vo.getImgSrc();
-							 naverScore = vo.getNaverScore();
+							 title = vo.getTitle();
+							 dScore = vo.getdScore();
+							 dNum = vo.getdNum();
+							 dDate = vo.getdDate();
 						%>	 
-							 <li>
+							  <li>
 								<a href="#">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
 									<span>
 									<div class="fonttb">
 									<table> 
 										<tr>
-											<strong><%=movie %></strong><br>
+											<strong><%=title %></strong><br>
 										</tr>
 										<tr>	
-											영화 관람가:<%=rating2%>
+											<%=age%><br>
 										</tr>
 										<tr>
 										<td>
 										<img src="<%=contextPath%>/eq/img/SP.png">
 										</td>
-										<td><%=naverScore%>
+										<td><%=dScore%><br>
 										</td>
+										</tr>
+										<tr>	
+											예매율:<%=dNum%><br>
+										</tr>
+										<tr>	
+											개봉일:<%=dDate%><br>
 										</tr>
 									</table>
 									</div>
@@ -201,9 +211,8 @@
 			<h2>예고편</h2>
 			<hr>
 			<table class="centertb2">
-			<%-- 	<tr>
-<%
-						
+				<tr>
+						<%				
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
 						
 						CrawlingVO vo2 = null;
@@ -219,7 +228,7 @@
 			
 							<td>
 								<a href="#">
-									<img src="<%=clipImg%>" width="200px" height="200px"><br>
+									<img src="<%=clipImg%>" width="180px" height="100px"><br>
 									<span><strong><%=clipTitle%></strong></span>
 								</a>	
 							</td>
@@ -227,8 +236,8 @@
 					<%	 
 						 }
 						
-					%>
-				</tr> --%>
+					%>					
+				</tr>
 			</table>
 			
 		</div><br><br>
@@ -240,20 +249,18 @@
 			<%-- <table class="centertb3">
 				<tr>
 					<%
-						
+					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
 						ArrayList list3 = (ArrayList)request.getAttribute("mainPhotoList");
-						System.out.print(list3.size());
-						 CrawlingVO vo3 = null;
+						CrawlingVO vo3 = null;
 						String photo; // 포스터 이미지
 						
-						for (int i = 0; i < 6; i++) {
+						for (int i = 0; i < 5; i++) {
 							
 							 vo3 = (CrawlingVO)list3.get(i);
 							 photo = vo3.getPhoto();
 				     %>			
 							<td>
-								<img src="<%=photo%>" width="130px" height="150px"><br>
-								
+								<img src="<%=photo%>" width="200px" height="150px"><br>
 							</td>
 						<%	 
 						 }
@@ -262,14 +269,13 @@
 				</tr>
 				<tr>
 				 		<%
-						 for (int i = 6; i < 12; i++) {
+						 for (int i = 5; i < 10; i++) {
 						
 							 vo3 = (CrawlingVO)list3.get(i);
 							 photo = vo3.getPhoto();
 						%>	 
 							<td>
-								<img src="<%=photo%>" width="130px" height="150px"><br>
-								
+								<img src="<%=photo%>" width="200px" height="150px"><br>
 							</td>
 						<%	 
 						 }	
