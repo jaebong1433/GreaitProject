@@ -71,7 +71,6 @@ public class MemberController extends HttpServlet {
 				
 				
 				nextPage = "/main.jsp";
-				
 			
 				
 			}
@@ -94,8 +93,7 @@ public class MemberController extends HttpServlet {
 				
 				memberdao.insertMember(vo);
 
-				nextPage = "/.jsp";
-				
+				nextPage="/main.jsp";
 
 
 				//회원가입 닉네임 얻기
@@ -167,17 +165,16 @@ public class MemberController extends HttpServlet {
 
 				request.setAttribute("center","/Member/login.jsp" );
 			
-				
-				nextPage = "/index.jsp";
-				
-				
+				//전체 메인화면 주소 저장
+
+				nextPage = "/main.jsp";			
 				
 			}
 			//로그인 유효성검
 			else if(action.equals("/loginPro.me")) {//로그인 수행
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
-			    
+			
 				int check = memberdao.loginCheck(m_id, m_pw);
 
 				if(check == 0) {//아이디는 맞고 비번 틀림
@@ -194,17 +191,15 @@ public class MemberController extends HttpServlet {
 					return;				
 				}
 				
-				String userNick = memberdao.oneIdSelcet(m_id);
-				
 				//session메모리생성
 				HttpSession session = request.getSession();
 				
-				//session메모리에 입력한 닉네임 바인딩(저장)
-				session.setAttribute("m_nickname",userNick);
+				//session메모리에 입력한 아이디 바인딩(저장)
+				session.setAttribute("m_id", m_id);
 				
-
-				
+				//메인화면 VIEW 주소
 				nextPage = "/main.jsp";
+
 
 			}
 			//로그아웃 수행	
@@ -214,6 +209,7 @@ public class MemberController extends HttpServlet {
 				session.invalidate();
 		
 				nextPage = "/main.jsp";
+		
 				
 			}		
 			//로그아웃 실행
@@ -222,37 +218,59 @@ public class MemberController extends HttpServlet {
 				HttpSession session = request.getSession();
 					
 				session.invalidate();
-				
+							
 				nextPage = "/main.jsp";
 				
+				
 			}
-			
-			
-			//아이디 찾기 수행
+			// 아이디 찾기 
+			else if(action.equals("/findId.me")) {//아이디 찾기
+					
+				request.setAttribute("center","findId.jsp");
+					
+				nextPage = "/main.jsp";
+				
+				
+			}
+			//아이디 찾기 수행	
 			else if(action.equals("/findIdResult.me")) {//아이디 찾기
 					
-				String m_name = request.getParameter("m_name");
+				String m_name = request.getParameter("n_name");
 				String m_email = request.getParameter("m_email");
 					
 				MemberVO vo = memberdao.findId(m_name,m_email);
 					
-				
-					
-				if(vo == null) {//이메일 맞고 이름 틀림
-					out.println("<script>");
-					out.println(" window.alert('회원정보가 잘못되었습니다.');");
-					out.println(" history.go(-1);");
-					out.println("</script>");
-					return;
-				}
-				
 				request.setAttribute("vo", vo);
 				
-				
-				nextPage = "/Member/findID2.jsp";
+				request.setAttribute("center","findIdResult.jsp");
+					
+//				if(check == 0) {//아이디는 맞고 비번 틀림
+//					out.println("<script>");
+//					out.println(" window.alert('비밀번호 틀림');");
+//					out.println(" history.go(-1);");
+//					out.println("</script>");
+//					return;
+//				}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
+//					out.println("<script>");
+//					out.println(" window.alert('아이디 틀림');");
+//					out.println(" history.back();");
+//					out.println("</script>");
+//					return;				
+//				}
+					
+				nextPage = "/main.jsp";
+					
+					
 			}
-			
-			
+			//비밀번호 찾기수행
+			else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
+					
+					request.setAttribute("center","findPw.jsp");
+					
+					nextPage = "/main.jsp";
+					
+					
+			}
 			//비밀번호 찾기 실행
 			else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
 					
@@ -261,20 +279,25 @@ public class MemberController extends HttpServlet {
 				String m_email = request.getParameter("m_email");
 
 				MemberVO vo = memberdao.findPw(m_name,m_id,m_email);
-				
-				if(vo == null) {//이메일 맞고 이름 틀림
-					out.println("<script>");
-					out.println(" window.alert('회원정보가 잘못되었습니다.');");
-					out.println(" history.go(-1);");
-					out.println("</script>");
-					return;
-				}
-				
-				
+					
 				request.setAttribute("vo", vo);
-				
-				
-				nextPage = "/Member/findID2.jsp";
+					
+				request.setAttribute("center","findPwResult.jsp");
+					
+//				if(check == 0) {//아이디는 맞고 비번 틀림
+//					out.println("<script>");
+//					out.println(" window.alert('비밀번호 틀림');");
+//					out.println(" history.go(-1);");
+//					out.println("</script>");
+//					return;
+//				}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
+//					out.println("<script>");
+//					out.println(" window.alert('아이디 틀림');");
+//					out.println(" history.back();");
+//					out.println("</script>");
+//					return;				
+//				}
+				nextPage = "/main.jsp";
 				
 				
 			}
@@ -285,11 +308,7 @@ public class MemberController extends HttpServlet {
 				
 					
 				//메인화면 view 주소
-				
-				out.println("<script>");
-				out.println("location.href='http://localhost:8090/greaitProject/Crawling/maincenter.me'");
-				out.println("</script>");
-				
+				nextPage = "/main.jsp";
 			}
 		
 			//회원정보 수정을 위해 회원정보 조회 요청!
