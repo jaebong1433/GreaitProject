@@ -6,98 +6,16 @@
     String contextPath = request.getContextPath();
     
     %>
-    <style>
-    	.Jointb{
-    		text-align: center;
-    	}
-    	
-    	.Jointb input{
-    		width: 250px;
-    		height: 40px;
-    	}
-    	
-    	.joinf{
-    		margin-top: 70px;
-    	}
-    	
-    	.joinf button{
-			background-color : gray;
-			color : white;
-			width : 15%;
-			height: 40px;
-			border-radius: 10px;
-			margin-top: 40px;
-		}
-    	
-    </style>
     
     
     
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
-	<center>
-	<div class="joinf">
-	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
-	<img src="<%=contextPath%>/eq/img/ad.PNG" width="400px">
-	<h2>정보 입력</h2>
-		<table class="Jointb">
-			<tr>
-			<td width="100px">
-				닉네임
-			</td><td width="300px">	
-				<input type="text">
-			</td>
-			</tr>
-			<tr></tr>
-			<tr>
-			<td>
-				ID
-				</td><td>
-				<input type="text">
-			</td>
-			</tr>
-			<tr></tr>
-			<tr>
-			<td>
-				PW
-				</td><td>
-				<input type="password">
-			</td>
-			</tr>
-			<tr></tr>
-			<tr>
-			<td>
-				PW 확인
-				</td><td>
-				<input type="password">
-			</td>
-			</tr>
-			<tr>
-			<td>
-				이름
-				</td><td>
-				<input type="text">
-			</td>
-			</tr>
-			<tr>
-			<td>
-				이메일
-				</td><td>
-				<input type="text">
-			</td>
-			</tr>
-			
-		</table>
-		<a href="<%=contextPath%>/Member/join3.jsp">
-		<button>회원가입 하기</button>
-		</a>
-		</div>
-	</center>
 
 
 

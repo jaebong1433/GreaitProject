@@ -3,9 +3,8 @@
     
     
     <%
-    
 	String contextPath = request.getContextPath();
-	%>
+%>
 <!DOCTYPE html>
 	<html class="no-js">
 	<head>
@@ -71,14 +70,6 @@
     </a>
    	</div>
     <ul class="list-unstyled ps-0">
-    <!-- 로그인 로그아웃  마이페이지버튼만생성 구현-->
-    <%
-    
-    	String m_nickname = (String)session.getAttribute("m_nickname");
-    	if(m_nickname == null){
-    
-    %>
-    
     	<div class="logf">
     		<a href="<%=contextPath%>/member1/login.me"><button>로그인</button></a>
     		
@@ -110,8 +101,6 @@
     		<%
     		}
     		%>
-    		
-    		
     	</div>
     <li class="border-top my-3"></li>
       
@@ -143,7 +132,7 @@
         <a href="<%=contextPath%>/com/list.bo?nowBlock=0&nowPage=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
         		data-bs-target="#orders-collapse" aria-expanded="false">
           커뮤니티
-        </button></a>
+        </button>
       </li>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
@@ -163,5 +152,12 @@
     	}
     </script>
 	
+	<script>
+		function communityMove(){
+			
+			location.href="<%=contextPath%>/com/list.bo";
+		}
+		
+	</script>
 </body>
 </html>

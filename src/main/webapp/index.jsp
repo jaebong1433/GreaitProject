@@ -40,20 +40,19 @@
 			
 			
 			.mainside{
-				height: 98%;
+				height: 100%;
 				float : left;
 				margin-left: 50px;
 				text-align : left;
 				position: fixed;
-				z-index: 2;
 			}
 			.maintext{
 				width : 79%;
 				height: 100%;
+				
 				margin-right: 20px;
 				float : right;
 				background-color: white;
-				z-index:1;
 			}
 			
 			.mainbot{
