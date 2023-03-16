@@ -29,6 +29,10 @@
 			margin-top: 40px;
 		}
     	
+    	.ottdiv{
+    		margin: 50px 0 50px 0;
+    	}
+    	
     </style>
     
     
@@ -43,7 +47,9 @@
 	<center>
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
-	<img src="<%=contextPath%>/eq/img/ad.PNG" width="400px">
+	<div class="ottdiv">
+			<img src="<%=contextPath%>/eq/img/1232.png" width="600px">
+			</div>
 	<h2>정보 입력</h2>
 		<table class="Jointb">
 			<tr>

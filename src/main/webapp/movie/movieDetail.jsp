@@ -150,9 +150,7 @@
 		<h3>예고편</h3>
 		<span>
 			<div class="avi">
-				
-			</div>
-		</span>
+<iframe title="<스즈메의 문단속> 첫 번째 예고편" width="700" height="400" src="https://play-tv.kakao.com/embed/player/cliplink/430418376?service=player_share" allowfullscreen frameborder="0" scrolling="no" allow="autoplay; fullscreen; encrypted-media"></iframe>		</span>
 		</div>
 		<hr>
 	</div>

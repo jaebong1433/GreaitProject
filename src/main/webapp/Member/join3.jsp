@@ -20,6 +20,10 @@
 			border-radius: 10px;
 			margin-top: 40px;
 		}
+		
+		.ottdiv{
+    		margin: 50px 0 50px 0;
+    	}
     	
     </style>
     
@@ -35,7 +39,9 @@
 	<center>
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
-	<img src="<%=contextPath%>/eq/img/as.PNG" width="400px">
+	<div class="ottdiv">
+			<img src="<%=contextPath%>/eq/img/1233.png" width="600px">
+			</div>
 	<h2>회원가입이 완료 되었습니다!</h2>
 		
 		<a href="<%=contextPath%>/Member/login.jsp">

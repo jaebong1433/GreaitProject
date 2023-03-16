@@ -106,6 +106,14 @@
 			text-align: left;
 		}
 		
+		.fonttb h6{
+			margin-top : 10px;
+			font-size: 1.3em;
+			font-weight: bold;
+			color: black;
+		}
+		
+		
 		
 	
 	</style>
@@ -158,9 +166,9 @@
 									<img src="<%=imgSrc%>" alt="" width="140px" />
 									<span>
 									<div class="fonttb">
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
+									<table>
+										<tr><h6>
+											<%=title %></h6>
 										</tr>
 										<tr>	
 											<%=age%><br>
@@ -175,8 +183,8 @@
 										<tr>	
 											예매율:<%=dNum%><br>
 										</tr>
-										<tr>	
-											개봉일:<%=dDate%><br>
+										<tr>
+											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
@@ -187,9 +195,7 @@
 						 }
 						
 						%>
-						
-						
-					</ul> --%>
+					</ul>
 					</td>
 					<td width="30px">
 					<p class="next_btn">
@@ -202,7 +208,7 @@
 				</div>
 				</tr>
 			</table>
-			<br><br><br><br>
+			<br><br>
 		</div>
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
@@ -212,7 +218,7 @@
 			<hr>
 			<table class="centertb2">
 				<tr>
-						<%				
+						<%
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
 						
 						CrawlingVO vo2 = null;
@@ -235,8 +241,7 @@
 							
 					<%	 
 						 }
-						
-					%>					
+					%>
 				</tr>
 			</table>
 			
