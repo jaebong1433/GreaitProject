@@ -410,11 +410,8 @@ public class MemberDAO {
 		return result;
 	}
 	
-<<<<<<< HEAD
-	//
-=======
+
 	//닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
->>>>>>> branch 'develop' of https://github.com/hoya1731/GreaitProject.git
 	public MemberVO getMemVO(String nickname) {
 		MemberVO vo = null;
 		try {
