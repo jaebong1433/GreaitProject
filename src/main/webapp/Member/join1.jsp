@@ -39,6 +39,10 @@
 		.fpmgBt1{background-color: #fff;color:#888}
 		.fpmgBt2{background-color: lightsalmon;color: #fff}
     	
+    	.ottdiv{
+    		margin: 50px 0 50px 0;
+    	}
+    	
     </style>
     
     
@@ -53,7 +57,9 @@
 	<center>
 		<div class="joinf">
 			<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
-			<img src="<%=contextPath%>/eq/img/af.PNG" width="400px">
+			<div class="ottdiv">
+			<img src="<%=contextPath%>/eq/img/1231.png" width="600px">
+			</div>
 			<h2>약관 동의</h2>
 			<form action="" id="joinForm">
             <ul class="join_box">

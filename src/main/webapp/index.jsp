@@ -40,7 +40,7 @@
 			
 			
 			.mainside{
-				height: 100%;
+				height: 99%;
 				float : left;
 				margin-left: 50px;
 				text-align : left;
@@ -66,7 +66,7 @@
 			    min-height: 100%;
 			    margin: 0 auto;
 			    padding-top: 7px;
-			    background-color : white;
+				background-color: #4B4B4B;
 			}
 			
 			

@@ -150,6 +150,11 @@
           예고편
         </button>
       </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+          극장 검색
+        </button>
+      </li>
       
     </ul>
   </div>

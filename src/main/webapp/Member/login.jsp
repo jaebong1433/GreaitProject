@@ -64,7 +64,7 @@
    		<br>
    		</form>	
    		<br>
-   			<a href="<%=contextPath%>/Member/join.jsp">회원가입</a><br><br>
+   			<a href="<%=contextPath%>/Member/join1.jsp">회원가입</a><br><br>
    			<a href="<%=contextPath%>/Member/findID.jsp">아이디 찾기</a>
    			<a href="<%=contextPath%>/Member/findPW.jsp">비밀번호 찾기</a><br><br>		
    		<p>간편로그인</p>
