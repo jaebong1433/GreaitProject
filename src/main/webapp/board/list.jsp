@@ -5,11 +5,14 @@ language="java"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
+	String nickname = (String)session.getAttribute("m_nickname");
 	
 %>
+${ sessionScope.m_nickname }
 <!DOCTYPE html>
 <html>
 	<head>
@@ -170,8 +173,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										
 										width = vo.getC_level() * 10;
 								%>
-									<img src="../board/images/level.gif" width="<%=width%>" height="15">
-									<img src="../board/images/re.gif">
+									<img src="<%=contextPath %>/board/images/level.gif" width="<%=width%>" height="15">
+									<img src="<%=contextPath %>/board/images/re.gif">
 								<%	
 									}
 								%>		
@@ -182,13 +185,13 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								</td>
 								<td align="left">
 										<%=vo.getC_content()%>
-									</a>
+									
 								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
-								</td>
+								
 							</tr>
 					
 				<% 
@@ -227,8 +230,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 			            </td>
 		            </form>
 			   <%
- 					String nickname = (String)session.getAttribute("nickname");
- 					
  					if(nickname == null){//로그인 하지 않았을 경우 
  				%>		
  						<script>

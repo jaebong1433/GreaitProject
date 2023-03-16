@@ -3,15 +3,12 @@
     pageEncoding="UTF-8"%>
     
     <%
-    
     String contextPath = request.getContextPath();
-    
     request.setCharacterEncoding("utf-8");
     	    	
     MemberVO selectVO = (MemberVO)request.getAttribute("vo");
         
     String m_id = selectVO.getM_id();
-    
     %>
     <style>
     	.findtb{
@@ -52,33 +49,20 @@
 	<center>
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
-	
 		<h2>아이디 찾기</h2>
-		
 		<h3>아이디는 <%=m_id %>입니다.</h3>
-		
-		
-		
-		<input type="button" value="홈으로" onclick="hone();" >
-					
-					
+		<input type="button" value="홈으로" onclick="hone();" >		
 		<input type="button" value="로그인" onclick="login();">
-
-		
 		</div>
 	</center>
-	
 	<script>
 	function login(){
 		location.href="<%=contextPath%>/Member/login.jsp";
 	}
-	
+  
 	function hone() {
 		location.href="<%=contextPath%>/main.jsp";
 	}
-	
 	</script>
-	
-	
 </body>
 </html>
