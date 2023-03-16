@@ -71,7 +71,36 @@
    	</div>
     <ul class="list-unstyled ps-0">
     	<div class="logf">
-    		<a href="<%=contextPath%>/Member/login.jsp"><button>로그인</button></a>
+    		<a href="<%=contextPath%>/member1/login.me"><button>로그인</button></a>
+    		
+    <%
+    
+    	}else{
+    		
+    	
+    %>		
+    	
+    	<ul class="pull-right right-menu" >
+    	
+			<li><%=m_nickname%></li>
+			<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
+		</ul>	
+    		
+    	<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
+			
+			<ul class="pull-right right-menu" >
+				
+				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
+			
+			<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
+					
+					class="btn btn-common">myPage</a></li>
+			</ul>
+		</form>
+    		
+    		<%
+    		}
+    		%>
     	</div>
     <li class="border-top my-3"></li>
       
@@ -100,8 +129,8 @@
         </div>
       </li>
       <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
-        		data-bs-target="#orders-collapse" aria-expanded="false" onclick="communityMove();">
+        <a href="<%=contextPath%>/com/list.bo?nowBlock=0&nowPage=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+        		data-bs-target="#orders-collapse" aria-expanded="false">
           커뮤니티
         </button>
       </li>

@@ -159,16 +159,15 @@ public class MemberController extends HttpServlet {
 			//로그인 수행
 			else if(action.equals("/login.me")) {//로그인 창으로 이동
 			
-				center = request.getParameter("center");
+				
 			
 				//중앙화면 주소 바인딩
 
-				request.setAttribute("center", center);
+				request.setAttribute("center","/Member/login.jsp" );
 			
 				//전체 메인화면 주소 저장
 
-				nextPage = "/main.jsp";
-				
+				nextPage = "/main.jsp";			
 				
 			}
 			//로그인 유효성검

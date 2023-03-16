@@ -10,7 +10,7 @@
 %>
 
 <%
-	String loginNick = (String)session.getAttribute("nickname");
+	String loginNick = (String)session.getAttribute("m_nickname");
 	if(loginNick == null){//로그인 하지 않았을경우
 %>		
 	<script>	
