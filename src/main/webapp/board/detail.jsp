@@ -20,6 +20,17 @@ pageEncoding="UTF-8"
 	String nowPage = (String)request.getAttribute("nowPage");
 	String nowBlock = (String)request.getAttribute("nowBlock");
 	String c_idx = (String)request.getAttribute("c_idx");
+  	String loginNick = (String)session.getAttribute("nickname");
+  
+	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
+	String check;
+	
+	if(boardLikeVO == null) {
+		check = "no";
+	} else {
+		check = "yes";
+	}	
+
 %>
 
 <!DOCTYPE html>
