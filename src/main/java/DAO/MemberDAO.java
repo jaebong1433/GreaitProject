@@ -244,6 +244,37 @@ public class MemberDAO {
 		}
 	
 
+	//로그인후 사이드바 닉네이표시 
+	public String logName (String m_id) {
+		
+		String nickname = null;
+		
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select m_nickname from m_member where m_id=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_id);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+			nickname = rs.getString("m_nickname");
+			}
+		
+		}catch (Exception e) {
+			System.out.println("logName메소드 내부에서 SQL실행 오류 ");
+			e.printStackTrace();
+		} finally {
+			//자원해제
+			closeResource();
+		}	
+		
+		return nickname;
+		
+	}
+	
+	
 	//아이디찾기
 		public MemberVO findId(String m_name, String m_email) {
 	
@@ -417,6 +448,8 @@ public class MemberDAO {
 		return result;
 	}
 	
+	
+
 
 	//닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
 	public MemberVO getMemVO(String nickname) {
@@ -443,6 +476,7 @@ public class MemberDAO {
 		}
 		return vo;	
 	}
+
 
 }
 

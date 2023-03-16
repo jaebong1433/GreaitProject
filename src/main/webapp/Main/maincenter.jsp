@@ -5,7 +5,6 @@
 <%
 	String contextPath = request.getContextPath();
 	
-	
 %>    
    
 <!DOCTYPE html>
@@ -162,12 +161,12 @@
 							 dNum = vo.getdNum();
 							 dDate = vo.getdDate();
 						%>	 
-							 <li>
+							  <li>
 								<a href="#">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
 									<span>
 									<div class="fonttb">
-									<table> 
+									<table>
 										<tr><h6>
 											<%=title %></h6>
 										</tr>
@@ -184,7 +183,7 @@
 										<tr>	
 											예매율:<%=dNum%><br>
 										</tr>
-										<tr>	
+										<tr>
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
@@ -196,7 +195,6 @@
 						 }
 						
 						%>
-						
 					</ul>
 					</td>
 					<td width="30px">
@@ -221,7 +219,6 @@
 			<table class="centertb2">
 				<tr>
 						<%
-						
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
 						
 						CrawlingVO vo2 = null;
@@ -230,24 +227,21 @@
 					     
 					     for (int i = 0; i < 4; i++) {
 								
-							 vo2 = (CrawlingVO)list2.get(i);
+ 							 vo2 = (CrawlingVO)list2.get(i);
 							 clipTitle = vo2.getClipTitle();
 							 clipImg = vo2.getClipImg();
 						%>	 				
 			
 							<td>
 								<a href="#">
-									<!-- 3.16 재봉 수정 -->
-									<img src="<%=clipImg%>" width="200px" height="100px"><br>
+									<img src="<%=clipImg%>" width="180px" height="100px"><br>
 									<span><strong><%=clipTitle%></strong></span>
 								</a>	
 							</td>
 							
 					<%	 
 						 }
-						
 					%>
-					
 				</tr>
 			</table>
 			
@@ -257,12 +251,11 @@
 		<div>
 			<h2>포토</h2>
 			<hr>
-			<table class="centertb3">
+			<%-- <table class="centertb3">
 				<tr>
 					<%
 					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
 						ArrayList list3 = (ArrayList)request.getAttribute("mainPhotoList");
-						
 						CrawlingVO vo3 = null;
 						String photo; // 포스터 이미지
 						
@@ -272,9 +265,7 @@
 							 photo = vo3.getPhoto();
 				     %>			
 							<td>
-								<!-- 3.16 재봉 수정 -->
-								<img src="<%=photo%>" width="200px" height="140px"><br>
-								
+								<img src="<%=photo%>" width="200px" height="150px"><br>
 							</td>
 						<%	 
 						 }
@@ -289,15 +280,14 @@
 							 photo = vo3.getPhoto();
 						%>	 
 							<td>
-								<!-- 3.16 재봉 수정 -->
-								<img src="<%=photo%>" width="200px" height="140px"><br>
+								<img src="<%=photo%>" width="200px" height="150px"><br>
 							</td>
 						<%	 
 						 }	
 						
 						%>
 				</tr>
-			</table>
+			</table> --%>
 			
 		</div>
 		
