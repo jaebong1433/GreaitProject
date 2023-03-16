@@ -54,33 +54,19 @@
 <center>
 <body align="center">
 	<div class="logf">
-   		<h1>Login</h1><br><br>
+   		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
    		
-   		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login">
+   		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login" onsubmit="return login();">
    		
-   		
-   		
-   		<input class="loginp" type="text" value="아이디"><br>
-   		
-   		
-   		
-   		<input class="loginp" type="password" value="password"><br><br>
-   		
-   		
-   		
-   		<button>로그인</button><br><br>
-   		
-   		
-   		</form>
-   		
-   		
-   		
-   		<a href="<%=contextPath%>/member1/findId.me">아이디 찾기</a> / 
-   		
-   		
-   		
-   		<a href="<%=contextPath%>/member1/findPw.me">비밀번호 찾기</a><br><br>
-   		
+	   		<input id="m_id" class="loginp" type="text" name="m_id" placeholder="아이디"><br>
+	   		<input id="m_pw" class="loginp" type="password" name="m_pw" placeholder="password"><br><br>
+	   		<button type="submit" >로그인</button><br><br>
+   		<br>
+   		</form>	
+   		<br>
+   			<a href="<%=contextPath%>/Member/join.jsp">회원가입</a><br><br>
+   			<a href="<%=contextPath%>/Member/findID.jsp">아이디 찾기</a>
+   			<a href="<%=contextPath%>/Member/findPW.jsp">비밀번호 찾기</a><br><br>		
    		<p>간편로그인</p>
    		
    		
@@ -108,13 +94,22 @@
 <script type="text/javascript">
 	
 		function login() {
-			$("#login").submit();
+			var m_id = document.getElementById("m_id").val();
+			var m_pw = document.getElementById("m_pw").val();
+		
+			
+			if(m_id == "" && m_pw == ""){
+				alert("아이디와 비밀번호를 모두 입력해 주세요");
+				return false;
+			}
+			
+			return true;
 		}
 		
 		function kakaologin() {
 			$("#login").submit();
 		}
-	
+		
 		function naverlogin() {
 			$("#login").submit();
 		}
@@ -126,7 +121,7 @@
 		function instagramlogin() {
 			$("#login").submit();
 		}
-		
+
 	</script>
 	
 </body>
