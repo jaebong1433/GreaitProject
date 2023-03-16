@@ -5,11 +5,14 @@ language="java"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
+	String nickname = (String)session.getAttribute("m_nickname");
 	
 %>
+${ sessionScope.m_nickname }
 <!DOCTYPE html>
 <html>
 	<head>
@@ -227,8 +230,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 			            </td>
 		            </form>
 			   <%
- 					String nickname = (String)session.getAttribute("nickname");
- 					
  					if(nickname == null){//로그인 하지 않았을 경우 
  				%>		
  						<script>
