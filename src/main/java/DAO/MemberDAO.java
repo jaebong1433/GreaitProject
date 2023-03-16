@@ -164,8 +164,8 @@ public class MemberDAO {
 			return result;//true 또는 false를  MemberController로 반환 
 		}
 	
-	//주소 업데이트 완료 
-	public void insertMember(MemberVO vo) {
+		//회원가입 
+		public void insertMember(MemberVO vo) {
 	
 		try {
 			//커넥션 풀에 만들어져 있는 DB와 미리 연결을 맺은 Connection객체 빌려오기 
@@ -311,7 +311,7 @@ public class MemberDAO {
 		}
 		
 		
-	//회원 이메일을 이용해 회원 정보 조회
+	//회원 아이디을 이용해 회원 정보 조회
 	public MemberVO findMember(String m_id) {
 		
 			MemberVO vo = null;
@@ -410,7 +410,11 @@ public class MemberDAO {
 		return result;
 	}
 	
+<<<<<<< HEAD
+	//
+=======
 	//닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
+>>>>>>> branch 'develop' of https://github.com/hoya1731/GreaitProject.git
 	public MemberVO getMemVO(String nickname) {
 		MemberVO vo = null;
 		try {
