@@ -22,15 +22,15 @@ pageEncoding="UTF-8"
 	String c_idx = (String)request.getAttribute("c_idx");
   	String loginNick = (String)session.getAttribute("nickname");
   
-	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
+// 	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
 	String check;
 	
-	if(boardLikeVO == null) {
+	/* if(boardLikeVO == null) {
 		check = "no";
 	} else {
 		check = "yes";
 	}	
-
+ */
 %>
 
 <!DOCTYPE html>

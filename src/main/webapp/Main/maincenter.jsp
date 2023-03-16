@@ -131,7 +131,7 @@
 				</td>
 				<td>	
 				<div id="best_bg">
-					<ul>
+					<%-- <ul>
 						<%
 						
 						ArrayList list = (ArrayList)request.getAttribute("mainList");
@@ -179,7 +179,7 @@
 						%>
 						
 						
-					</ul>
+					</ul> --%>
 					</td>
 					<td width="30px">
 					<p class="next_btn">
@@ -201,7 +201,7 @@
 			<h2>예고편</h2>
 			<hr>
 			<table class="centertb2">
-				<tr>
+			<%-- 	<tr>
 <%
 						
 						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
@@ -212,7 +212,7 @@
 					     
 					     for (int i = 0; i < 4; i++) {
 								
-							 vo2 = (CrawlingVO)list2.get(i);
+ 							 vo2 = (CrawlingVO)list2.get(i);
 							 clipTitle = vo2.getClipTitle();
 							 clipImg = vo2.getClipImg();
 						%>	 				
@@ -228,7 +228,7 @@
 						 }
 						
 					%>
-				</tr>
+				</tr> --%>
 			</table>
 			
 		</div><br><br>
@@ -237,7 +237,7 @@
 		<div>
 			<h2>포토</h2>
 			<hr>
-			<table class="centertb3">
+			<%-- <table class="centertb3">
 				<tr>
 					<%
 						
@@ -276,7 +276,7 @@
 						
 						%>
 				</tr>
-			</table>
+			</table> --%>
 			
 		</div>
 		
