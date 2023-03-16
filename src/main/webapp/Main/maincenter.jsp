@@ -37,14 +37,14 @@
 		  //bxSlider()메서드 적용 하고 슬라이드 옵션을 지정 
 		  var mySlider=$("#best_bg ul").bxSlider({
 										       mode:"horizontal", //수평(horizontal) 방향으로 이동 시키기
-										        speed:500, //이동속도(500:0.5초)
-										        pager:false, //페이징 표시를 제어(flase:숨김, true:노출)
-										        moveSlides:5, //이동슬라이드 수 설정
-										        slideWidth:250,//슬라이드폭
-										        minSlides:5,//최소 노출 슬라이드 수 
-										        maxSlides:5,//최대 노출 슬라이드 수
-										        slideMargin:20,//슬라이드 간의 간격 입니다.
-										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
+										        speed:500, //이동속도(500:0.5초)
+										        pager:false, //페이징 표시를 제어(flase:숨김, true:노출)
+										        moveSlides:5, //이동슬라이드 수 설정
+										        slideWidth:200,//슬라이드폭
+										        minSlides:5,//최소 노출 슬라이드 수 
+										        maxSlides:5,//최대 노출 슬라이드 수
+										        slideMargin:70,//슬라이드 간의 간격 입니다.
+										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
 	  										});
 		  //  https://bxslider.com/options/
 		  
@@ -67,9 +67,10 @@
 </script>
 	<style type="text/css">
 		.centertb1{
-			height: 400px;
+			width: 98%;
+			height: 350px;
 			text-align: center;
-			border: 1px solid white;
+			margin: auto;
 		}
 		
 		
@@ -101,6 +102,12 @@
 			
 		}
 		
+		.fonttb{
+			font-size: 0.8em;
+			text-align: left;
+		}
+		
+		
 	
 	</style>
   
@@ -108,13 +115,14 @@
 <body>
 <center>
 <!-- 영화 슬라이드 구역 -->
+	<div>
 	<br>
 	<h2>HOT & NEW</h2>
 	<hr>
-	<div id="bestbook_zone">
+	<div>
 		<table class="centertb1">
 			<tr>
-				<td width="20px">
+				<td width="30px">
 				<p class="prev_btn">
 						<a href="#"> 
 							<img src="<%=contextPath %>/eq/img/leftgo.png" alt="이전으로 이동" width="30px"/>
@@ -124,30 +132,55 @@
 				<td>	
 				<div id="best_bg">
 					<ul>
+						<!-- 3.16 이재봉 수정 -->
 						<%
 						
 						ArrayList list = (ArrayList)request.getAttribute("mainList");
 						
 						 CrawlingVO vo = null;
-						 String rating2 ; //영화 관람가
-					     String movie; // 영화 제목
-					     String imgSrc; // 포스터 이미지
-					     Double naverScore;
+						 String age;
+						 String imgSrc; 
+						 String title; 
+						 String dScore; 
+						 String dNum; 
+						 String dDate;
 						 for (int i = 0; i < 10; i++) {
 						
 							 vo= (CrawlingVO)list.get(i);
-							 rating2 = vo.getRating2();
-							 movie = vo.getMovie();
+							 age = vo.getAge();
 							 imgSrc = vo.getImgSrc();
-							 naverScore = vo.getNaverScore();
+							 title = vo.getTitle();
+							 dScore = vo.getdScore();
+							 dNum = vo.getdNum();
+							 dDate = vo.getdDate();
 						%>	 
 							 <li>
 								<a href="#">
-									<img src="<%=imgSrc%>" alt="" width="230px" />
-									<span> 
-										<strong><%=movie %></strong><br>
-										<strong>영화 관람가:<%=rating2%></strong><br>
-										<strong>평점:<%=naverScore%></strong><br>
+									<img src="<%=imgSrc%>" alt="" width="140px" />
+									<span>
+									<div class="fonttb">
+									<table> 
+										<tr>
+											<strong><%=title %></strong><br>
+										</tr>
+										<tr>	
+											영화 관람가:<%=age%>
+										</tr>
+										<tr>
+										<td>
+										<img src="<%=contextPath%>/eq/img/SP.png">
+										</td>
+										<td><%=dScore%>
+										</td>
+										</tr>
+										<tr>	
+											예매율:<%=dNum%>
+										</tr>
+										<tr>	
+											개봉일:<%=dDate%>
+										</tr>
+									</table>
+									</div>
 									</span>
 								</a>
 							</li>
@@ -158,7 +191,7 @@
 						
 					</ul>
 					</td>
-					<td width="20px">
+					<td width="30px">
 					<p class="next_btn">
 						<a href="#"> 
 							<img src="<%=contextPath %>/eq/img/rightgo.png" alt="다음으로 이동" width="30px"/>
@@ -170,6 +203,7 @@
 				</tr>
 			</table>
 			<br><br>
+		</div>
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
 		<!-- 예고편 구역 시작 -->

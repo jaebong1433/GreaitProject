@@ -1,25 +1,30 @@
 package VO;
 
+//3.16 재봉 수정
 public class CrawlingVO {
-	 private String rating2;
-     private String movie; 
-     private String imgSrc; 
-     private Double naverScore;
-     private String clipTitle;
-     private String clipImg;
-     private String photo;
+	private String age;
+	private String imgSrc; 
+	private String title; 
+	private String dScore; 
+	private String dNum; 
+	private String dDate; 
+    private String clipTitle;
+    private String clipImg;
+    private String photo;
      
-     public CrawlingVO() {
+	 public CrawlingVO() {
 	
-     }
-
-	public CrawlingVO(String rating2, String movie, String imgSrc, Double naverScore) {
-		this.rating2 = rating2;
-		this.movie = movie;
+	 }
+    
+	public CrawlingVO(String age, String imgSrc, String title, String dScore, String dNum, String dDate) {
+		this.age = age;
 		this.imgSrc = imgSrc;
-		this.naverScore = naverScore;
+		this.title = title;
+		this.dScore = dScore;
+		this.dNum = dNum;
+		this.dDate = dDate;
 	}
-	
+
 	public CrawlingVO(String clipTitle, String clipImg) {
 		this.clipTitle = clipTitle;
 		this.clipImg = clipImg;
@@ -28,16 +33,66 @@ public class CrawlingVO {
 	public CrawlingVO(String photo) {
 		this.photo = photo;
 	}
-	
-	public CrawlingVO(String rating2, String movie, String imgSrc, Double naverScore, String clipTitle, String clipImg,
-			String photo) {
-		this.rating2 = rating2;
-		this.movie = movie;
+
+	public CrawlingVO(String age, String imgSrc, String title, String dScore, String dNum, String dDate,
+			String clipTitle, String clipImg, String photo) {
+		this.age = age;
 		this.imgSrc = imgSrc;
-		this.naverScore = naverScore;
+		this.title = title;
+		this.dScore = dScore;
+		this.dNum = dNum;
+		this.dDate = dDate;
 		this.clipTitle = clipTitle;
 		this.clipImg = clipImg;
 		this.photo = photo;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getImgSrc() {
+		return imgSrc;
+	}
+
+	public void setImgSrc(String imgSrc) {
+		this.imgSrc = imgSrc;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getdScore() {
+		return dScore;
+	}
+
+	public void setdScore(String dScore) {
+		this.dScore = dScore;
+	}
+
+	public String getdNum() {
+		return dNum;
+	}
+
+	public void setdNum(String dNum) {
+		this.dNum = dNum;
+	}
+
+	public String getdDate() {
+		return dDate;
+	}
+
+	public void setdDate(String dDate) {
+		this.dDate = dDate;
 	}
 
 	public String getClipTitle() {
@@ -56,38 +111,6 @@ public class CrawlingVO {
 		this.clipImg = clipImg;
 	}
 
-	public String getRating2() {
-		return rating2;
-	}
-
-	public void setRating2(String rating2) {
-		this.rating2 = rating2;
-	}
-
-	public String getMovie() {
-		return movie;
-	}
-
-	public void setMovie(String movie) {
-		this.movie = movie;
-	}
-
-	public String getImgSrc() {
-		return imgSrc;
-	}
-
-	public void setImgSrc(String imgSrc) {
-		this.imgSrc = imgSrc;
-	}
-
-	public Double getNaverScore() {
-		return naverScore;
-	}
-
-	public void setNaverScore(Double naverScore) {
-		this.naverScore = naverScore;
-	}
-
 	public String getPhoto() {
 		return photo;
 	}
@@ -95,5 +118,5 @@ public class CrawlingVO {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-    
+
 }
