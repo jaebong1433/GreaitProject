@@ -85,7 +85,6 @@ public class CommunityController extends HttpServlet {
 		int count = 0;
 		
 		HttpSession session = request.getSession();
-
 		
 		PrintWriter out = response.getWriter();
 		

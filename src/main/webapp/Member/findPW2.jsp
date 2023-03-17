@@ -5,6 +5,9 @@
     
     String contextPath = request.getContextPath();
     
+    String m_pw = (String)request.getAttribute("m_pw"); 
+    
+    
     %>
     <style>
     	.findtb{
@@ -46,11 +49,20 @@
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
 		<h2>비밀번호 찾기</h2>
-		<h3>비밀번호는 1234입니다.</h3>
-		<a href="<%=contextPath%>/Member/login.jsp">
-		<button>로그인 하기</button>
+		<h3>비밀번호는 <%=m_pw %>입니다.</h3>
+		<input type="button" value="홈으로" onclick="hone();" >		
+		<input type="button" value="로그인" onclick="login();">
 		</a>
 		</div>
 	</center>
+	<script>
+	function login(){
+		location.href="<%=contextPath%>/Member/login.jsp";
+	}
+  
+	function hone() {
+		location.href="<%=contextPath%>/main.jsp";
+	}
+	</script>
 </body>
 </html>

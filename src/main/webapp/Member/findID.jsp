@@ -46,7 +46,7 @@
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
 		<h2>아이디 찾기</h2>
-		<form class="form-signin" action="<%=contextPath%>/member1/findIdResult.me" id="findId">
+		<form class="form-signin" action="<%=contextPath%>/member1/findIdResult.me" id="findId" method="post">
 		<table class="findtb">
 			<tr>
 				<td>
