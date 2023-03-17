@@ -201,7 +201,7 @@ public class MemberController extends HttpServlet {
 				session.setAttribute("m_nickname", nickname);
 				
 				//메인화면 VIEW 주소
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 
 
 			}
@@ -212,7 +212,7 @@ public class MemberController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 		
 				
 			}		
@@ -223,7 +223,7 @@ public class MemberController extends HttpServlet {
 					
 				session.invalidate();
 							
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 				
 				
 			}
