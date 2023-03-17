@@ -151,9 +151,11 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							}
 							
 								CommunityVO vo = (CommunityVO)list.get(i);
-												
 								
-								
+								String content = vo.getC_content();
+								if(content.length() > 20) {
+									content = content.substring(0, 20) + "...";
+								}
 				%>			
 								
 							<tr>
@@ -184,14 +186,12 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									</a>
 								</td>
 								<td align="left">
-										<%=vo.getC_content()%>
-									</a>
+										<%=content%>
 								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
-								</td>
 							</tr>
 					
 				<% 

@@ -23,15 +23,14 @@ pageEncoding="UTF-8"
 	String c_idx = (String)request.getAttribute("c_idx");
   	String loginNick = (String)session.getAttribute("nickname");
   
-// 	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
+	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
 	String check;
 	
-	/* if(boardLikeVO == null) {
+	if(boardLikeVO == null) {
 		check = "no";
 	} else {
 		check = "yes";
 	}	
- */
 %>
 
 <!DOCTYPE html>
@@ -53,7 +52,7 @@ pageEncoding="UTF-8"
 		<p>조회수 : <%= views %></p>
 		추천 수 : <p id="like"><%= like %></p>
 		
-		<button id="like_btn">좋아요</button>
+		<button id="like_btn" onclick="like();">좋아요</button>
 		
 		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
 		
@@ -64,15 +63,22 @@ pageEncoding="UTF-8"
 		</form>
 		
 		<script type="text/javascript">
+			var check = "<%= check %>"	
+			if(check == "yes") {
+				$("#like_btn").css({backgroundColor : "red"});
+			} else {
+				$("#like_btn").css({backgroundColor : "blue"});
+			}
+			
+			
 			function replyBoard(val) {
 				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
 				document.reply.c_idx.value = val;
 				document.reply.submit();
-			}	
-		
-		
+			}
+			
 			$("#like_btn").on("click", function() {
-				if($.cookie("likeCookie") == null) {
+				if(check == "no") {
 					$.ajax({
 						type: "post",
 						async : true,
@@ -83,10 +89,22 @@ pageEncoding="UTF-8"
 							$("#like").text(data);
 						}
 					});
-					$.cookie("likeCookie", "true", {expires:1, path:"/"});
+					check = "yes";
+					$("#like_btn").css({backgroundColor : "red"});
 					return;
 				} else {
-					alert("추천은 하루에 한 번만 가능합니다.");
+					$.ajax({
+						type: "post",
+						async : true,
+						url : "<%= contextPath %>/com/likeCancel.bo",
+						data : { c_idx : ${c_idx}},
+						dataType : "text",
+						success : function(data) {
+							$("#like").text(data);
+						}
+					});
+					check = "no";
+					$("#like_btn").css({backgroundColor : "blue"});
 					return;
 				}
 			});

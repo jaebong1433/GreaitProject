@@ -83,7 +83,7 @@ public class CommunityController extends HttpServlet {
 		int count = 0;
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("nickname", "admin");
+//		session.setAttribute("nickname", "admin");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -98,7 +98,7 @@ public class CommunityController extends HttpServlet {
 		//정태영
 		else if(action.equals("/list.bo")) {
 			
-			String loginNick = (String)session.getAttribute("nickname"); //세션에 저장된 nickname을 가져옴
+			String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
 			System.out.println(true);
 			list = comDAO.boardListAll();//모든 CommunityVO를 List에 저장
 			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
@@ -125,7 +125,7 @@ public class CommunityController extends HttpServlet {
 			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
-			String nickname = (String)session.getAttribute("nickname");
+			String nickname = (String)session.getAttribute("m_nickname");
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, session);
@@ -147,7 +147,7 @@ public class CommunityController extends HttpServlet {
 		//정태영
 		else if(action.equals("/like.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
-			String nickname = (String)session.getAttribute("nickname");
+			String nickname = (String)session.getAttribute("m_nickname");
 			
 			boardLikeVO = comDAO.addLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
@@ -160,7 +160,7 @@ public class CommunityController extends HttpServlet {
 		//정태영
 		else if(action.equals("/likeCancel.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
-			String nickname = (String)session.getAttribute("nickname");
+			String nickname = (String)session.getAttribute("m_nickname");
 			
 			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
@@ -174,7 +174,7 @@ public class CommunityController extends HttpServlet {
 		//답글 버튼을 눌렀을 때
 		//정태영
 		else if(action.equals("/replyBoard.bo")) {
-			String nickname = (String)session.getAttribute("nickname"); //답글 달 때 자동으로 닉네임을 넣기 위해 session에서 nickname을 받아온다.
+			String nickname = (String)session.getAttribute("m_nickname"); //답글 달 때 자동으로 닉네임을 넣기 위해 session에서 nickname을 받아온다.
 			MemberVO membervo = memberDAO.getMemVO(nickname); //nickname으로 DB에 저장된 값을 얻어 membervo에 저장함
 			
 			String c_idx = request.getParameter("c_idx");
@@ -186,7 +186,7 @@ public class CommunityController extends HttpServlet {
 		}
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
-			String loginNick = (String)session.getAttribute("nickname");
+			String loginNick = (String)session.getAttribute("m_nickname");
 			
 			MemberVO membervo = memberDAO.getMemVO(loginNick);
 			request.setAttribute("center", "board/write.jsp");
