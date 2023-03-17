@@ -74,6 +74,8 @@ public class CommunityController extends HttpServlet {
 		
 		String nextPage = null;
 		
+		String center = null;
+		
 		ArrayList list = null;
 		
 		CommunityVO vo = null;
@@ -83,7 +85,6 @@ public class CommunityController extends HttpServlet {
 		int count = 0;
 		
 		HttpSession session = request.getSession();
-//		session.setAttribute("nickname", "admin");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -110,13 +111,13 @@ public class CommunityController extends HttpServlet {
 			
 			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
 			request.setAttribute("count", count);
-//			request.setAttribute("center","/board/list.jsp");
+			request.setAttribute("center","/board/list.jsp");
 			
 			//페이징 처리 를 위해 담는다.
 			request.setAttribute("nowPage", nowPage);
 			request.setAttribute("nowBlock", nowBlock);
-			nextPage = "/board/list.jsp";
-//			nextPage = "/index.jsp";
+//			nextPage = "/board/list.jsp";
+			nextPage = "/index.jsp";
 		}
 		
 		//게시글을 클릭하였을 때 게시글 읽기
@@ -138,9 +139,11 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowBlock", nowBlock_);
 			request.setAttribute("c_idx", c_idx);
 			session.setAttribute("nickname", nickname);
+			request.setAttribute("center","/board/detail.jsp");
 			
 			
-			nextPage = "/board/detail.jsp";
+//			nextPage = "/board/detail.jsp";
+			nextPage = "/index.jsp";
 		}
 		
 		//좋아요 버튼 눌렀을 때
