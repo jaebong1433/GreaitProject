@@ -46,13 +46,16 @@
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
 		<h2>비밀번호 찾기</h2>
+		
+		<form class="form-signin" action="<%=contextPath%>/member1/findPwResult.me" id="findPW" method="post">
+		
 		<table class="findtb">
 			<tr>
 				<td>
 					아이디
 				</td>
 				<td>
-					<input type="text">
+					<input type="text" name="m_id" placeholder="아이디">
 				</td>
 			</tr>
 			<tr>
@@ -60,7 +63,7 @@
 					이메일
 				</td>
 				<td>
-					<input type="text">
+					<input type="text" name="m_email" placeholder="이메일">
 				</td>
 			</tr>
 			<tr>
@@ -68,12 +71,13 @@
 					이름
 				</td>
 				<td>
-					<input type="text">
+					<input type="text" name="m_name" placeholder="이름">
 				</td>
 			</tr>
 		</table>
-		<a href="<%=contextPath%>/Member/findPW2.jsp">
-		<button>비밀번호 찾기</button>
+		<input type="button" value="비밀번호 찾기" onclick="submit();">
+		<input type="button" value="취소" onClick="history.back();">
+		</form>
 		</a>
 		</div>
 	</center>

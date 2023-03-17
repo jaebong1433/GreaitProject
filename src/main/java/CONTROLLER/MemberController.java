@@ -70,12 +70,26 @@ public class MemberController extends HttpServlet {
 			if(action.equals("/main.me")) {
 				
 				
-				
-				
 				nextPage = "/index.jsp";
 			
+			//회원 가입 눌렀을때 보여주는페이지
+			}else if (action.equals("/join1.me")) {
+				
+				
+				nextPage = "/Member/join1.jsp";
+				
+				
+			//회원가입 약관동의 했을경우 다음패이지로 확인	
+			}else if (action.equals("join2.me")) {
+				
+				
+				
+				
+				
+				nextPage = "/Member/join2.jsp";
 				
 			}
+			
 			//회원가입 실행 
 			else if(action.equals("/joinPro.me")) {
 				//요청한 값 얻기
@@ -177,6 +191,7 @@ public class MemberController extends HttpServlet {
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
 				String nickname = null;
+				
 				int check = memberdao.loginCheck(m_id, m_pw);
 
 				if(check == 0) {//아이디는 맞고 비번 틀림
@@ -201,7 +216,7 @@ public class MemberController extends HttpServlet {
 				session.setAttribute("m_nickname", nickname);
 				
 				//메인화면 VIEW 주소
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 
 
 			}
@@ -239,39 +254,35 @@ public class MemberController extends HttpServlet {
 			//아이디 찾기 수행	
 			else if(action.equals("/findIdResult.me")) {//아이디 찾기
 					
-				String m_name = request.getParameter("n_name");
+				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
 					
-				MemberVO vo = memberdao.findId(m_name,m_email);
-					
-				request.setAttribute("vo", vo);
 				
-				request.setAttribute("center","findIdResult.jsp");
+				String m_id = memberdao.findId(m_name,m_email);
 					
-//				if(check == 0) {//아이디는 맞고 비번 틀림
-//					out.println("<script>");
-//					out.println(" window.alert('비밀번호 틀림');");
-//					out.println(" history.go(-1);");
-//					out.println("</script>");
-//					return;
-//				}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
-//					out.println("<script>");
-//					out.println(" window.alert('아이디 틀림');");
-//					out.println(" history.back();");
-//					out.println("</script>");
-//					return;				
-//				}
 					
-				nextPage = "/main.jsp";
+				if( m_id == null) {//아이디는 맞고 비번 틀림
+					out.println("<script>");
+					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
+					out.println(" history.go(-1);");
+					out.println("</script>");
+					return;
+				}else if (m_id != null){
+					request.setAttribute("m_id", m_id);
+					
+				}
+				
+
+				
+				nextPage = "/Member/findID2.jsp";
 					
 					
 			}
 			//비밀번호 찾기수행
-			else if (action.equals("/findPw.me")) {//비밀번호 찾기수행
+			else if (action.equals("/findPW.me")) {//비밀번호 찾기수행
 					
-					request.setAttribute("center","findPw.jsp");
 					
-					nextPage = "/main.jsp";
+					nextPage = "/Member/findPW.jsp";
 					
 					
 			}
@@ -282,26 +293,23 @@ public class MemberController extends HttpServlet {
 				String m_id= request.getParameter("m_id");
 				String m_email = request.getParameter("m_email");
 
-				MemberVO vo = memberdao.findPw(m_name,m_id,m_email);
+				String m_pw = memberdao.findPW(m_name,m_id,m_email);
 					
-				request.setAttribute("vo", vo);
+				
 					
-				request.setAttribute("center","findPwResult.jsp");
+				if(m_pw == null) {//아이디는 맞고 비번 틀림
+					out.println("<script>");
+					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
+					out.println(" history.go(-1);");
+					out.println("</script>");
+					return;
+				}else if (m_pw != null){
+					request.setAttribute("m_pw", m_pw);
 					
-//				if(check == 0) {//아이디는 맞고 비번 틀림
-//					out.println("<script>");
-//					out.println(" window.alert('비밀번호 틀림');");
-//					out.println(" history.go(-1);");
-//					out.println("</script>");
-//					return;
-//				}else if(check == -1) {//아이디 틀림 , 비밀번호 맞음 	
-//					out.println("<script>");
-//					out.println(" window.alert('아이디 틀림');");
-//					out.println(" history.back();");
-//					out.println("</script>");
-//					return;				
-//				}
-				nextPage = "/main.jsp";
+				}
+				
+				
+				nextPage = "/Member/findPW2.jsp";
 				
 				
 			}
@@ -315,6 +323,9 @@ public class MemberController extends HttpServlet {
 				nextPage = "/main.jsp";
 			}
 		
+			
+			
+			
 			//회원정보 수정을 위해 회원정보 조회 요청!
 			else if(action.equals("/mypage.me")) { 
 				//요청한 값 얻기
