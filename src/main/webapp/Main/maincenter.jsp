@@ -42,10 +42,12 @@
 										        slideWidth:200,//슬라이드폭
 										        minSlides:5,//최소 노출 슬라이드 수 
 										        maxSlides:5,//최대 노출 슬라이드 수
-										        slideMargin:70,//슬라이드 간의 간격 입니다.
+										        slideMargin:20,//슬라이드 간의 간격 입니다.
 										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
 	  										});
 		  //  https://bxslider.com/options/
+		  
+		  
 		  
 		  //< 이전 버튼을 클릭 할때마다 
 		  $(".prev_btn").on("click",function(){
@@ -67,7 +69,7 @@
 	<style type="text/css">
 		.centertb1{
 			width: 98%;
-			height: 350px;
+			height: 400px;
 			text-align: center;
 			margin: auto;
 		}
@@ -86,6 +88,7 @@
 			text-align: center;
 			margin-top: 20px;
 			height : 400px;
+			margin-bottom: 50px;
 		}
 		
 		
@@ -113,6 +116,18 @@
 			color: black;
 		}
 		
+		.hover{
+			width: 200px;
+			overflow: hidden;
+		}
+		
+		.hover img{
+			transition: all 0.1s linear;
+		}
+		
+		.hover:hover img{
+			transform: scale(1.1);
+		}
 		
 		
 	
@@ -163,7 +178,9 @@
 						%>	 
 							  <li>
 								<a href="#">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
+								<div class="hover">
+									<img src="<%=imgSrc%>" alt="" width="300px" />
+								</div>	
 									<span>
 									<div class="fonttb">
 									<table>
@@ -177,7 +194,7 @@
 										<td>
 										<img src="<%=contextPath%>/eq/img/SP.png">
 										</td>
-										<td><%=dScore%><br>
+										<td><b><%=dScore%></b><br>
 										</td>
 										</tr>
 										<tr>	
@@ -251,7 +268,7 @@
 		<div>
 			<h2>포토</h2>
 			<hr>
-			<%-- <table class="centertb3">
+			 <table class="centertb3">
 				<tr>
 					<%
 					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
@@ -287,7 +304,7 @@
 						
 						%>
 				</tr>
-			</table> --%>
+			</table> 
 			
 		</div>
 		

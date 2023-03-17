@@ -12,7 +12,7 @@ pageEncoding="UTF-8"
 	String nickname = (String)session.getAttribute("m_nickname");
 	
 %>
-${ sessionScope.m_nickname }
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -40,7 +40,19 @@ ${ sessionScope.m_nickname }
 		}
 
 		</script>
+		<style>
+			.listtext{
+				width : 97%;
+				height : 1000px;
+			}
+		</style>
+		
+		
+		
+		
+		
 	</head>
+<body>	
 <%
 int totalRecord = 0; //board테이블에 저장된 글의 총개수 -
 int numPerPage = 5; //한 페이지당 조회해서 보여줄 글 개수  -
@@ -90,13 +102,14 @@ if(request.getAttribute("nowBlock") != null){
 totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock ); 
 
 %>
+<center>
 <form name="frmRead">
 		<input type="hidden" name="c_idx">
 		<input type="hidden" name="nowPage" value="<%=nowPage%>">
 		<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 </form>
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
+<table class="listtext">
 	<tr height="40"> 
 		<td width="46%" style="text-align: left"> 
 			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board02.gif" width="150" height="30">
@@ -173,8 +186,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										
 										width = vo.getC_level() * 10;
 								%>
-									<img src="../board/images/level.gif" width="<%=width%>" height="15">
-									<img src="../board/images/re.gif">
+									<img src="<%=contextPath%>/board/images/level.gif" width="<%=width%>" height="15">
+									<img src="<%=contextPath%>/board/images/re.gif">
 								<%	
 									}
 								%>		
@@ -185,13 +198,13 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								</td>
 								<td align="left">
 										<%=vo.getC_content()%>
-									</a>
+									
 								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
-								</td>
+								
 							</tr>
 					
 				<% 
@@ -301,4 +314,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 		</td> 
 	</tr>
 </table>
+</center>
+</body>
 </html>

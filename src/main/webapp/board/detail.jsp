@@ -41,28 +41,85 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-		<script>
+		
+		<style type="text/css">
+	.boarddiv{
+		margin-top: 50px;
+		width : 90%;
+		height: 1000px;
+	}
 			
-		</script>
+	.boarddiv table{
+		width : 60%;
+		float : left;
+	}
+	
+	.boardread{
+		width : 30%;
+		float : right;
+		text-align: right;
+	}
+	
+	.titlez{
+		width : 100%;
+		height : 50px;
+		text-align : left;
+		font-size: 1.5em;
+		font-style: bold;
+	}
+	
+	.textboxz{
+		margin : 30px 0;
+		height : 500px;
+		width : 100%;
+		border: 1px solid black;
+		text-align: left;
+	}
+	
+		</style>
+		
 	</head>
 	<body>
-		<%= title %><br>
-		<%= writer %><br>
-		<%= content %><br>
-		<%= writeDate %><br>
-		<p>조회수 : <%= views %></p>
-		추천 수 : <p id="like"><%= like %></p>
+	<center>
+		<div class="boarddiv">
+			<div class="titlez">
+				<%= title %>
+			</div>	
+		<table>
+		<tr>
+			<td width="10%">
+				<%= writer %>
+			</td>
+			<td>
+				<%= writeDate %>
+			</td>
+			
+		</tr>
+		</table>
+		<div class="boardread">
+		 좋아요 : <%= like %> &nbsp;&nbsp;&nbsp; 조회수 : <%= views %>
+		</div>
+		<hr width="100%">	
+			<textarea class="textboxz" readonly>
+			<%= content %>
+			</textarea>
 		
-		<button id="like_btn">좋아요</button>
 		
-		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+			<p id="like">추천 수 : <%= like %></p>
+			
+			<button id="like_btn">좋아요</button>
+			
+			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+			
+			<form name="reply">
+				<input type="hidden" name="c_idx">
+				<input type="hidden" name="nowPage" value="<%=nowPage%>">
+				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
+			</form>
 		
-		<form name="reply">
-			<input type="hidden" name="c_idx">
-			<input type="hidden" name="nowPage" value="<%=nowPage%>">
-			<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
-		</form>
 		
+		</div>
+	</center>
 		<script type="text/javascript">
 			function replyBoard(val) {
 				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
