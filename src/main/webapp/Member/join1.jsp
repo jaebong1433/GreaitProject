@@ -56,7 +56,9 @@
 <body>
 	<center>
 		<div class="joinf">
+		<a href="<%= contextPath%>/member1/main.me">
 			<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
+			</a>
 			<div class="ottdiv">
 			<img src="<%=contextPath%>/eq/img/1231.png" width="600px">
 			</div>

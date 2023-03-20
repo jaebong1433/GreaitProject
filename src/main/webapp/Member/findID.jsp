@@ -44,7 +44,11 @@
 <body>
 	<center>
 	<div class="joinf">
+	
+	<a href="<%= contextPath%>/member1/main.me">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
+	</a>
+	
 		<h2>아이디 찾기</h2>
 		<form class="form-signin" action="<%=contextPath%>/member1/findIdResult.me" id="findId" method="post">
 		<table class="findtb">
