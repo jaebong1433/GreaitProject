@@ -212,7 +212,7 @@ public class MemberController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 		
 				
 			}		
@@ -223,7 +223,7 @@ public class MemberController extends HttpServlet {
 					
 				session.invalidate();
 							
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 				
 				
 			}

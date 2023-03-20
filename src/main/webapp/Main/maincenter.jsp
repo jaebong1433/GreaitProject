@@ -251,7 +251,7 @@
 		<div>
 			<h2>포토</h2>
 			<hr>
-			<%-- <table class="centertb3">
+			 <table class="centertb3">
 				<tr>
 					<%
 					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
@@ -287,7 +287,7 @@
 						
 						%>
 				</tr>
-			</table> --%>
+			</table> 
 			
 		</div>
 		
