@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    
-    <%
-    
+<%
 	String contextPath = request.getContextPath();
-    
-    
-    
-    
-    
-	%>
+%>
 	
 	
 	
@@ -44,9 +37,31 @@
 			background-color: white;
 		}
 		
+		.logsetf{
+			height: 70px;
+			text-align: left;
+			margin-left: 10px;
+		}
+		
+		.logsetf table{
+			text-align: center;
+			width: 90%; 
+			border: 1px solid black;
+			background-color: gray;
+		}
+		.logsetf td{
+			border: 1px solid black;
+			width: 50%;
+		}
+		
+		.logsetf a{
+			color:white;
+		}
+		
+		
 		.logf{
 			width : 100%;
-			height: 100px;
+			height: 70px;
 			text-align: center;
 			align: center;
 			float: center;
@@ -58,13 +73,16 @@
 			width : 95%;
 			height: 40px;
 			border-radius: 10px;
-			margin-top: 30px;
+			margin-top: 15px;
 		}
 		
 		.sidelogo{
 			margin-left: 15px;
 		}
 		
+		ul li{
+			list-style: none;
+		}
 		
 		
 	</style>
@@ -74,7 +92,7 @@
 <div class="mobject">
 	<div class="flex-shrink-0 p-3" style="width: 215px;">
     <div class="sidelogo">
-    <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+    <a href="<%=contextPath%>/Crawling/maincenter.me" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
       <img src="<%=contextPath%>/eq/img/mm2.png" width="100%">
     </a>
    	</div>
@@ -90,41 +108,42 @@
     
     	<div class="logf">
     		<a href="<%=contextPath%>/member1/login.me"><button>로그인</button></a>
-    		
+    	
     <%
     
     	}else{
     		
     	
-    %>		
-    	
-    	<ul class="pull-right right-menu" >
-    	
-			<li><%=m_nickname%></li>
-			<li class="fh5co-cta-btn"><a href="<%=contextPath%>/member1/logout.me">logout</a></li>
-		</ul>	
-    		
-    	<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
+    %>	
+    	<div class="logsetf">	
+    		<b><%=m_nickname%></b>님<br><br>
+		<table>	
+		<tr>
+		<td>
+			<a href="<%=contextPath%>/member1/logout.me">logout</a>
+    	</td>
+    	<td>	
+    		<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
 			
-			<ul class="pull-right right-menu" >
-				
+			
 				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
 			
-			<li class="fh5co-cta-btn"><a href="#" onclick="check(); return false;" 
-					
-					class="btn btn-common">myPage</a></li>
-			</ul>
-		</form>
-    		
+			<a href="#" onclick="check(); return false;">
+				myPage</a>
+			</form>		
+			</td>	
+		</tr>		
+		</table>	
+		
     		<%
     		}
     		%>
     		
     		
     	</div>
-    <li class="border-top my-3"></li>
+    <li class="border-top my-3" style="list-style:none;"></li>
       
-      <li class="mb-1">
+      <li class="mb-1" style="list-style:none;">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
           영화
         </button>
@@ -135,7 +154,7 @@
           </ul>
         </div>
       </li>
-      <li class="mb-1">
+      <li class="mb-1" style="list-style:none;">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
           모든 영화
         </button>
@@ -148,18 +167,18 @@
           </ul>
         </div>
       </li>
-      <li class="mb-1">
-        <a href="<%=contextPath%>/com/list.bo"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+      <li class="mb-1" style="list-style:none;">
+        <a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
         		data-bs-target="#orders-collapse" aria-expanded="false">
           커뮤니티
         </button></a>
       </li>
-      <li class="mb-1">
+      <li class="mb-1" style="list-style:none;">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
           예고편
         </button>
       </li>
-      <li class="mb-1">
+      <li class="mb-1" style="list-style:none;">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
           극장 검색
         </button>

@@ -5,7 +5,7 @@
 %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="center" value="${requestScope.center}"/>
-<c:out value="${center}" />
+
   
 <c:if test="${center == null}">
 	<c:set var="center" value="Main/maincenter.jsp"/>
@@ -34,13 +34,12 @@
 			.main{
 				
 				width: 100%;
-				height: 2000px;
 				float: center;
 			}
 			
 			
 			.mainside{
-				height: 99%;
+				height: 98%;
 				float : left;
 				margin-left: 50px;
 				text-align : left;
@@ -48,8 +47,7 @@
 			}
 			.maintext{
 				width : 79%;
-				height: 100%;
-				
+				height : 100%;
 				margin-right: 20px;
 				float : right;
 				background-color: white;

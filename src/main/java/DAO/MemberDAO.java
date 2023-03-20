@@ -276,15 +276,16 @@ public class MemberDAO {
 	
 	
 	//아이디찾기
-		public MemberVO findId(String m_name, String m_email) {
+		public String findId(String m_name, String m_email) {
 	
-		MemberVO vo = null;
+			String m_id = null;
 		
 		try {
 			
 			con = ds.getConnection();
 			
 			String sql = "select m_id from m_member where m_name=? and m_email=?";
+				
 				pstmt = con.prepareStatement(sql);	
 				
 				pstmt.setString(1, m_name);
@@ -294,8 +295,8 @@ public class MemberDAO {
 				
 				if (rs.next()) {
 					
-					vo = new MemberVO();
-					vo.setM_id(rs.getString("m_id"));
+					m_id = rs.getString("m_id");
+					
 					
 				}
 					
@@ -308,13 +309,14 @@ public class MemberDAO {
 			
 		}
 		
-		return vo;
+		return m_id;
 		
 	}
 		//비밀번호찾기
-		public MemberVO findPw(String m_name, String m_id, String m_email) {
+		public String findPW(String m_name, String m_id, String m_email) {
 			
-			MemberVO vo = null;
+			String m_pw = null;
+			
 			
 			try {
 				
@@ -331,10 +333,11 @@ public class MemberDAO {
 					rs = pstmt.executeQuery();
 					
 					if (rs.next()) {
-						vo = new MemberVO();
-						vo.setM_pw(rs.getString("m_pw"));
+						
+						m_pw = rs.getString("m_pw");
 					
 					}
+					
 			}catch (Exception e) {
 				
 				System.out.println("findPw 메소드 내부에서 SQL문 실행 오류");
@@ -344,7 +347,7 @@ public class MemberDAO {
 				
 			}
 			
-			return vo;
+			return m_pw;
 			
 		}
 		

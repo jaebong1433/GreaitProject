@@ -23,15 +23,14 @@ pageEncoding="UTF-8"
 	String c_idx = (String)request.getAttribute("c_idx");
   	String loginNick = (String)session.getAttribute("nickname");
   
-// 	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
+	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
 	String check;
 	
-	/* if(boardLikeVO == null) {
+	if(boardLikeVO == null) {
 		check = "no";
 	} else {
 		check = "yes";
 	}	
- */
 %>
 
 <!DOCTYPE html>
@@ -41,38 +40,101 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-		<script>
+		
+		<style type="text/css">
+	.boarddiv{
+		margin-top: 50px;
+		width : 90%;
+		height: 1000px;
+	}
 			
-		</script>
+	.boarddiv table{
+		width : 60%;
+		float : left;
+	}
+	
+	.boardread{
+		width : 30%;
+		float : right;
+		text-align: right;
+	}
+	
+	.titlez{
+		width : 100%;
+		height : 50px;
+		text-align : left;
+		font-size: 1.5em;
+		font-style: bold;
+	}
+	
+	.textboxz{
+		margin : 30px 0;
+		height : 500px;
+		width : 100%;
+		border: 1px solid black;
+		text-align: left;
+	}
+	
+		</style>
+		
 	</head>
 	<body>
-		<%= title %><br>
-		<%= writer %><br>
-		<%= content %><br>
-		<%= writeDate %><br>
-		<p>조회수 : <%= views %></p>
-		추천 수 : <p id="like"><%= like %></p>
+	<center>
+		<div class="boarddiv">
+			<div class="titlez">
+				<%= title %>
+			</div>	
+		<table>
+		<tr>
+			<td width="10%">
+				<%= writer %>
+			</td>
+			<td>
+				<%= writeDate %>
+			</td>
+			
+		</tr>
+		</table>
+		<div class="boardread">
+		 좋아요 : <%= like %> &nbsp;&nbsp;&nbsp; 조회수 : <%= views %>
+		</div>
+		<hr width="100%">	
+			<textarea class="textboxz" readonly>
+			<%= content %>
+			</textarea>
+      
+			<p id="like">추천 수 : <%= like %></p>
+			
+			<button id="like_btn">좋아요</button>
+			
+			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
+			
+			<form name="reply">
+				<input type="hidden" name="c_idx">
+				<input type="hidden" name="nowPage" value="<%=nowPage%>">
+				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
+			</form>
 		
-		<button id="like_btn">좋아요</button>
 		
-		<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
-		
-		<form name="reply">
-			<input type="hidden" name="c_idx">
-			<input type="hidden" name="nowPage" value="<%=nowPage%>">
-			<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
-		</form>
-		
+		</div>
+	</center>
 		<script type="text/javascript">
+			var check = "<%= check %>"	
+			if(check == "yes") {
+				$("#like_btn").css({backgroundColor : "red"});
+			} else {
+				$("#like_btn").css({backgroundColor : "blue"});
+			}
+			
+			
 			function replyBoard(val) {
 				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
 				document.reply.c_idx.value = val;
 				document.reply.submit();
-			}	
-		
-		
+			}
+			
 			$("#like_btn").on("click", function() {
-				if($.cookie("likeCookie") == null) {
+				if(check == "no") {
 					$.ajax({
 						type: "post",
 						async : true,
@@ -83,10 +145,22 @@ pageEncoding="UTF-8"
 							$("#like").text(data);
 						}
 					});
-					$.cookie("likeCookie", "true", {expires:1, path:"/"});
+					check = "yes";
+					$("#like_btn").css({backgroundColor : "red"});
 					return;
 				} else {
-					alert("추천은 하루에 한 번만 가능합니다.");
+					$.ajax({
+						type: "post",
+						async : true,
+						url : "<%= contextPath %>/com/likeCancel.bo",
+						data : { c_idx : ${c_idx}},
+						dataType : "text",
+						success : function(data) {
+							$("#like").text(data);
+						}
+					});
+					check = "no";
+					$("#like_btn").css({backgroundColor : "blue"});
 					return;
 				}
 			});

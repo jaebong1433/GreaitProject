@@ -22,50 +22,81 @@ String contextPath = request.getContextPath();
 
 	<script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 
+<style>
+	.boarddiv{
+		margin-top: 50px;
+		width : 90%;
+	}
+			
+	.boarddiv table{
+		width : 60%;
+		float : left;
+	}
+	
+	.boardread{
+		width : 30%;
+		float : right;
+		text-align: right;
+	}
+	
+	.titlez{
+		width : 100%;
+		height : 50px;
+		text-align : left;
+		font-size: 1.5em;
+		font-style: bold;
+	}
+	
+	.textboxz{
+		margin : 30px 0;
+		height : 500px;
+		width : 100%;
+		border: 1px solid black;
+	}
+	
+	
 
-<script type="text/javascript">
-$(function(){
-	/*  
-	주제 : 자동 슬라이드 배너 를 이용한 베스트 Book영역   
-		 https://bxslider.com/ 접속하여 사용법 보기 
-	*/
-	  /* 베스트북 슬라이더 */
-	  //$("#best_bg ul")로 베스트BOOK 목록 태그인 <ul>태그를 선택하여
-	  //bxSlider()메서드 적용 하고 슬라이드 옵션을 지정 
-	  var mySlider=$("#best_bg ul").bxSlider({
-										       mode:"horizontal", //수평(horizontal) 방향으로 이동 시키기
-										        speed:1000, //이동속도(500:0.5초)
-										        pager:false, //페이징 표시를 제어(flase:숨김, true:노출)
-										        moveSlides:5, //이동슬라이드 수 설정
-										        slideWidth:200,//슬라이드폭
-										        minSlides:5,//최소 노출 슬라이드 수 
-										        maxSlides:5,//최대 노출 슬라이드 수
-										        slideMargin:30,//슬라이드 간의 간격 입니다.
-										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
-	  										});
-	  //  https://bxslider.com/options/
-	  
-	  //< 이전 버튼을 클릭 할때마다 
-	  $(".prev_btn").on("click",function(){
-		  //goToPrevSlide()를 이용하여 슬라이드를 한단계 이전으로 이동 되게 하기 
-		  mySlider.goToPrevSlide();
-		  //<a>링크 차단
-		  return false;
-	  });
+</style>
 
-	  //> 다음 버튼을 클릭 할때마다
-	  $(".next_btn").on("click",function(){
-		  //goToNextSlide()를 이용하여 슬라이드를 한단계 다음으로 이동 되게 하기
-		  mySlider.goToNextSlide();
-		  return false;
-		});
-	  //-----------------------------------------------------------
-});
-
-</script>
 </head>
 <body>
-	<iframe width="560" height="315" src="https://www.youtube.com/embed/oZ7hN0p_oIY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+	<center>
+		<div class="boarddiv">
+			<div class="titlez">
+				글 제목입니다람쥐
+			</div>	
+		<table>
+		<tr>
+			<td width="10%">
+				작성자
+			</td>
+			<td>
+			2023-03-17
+			</td>
+			
+		</tr>
+		</table>
+		<div class="boardread">
+		 좋아요 : 1 &nbsp;&nbsp;&nbsp; 조회수 : 1
+		</div>
+		<hr width="100%">	
+		<div class="textboxz">
+			
+		</div>	
+		
+		
+			<p id="like">추천 수 : 1</p>
+			
+			<button id="like_btn">좋아요</button>
+			
+			<button>답글</button>
+			
+			
+		
+		
+		</div>
+	</center>
+	
+	
 </body>
 </html>
