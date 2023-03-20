@@ -54,7 +54,11 @@
 <center>
 <body align="center">
 	<div class="logf">
+		
+		<a href="<%= contextPath%>/member1/main.me">	
    		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
+   		</a>
+   		
    		
    		<form class="form-signin" action="<%= contextPath%>/member1/loginPro.me" id="login" onsubmit="return login();" method="post">
    		
@@ -98,7 +102,7 @@
 			var m_pw = document.getElementById("m_pw").val();
 		
 			
-			if(m_id == "" && m_pw == ""){
+			if(m_id == "" || m_pw == ""){
 				alert("아이디와 비밀번호를 모두 입력해 주세요");
 				return false;
 			}

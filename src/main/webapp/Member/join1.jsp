@@ -61,7 +61,13 @@
 			<img src="<%=contextPath%>/eq/img/1231.png" width="600px">
 			</div>
 			<h2>약관 동의</h2>
-			<form action="" id="joinForm">
+			
+			
+			
+			
+			
+			<form action="<%= contextPath%>/Member/join2.jsp" id="joinForm" onsubmit="return chk();">
+           
             <ul class="join_box">
                 <li class="checkBox check01">
                     <ul class="clearfix">
@@ -69,7 +75,9 @@
                             위치정보 이용약관(선택), 프로모션 안내
                             메일 수신(선택)에 모두 동의합니다.</li>
                         <li class="checkAllBtn">
-                            <input type="checkbox" name="chkAll" id="chk" class="chkAll">
+                        
+                            <input type="checkbox" name="selectall" value="selectall" onclick="selectAll(this)" />
+                            
                         </li>
                     </ul>
                 </li>
@@ -77,7 +85,9 @@
                     <ul class="clearfix">
                         <li>이용약관 동의(필수)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk"> 
+                        
+                            <input type="checkbox" name="animal" id="animal1" value="chk1" onclick="checkSelectAll()"/> 
+                            
                         </li>
                     </ul>
                     <textarea name="" id="">여러분을 환영합니다.
@@ -88,7 +98,9 @@
                     <ul class="clearfix">
                         <li>개인정보 수집 및 이용에 대한 안내(필수)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk">
+                        
+                            <input type="checkbox" name="animal" id="animal2" value="chk2" onclick="checkSelectAll()"/>
+                            
                         </li>
                     </ul>
  
@@ -100,7 +112,10 @@
                     <ul class="clearfix">
                         <li>위치정보 이용약관 동의(선택)</li>
                         <li class="checkBtn">
-                            <input type="checkbox" name="chk">
+                        
+                            <input type="checkbox" name="animal" id="animal3" value="chk3" onclick="checkSelectAll()"/>
+                            
+                            
                         </li>
                     </ul>
  
@@ -109,49 +124,65 @@
       				</textarea>
                 </li>
           
+          
+          
+          <button type="submit">동의</button>
+          
         </form>
-        	
-        	<a href="<%=contextPath%>/Member/join2.me">
-            <button class="">동의</button>
-			</a>
-        
+			
 		</div>
 	</center>
 
 
 <script>
-window.onload = function () {
-	const checkAll = document.getElementById('chkAll');
-	const chks = document.querySelectorAll('.chk');  
-	const chkBoxLength = chks.length;
-	 
-	checkAll.addEventListener('click', function(event) {
-	    if(event.target.checked)  {
-	        chks.forEach(function(value){
-	        value.checked = true;
-	    })
-	    }else {
-	       chks.forEach(function(value){
-	       value.checked = false;
-	    })
-	 }
-	  });
-	for (chk of chks){
-	    chk.addEventListener('click', function() {
-	        let count = 0;
-	        chks.forEach(function(value){
-	            if(value.checked == true){
-	                count++;
-	            }
-	        })
-	        if(count !== chkBoxLength){
-	            checkAll.checked = false;
-	        }else{
-	            checkAll.checked = true;
-	        }
-	      })
+
+function checkSelectAll()  {
+	  // 전체 체크박스
+	  const checkboxes 
+	    = document.querySelectorAll("input[name='animal']");
+	  // 선택된 체크박스
+	  const checked 
+	    = document.querySelectorAll("input[name='animal']:checked");
+	  // select all 체크박스
+	  const selectAll 
+	    = document.querySelector("input[name='selectall']");
+	  
+	  if(checkboxes.length === checked.length)  {
+	    selectAll.checked = true;
+	  }else {
+	    selectAll.checked = false;
+	  }
+
 	}
-	 }
+
+	function selectAll(selectAll)  {
+	  const checkboxes 
+	     = document.getElementsByName("animal");
+	  
+	  checkboxes.forEach((checkbox) => {
+	    checkbox.checked = selectAll.checked
+	  })
+	}
+	
+	
+function chk() {
+	
+	var animal1 = document.getElementById("animal1").checked;
+	var animal2 = document.getElementById("animal2").checked;
+	
+	
+	if(animal1 == "" || animal2 == ""){
+		alert("필수동의 모두 선태해 주세요");
+		return false;
+	}
+	
+	return true;	
+}
+	
+	
+	
+	
+ 
 
 </script>
 
