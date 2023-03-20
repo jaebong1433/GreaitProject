@@ -44,6 +44,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<form action="<%=contextPath%>/member1/joinPro.me" class="form" method="post">
+
 	<center>
 	<div class="joinf">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
@@ -56,7 +59,12 @@
 			<td width="100px">
 				닉네임
 			</td><td width="300px">	
-				<input type="text">
+			
+				<input type="text" placeholder="아이디로 가입할 닉네임을 적어주세요."
+							   id="m_nickname" name="m_nickname">
+				 <p id = "nicknameInput" />
+				
+							   
 			</td>
 			</tr>
 			<tr></tr>
@@ -64,7 +72,10 @@
 			<td>
 				ID
 				</td><td>
-				<input type="text">
+					<input type="text" placeholder="아이디로 가입할 아이디을 적어주세요."
+							   id="m_id" name="m_id">
+					    <p id = "idInput" />
+					    
 			</td>
 			</tr>
 			<tr></tr>
@@ -72,7 +83,9 @@
 			<td>
 				PW
 				</td><td>
-				<input type="password">
+				<input type="password" placeholder="가입할 비밀번호를 적어주세요."
+							   id="m_pw" name="m_pw"> 
+						<p id="pwInput1" />
 			</td>
 			</tr>
 			<tr></tr>
@@ -80,42 +93,43 @@
 			<td>
 				PW 확인
 				</td><td>
-				<input type="password">
+				<input type="password" placeholder="비밀번호를 다시 한번 적어주세요."
+							   id="pwCheck" > 
+						<p id="pwInput2" />
+						
 			</td>
 			</tr>
 			<tr>
 			<td>
 				이름
 				</td><td>
-				<input type="text">
+				 <input type="text" placeholder="가입할 이름을 적어주세요."
+							   id="m_name" name="m_name"> 
+						<p id="nameInput" />
+						
 			</td>
 			</tr>
 			<tr>
 			<td>
 				이메일
 				</td><td>
-				<input type="text">
+				 <input type="text" placeholder="아이디로 가입할 이메일을 적어주세요."
+							   id="m_email" name="m_email">
+					    <p id = "emailInput" />
+					    
 			</td>
 			</tr>
 			
 		</table>
-		<a href="<%=contextPath%>/Member/join3.jsp">
+		<a href="#" onclick="check(); return false;" class="btn btn-common">
 		<button>회원가입 하기</button>
 		</a>
+		
+		
+		
 		</div>
 	</center>
-
-
-
-
-
-
-
-
-
-
-
-
+</form>
 
 
 
@@ -126,23 +140,23 @@
 	
     
   //닉네임 입력시 유효성검사 
-	$("#nickname").focusout(function() {
-		var nickname = $("#nickname");
+	$("#m_nickname").focusout(function() {
+		var m_nickname = $("#m_nickname");
 		
-	   	var nicknameValue = nickname.val();
+	   	var m_nicknameValue = m_nickname.val();
 	   								 
-	   	var nicknameReg = RegExp(/^[가-힣a-zA-Z0-9]{2,20}$/);
+	   	var m_nicknameReg = RegExp(/^[가-힣a-zA-Z0-9]{2,20}$/);
 	   	
-	   	var resultNickname = nicknameReg.test(nicknameValue);
+	   	var resultM_nickname = m_nicknameReg.test(m_nicknameValue);
 	
-		if(resultNickname == true){
+		if(resultM_nickname == true){
 			
 			$.ajax(
 					{
 					type:"post", 
     				async:true, 
     				url:"<%=contextPath%>/member1/joinNicknameCheck.me",
-    				data:{ m_nickname : nicknameValue },//서버페이지로 요청할 데이터설정
+    				data:{ m_nickname : m_nicknameValue },//서버페이지로 요청할 데이터설정
     				dataType:"text",
     				success : function(data) {
 						console.log(data);
@@ -174,23 +188,23 @@
 			
 		
     //아이디  입력시 유효성검사 
-	$("#id").focusout(function() {
-		var id = $("#id");
+	$("#m_id").focusout(function() {
+		var m_id = $("#m_id");
 		
-		var idValue = id.val();
+		var m_idValue = m_id.val();
 		
-		var idReg = /^[a-z0-9]{4,12}$/;
+		var m_idReg = /^[a-z0-9]{4,12}$/;
 		
-		var resultId = idReg.test(idValue);
+		var resultM_id = m_idReg.test(m_idValue);
 		
-		if(resultId == true){		
+		if(resultM_id == true){		
 	    		
 	    		$.ajax( 
 	    				{
 	    					type:"post", 
 	    					async:true, 
 	    					url:"<%=contextPath%>/member1/joinIdCheck.me", //요청할 주소
-	    					data:{ m_id : idValue },//서버페이지로 요청할 데이터 설정!
+	    					data:{ m_id : m_idValue },//서버페이지로 요청할 데이터 설정!
 	    					dataType:"text", 
 	    					success : function(data){
 	    						console.log(data);
@@ -225,8 +239,8 @@
     
     
 	//비밀번호 입력시 
-	$("#pw").focusout(function(){
-		if($("#pw").val().length < 4 ){
+	$("#m_pw").focusout(function(){
+		if($("#m_pw").val().length < 4 ){
    			$("#pwInput1").text("한글,특수문자 없이 4글자 이상으로 작성해 주세요!").css("color","red");
    		}else{
    			$("#pwInput1").text("올바르게 입력되었습니다.").css("color","blue");
@@ -242,7 +256,7 @@
    		}
 		
 		//입력한 비밓번호와 입력한 비밀번호 확인의 데이터가 같은지 비교
-		var pwd1 = $("#pw")
+		var pwd1 = $("#m_pw")
 		var pwd2 = $("#pwCheck");
 		
 		var pwdValue1 = pwd1.val();
@@ -259,13 +273,13 @@
     
 	
 	//이름
-	$("#name").focusout(function(){
-		var name = $("#name");
-	   	var nameValue = name.val();
-	   	var nameReg = RegExp(/^[가-힣a-zA-Z]{2,20}$/);
-	   	var resultName = nameReg.test(nameValue);
+	$("#m_name").focusout(function(){
+		var m_name = $("#m_name");
+	   	var m_nameValue = m_name.val();
+	   	var m_nameReg = RegExp(/^[가-힣a-zA-Z]{2,20}$/);
+	   	var resultM_name = m_nameReg.test(m_nameValue);
 	
-		if(!resultName){
+		if(!resultM_name){
 			$("#nameInput").text("이름을 2자 이상 한글 또는 영어를 사용하여 작성해주세요.").css("color","red");
 			
 		}else{
@@ -277,23 +291,23 @@
 	
 	
   //이메일 입력시 유효성검사 동일하게 
-	$("#email").focusout(function() {
-		var email = $("#email");
+	$("#m_email").focusout(function() {
+		var m_email = $("#m_email");
 		
-		var emailValue = email.val();
+		var m_emailValue = m_email.val();
 		
-		var emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+		var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
 		
-		var resultEmail = emailReg.test(emailValue);
+		var resultM_email = m_emailReg.test(m_emailValue);
 		
-		if(resultEmail == true){		
+		if(resultM_email == true){		
 	    		
 	    		$.ajax( 
 	    				{
 	    					type:"post", 
 	    					async:true, 
 	    					url:"<%=contextPath%>/member1/joinEmailCheck.me", //요청할 주소
-	    					data:{ m_email : emailValue },//서버페이지로 요청할 데이터 설정!
+	    					data:{ m_email : m_emailValue },//서버페이지로 요청할 데이터 설정!
 	    					dataType:"text", 
 	    					success : function(data){
 	    						console.log(data);
@@ -331,18 +345,18 @@
 	function check(event) {
 
 		//닉네임
-		var nickname = $("#nickname");
+		var m_nickname = $("#m_nickname");
 		
-		var nicknameValue = nickname.val();
+		var m_nicknameValue = m_nickname.val();
 		
-		var nicknameReg = RegExp(/^[가-힣a-zA-Z]{2,20}$/);
+		var m_nicknameReg = RegExp(/^[가-힣a-zA-Z]{2,20}$/);
 		
-		var resultNickname = nicknameReg.test(nicknameValue);
+		var resultM_nickname = m_nicknameReg.test(m_nicknameValue);
 		
-		if(!resultNickname){
+		if(!resultM_nickname){
 			$("#nicknameInput").text("닉네임 형식이 올바르지 않습니다.").css("color","red");
 			
-			nickname.focus();
+			m_nickname.focus();
 			
 			return false;
 		}else{
@@ -351,18 +365,18 @@
 		
    		
    		//아이디
-		var id = $("#id");
+		var m_id = $("#m_id");
 		
-		var idValue = id.val();
+		var m_idValue = m_id.val();
 		
-		var idReg = /^[a-z0-9]{4,12}$/;
+		var m_idReg = /^[a-z0-9]{4,12}$/;
 		
-		var resultId = idReg.test(idlValue);
+		var resultM_id = m_idReg.test(m_idlValue);
 		
-		if(!resultId){
+		if(!resultM_id){
 			$("#idInput").text("아이디 형식이 올바르지 않습니다.").css("color","red");
 			
-			id.focus();
+			m_id.focus();
 			
 			return false;
 		}else{
@@ -372,7 +386,7 @@
 		
 
     	//비밀번호
-    	var pass1 = $("#pw");
+    	var pass1 = $("#m_pw");
 	    	var passValue1 = pass1.val();
 	    	
 	    	var passReg1 = RegExp(/^[A-Za-z0-9_\-]{4,20}$/);
@@ -416,11 +430,11 @@
 		
 		
 		//이름입력시
-		var name = $("#name");
-   		if(name.val().length == 0 || name.val() == ""){
+		var m_name = $("#m_name");
+   		if(m_name.val().length == 0 || m_name.val() == ""){
 			$("#nameInput").text("이름을 작성하여주세요.").css("color","red");
 			
-			name.focus();
+			m_name.focus();
 			
 			return false;
 		}else{
@@ -429,18 +443,18 @@
 		
 		
    	  		//이메일
-			var email = $("#email");
+			var m_email = $("#m_email");
     		
-    		var emailValue = email.val();
+    		var m_emailValue = m_email.val();
     		
-    		var emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+    		var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
     		
-    		var resultEmail = emailReg.test(emailValue);
+    		var resultM_email = m_emailReg.test(m_emailValue);
     		
-    		if(!resultEmail){
+    		if(!resultM_email){
     			$("#emailInput").text("이메일 형식이 올바르지 않습니다.").css("color","red");
     			
-    			email.focus();
+    			m_email.focus();
     			
     			return false;
     		}else{

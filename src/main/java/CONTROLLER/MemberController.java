@@ -70,7 +70,7 @@ public class MemberController extends HttpServlet {
 			if(action.equals("/main.me")) {
 				
 				
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 			
 			//회원 가입 눌렀을때 보여주는페이지
 			}else if (action.equals("/join1.me")) {
@@ -83,20 +83,16 @@ public class MemberController extends HttpServlet {
 			}else if (action.equals("join2.me")) {
 				
 				
-				
-				
-				
 				nextPage = "/Member/join2.jsp";
 				
-			}
 			
 			//회원가입 실행 
-			else if(action.equals("/joinPro.me")) {
+			}else if(action.equals("/joinPro.me")) {
 				//요청한 값 얻기
 				String m_nickname = request.getParameter("m_nickname");
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
-				String m_name = request.getParameter("name");
+				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
 			
 				
@@ -107,12 +103,13 @@ public class MemberController extends HttpServlet {
 											m_name,
 											m_email);
 				
+				
 				memberdao.insertMember(vo);
 
-				nextPage="/main.jsp";
+				nextPage= "/Member/join3.jsp";
 
-
-				//회원가입 닉네임 얻기
+				
+			//회원가입 닉네임 얻기
 			}else if (action.equals("/joinNicknameCheck.me")) {
 				//입력한 닉네임 얻기
 				String m_nickname = request.getParameter("m_nickname");
@@ -127,9 +124,9 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 				
-			}
+
 			//회원가입 아이디 얻기
-			else if(action.equals("/joinIdCheck.me")) {
+			}else if(action.equals("/joinIdCheck.me")) {
 			//입력한 아이디 얻기
 				String m_id = request.getParameter("m_id");
 			
@@ -148,10 +145,9 @@ public class MemberController extends HttpServlet {
 					return;
 				}
 			
-			}	
 				
 			//회원가입 이메일 얻기
-			else if(action.equals("/joinEmailCheck.me")) {
+			}else if(action.equals("/joinEmailCheck.me")) {
 			//입력한 이메일 얻기
 				String m_email = request.getParameter("m_email");
 				
@@ -171,23 +167,16 @@ public class MemberController extends HttpServlet {
 				}
 			
 				
-			}
+			
 			//로그인 수행
-			else if(action.equals("/login.me")) {//로그인 창으로 이동
+			}else if(action.equals("/login.me")) {//로그인 창으로 이동
 			
-				
-			
-				//중앙화면 주소 바인딩
-
-//				request.setAttribute("center","/Member/login.jsp" );
-			
-				//전체 메인화면 주소 저장
 
 				nextPage = "/Member/login.jsp";			
 				
-			}
+			
 			//로그인 유효성검
-			else if(action.equals("/loginPro.me")) {//로그인 수행
+			}else if(action.equals("/loginPro.me")) {//로그인 수행
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
 				String nickname = null;
@@ -218,41 +207,37 @@ public class MemberController extends HttpServlet {
 				//메인화면 VIEW 주소
 				nextPage = "/Crawling/maincenter.me";
 
-
-			}
 		
 			//로그아웃 수행	
-			else if(action.equals("/logoutPro.me")) {//로그아웃 수행
+			}else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 					//기존에 생성했던 session메모리 얻기
 				HttpSession session = request.getSession();
 				session.invalidate();
 		
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 		
 				
-			}		
+					
 			//로그아웃 실행
-			else if (action.equals("/logout.me")) {//로그아웃
+			}else if (action.equals("/logout.me")) {//로그아웃
 					
 				HttpSession session = request.getSession();
 					
 				session.invalidate();
 							
-				nextPage = "/index.jsp";
+				nextPage = "/Crawling/maincenter.me";
 				
 				
-			}
 			// 아이디 찾기 
-			else if(action.equals("/findID.me")) {//아이디 찾기
+			}else if(action.equals("/findID.me")) {//아이디 찾기
 					
 				//request.setAttribute("center","findId.jsp");
 					
 				nextPage = "/Member/findID.jsp";
 				
 				
-			}
 			//아이디 찾기 수행	
-			else if(action.equals("/findIdResult.me")) {//아이디 찾기
+			}else if(action.equals("/findIdResult.me")) {//아이디 찾기
 					
 				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
@@ -277,17 +262,16 @@ public class MemberController extends HttpServlet {
 				nextPage = "/Member/findID2.jsp";
 					
 					
-			}
+			
 			//비밀번호 찾기수행
-			else if (action.equals("/findPW.me")) {//비밀번호 찾기수행
+			}else if (action.equals("/findPW.me")) {//비밀번호 찾기수행
 					
 					
 					nextPage = "/Member/findPW.jsp";
 					
 					
-			}
 			//비밀번호 찾기 실행
-			else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
+			}else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
 					
 				String m_name = request.getParameter("m_name");
 				String m_id= request.getParameter("m_id");
@@ -312,22 +296,19 @@ public class MemberController extends HttpServlet {
 				nextPage = "/Member/findPW2.jsp";
 				
 				
-			}
+			
 			//카카오 로그인창에서 로그인 버튼을 눌렀을 때
-			else if(action.equals("/kakaoLoginPro.me")) {
+			}else if(action.equals("/kakaoLoginPro.me")) {
 				
 				//---부장
 				
 					
 				//메인화면 view 주소
-				nextPage = "/main.jsp";
-			}
+				nextPage ="/Crawling/maincenter.me";
+			
 		
-			
-			
-			
 			//회원정보 수정을 위해 회원정보 조회 요청!
-			else if(action.equals("/mypage.me")) { 
+			}else if(action.equals("/mypage.me")) { 
 				//요청한 값 얻기
 				String m_id = request.getParameter("m_id");
 					
@@ -337,10 +318,10 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("vo", vo);
 	
 				nextPage = "/myPage.jsp";
-			}
+			
 		
 			//회원정보 수정을 위해 회원정보 수정창 요청!
-			else if(action.equals("/mypageUpdate.me")) { 
+			}else if(action.equals("/mypageUpdate.me")) { 
 			
 				//요청한 값 얻기
 				String m_id = request.getParameter("m_id");
@@ -351,10 +332,10 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("vo", vo);
 			
 				nextPage = "/modMemberForm.jsp";
-			}
+			
 
 			//회원정보 수정창에서 수정완료 버튼을 클릭했을 때
-			else if(action.equals("/update.me")) {
+			}else if(action.equals("/update.me")) {
 				int result = memberdao.updateMember(request);
 				
 				if(result == 1) {//수정 성공
@@ -377,16 +358,15 @@ public class MemberController extends HttpServlet {
 				}
 				
 				
-			}
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 
-			else if(action.equals("/delete.do")) {
+			}else if(action.equals("/delete.do")) {
 			
 				nextPage = "/Delete.jsp";
 				
 				
-			}
+			
 			//회원탈퇴 
-			else if(action.equals("/signOut.me")) {
+			}else if(action.equals("/signOut.me")) {
 				//요청한 값 얻기
 				//삭제할 예약아이디, 삭제를 위해 입력한 비밀번호 
 				String m_id = request.getParameter("m_id")  ;
