@@ -44,7 +44,12 @@
 <body>
 	<center>
 	<div class="joinf">
+	
+	
+	<a href="<%= contextPath%>/member1/main.me">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
+	</a>
+	
 		<h2>비밀번호 찾기</h2>
 		
 		<form class="form-signin" action="<%=contextPath%>/member1/findPwResult.me" id="findPW" method="post">

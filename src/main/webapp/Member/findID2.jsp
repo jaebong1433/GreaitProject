@@ -49,7 +49,11 @@
 <body>
 	<center>
 	<div class="joinf">
+	
+	<a href="<%= contextPath%>/member1/main.me">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
+	</a>
+	
 		<h2>아이디 찾기</h2>
 		<h3>아이디는 <%=m_id%>입니다.</h3>
 		<input type="button" value="홈으로" onclick="hone();" >		
