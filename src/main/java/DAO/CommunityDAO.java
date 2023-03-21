@@ -339,11 +339,7 @@ public class CommunityDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			
-			//insert SQL문 만들기 //b_group , b_level 0 0 으로 insert 규칙3
-			sql = "insert into community (b_idx, b_id, b_pw, b_name, "
-							+ "b_email, b_title, b_content, b_group, "
-							+ "b_level, b_date, b_cnt) "
-							+ " values (border_b_idx.nextVal, ?,?,?,?,?,?,0,0,sysdate,0)";
+			//insert SQL문 만들기 //c_group , c_level 0 0 으로 insert 규칙3
 			
 			sql = "insert into community (c_idx, c_title, c_nickname, c_password, c_content, "
 					+ "c_date, c_views, c_like, c_group, c_level) "
@@ -432,7 +428,7 @@ public class CommunityDAO {
 		}
 		return list;
 	}
-	//검색했을 때
+	//검색했을 때의 글 갯수 조회
 	//정태영(?)
 	public int getTotalRecord(String key, String word) {
 		//조회된 글의 글수 저장
