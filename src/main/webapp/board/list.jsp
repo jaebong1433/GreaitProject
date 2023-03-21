@@ -10,9 +10,8 @@ pageEncoding="UTF-8"
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	String nickname = (String)session.getAttribute("m_nickname");
-	
 %>
-
+<%= nickname %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -130,10 +129,11 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        		<td colspan="4" style="height: 19px">&nbsp;</td> 
 	        	</tr>
 	        	<tr>
-	        		<button href="javascript:void(0)" onclick="bestPost()">개념글</button>
-	        		<button href="javascript:void(0)" onclick="listByLike()">좋아요순</button>
-	        		<button href="javascript:void(0)" onclick="listByViews()">조회수순</button>
-	        		<button href="javascript:void(0)" onclick="listByRecent()">최신순</button>
+	        		<!-- //20230321 정태영 : 버튼 추가 -->
+	        		<button><a href="<%= contextPath %>/com/bestPost.bo?nowPage=0&nowBlock=0">개념글</a></button>&nbsp;
+	        		<button><a href="<%= contextPath %>/com/listByLike.bo?nowPage=0&nowBlock=0">좋아요순</a></button>&nbsp;
+	        		<button><a href="<%= contextPath %>/com/listByViews.bo?nowPage=0&nowBlock=0">조회수순</a></button>&nbsp;
+	        		<button><a href="<%= contextPath %>/com/listByRecent.bo?nowPage=0&nowBlock=0">최신순</a></button>&nbsp;
 	        	</tr>
 	        	<tr> 
 	        		<td colspan="4">
@@ -200,7 +200,9 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									</a>
 								</td>
 								<td align="left">
-										<%=content%>
+									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
+										<%= content %>
+									</a>
 								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
@@ -249,6 +251,12 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 		             		   src="<%=contextPath%>/board/images/write.gif" 
 		             		   onclick="location.href='<%=contextPath%>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'"/>
 		        	</td>
+		        	<c:if test="${ m_nickname == 'admin' }">
+		        		<td width="38%" style="text-align: left">
+		        			<button onclick="javascript:location.href='<%= contextPath %>/com/writeNotice.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">공지 쓰기</button>
+		        		</td> 
+		        	</c:if>
+		        	
 		        </tr>
 	       		<tr>
 	       			<td colspan="4">&nbsp;</td>

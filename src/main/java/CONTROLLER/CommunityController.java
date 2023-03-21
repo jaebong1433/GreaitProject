@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -44,7 +46,7 @@ public class CommunityController extends HttpServlet {
 		comDAO = new CommunityDAO();
 		memberDAO = new MemberDAO();
 	}
-		
+	
 	@Override
 	protected void doGet(HttpServletRequest request, 
 						 HttpServletResponse response) 
@@ -82,12 +84,38 @@ public class CommunityController extends HttpServlet {
 		
 		BoardLikeVO boardLikeVO = null;
 		
-		int count = 0;
-		
 		HttpSession session = request.getSession();
+//		String nickname_ = (String)session.getAttribute("m_nickname");
+//		if(nickname_ == null) {
+//			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+//				nickname_ = s.next();
+//				session.setAttribute("m_nickname", nickname_);
+//			} catch (java.io.IOException e) {
+//			    e.printStackTrace();
+//			}
+//		}
 		
 		PrintWriter out = response.getWriter();
 		
+		int count = 0;
+		
+		//필터 적용할 때 계속 같은 구문을 써야 해서 간소화시키기 위해 내부 클래스를 만들었는데
+		//만들고 보니 굳이 필요할까 싶기도 해서 나중에 삭제할 수도 있음. -정태영
+		class EasyList {
+			public void list() {
+				String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
+				String nowPage = request.getParameter("nowPage");
+				String nowBlock = request.getParameter("nowBlock");
+				System.out.println(nowPage + "페이지번호");
+				System.out.println(nowBlock + "블럭위치번호");	
+				
+				request.setAttribute("center","/board/list.jsp");
+				
+				//페이징 처리 를 위해 담는다.
+				request.setAttribute("nowPage", nowPage);
+				request.setAttribute("nowBlock", nowBlock);
+			}
+		}
 		
 		if(action.equals("/Main")) {
 			
@@ -97,11 +125,13 @@ public class CommunityController extends HttpServlet {
 		//http://localhost:8090/greaitProject/com/list.bo
 		//커뮤니티 버튼을 누르면 게시판으로 이동
 		//정태영
+		
+		//20230321 정태영 : 내부클래스를 만듦으로써 기존 list.bo의 역할은 listByRecent가 대신하게 되었음.
+		//현재로써는 필요없는 데이터, 일단 내부클래스에 문제가 있을 수도 있으므로 남겨둘 것임.
 		else if(action.equals("/list.bo")) {
+			list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
 			
 			String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
-			System.out.println(true);
-			list = comDAO.boardListAll();//모든 CommunityVO를 List에 저장
 			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
 			
 			String nowPage = request.getParameter("nowPage");
@@ -120,6 +150,52 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/index.jsp";
 		}
 		
+		
+		//20230321 정태영 : 개념글 버튼을 눌렀을 때
+		else if(action.equals("/bestPost.bo")) {
+			EasyList easyList = new EasyList();
+			
+			list = comDAO.listByLike();//모든 CommunityVO를 List에 저장
+			count = comDAO.getBestPostRecord(); //모든 List의 size를 count에 저장
+			easyList.list();
+			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+			request.setAttribute("count", count);
+			nextPage = "/index.jsp";
+		}
+		//20230321 정태영 : 좋아요 순 버튼을 눌렀을 때
+		else if(action.equals("/listByLike.bo")) {
+			EasyList easyList = new EasyList();
+			
+			list = comDAO.listByLike();//모든 CommunityVO를 List에 저장
+			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
+			easyList.list();
+			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+			request.setAttribute("count", count);
+			nextPage = "/index.jsp";
+		}
+		//20230321 정태영 : 조회수 순 버튼을 눌렀을 때
+		else if(action.equals("/listByViews.bo")) {
+			EasyList easyList = new EasyList();
+			
+			list = comDAO.listByViews();//모든 CommunityVO를 List에 저장
+			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
+			easyList.list();
+			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+			request.setAttribute("count", count);
+			nextPage = "/index.jsp";
+		}
+		//20230321 정태영 : 최신순 버튼을 눌렀을 때
+		else if(action.equals("/listByRecent.bo")) {
+			EasyList easyList = new EasyList();
+			
+			list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
+			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
+			easyList.list();
+			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+			request.setAttribute("count", count);
+			nextPage = "/index.jsp";
+		}
+		
 		//게시글을 클릭하였을 때 게시글 읽기
 		//정태영
 		else if(action.equals("/read.bo")) {
@@ -127,9 +203,17 @@ public class CommunityController extends HttpServlet {
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
 			String nickname = (String)session.getAttribute("m_nickname");
+			System.out.println(nickname);
+			//20230321 정태영 : 로그인 하지 않았을 경우 닉네임에 아이피 주소를 대입함
+			if(nickname == null) {
+				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+					nickname = s.next();
+				} catch (java.io.IOException e) {
+				    e.printStackTrace();
+				}
+			}
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
-			
-			boardLikeVO = comDAO.getBoardlikeVO(c_idx, session);
+			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
 			
 			
 			request.setAttribute("two", "10");
@@ -138,7 +222,6 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
 			request.setAttribute("nowBlock", nowBlock_);
 			request.setAttribute("c_idx", c_idx);
-			session.setAttribute("nickname", nickname);
 			request.setAttribute("center","/board/detail.jsp");
 			
 			
@@ -151,6 +234,15 @@ public class CommunityController extends HttpServlet {
 		else if(action.equals("/like.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			String nickname = (String)session.getAttribute("m_nickname");
+			if(nickname == null) {
+				//20230321 정태영 : 로그인 안 했을 때 아이피 주소 대입, 세션값 ㄴㄴ
+				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+					nickname = s.next();
+				} catch (java.io.IOException e) {
+				    e.printStackTrace();
+				}
+			}
+			
 			
 			boardLikeVO = comDAO.addLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
@@ -164,6 +256,13 @@ public class CommunityController extends HttpServlet {
 		else if(action.equals("/likeCancel.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			String nickname = (String)session.getAttribute("m_nickname");
+			if(nickname == null) {
+				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+					nickname = s.next();
+				} catch (java.io.IOException e) {
+				    e.printStackTrace();
+				}
+			}
 			
 			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
@@ -202,6 +301,13 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/write.jsp";
 
 		}
+		//공지사항 글쓰기, 현재 구현중
+		//0321 16:14 정태영
+		else if(action.equals("/writeNotice.bo")) {
+			System.out.println(true);
+			return;
+		}
+		
 		//글 작성 버튼을 눌러 글 작성 요청을 했을때
 		else if(action.equals("/writePro.bo")) {
 			String nick = request.getParameter("w");
