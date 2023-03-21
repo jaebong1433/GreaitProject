@@ -220,9 +220,9 @@
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">롯데시네마</a></li>
+            <li><a href="http://www.cgv.co.kr/ticket/" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
+            <li><a href="https://megabox.co.kr/booking" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
+            <li><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" class="link-dark d-inline-flex text-decoration-none rounded">롯데시네마</a></li>
           </ul>
         </div>
       </li>

@@ -17,7 +17,7 @@
     <meta name="generator" content="Hugo 0.108.0">
     <title>Center</title>
 	<!-- 제이쿼리 사용을 위한 제이쿼리 라이이브러리 연동 -->
-
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
  	<link rel="stylesheet" href="<%=contextPath%>/eq/js/jquery.bxslider.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
@@ -39,7 +39,7 @@
 										        speed:500, //이동속도(500:0.5초)
 										        pager:false, //페이징 표시를 제어(flase:숨김, true:노출)
 										        moveSlides:5, //이동슬라이드 수 설정
-										        slideWidth:200,//슬라이드폭
+										        slideWidth:220,//슬라이드폭
 										        minSlides:5,//최소 노출 슬라이드 수 
 										        maxSlides:5,//최대 노출 슬라이드 수
 										        slideMargin:20,//슬라이드 간의 간격 입니다.
@@ -66,79 +66,7 @@
 		  //-----------------------------------------------------------
 	});
 </script>
-	<style type="text/css">
-		.centertb1{
-			width: 98%;
-			height: 400px;
-			text-align: center;
-			margin: auto;
-		}
-		
-		
-		
-		.comut{
-				width : 90%;
-				
-			}
-			
-			.comut a{
-				text-decoration: none;
-			}
-			
-			.comut td{
-				margin-left: 10px;
-				border-bottom: 1px solid gray;
-			}
-		
-		.centertb3{
-			width: 98%;
-			text-align: center;
-			margin-top: 20px;
-			height : 400px;
-			margin-bottom: 50px;
-		}
-		
-		
-		
-		a{
-			text-decoration: none;
-			color : black;
-		}
-		
-		hr{
-			width: 90%;
-			border: 1.5px gray solid;
-			
-		}
-		
-		.fonttb{
-			font-size: 0.8em;
-			text-align: left;
-		}
-		
-		.fonttb h6{
-			margin-top : 10px;
-			font-size: 1.3em;
-			font-weight: bold;
-			color: black;
-		}
-		
-		.hover{
-			width: 200px;
-			overflow: hidden;
-		}
-		
-		.hover img{
-			transition: all 0.1s linear;
-		}
-		
-		.hover:hover img{
-			transform: scale(1.1);
-		}
-		
-		
 	
-	</style>
   
 </head>
 <body>
@@ -237,52 +165,53 @@
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
 		<!-- 게시판 시작 -->
-		<div>
+		<div class="centertb2">
 			<h2><b>게시판</b></h2>
+			<p><a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
 			<hr>
 			<table class="comut">
 				<tr>
-					<td width="70%"><a href="#">
+					<td width="70%"><a href="#"><b>
 						글 제목 입니다~~~~~~~~~~~~
-					</a></td>
+					</b></a></td>
 					<td width="15%">작성자</td>
 					<td width="15%">작성일</td>
 				</tr>
 				<tr>
-					<td><a href="#">
+					<td><a href="#"><b>
 						글 제목 입니다~~~~~~~~~~~~
-					</a></td>
+					</b></a></td>
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
 				<tr>
-					<td><a href="#">
+					<td><a href="#"><b>
 						글 제목 입니다~~~~~~~~~~~~
-					</a></td>
+					</b></a></td>
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
 				<tr>
-					<td><a href="#">
+					<td><a href="#"><b>
 						글 제목 입니다~~~~~~~~~~~~
-					</a></td>
+					</b></a></td>
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
 				<tr>
-					<td><a href="#">
+					<td><a href="#"><b>
 						글 제목 입니다~~~~~~~~~~~~
-					</a></td>
+					</b></a></td>
 					<td>작성자</td>
 					<td>작성일</td>
 				</tr>
 			</table>
-			
-		</div><br><br>
+			<br><br><br>
+		</div><br><br><br>
 			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
 		<div>
-			<h2>포토</h2>
+			<h2><b>영화관련영상</b></h2>
 			<hr>
 			 <table class="centertb3">
 				<tr>
@@ -323,6 +252,31 @@
 			</table> 
 			
 		</div>
+		<div class="maintic">
+    		<h2><b>영화예매</b></h2>
+    		<hr>
+    		<table>
+    			<tr>
+    				<td><a href="http://www.cgv.co.kr/ticket/">
+    				<button class="ticbt1">
+    					<img src="<%=contextPath%>/eq/img/cgv.png" width="90%">
+    				</button>
+    				</a></td>
+    				<td><a href="https://megabox.co.kr/booking">
+    				<button class="ticbt2">
+    					<img src="<%=contextPath%>/eq/img/megabox.png" width="90%">
+    				</button>
+    				</a></td>
+    				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing">
+    				<button class="ticbt3">
+    					<img src="<%=contextPath%>/eq/img/lotte.png" width="90%">
+    				</button>
+    				</a></td>
+    			</tr>
+    		</table>
+		<br><br><br>
+    	</div>
+			
 		
 	</center>
 </body>

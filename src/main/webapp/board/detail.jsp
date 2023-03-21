@@ -42,7 +42,7 @@ pageEncoding="UTF-8"
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		
 		<style type="text/css">
-	.boarddiv{
+	.boarddiv {
 		margin-top: 50px;
 		width : 90%;
 		height: 1000px;
@@ -71,10 +71,19 @@ pageEncoding="UTF-8"
 		margin : 30px 0;
 		height : 500px;
 		width : 100%;
-		border: 1px solid black;
 		text-align: left;
+		border : none;
 	}
 	
+	.repl{
+		border : none;
+		background-color: white;
+	}
+	
+	#like_btn{
+		border : none;
+		background-color : white;
+	}
 		</style>
 		
 	</head>
@@ -102,13 +111,16 @@ pageEncoding="UTF-8"
 			<textarea class="textboxz" readonly>
 			<%= content %>
 			</textarea>
-      
 			<p id="like">추천 수 : <%= like %></p>
 			
-			<button id="like_btn">좋아요</button>
+			<button id="like_btn">
+				<img id="likeimg" src="<%=contextPath%>/eq/img/good.png" width="100px">
+			</button>
 			
-			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)">답글</button>
-			
+			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)" class="repl">
+				<img src="<%=contextPath%>/eq/img/ment.png" width="100px">
+			</button>
+			<br><br>
 			<form name="reply">
 				<input type="hidden" name="c_idx">
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
@@ -117,7 +129,7 @@ pageEncoding="UTF-8"
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
-            		<img src="<%=contextPath%>/board/images/list.gif" border="0"/>
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
             </div>
 		
@@ -132,14 +144,12 @@ pageEncoding="UTF-8"
 			
 		})
 		
-		
-			var check = "<%= check %>"	
-			if(check == "yes") {
-				$("#like_btn").css({backgroundColor : "red"});
-			} else {
-				$("#like_btn").css({backgroundColor : "blue"});
+			var check = "<%=check%>"
+			if(check == "yes"){
+				$("#like_btn").css({border : "red"});
+			}else{
+				$("#like_btn").css({backgroundColor : "white"});
 			}
-			
 			
 			function replyBoard(val) {
 				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
@@ -156,11 +166,12 @@ pageEncoding="UTF-8"
 						data : { c_idx : ${c_idx}},
 						dataType : "text",
 						success : function(data) {
-							$("#like").text(data);
+							$("#like").text("추천 수 : "+data);
 						}
 					});
 					check = "yes";
-					$("#like_btn").css({backgroundColor : "red"});
+					$("#like_btn").css({border : "red"});
+					$("#likeimg").attr("src","<%=contextPath%>/eq/img/good2.png");
 					return;
 				} else {
 					$.ajax({
@@ -170,11 +181,12 @@ pageEncoding="UTF-8"
 						data : { c_idx : ${c_idx}},
 						dataType : "text",
 						success : function(data) {
-							$("#like").text(data);
+							$("#like").text("추천 수 : "+data);
 						}
 					});
 					check = "no";
-					$("#like_btn").css({backgroundColor : "blue"});
+					$("#like_btn").css({backgroundColor : "white"});
+					$("#likeimg").attr("src","<%=contextPath%>/eq/img/good.png");
 					return;
 				}
 			});
