@@ -63,7 +63,8 @@ public class CommunityDAO {
 			while(rs.next()) {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
-												rs.getString("c_nickname"), 
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
 												rs.getInt("c_views"),
@@ -84,7 +85,7 @@ public class CommunityDAO {
 		return list;
 	}
 	
-	
+	//게시글의 갯수를 조회하는 메소드
 	public int getTotalRecord() {
 		int total = 0;
 		
@@ -131,7 +132,8 @@ public class CommunityDAO {
 			if(rs.next()) {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 									rs.getString("c_title"),
-									rs.getString("c_nickname"), 
+									rs.getString("c_nickname"),
+									rs.getString("c_password"),
 									rs.getString("c_content"), 
 									rs.getDate("c_date"),
 									rs.getInt("c_views"),
@@ -258,7 +260,8 @@ public class CommunityDAO {
 			while(rs.next()) {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
-												rs.getString("c_nickname"), 
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
 												rs.getInt("c_views"),
@@ -279,7 +282,7 @@ public class CommunityDAO {
 	
 	//답글 달기 기능
 	//정태영
-	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content) {
+	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content, String pass) {
 		String sql = null;
 		try {
 			con = ds.getConnection();
@@ -300,6 +303,7 @@ public class CommunityDAO {
 												+ "?,"
 												+ "?,"
 												+ "?,"
+												+ "?,"
 												+ "sysdate,"
 												+ "0,"
 												+ "0,"
@@ -308,9 +312,10 @@ public class CommunityDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, nickname);
-			pstmt.setString(3, content);
-			pstmt.setInt(4, Integer.parseInt(c_group)+1);
-			pstmt.setInt(5, Integer.parseInt(c_level)+1);
+			pstmt.setString(3, pass);
+			pstmt.setString(4, content);
+			pstmt.setInt(5, Integer.parseInt(c_group)+1);
+			pstmt.setInt(6, Integer.parseInt(c_level)+1);
 			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
@@ -340,13 +345,14 @@ public class CommunityDAO {
 							+ "b_level, b_date, b_cnt) "
 							+ " values (border_b_idx.nextVal, ?,?,?,?,?,?,0,0,sysdate,0)";
 			
-			sql = "insert into community (c_idx, c_title, c_nickname, c_content, "
+			sql = "insert into community (c_idx, c_title, c_nickname, c_password, c_content, "
 					+ "c_date, c_views, c_like, c_group, c_level) "
-					+ " values (community_idx.nextVal, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+					+ " values (community_idx.nextVal, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getC_title());
 			pstmt.setString(2, vo.getC_nickname());
-			pstmt.setString(3, vo.getC_content());
+			pstmt.setString(3, vo.getC_password());
+			pstmt.setString(4, vo.getC_content());
 			
 			result = pstmt.executeUpdate();
 			
@@ -406,7 +412,8 @@ public class CommunityDAO {
 					
 					CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 													rs.getString("c_title"),
-													rs.getString("c_nickname"), 
+													rs.getString("c_nickname"),
+													rs.getString("c_password"),
 													rs.getString("c_content"), 
 													rs.getDate("c_date"),
 													rs.getInt("c_views"),
