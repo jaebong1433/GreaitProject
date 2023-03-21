@@ -352,8 +352,8 @@ public class MemberDAO {
 		}
 		
 		
-	//회원 아이디을 이용해 회원 정보 조회
-	public MemberVO findMember(String m_id) {
+	//회원 닉네임을을 이용해 회원 정보 조회
+	public MemberVO findMember(String m_nickname) {
 		
 			MemberVO vo = null;
 			
@@ -361,7 +361,7 @@ public class MemberDAO {
 				//DB접속 : 커넥션풀에 만들어져 있는 커넥션 얻기
 				con = ds.getConnection();
 				
-				String sql = "SELECT * FROM m_member WHERE m_id='"+ m_id+"'";
+				String sql = "SELECT * FROM m_member WHERE m_nickname='"+ m_nickname+"'";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -370,16 +370,15 @@ public class MemberDAO {
 				if (rs.next()) {
 					
 					vo = new MemberVO();
-					vo.setM_id(m_id);
-					vo.setM_nickname("m_nickname");
+					vo.setM_id(rs.getString("m_id"));
+					vo.setM_nickname(m_nickname);
 					vo.setM_pw(rs.getString("m_pw"));
 					vo.setM_name(rs.getString("m_name"));
 					vo.setM_email(rs.getString("m_email"));
-					
 					vo.setM_date(rs.getDate("m_date"));
 				}		
 			}catch(Exception e) {
-				System.out.println("getOneOrder메소드 에서  SQL오류 : " + e);
+				System.out.println("findMember메소드 에서  SQL오류 : " + e);
 			}finally {
 				closeResource(); //자원 해제
 			}
@@ -399,15 +398,15 @@ public class MemberDAO {
 				
 				String sql = "UPDATE m_member set"
 						   + " m_pw=?,"
-						   + " m_name=?,"
-						   + " m_email=?,"
+						   + " m_nickname=?,"
+						   + " m_email=? "
 						   + " WHERE m_id=? ";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, request.getParameter("m_pw"));
-				pstmt.setString(2, request.getParameter("m_name"));
+				pstmt.setString(2, request.getParameter("m_nickname"));
 				pstmt.setString(3, request.getParameter("m_email"));
-				pstmt.setString(9, request.getParameter("m_id"));
+				pstmt.setString(4, request.getParameter("m_id"));
 				
 				result = pstmt.executeUpdate();
 				
@@ -453,15 +452,19 @@ public class MemberDAO {
 	
 	
 
-
 	//닉네임 값을 이용해 멤버 한명의 정보를 가져오는 메소드
-	public MemberVO getMemVO(String nickname) {
+	public MemberVO getMemVO(String m_nickname) {
+		
 		MemberVO vo = null;
+		
+		
+		
 		try {
 			con = ds.getConnection();
 			String sql = "select * from m_member where m_nickname = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, nickname);
+			pstmt.setString(1, m_nickname);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -479,6 +482,7 @@ public class MemberDAO {
 		}
 		return vo;	
 	}
+
 
 
 }
