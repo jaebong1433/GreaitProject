@@ -246,7 +246,7 @@ public class MemberController extends HttpServlet {
 				String m_id = memberdao.findId(m_name,m_email);
 					
 					
-				if( m_id == null) {//아이디는 맞고 비번 틀림
+				if( m_id == null) {//
 					out.println("<script>");
 					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
 					out.println(" history.go(-1);");
@@ -281,7 +281,7 @@ public class MemberController extends HttpServlet {
 					
 				
 					
-				if(m_pw == null) {//아이디는 맞고 비번 틀림
+				if(m_pw == null) {//
 					out.println("<script>");
 					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
 					out.println(" history.go(-1);");
@@ -310,30 +310,52 @@ public class MemberController extends HttpServlet {
 			//회원정보 수정을 위해 회원정보 조회 요청!
 			}else if(action.equals("/mypage.me")) { 
 				//요청한 값 얻기
-				String m_id = request.getParameter("m_id");
+				String m_nickname = request.getParameter("m_nickname");
 					
-				MemberVO vo = memberdao.findMember(m_id);
+				MemberVO vo = memberdao.findMember(m_nickname);
 				
 				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 				request.setAttribute("vo", vo);
 	
-				nextPage = "/myPage.jsp";
+				nextPage = "/Member/myPage.jsp";
 			
-		
-			//회원정보 수정을 위해 회원정보 수정창 요청!
-			}else if(action.equals("/mypageUpdate.me")) { 
+				
+			//회원 정보수정을 위한 회원 확인 비밀번호인증	
+			}else if (action.equals("/mypageUpdate.me")) {
+				
+				
+				nextPage = "/Member/modMemberForm.jsp";
+				
 			
-				//요청한 값 얻기
-				String m_id = request.getParameter("m_id");
+				
+			//회원 정보수정을 위한 회원 확인 비밀번호인증
+			}else if (action.equals("/mypageUpdate1.me")) {
+				
+				String m_nickname = request.getParameter("m_nickname");
+				String m_pw = request.getParameter("m_pw");
+				
+				MemberVO vo = memberdao.getMemVO(m_nickname);
+				String loginPw = vo.getM_pw();
+				System.out.println(m_pw);
+				System.out.println(loginPw);
+				
+				if(loginPw.equals(m_pw)) {
+					
+					request.setAttribute("vo", vo);	
+					nextPage = "/Member/modMemberForm1.jsp";
+					
+				}else {
+					
+					
+					out.println("<script>");
+					out.println(" window.alert('비밀번호가 틀립니다 다시 입력해주세요');");
+					out.println(" history.go(-1);");
+					out.println("</script>");
+					return;
+				}
+				
+				
 			
-				MemberVO vo = memberdao.findMember(m_id);
-			
-				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
-				request.setAttribute("vo", vo);
-			
-				nextPage = "/modMemberForm.jsp";
-			
-
 			//회원정보 수정창에서 수정완료 버튼을 클릭했을 때
 			}else if(action.equals("/update.me")) {
 				int result = memberdao.updateMember(request);
@@ -359,9 +381,9 @@ public class MemberController extends HttpServlet {
 				
 				
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 
-			}else if(action.equals("/delete.do")) {
+			}else if(action.equals("/delete.me")) {
 			
-				nextPage = "/Delete.jsp";
+				nextPage = "/Member/Delete.jsp";
 				
 				
 			
