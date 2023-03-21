@@ -6,6 +6,7 @@ language="java"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
@@ -28,8 +29,16 @@ pageEncoding="UTF-8"
 	<body>
 		<form name="reply">
 			제목 : <input type="text" name="title"><br>
-			작성자 : <input type="text" name="writer" value="${ membervo.m_nickname }"><br>
+			<c:choose>
+	          <c:when test="${ (membervo.m_nickname) != null}">
+	          	작성자 : <input type="text" name="writer" value="${ membervo.m_nickname }" readonly><br>
+	          </c:when>
+	          <c:otherwise>
+		        작성자 : <input type="text" name="writer"><br>
+		      </c:otherwise>
+		   </c:choose>     
 			내용 : <input type="text" name="content"><br>
+			비밀번호 : <input type="password" name="pass">
 			<input type="hidden" name="c_idx" value="<%=c_idx%>">
 			<button onclick="javascript:replyPro()">게시</button>
 		</form>

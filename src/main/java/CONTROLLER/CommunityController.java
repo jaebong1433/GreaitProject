@@ -189,12 +189,13 @@ public class CommunityController extends HttpServlet {
 		}
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
-			String loginNick = (String)session.getAttribute("m_nickname");
+//			String loginNick = (String)session.getAttribute("m_nickname");
+//			if(loginNick != null) {
+//			MemberVO membervo = memberDAO.getMemVO(loginNick);
+//			request.setAttribute("membervo", membervo);
+//			}
 			
-			MemberVO membervo = memberDAO.getMemVO(loginNick);
 			request.setAttribute("center", "board/write.jsp");
-			request.setAttribute("membervo", membervo);
-			
 			request.setAttribute("nowPage", request.getParameter("nowPage"));
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
@@ -206,11 +207,12 @@ public class CommunityController extends HttpServlet {
 			String nick = request.getParameter("w");
 			String title = request.getParameter("t");
 			String content = request.getParameter("c");
-			
+			String pass = request.getParameter("p");
 			vo = new CommunityVO();
 			vo.setC_nickname(nick);
 			vo.setC_title(title);
 			vo.setC_content(content);
+			vo.setC_password(pass);
 			int result = comDAO.insertBoard(vo);
 			// "1" 또는 "0"
 			String go = String.valueOf(result);
@@ -230,10 +232,11 @@ public class CommunityController extends HttpServlet {
 			String title = request.getParameter("title");
 			String nickname = request.getParameter("writer");
 			String content = request.getParameter("content");
+			String pass = request.getParameter("pass");
 			String super_c_idx = request.getParameter("c_idx"); //답글화면에서 입력한 title, writer, content를 받아오고, super_c_idx도 받음
 			
 			
-			comDAO.replyInsertBoard(super_c_idx, title, nickname, content); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
+			comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
 			System.out.println(true);
 			
 			nextPage="/com/list.bo";

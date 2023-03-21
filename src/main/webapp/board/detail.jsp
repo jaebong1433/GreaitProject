@@ -114,11 +114,25 @@ pageEncoding="UTF-8"
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
 				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 			</form>
-		
+			<!-- 목록버튼 03/20 허상호 -->
+			<div align="center">
+            	<a href="" id="list">
+            		<img src="<%=contextPath%>/board/images/list.gif" border="0"/>
+            	</a>
+            </div>
 		
 		</div>
 	</center>
 		<script type="text/javascript">
+		<!-- 목록버튼 클릭했을때 03/20 허상호 -->
+		$("#list").click(function(event) {
+			event.preventDefault();
+			//community테이블에 저장된 글을 조회 하는 요청!
+			location.href = "<%=contextPath%>/com/list.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			
+		})
+		
+		
 			var check = "<%= check %>"	
 			if(check == "yes") {
 				$("#like_btn").css({backgroundColor : "red"});

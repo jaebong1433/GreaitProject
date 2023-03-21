@@ -5,19 +5,10 @@
 	String contextPath = request.getContextPath();
 	String nowPage = request.getParameter("nowPage");
 	String nowBlock = request.getParameter("nowBlock");
-	MemberVO vo = (MemberVO)request.getAttribute("membervo");
-	String email = vo.getM_email();
+	String loginNick = (String)session.getAttribute("m_nickname");
 %>
 
-<%
-	String loginNick = (String)session.getAttribute("m_nickname");
-	if(loginNick == null){//로그인 하지 않았을경우
-%>		
-	<script>	
-		alert("로그인 하고 글을 작성하세요!"); 
-		history.back(); 
- 	</script>
-<% 	}%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -54,7 +45,21 @@
                     	<div align="center">작 성 자</div>
                     </td>
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
+                    	
+                    <%	if(loginNick == null){//로그인 하지 않았을경우
+                    	 %>
+                    	<input type="text" name="writer" size="20" class="text2" />
+                    <%}else{ %>
                     	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
+                    <%} %>	
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
+                    	<div align="center">글 비밀번호</div>
+                    </td>
+                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
+                    	<input type="password" name="password" size="20"/>
                     </td>
                    </tr>
                              
@@ -129,7 +134,8 @@
 			var title = $("input[name=title]").val();
 			//글내용을 입력받아 얻는다.
 			var content = $("textarea[name=content]").val();
-			
+			//글비밀번호를 입력받아 얻는다.
+			var pass = $("input[name=password]").val();
 			
 			$.ajax({
 				type:"post",
@@ -138,7 +144,8 @@
 				data:{
 					w : writer,
 					t : title,
-					c : content
+					c : content,
+					p : pass
 				},
 				dataType : "text",
 				success:function(data){
