@@ -22,7 +22,7 @@
 
 
 
-
+    
 		<link rel="stylesheet" href="<%=contextPath%>/css/style.css">
 	
 		<link rel="stylesheet" id="theme-switch" href="<%=contextPath%>/css/style.css">
@@ -30,6 +30,58 @@
 		<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 
 	<style>
+	
+		 .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+	
 		.mobject{
 			border: 0.5px solid gray;
 			width : 220px;
@@ -142,44 +194,51 @@
     		
     	</div>
     <li class="border-top my-3" style="list-style:none;"></li>
-      
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-          영화
+        <a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+        		data-bs-target="collapse" aria-expanded="false">
+          커뮤니티
+        </button></a>
+      </li>
+      <li class="mb-1" style="list-style:none;">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+          박스오피스
         </button>
-        <div class="collapse show" id="home-collapse">
+        <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">현재 상영작</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">개봉 예정작</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.03</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.02</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.01</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2022</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2021</a></li>
           </ul>
         </div>
       </li>
       <li class="mb-1" style="list-style:none;">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-          모든 영화
+          예매하기
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Overview</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Weekly</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Monthly</a></li>
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
+            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">롯데시네마</a></li>
           </ul>
         </div>
       </li>
-      <li class="mb-1" style="list-style:none;">
-        <a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
-        		data-bs-target="#orders-collapse" aria-expanded="false">
-          커뮤니티
-        </button></a>
-      </li>
-      <li class="mb-1" style="list-style:none;">
+       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-          예고편
+          영상
         </button>
+        <div class="collapse" id="orders-collapse">
+          	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            	<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
+            	<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
+         	</ul>
+        </div>
       </li>
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="collapse" aria-expanded="false">
           극장 검색
         </button>
       </li>
@@ -189,6 +248,8 @@
 </div>	
 	<!-- Main JS (Do not remove) -->
 	<script src="<%=contextPath%>/eq/js/main.js"></script>
+    <script src="<%=contextPath%>/eq/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=contextPath%>/eq/js/sidebars.js"></script>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
     	function check(){

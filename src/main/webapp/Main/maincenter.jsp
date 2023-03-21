@@ -76,12 +76,19 @@
 		
 		
 		
-		.centertb2{
-			width: 98%;
-			text-align: center;
-			height: 400px;
-			margin: auto;
-		}
+		.comut{
+				width : 90%;
+				
+			}
+			
+			.comut a{
+				text-decoration: none;
+			}
+			
+			.comut td{
+				margin-left: 10px;
+				border-bottom: 1px solid gray;
+			}
 		
 		.centertb3{
 			width: 98%;
@@ -139,7 +146,7 @@
 <!-- 영화 슬라이드 구역 -->
 	<div>
 	<br>
-	<h2>HOT & NEW</h2>
+	<h2><b>박스오피스</b></h2>
 	<hr>
 	<div>
 		<table class="centertb1">
@@ -229,41 +236,50 @@
 		</div>
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
-		<!-- 예고편 구역 시작 -->
+		<!-- 게시판 시작 -->
 		<div>
-			<h2>예고편</h2>
+			<h2><b>게시판</b></h2>
 			<hr>
-			<table class="centertb2">
+			<table class="comut">
 				<tr>
-						<%
-						ArrayList list2 = (ArrayList)request.getAttribute("mainClipList");
-						
-						CrawlingVO vo2 = null;
-						 String clipTitle; //예고편 제목
-					     String clipImg; // 포스터 이미지
-					     
-					     for (int i = 0; i < 4; i++) {
-								
- 							 vo2 = (CrawlingVO)list2.get(i);
-							 clipTitle = vo2.getClipTitle();
-							 clipImg = vo2.getClipImg();
-						%>	 				
-			
-							<td>
-								<a href="#">
-									<img src="<%=clipImg%>" width="180px" height="100px"><br>
-									<span><strong><%=clipTitle%></strong></span>
-								</a>	
-							</td>
-							
-					<%	 
-						 }
-					%>
+					<td width="70%"><a href="#">
+						글 제목 입니다~~~~~~~~~~~~
+					</a></td>
+					<td width="15%">작성자</td>
+					<td width="15%">작성일</td>
+				</tr>
+				<tr>
+					<td><a href="#">
+						글 제목 입니다~~~~~~~~~~~~
+					</a></td>
+					<td>작성자</td>
+					<td>작성일</td>
+				</tr>
+				<tr>
+					<td><a href="#">
+						글 제목 입니다~~~~~~~~~~~~
+					</a></td>
+					<td>작성자</td>
+					<td>작성일</td>
+				</tr>
+				<tr>
+					<td><a href="#">
+						글 제목 입니다~~~~~~~~~~~~
+					</a></td>
+					<td>작성자</td>
+					<td>작성일</td>
+				</tr>
+				<tr>
+					<td><a href="#">
+						글 제목 입니다~~~~~~~~~~~~
+					</a></td>
+					<td>작성자</td>
+					<td>작성일</td>
 				</tr>
 			</table>
 			
 		</div><br><br>
-			<!-- 예고편 구역 끝 -->
+			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
 		<div>
 			<h2>포토</h2>
