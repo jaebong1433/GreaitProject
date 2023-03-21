@@ -130,9 +130,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        		<td colspan="4" style="height: 19px">&nbsp;</td> 
 	        	</tr>
 	        	<tr>
-	        		<td colspan="4" style="height: 19px">
-	        			<img src="<%=contextPath%>/board/images/ink.gif" width="875" height="100">
-	        		</td>
+	        		<button href="javascript:void(0)" onclick="bestPost()">개념글</button>
+	        		<button href="javascript:void(0)" onclick="listByLike()">좋아요순</button>
+	        		<button href="javascript:void(0)" onclick="listByViews()">조회수순</button>
+	        		<button href="javascript:void(0)" onclick="listByRecent()">최신순</button>
 	        	</tr>
 	        	<tr> 
 	        		<td colspan="4">
