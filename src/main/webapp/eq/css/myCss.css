@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+			.maintic{
+				width: 95%;
+			}
+			
+			.maintic td{
+				text-align: center;
+				width: 30%;
+				height: 80px;
+			}
+			
+			.maintic button{
+				border: 0.1px solid gray;
+				border-radius: 40px;
+				width: 70%;
+				height: 100%;
+				background: white;
+			}
+			
+			
+		.ticbt1 img{
+			transition: all 0.1s linear;
+		}
+		
+		.ticbt1:hover img{
+			transform: scale(1.1);
+		}
+		
+		.ticbt2 img{
+			transition: all 0.1s linear;
+		}
+		
+		.ticbt2:hover img{
+			transform: scale(1.1);
+		}
+		
+		.ticbt3 img{
+			transition: all 0.1s linear;
+		}
+		
+		.ticbt3:hover img{
+			transform: scale(1.1);
+		}
+			
+			
+			.centertb1{
+			width: 98%;
+			height: 400px;
+			text-align: center;
+			margin: auto;
+		}
+		
+		
+		
+		.comut{
+				width : 90%;
+				
+			}
+			
+			.comut a{
+				text-decoration: none;
+			}
+			
+			.comut td{
+				margin-left: 10px;
+				border-bottom: 1px solid gray;
+			}
+		
+		.centertb2{
+			width: 98%;
+			margin-top: 20px;
+			margin-bottom: 50px;
+		}
+		
+		.centertb2 p{
+			text-align: right;
+			color: gray;
+			margin-right: 70px;
+		}
+		
+		
+		
+		.centertb3{
+			width: 98%;
+			text-align: center;
+			margin-top: 20px;
+			height : 400px;
+			margin-bottom: 50px;
+		}
+		
+		
+		
+		a{
+			text-decoration: none;
+			color : black;
+		}
+		
+		hr{
+			width: 90%;
+			border: 1.5px gray solid;
+			
+		}
+		
+		.fonttb{
+			font-size: 0.8em;
+			text-align: left;
+		}
+		
+		.fonttb h6{
+			margin-top : 10px;
+			font-size: 1.3em;
+			font-weight: bold;
+			color: black;
+		}
+		
+		.hover{
+			width: 220px;
+			overflow: hidden;
+		}
+		
+		.hover img{
+			transition: all 0.1s linear;
+		}
+		
+		.hover:hover img{
+			transform: scale(1.1);
+		}
+		
+		
+	
