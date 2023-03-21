@@ -49,13 +49,117 @@ public class CommunityDAO {
 	}	
 	
 	//커뮤니티 들어갔을 때 화면을 띄워주는 기능
-	//정태영
-	public ArrayList boardListAll() {
+	//20230321 정태영 : 최신순
+	public ArrayList listByRecent() {
 		ArrayList list = new ArrayList();
 		
 		try {
 			con = ds.getConnection();
 			String sql = "select * from community order by c_group asc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardListAll");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return list;
+	}
+	
+	//20230321 정태영 : 개념글
+	public ArrayList bestPost() {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community where c_like > 9 order by c_like desc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("bestPost");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return list;
+	}
+	//20230321 정태영 : 좋아요 순
+	public ArrayList listByLike() {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community order by c_like desc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardListAll");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return list;
+	}
+	//20230321 정태영 : 조회수 순
+	public ArrayList listByViews() {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community order by c_views desc";
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -99,6 +203,28 @@ public class CommunityDAO {
 			
 		} catch(Exception e) {
 			System.out.println("getTotalRecord");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return total;
+	}
+	
+	public int getBestPostRecord() {
+		int total = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select count(*) as cnt from community where c_like > 9";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			total = rs.getInt("cnt");
+			
+		} catch(Exception e) {
+			System.out.println("getBestPostRecord");
 			e.printStackTrace();
 		} finally {
 			closeResource();
@@ -479,8 +605,7 @@ public class CommunityDAO {
 	
 	//boardlikevo를 얻어오는 기능
 	//정태영
-	public BoardLikeVO getBoardlikeVO(String c_idx, HttpSession session) {
-		String nickname = (String)session.getAttribute("nickname");
+	public BoardLikeVO getBoardlikeVO(String c_idx, String nickname) {
 		BoardLikeVO boardLikeVO = null;
 		String sql = null;
 		
@@ -492,7 +617,6 @@ public class CommunityDAO {
 			pstmt.setString(1, c_idx);
 			pstmt.setString(2, nickname);
 			rs = pstmt.executeQuery();
-			System.out.println("안녕");
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
