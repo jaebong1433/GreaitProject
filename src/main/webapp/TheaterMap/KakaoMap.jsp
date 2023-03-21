@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 	<head>
 		<!-- 한성준 03-16 카카오맵 지도 -->
 		<meta charset="UTF-8">
-		<title>지도 최종본 수정중</title>
+		<title>극장 지도</title>
 		<style>
 		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -323,7 +324,7 @@
 
 			    // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
 			    map.panTo(currentPos);
-
+			    
 			    /* // 마커 생성
 			    var marker = new kakao.maps.Marker({
 			        position: currentPos
@@ -341,6 +342,9 @@
 			// 위치 가져오기 버튼 클릭시
 			function getCurrentPosBtn(){
 			    navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
+			    
+				//지도 레벨을 2으로 한뒤, 애니메이션 효과 옵션 설정
+			    map.setLevel(2, {animate: true});
 			};
 		</script>
 		</center>
