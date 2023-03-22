@@ -48,6 +48,41 @@ public class CommunityDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}	
 	
+	public ArrayList getAllNotice() {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from noticeboard order by c_group asc";
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("boardListAll");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return list;
+	}
+	
 	//커뮤니티 들어갔을 때 화면을 띄워주는 기능
 	//20230321 정태영 : 최신순
 	public ArrayList listByRecent() {
@@ -234,6 +269,27 @@ public class CommunityDAO {
 		return total;
 	}
 	
+	public int getTotalNoticeRecord() {
+		int total = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select count(*) as cnt from noticeboard";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			total = rs.getInt("cnt");
+			
+		} catch(Exception e) {
+			System.out.println("getTotalNoticeRecord");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return total;
+	}
 	
 	//게시글을 클릭했을 때 자세히 보는 기능
 	//정태영
@@ -487,7 +543,41 @@ public class CommunityDAO {
 		
 		return result;
 	}
-	
+	//0321 정태영 : 공지글 쓰기 메서드
+	public int insertNoticeBoard(CommunityVO vo) {
+		int result = 0;
+		String sql = null;
+		try {
+			//DB접속
+			con = ds.getConnection();
+			
+			//두번째 부터 입력되는 주글 들의 pos를 1증가 시킨다.
+			sql = "update noticeboard set c_group = c_group +1";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			//insert SQL문 만들기 //c_group , c_level 0 0 으로 insert 규칙3
+			
+			sql = "insert into noticeboard (c_idx, c_title, c_nickname, c_password, c_content, "
+					+ "c_date, c_views, c_like, c_group, c_level) "
+					+ " values (noticeboard_idx.nextVal, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getC_title());
+			pstmt.setString(2, vo.getC_nickname());
+			pstmt.setString(3, vo.getC_password());
+			pstmt.setString(4, vo.getC_content());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("insertNoticeBoard 메소드 내부에서 오류 !");
+			e.printStackTrace();
+		}finally {
+			closeResource();
+		}
+		
+		return result;
+	}
 
 	//검색했을 때
 	//정태영(?)

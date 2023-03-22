@@ -1,15 +1,15 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	String nowPage = request.getParameter("nowPage");
 	String nowBlock = request.getParameter("nowBlock");
 	String loginNick = (String)session.getAttribute("m_nickname");
+	String noticeCheck;
 %>
-
-
-
+<c:set var="loginNick" value="${ m_nickname }"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,7 +51,11 @@
                     	<input type="text" name="writer" size="20" class="text2" />
                     <%}else{ %>
                     	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
-                    <%} %>	
+                    <%} %>
+                    <!-- 0321 정태영: 관리자의 경우 공지글을 작성할 수 있는 체크박스 추가 -->
+                    <c:if test="${ loginNick == 'admin' }">
+                   		&nbsp;공지글로 쓰기<input type="checkbox" name="noticeCheck" id="noticeCheck">
+                    </c:if>
                     </td>
                     </tr>
                     <tr>
@@ -118,7 +122,7 @@
 		$("#list").click(function(event) {
 			event.preventDefault();
 			//board테이블에 저장된 글을 조회 하는 요청!
-			location.href = "<%=contextPath%>/com/list.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 			
 		})
 		
@@ -126,7 +130,6 @@
 	
 		//새글 정보를 입력하고 등록 이미지를 감싸고 있는 <a>태그를 클릭 했을때
 		$("#registration1").click(function(event) {
-			
 			event.preventDefault();
 			
 			//작성자 명을 입력할 <input>을 선택해
@@ -143,30 +146,55 @@
 				$("#resultInput").text("작성란을 모두 입력하여 주세요!").css("color","red");
 				
 			}else{
-			
-				$.ajax({
-					type:"post",
-					async:true,
-					url:"<%=contextPath%>/com/writePro.bo",
-					data:{
-						w : writer,
-						t : title,
-						c : content,
-						p : pass
-					},
-					dataType : "text",
-					success:function(data){
-						console.log(data);
-						
-						if(data == "1"){
-							alert("글 등록 완료!");
-							location.href="<%=contextPath%>/com/list.bo";
-						}else{//"0"
-							$("#resultInsert").text("글 작성 실패!").css("color","red");
+				if($("#noticeCheck").is(":checked")) {
+					$.ajax({
+						type:"post",
+						async:true,
+							url:"<%=contextPath%>/com/noticePro.bo",
+						data:{
+							w : writer,
+							t : title,
+							c : content,
+							p : pass
+						},
+						dataType : "text",
+						success:function(data){
+							console.log(data);
+							
+							if(data == "1"){
+								alert("글 등록 완료!");
+								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+							}else{//"0"
+								$("#resultInsert").text("글 작성 실패!").css("color","red");
+							}
 						}
-					},
-					
-				});
+						
+					});
+				} else {
+					$.ajax({
+						type:"post",
+						async:true,
+							url:"<%=contextPath%>/com/writePro.bo",
+						data:{
+							w : writer,
+							t : title,
+							c : content,
+							p : pass
+						},
+						dataType : "text",
+						success:function(data){
+							console.log(data);
+							
+							if(data == "1"){
+								alert("글 등록 완료!");
+								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+							}else{//"0"
+								$("#resultInsert").text("글 작성 실패!").css("color","red");
+							}
+						}
+						
+					});
+				}
 			}
 		})
 		

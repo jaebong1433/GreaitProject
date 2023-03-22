@@ -11,7 +11,6 @@ pageEncoding="UTF-8"
 	String contextPath = request.getContextPath();
 	String nickname = (String)session.getAttribute("m_nickname");
 %>
-<%= nickname %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -68,9 +67,14 @@ int beginPerPage = 0; //각 페이지마다 ~~ 보여지는 시작 글번호(맨
 //BoardController에서 재요청해서 전달한 request에 담긴 ArrayList배열 꺼내오기 
 //조회된 글들 
 ArrayList list = (ArrayList)request.getAttribute("list");
+ArrayList noticeList = (ArrayList)request.getAttribute("noticeList");
 
 //조회된 총 글 개수 
 totalRecord = (Integer)request.getAttribute("count");
+int totalNoticeRecord = (Integer)request.getAttribute("noticeCount");
+if(totalNoticeRecord > 4) {
+	totalNoticeRecord = 4;
+}
 
 //현재 페이지 번호를 클릭했다면?
 if( request.getAttribute("nowPage") != null){
@@ -101,6 +105,10 @@ if(request.getAttribute("nowBlock") != null){
 totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock ); 
 
 %>
+
+<%= totalRecord %>
+<%= nowBlock %>
+<%= nowPage %>
 <center>
 <form name="frmRead">
 		<input type="hidden" name="c_idx">
@@ -110,8 +118,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 
 <table class="listtext">
 	<tr height="40"> 
-		<td width="46%" style="text-align: left"> 
-			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board02.gif" width="150" height="30">
+		<td width="46%" style="text-align: left;"> 
+			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" height="100">
 		</td>
 	</tr>
 	<tr> 
@@ -130,10 +138,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        	</tr>
 	        	<tr>
 	        		<!-- //20230321 정태영 : 버튼 추가 -->
-	        		<button><a href="<%= contextPath %>/com/bestPost.bo?nowPage=0&nowBlock=0">개념글</a></button>&nbsp;
-	        		<button><a href="<%= contextPath %>/com/listByLike.bo?nowPage=0&nowBlock=0">좋아요순</a></button>&nbsp;
-	        		<button><a href="<%= contextPath %>/com/listByViews.bo?nowPage=0&nowBlock=0">조회수순</a></button>&nbsp;
-	        		<button><a href="<%= contextPath %>/com/listByRecent.bo?nowPage=0&nowBlock=0">최신순</a></button>&nbsp;
+	        		<button onclick="javascript:location.href='<%= contextPath %>/com/bestPost.bo?nowPage=0&nowBlock=0'">개념글</button>&nbsp;
+	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByLike.bo?nowPage=0&nowBlock=0'">좋아요순</button>&nbsp;
+	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByViews.bo?nowPage=0&nowBlock=0'">조회수순</button>&nbsp;
+	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByRecent.bo?nowPage=0&nowBlock=0'">최신순</button>&nbsp;
 	        	</tr>
 	        	<tr> 
 	        		<td colspan="4">
@@ -156,7 +164,57 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							</tr>
 				<%		
 					}else{//게시판 board테이블에서 조회된 글들이 있다면?
-				
+						if(!noticeList.isEmpty()) {
+							for(int i=0; i<totalNoticeRecord; i++){
+								CommunityVO vo = (CommunityVO)noticeList.get(i);
+								
+								String content = vo.getC_content();
+								if(content.length() > 20) {
+									content = content.substring(0, 20) + "...";
+								}
+				%>
+								<tr align="center" bgcolor="red" height="120%">
+									<td align="left"><%=vo.getC_idx()%></td>
+									<td>
+								<%
+// 								    int level = vo.getB_level();
+																		
+// 									for(int j=0; j<level*4; j++){
+// 										out.print("&nbsp;");
+// 									}
+								
+									int width = 0;  //답변글에 대한 이미지의 들여쓰기 너비값
+									
+									//글의 들여쓰기정도 level값이 0보다 크다면?답변글
+									if(vo.getC_level() > 0){
+										
+										width = vo.getC_level() * 10;
+								%>
+									<img src="<%=contextPath%>/board/images/level.gif" width="<%=width%>" height="15">
+									<img src="<%=contextPath%>/board/images/re.gif">
+								<%	
+									}
+								%>		
+									<%--글제목 나타내는 곳 --%>
+									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
+										<%=vo.getC_title()%>
+									</a>
+								</td>
+								<td align="left">
+									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
+										<%= content %>
+									</a>
+								</td>
+								<td align="left"><%=vo.getC_nickname()%></td>
+								<td align="left"><%=vo.getC_date()%></td>
+								<td align="left"><%=vo.getC_views()%></td>
+								<td align="left"><%=vo.getC_like()%></td>
+								</tr>
+				<%				
+							}
+						}
+							
+							
 						for(int i=beginPerPage; i<(beginPerPage+numPerPage); i++){
 							
 							//만약 각페이지마다 보여지는 시작글번호가  게시판의 총글의 개수와 같으면 
@@ -209,7 +267,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>
 							</tr>
-					
 				<% 
 						}//for		
 					}
@@ -253,7 +310,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 		        	</td>
 		        	<c:if test="${ m_nickname == 'admin' }">
 		        		<td width="38%" style="text-align: left">
-		        			<button onclick="javascript:location.href='<%= contextPath %>/com/writeNotice.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">공지 쓰기</button>
+		        			<button onclick="javascript:location.href='<%= contextPath %>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">공지 쓰기</button>
 		        		</td> 
 		        	</c:if>
 		        	
