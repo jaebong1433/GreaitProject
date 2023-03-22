@@ -195,7 +195,7 @@
     	</div>
     <li class="border-top my-3" style="list-style:none;"></li>
       <li class="mb-1" style="list-style:none;">
-        <a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
+        <a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" 
         		data-bs-target="collapse" aria-expanded="false">
           커뮤니티
         </button></a>

@@ -85,15 +85,20 @@ public class CommunityController extends HttpServlet {
 		BoardLikeVO boardLikeVO = null;
 		
 		HttpSession session = request.getSession();
-//		String nickname_ = (String)session.getAttribute("m_nickname");
-//		if(nickname_ == null) {
-//			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
-//				nickname_ = s.next();
-//				session.setAttribute("m_nickname", nickname_);
-//			} catch (java.io.IOException e) {
-//			    e.printStackTrace();
-//			}
-//		}
+		String ip = (String)session.getAttribute("ip");
+		if(ip == null) {
+			//20230321 정태영 : 로그인 안 했을 때 아이피 주소 대입, 세션값 ㄴㄴ
+			//수정사항. 로그인 하지 않은 경우 반드시 ip주소를 새로 얻어 오므로 딜레이가 발생하여
+			//		세션값이 ip주소를 저장하여 ip주소가 없는 경우에만 받아오게 변경함
+			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+				System.out.println("세션값에 저장된 ip주소가 없으므로 새로 생성함");
+				ip = s.next();
+				session.setAttribute("ip", ip);
+			} catch (java.io.IOException e) {
+			    e.printStackTrace();
+			}
+		}
+		
 		
 		PrintWriter out = response.getWriter();
 		
@@ -103,6 +108,10 @@ public class CommunityController extends HttpServlet {
 		//만들고 보니 굳이 필요할까 싶기도 해서 나중에 삭제할 수도 있음. -정태영
 		class EasyList {
 			public void list() {
+				List noticeList = comDAO.getAllNotice();
+				int noticeCount = comDAO.getTotalNoticeRecord();
+				System.out.println("list, noticeCount : " + noticeCount);
+				
 				String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
 				String nowPage = request.getParameter("nowPage");
 				String nowBlock = request.getParameter("nowBlock");
@@ -114,6 +123,8 @@ public class CommunityController extends HttpServlet {
 				//페이징 처리 를 위해 담는다.
 				request.setAttribute("nowPage", nowPage);
 				request.setAttribute("nowBlock", nowBlock);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("noticeCount", noticeCount);
 			}
 		}
 		
@@ -203,14 +214,10 @@ public class CommunityController extends HttpServlet {
 			String nowPage_ = request.getParameter("nowPage");
 			String nowBlock_ = request.getParameter("nowBlock");
 			String nickname = (String)session.getAttribute("m_nickname");
-			System.out.println(nickname);
+			System.out.println("read.bo 닉네임: " + nickname);
 			//20230321 정태영 : 로그인 하지 않았을 경우 닉네임에 아이피 주소를 대입함
 			if(nickname == null) {
-				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
-					nickname = s.next();
-				} catch (java.io.IOException e) {
-				    e.printStackTrace();
-				}
+				nickname = ip;
 			}
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
@@ -235,12 +242,8 @@ public class CommunityController extends HttpServlet {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			String nickname = (String)session.getAttribute("m_nickname");
 			if(nickname == null) {
-				//20230321 정태영 : 로그인 안 했을 때 아이피 주소 대입, 세션값 ㄴㄴ
-				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
-					nickname = s.next();
-				} catch (java.io.IOException e) {
-				    e.printStackTrace();
-				}
+				System.out.println("like.bo ip주소 : " + ip);
+				nickname = ip;
 			}
 			
 			
@@ -257,11 +260,8 @@ public class CommunityController extends HttpServlet {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
 			String nickname = (String)session.getAttribute("m_nickname");
 			if(nickname == null) {
-				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
-					nickname = s.next();
-				} catch (java.io.IOException e) {
-				    e.printStackTrace();
-				}
+				System.out.println("likeCancel.bo ip주소 : " + ip);
+				nickname = ip;
 			}
 			
 			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
@@ -301,13 +301,6 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/write.jsp";
 
 		}
-		//공지사항 글쓰기, 현재 구현중
-		//0321 16:14 정태영
-		else if(action.equals("/writeNotice.bo")) {
-			System.out.println(true);
-			return;
-		}
-		
 		//글 작성 버튼을 눌러 글 작성 요청을 했을때
 		else if(action.equals("/writePro.bo")) {
 			String nick = request.getParameter("w");
@@ -320,6 +313,31 @@ public class CommunityController extends HttpServlet {
 			vo.setC_content(content);
 			vo.setC_password(pass);
 			int result = comDAO.insertBoard(vo);
+			// "1" 또는 "0"
+			String go = String.valueOf(result);
+			
+			//write.jsp로 ($.ajax()메소드 내부의 success:function(data)의 data매개변수로 전달)
+			if(go.equals("1")) {
+				out.print(go);
+			}else {
+				out.print(go);
+			}
+			return;
+		}
+		//0321 정태영 : write.jsp에서 공지글로 쓰기 체크하고 등록을 눌렀을 때
+		else if(action.equals("/noticePro.bo")) {
+			System.out.println(true);
+			
+			String nick = request.getParameter("w");
+			String title = request.getParameter("t");
+			String content = request.getParameter("c");
+			String pass = request.getParameter("p");
+			vo = new CommunityVO();
+			vo.setC_nickname(nick);
+			vo.setC_title(title);
+			vo.setC_content(content);
+			vo.setC_password(pass);
+			int result = comDAO.insertNoticeBoard(vo);
 			// "1" 또는 "0"
 			String go = String.valueOf(result);
 			
@@ -367,6 +385,7 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/list.jsp";
 		}
 		
+		System.out.println(nextPage);
 		//포워딩 (디스패처 방식)
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);

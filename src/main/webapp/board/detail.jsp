@@ -41,8 +41,6 @@ pageEncoding="UTF-8"
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-		
 		<style type="text/css">
 	.boarddiv {
 		margin-top: 50px;
@@ -142,15 +140,17 @@ pageEncoding="UTF-8"
 		$("#list").click(function(event) {
 			event.preventDefault();
 			//community테이블에 저장된 글을 조회 하는 요청!
-			location.href = "<%=contextPath%>/com/list.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 			
 		})
 		
 			var check = "<%=check%>"
 			if(check == "yes"){
 				$("#like_btn").css({border : "red"});
+				$("#likeimg").attr("src","<%=contextPath%>/eq/img/good2.png");
 			}else{
 				$("#like_btn").css({backgroundColor : "white"});
+				$("#likeimg").attr("src","<%=contextPath%>/eq/img/good.png");
 			}
 			
 			function replyBoard(val) {
