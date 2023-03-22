@@ -237,10 +237,12 @@
          	</ul>
         </div>
       </li>
+      <!-- 경로 추가 -->
+      <!-- 한성준 -->
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="collapse" aria-expanded="false">
+        <a href="<%=contextPath%>/map/movieMap.mo"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="collapse" aria-expanded="false">
           극장 검색
-        </button>
+        </button></a>
       </li>
       
     </ul>
