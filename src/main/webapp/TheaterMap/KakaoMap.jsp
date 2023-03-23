@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
+	<!-- 한성준 03-16 카카오맵 지도 -->
+  <meta charset="UTF-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -18,8 +19,6 @@
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
  	<link rel="stylesheet" href="<%=contextPath%>/eq/js/jquery.bxslider.min.css">
 	<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
- 	
- 	
 	</head>
 		<!-- 부트스트랩 이용을 위한 jQuery와 CDN -->
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
