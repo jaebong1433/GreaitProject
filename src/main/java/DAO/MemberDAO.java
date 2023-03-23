@@ -306,7 +306,8 @@ public class MemberDAO {
 			e.printStackTrace();
 			
 		}finally {
-			
+			//자원해제
+			closeResource();
 		}
 		
 		return m_id;
@@ -344,7 +345,8 @@ public class MemberDAO {
 				e.printStackTrace();
 				
 			}finally {
-				
+				//자원해제
+				closeResource();
 			}
 			
 			return m_pw;

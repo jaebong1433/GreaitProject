@@ -301,11 +301,10 @@ public class CommunityDAO {
 			sql = "update community set c_views = c_views + 1 where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			
 			//--------------------------------------------
-			con = ds.getConnection();
 			sql = "select * from community where c_idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
@@ -354,7 +353,7 @@ public class CommunityDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
 			pstmt.setString(2, nickname);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
 			sql = "select * from boardlike where c_idx=? and m_nickname=?";
@@ -372,7 +371,7 @@ public class CommunityDAO {
 			sql = "update community set c_like = c_like + 1 where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
-			rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			
 		} catch(Exception e) {
@@ -398,7 +397,7 @@ public class CommunityDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
 			pstmt.setString(2, nickname);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
 			sql = "select * from boardlike where c_idx=? and m_nickname=?";
@@ -416,7 +415,7 @@ public class CommunityDAO {
 			sql = "update community set c_like = c_like - 1 where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
-			rs = pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
 			System.out.println("boardRead");

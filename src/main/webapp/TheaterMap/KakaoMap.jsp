@@ -58,9 +58,7 @@
 		</style>
 	</head>
 		<!-- 부트스트랩 이용을 위한 jQuery와 CDN -->
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 	<body>
 	<center>
@@ -69,7 +67,7 @@
 			<hr>
 		</div>
 		<div class="map_wrap">
-		    <div id="map" style="width:1000px;height:500px;position:relative;overflow:hidden;"></div>
+	   	 <div id="map" style="width:1000px;height:500px;position:relative;overflow:hidden;"></div>
 		
 		    <div id="menu_wrap" class="bg_white">
 		        <div class="option">
