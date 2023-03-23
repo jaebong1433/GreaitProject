@@ -36,7 +36,14 @@ pageEncoding="UTF-8"
 			document.frmRead.c_idx.value = val;
 			document.frmRead.submit();
 		}
-
+		
+		function noticeRead(val){
+			document.frmRead.action = "<%=contextPath%>/com/noticeRead.bo";
+			document.frmRead.c_idx.value = val;
+			document.frmRead.submit();
+		}
+		
+		
 		</script>
 		<style>
 			.listtext{
@@ -174,17 +181,9 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									<td align="left"><%=vo.getC_idx()%></td>
 									<td align="left">
 								<%
-// 								    int level = vo.getB_level();
-																		
-// 									for(int j=0; j<level*4; j++){
-// 										out.print("&nbsp;");
-// 									}
-								
 									int width = 0;  //답변글에 대한 이미지의 들여쓰기 너비값
-									
 									//글의 들여쓰기정도 level값이 0보다 크다면?답변글
 									if(vo.getC_level() > 0){
-										
 										width = vo.getC_level() * 10;
 								%>
 									<img src="<%=contextPath%>/board/images/level.gif" width="<%=width%>" height="15">
@@ -193,16 +192,19 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									}
 								%>		
 									<%--글제목 나타내는 곳 --%>
-									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
+									<a href="javascript:noticeRead('<%=vo.getC_idx()%>')">
 										<%=vo.getC_title()%>
 									</a>
 								</td>
 								<td align="left">
-									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
+									<a href="javascript:noticeRead('<%=vo.getC_idx()%>')">
 										<%= content %>
 									</a>
 								</td>
-								<td align="left"><%=vo.getC_nickname()%></td>
+								<td align="left">
+									<img width="5%" alt="프로필 사진" src="<%= contextPath %>/board/images/profile.png">
+									<%=vo.getC_nickname()%>
+								</td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>

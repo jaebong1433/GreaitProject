@@ -194,7 +194,7 @@ public class MemberDAO {
 			pstmt.setString(5, vo.getM_email());
 			
 			
-			//PreparedStatement실행객체메모리에 설정된 insert전체 문장을 
+			//PreparedStatement실행객체메모리에 설정된 inser2t전체 문장을 
 			//DB의 테이블에 실행!
 			pstmt.executeUpdate();
 						
