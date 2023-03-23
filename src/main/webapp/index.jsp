@@ -25,7 +25,9 @@
 	    <meta name="author" content="Jobboard">
 	    <!-- 타이틀 아이콘 -->
     	<link rel="shortcut icon" href="<%=contextPath%>/eq/img/micon.png">
-    
+    	<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
+		<link href="<%=contextPath %>/eq/css/map.css" rel="stylesheet">
 		
 		<style type="text/css">
 			

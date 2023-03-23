@@ -2,9 +2,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String contextPath = request.getContextPath();
-	
+	ArrayList boardList = (ArrayList)request.getAttribute("list");
+	int boardCount = (Integer)request.getAttribute("count");
 %>    
    
 <!DOCTYPE html>
@@ -167,44 +169,39 @@
 		<!-- 게시판 시작 -->
 		<div class="centertb2">
 			<h2><b>게시판</b></h2>
-			<p><a href="<%=contextPath%>/com/list.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
+			<!-- 0322 정태영 : 게시판 구현 -->
+			<p><a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
 			<hr>
 			<table class="comut">
-				<tr>
-					<td width="70%"><a href="#"><b>
-						글 제목 입니다~~~~~~~~~~~~
-					</b></a></td>
-					<td width="15%">작성자</td>
-					<td width="15%">작성일</td>
+				<tr align="center" bgcolor="#D0D0D0" height="120%">
+					<td align="left">번호</td>
+					<td align="left">제목</td>
+					<td align="left">내용</td>
+					<td align="left">작성자</td>
+					<td align="left">작성일</td>
+					<td align="left">조회수</td>
+					<td align="left">추천</td>
 				</tr>
-				<tr>
-					<td><a href="#"><b>
-						글 제목 입니다~~~~~~~~~~~~
-					</b></a></td>
-					<td>작성자</td>
-					<td>작성일</td>
-				</tr>
-				<tr>
-					<td><a href="#"><b>
-						글 제목 입니다~~~~~~~~~~~~
-					</b></a></td>
-					<td>작성자</td>
-					<td>작성일</td>
-				</tr>
-				<tr>
-					<td><a href="#"><b>
-						글 제목 입니다~~~~~~~~~~~~
-					</b></a></td>
-					<td>작성자</td>
-					<td>작성일</td>
-				</tr>
-				<tr>
-					<td><a href="#"><b>
-						글 제목 입니다~~~~~~~~~~~~
-					</b></a></td>
-					<td>작성자</td>
-					<td>작성일</td>
-				</tr>
+				<c:forEach end="4" var="communityVO" items="${ boardList }">
+						<tr>
+							<td align="left">${ communityVO.c_idx }</td>
+							<td align="left">
+								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
+									${ communityVO.c_title }
+								</a>
+							</td>
+							<td align="left">
+								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
+									${ communityVO.c_content }
+								</a>
+							</td>
+							<td align="left">${ communityVO.c_nickname }</td>
+							<td align="left">${ communityVO.c_date }</td>
+							<td align="left">${ communityVO.c_views }</td>
+							<td align="left">${ communityVO.c_like }</td>
+						</tr>
+				</c:forEach>
+				
 			</table>
 			<br><br><br>
 		</div><br><br><br>
@@ -279,5 +276,17 @@
 			
 		
 	</center>
+	<form name="frmRead">
+		<input type="hidden" name="c_idx">
+		<input type="hidden" name="nowPage" value="0">
+		<input type="hidden" name="nowBlock" value="0">
+	</form>
+<script>
+function fnRead(val){
+	document.frmRead.action = "<%=contextPath%>/com/read.bo";
+	document.frmRead.c_idx.value = val;
+	document.frmRead.submit();
+}
+</script>	
 </body>
 </html>

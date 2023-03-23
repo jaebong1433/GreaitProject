@@ -14,6 +14,7 @@
     		text-align: center;
     		width: 400px;
     		font-size: 1.2em;
+    		margin-top : 100px;
     	}
     	
     	.findtb input{
@@ -23,16 +24,20 @@
     	
     	.joinf{
     		margin-top: 70px;
+    		height: 800px;
     	}
     	
-    	.joinf button{
-			background-color : gray;
+    	
+    	.findbt{
+    		background-color : gray;
 			color : white;
 			width : 15%;
 			height: 40px;
 			border-radius: 10px;
-			margin-top: 40px;
-		}
+    	}
+    	
+    	
+    	
     	
     </style>
     
@@ -65,8 +70,9 @@
 				</td>
 			</tr>
 		</table>
-		<input type="button" value="회원정보 수정" onclick="submit();">
-		<input type="button" value="취소" onClick="history.back();">
+		<br><br>
+		<input class="findbt" type="button" value="회원정보 수정" onclick="submit();">
+		<input class="findbt" type="button" value="취소" onClick="history.back();">
 		</form>
 		</div>
 	</center>
