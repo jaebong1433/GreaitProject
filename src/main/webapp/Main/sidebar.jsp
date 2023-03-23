@@ -180,7 +180,8 @@
 			
 				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
 			
-			<a href="#" onclick="check(); return false;">
+<!-- 				<button onclick="check();">myPage</button> -->
+			<a href="#" id="myPage_btn">
 				myPage</a>
 			</form>		
 			</td>	
@@ -252,8 +253,13 @@
 	<script src="<%=contextPath%>/eq/js/sidebars.js"></script>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
-    	function check(){
-    		$("form").submit();
+    	$("#myPage_btn").on("click", function(e) {
+    		e.preventDefault();
+    		check();
+    	})	
+    
+    function check(){
+    		$(".form").submit();
     	}
     </script>
 	

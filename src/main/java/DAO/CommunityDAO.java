@@ -305,7 +305,6 @@ public class CommunityDAO {
 			
 			
 			//--------------------------------------------
-			con = ds.getConnection();
 			sql = "select * from community where c_idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
