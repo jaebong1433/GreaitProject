@@ -118,14 +118,14 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 
 <table class="listtext">
 	<tr height="40"> 
-		<td width="46%" style="text-align: left;"> 
-			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" height="100">
+		<td style="text-align: center;"> 
+			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" width="50%">
 		</td>
 	</tr>
 	<tr> 
 		<td colspan="3">
 			<div align="center">
-				<img src="<%=contextPath%>/board/images/line_870.gif" width="870" height="4">
+			<hr border="2px solid gray">
 			</div>
 		</td>
 	</tr>

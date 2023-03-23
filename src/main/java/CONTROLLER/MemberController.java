@@ -316,15 +316,20 @@ public class MemberController extends HttpServlet {
 				
 				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 				request.setAttribute("vo", vo);
+				
+				request.setAttribute("center", "/Member/myPage.jsp");
+				
 	
-				nextPage = "/Member/myPage.jsp";
+				nextPage = "/index.jsp";
 			
 				
 			//회원 정보수정을 위한 회원 확인 비밀번호인증	
 			}else if (action.equals("/mypageUpdate.me")) {
 				
+				request.setAttribute("center", "/Member/modMemberForm.jsp");
 				
-				nextPage = "/Member/modMemberForm.jsp";
+				
+				nextPage = "/index.jsp";
 				
 			
 				

@@ -15,7 +15,11 @@
 		
 		a{
 			text-decoration: none;
-			color: gray;
+			color: lightgray;
+		}
+		
+		.bbbot p{
+			color : lightgray;
 		}
 		
 	</style>
@@ -23,7 +27,8 @@
 </head>
 <body>
 	<center>
-	<hr style="border: solid 2px gray">
+	<div class="bbbot">
+	<hr style="border: solid 2px lightgray">
 		<div class="bota">
 			<a href="#"><strong>영화</strong></a> |
 			<a href="#"><strong>모든영화</strong></a> |
@@ -40,6 +45,7 @@
 			
 			FAX : 01-3546-9874
 		</p>
+		</div>
 	</center>
 </body>
 </html>

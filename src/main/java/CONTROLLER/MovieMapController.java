@@ -53,7 +53,7 @@ public class MovieMapController extends HttpServlet{
 				
 				request.setAttribute("center","/TheaterMap/KakaoMap.jsp");
 				
-				nextPage = "/Crawling/maincenter.me";
+				nextPage = "/index.jsp";
 			}
 			
 			//포워딩 (디스패처 방식)
