@@ -40,7 +40,7 @@ public class CommunityController extends HttpServlet {
 	//CommunityDAO객체를 저장할 참조변수 선언
 	CommunityDAO comDAO;
 	MemberDAO memberDAO;
-	
+
 	@Override
 	public void init() throws ServletException {
 		comDAO = new CommunityDAO();
@@ -90,7 +90,7 @@ public class CommunityController extends HttpServlet {
 			//20230321 정태영 : 로그인 안 했을 때 아이피 주소 대입, 세션값 ㄴㄴ
 			//수정사항. 로그인 하지 않은 경우 반드시 ip주소를 새로 얻어 오므로 딜레이가 발생하여
 			//		세션값이 ip주소를 저장하여 ip주소가 없는 경우에만 받아오게 변경함
-			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
+			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api64.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
 				System.out.println("세션값에 저장된 ip주소가 없으므로 새로 생성함 : " + String.valueOf(ip));
 				ip = s.next();
 				session.setAttribute("ip", ip);
@@ -289,11 +289,6 @@ public class CommunityController extends HttpServlet {
 		}
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
-//			String loginNick = (String)session.getAttribute("m_nickname");
-//			if(loginNick != null) {
-//			MemberVO membervo = memberDAO.getMemVO(loginNick);
-//			request.setAttribute("membervo", membervo);
-//			}
 			
 			request.setAttribute("center", "board/write.jsp");
 			request.setAttribute("nowPage", request.getParameter("nowPage"));

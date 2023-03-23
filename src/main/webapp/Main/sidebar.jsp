@@ -175,14 +175,11 @@
 			<a href="<%=contextPath%>/member1/logout.me">logout</a>
     	</td>
     	<td>	
-    		<form action="<%=contextPath%>/member1/mypage.me" method="post" class="form">
+    		<form action="<%=contextPath%>/member1/mypage.me" id="mypage" method="post">
 			
 			
 				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
-			
-<!-- 				<button onclick="check();">myPage</button> -->
-			<a href="#" id="myPage_btn">
-				myPage</a>
+				<input type="submit" value="myPage">
 			</form>		
 			</td>	
 		</tr>		
@@ -253,17 +250,7 @@
 	<script src="<%=contextPath%>/eq/js/main.js"></script>
     <script src="<%=contextPath%>/eq/js/bootstrap.bundle.min.js"></script>
 	<script src="<%=contextPath%>/eq/js/sidebars.js"></script>
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
-    	$("#myPage_btn").on("click", function(e) {
-    		e.preventDefault();
-    		check();
-    	})	
-    
-    function check(){
-    		$(".form").submit();
-    	}
-    </script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 </body>
 </html>

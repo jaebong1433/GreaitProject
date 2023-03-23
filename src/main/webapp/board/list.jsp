@@ -53,7 +53,7 @@ pageEncoding="UTF-8"
 <body>	
 <%
 int totalRecord = 0; //board테이블에 저장된 글의 총개수 -
-int numPerPage = 5; //한 페이지당 조회해서 보여줄 글 개수  -
+int numPerPage = 20; //한 페이지당 조회해서 보여줄 글 개수  -
 int pagePerBlock = 4; //한 블럭당 묶여질 페이지 번호 개수 -
  					  //  1  2  3  4 <- 한블럭으로 묶음
 
