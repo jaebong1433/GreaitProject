@@ -83,9 +83,8 @@
 			<tr>
 				<td>	
 				<div>
-					<ul>
+					<tr>
 						<%
-						
 						ArrayList list = (ArrayList)request.getAttribute("boxList");
 						
 						 BoxCrawlingVO vo = null;
@@ -94,7 +93,6 @@
 						 String title; 
 						 String dDate;
 						 String people; 
-						 
 						 for (int i = 0; i < 5; i++) {
 						
 							 vo= (BoxCrawlingVO)list.get(i);
@@ -104,10 +102,11 @@
 							 dDate = vo.getdDate();
 							 people = vo.getPeople();
 						%>	 
-							 <li>
+							 <td>	
+							 <div class="fonttb">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
+									<br>
+									
 									<table> 
 										<tr>
 											<strong><%=title %></strong><br>
@@ -117,22 +116,22 @@
 										</tr>
 										<tr>
 										
-										<td><%=people%><br>
-										</td>
+										<%=people%><br>
+										
 										</tr>
 										<tr>	
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
-									</span>
-							</li>
+									
+							</td>
 						<%	 
 						 }
 						
 						%>
 						
-					</ul>
+					</tr>
 					</td>
 					
 				</div>
@@ -140,7 +139,7 @@
 				<tr>
 				<td>	
 				<div>
-					<ul>
+					<tr>
 						<%
 						
 						 for (int i = 5; i < 10; i++) {
@@ -152,10 +151,11 @@
 							 dDate = vo.getdDate();
 							 people = vo.getPeople();
 						%>	 
-							 <li>
+							 <td>	
+							 <div class="fonttb">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
+									<br>
+									
 									<table> 
 										<tr>
 											<strong><%=title %></strong><br>
@@ -165,22 +165,22 @@
 										</tr>
 										<tr>
 										
-										<td><%=people%><br>
-										</td>
+										<%=people%><br>
+										
 										</tr>
 										<tr>	
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
-									</span>
-							</li>
+									
+							</td>
 						<%	 
 						 }
 						
 						%>
 						
-					</ul>
+					</tr>
 					</td>
 					
 				</div>
@@ -188,7 +188,7 @@
 				<tr>
 				<td>	
 				<div>
-					<ul>
+					<tr>
 						<%
 						
 						 for (int i = 10; i < 15; i++) {
@@ -200,10 +200,11 @@
 							 dDate = vo.getdDate();
 							 people = vo.getPeople();
 						%>	 
-							 <li>
+							 <td>	
+							 <div class="fonttb">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
+									<br>
+									
 									<table> 
 										<tr>
 											<strong><%=title %></strong><br>
@@ -213,23 +214,22 @@
 										</tr>
 										<tr>
 										
-										<td><%=people%><br>
-										</td>
+										<%=people%><br>
+										
 										</tr>
 										<tr>	
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
-									</span>
-								
-							</li>
+									
+							</td>
 						<%	 
 						 }
 						
 						%>
 						
-					</ul>
+					</tr>
 					</td>
 					
 				</div>
@@ -237,7 +237,7 @@
 				<tr>
 				<td>	
 				<div>
-					<ul>
+					<tr>
 						<%
 						
 						 for (int i = 15; i < 20; i++) {
@@ -249,10 +249,11 @@
 							 dDate = vo.getdDate();
 							 people = vo.getPeople();
 						%>	 
-							 <li>
+							 <td>	
+							 <div class="fonttb">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
+									<br>
+									
 									<table> 
 										<tr>
 											<strong><%=title %></strong><br>
@@ -262,22 +263,22 @@
 										</tr>
 										<tr>
 										
-										<td><%=people%><br>
-										</td>
+										<%=people%><br>
+										
 										</tr>
 										<tr>	
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
-									</span>
-							</li>
+									
+							</td>
 						<%	 
 						 }
 						
 						%>
 						
-					</ul>
+					</tr>
 					</td>
 					
 				</div>
@@ -285,7 +286,7 @@
 				<tr>
 				<td>	
 				<div>
-					<ul>
+					<tr>
 						<%
 						
 						 for (int i = 20; i < 25; i++) {
@@ -297,10 +298,11 @@
 							 dDate = vo.getdDate();
 							 people = vo.getPeople();
 						%>	 
-							 <li>
+							 <td>	
+							 <div class="fonttb">
 									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
+									<br>
+									
 									<table> 
 										<tr>
 											<strong><%=title %></strong><br>
@@ -310,74 +312,27 @@
 										</tr>
 										<tr>
 										
-										<td><%=people%><br>
-										</td>
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
-									</span>
-							</li>
-						<%	 
-						 }
-						
-						%>
-						
-					</ul>
-					</td>
-					
-				</div>
-				</tr>
-				<tr>
-				<td>	
-				<div>
-					<ul>
-						<%
-						
-						 for (int i = 25; i < 30; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <li>
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<span>
-									<div class="fonttb">
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%>
-										</tr>
-										<tr>
+										<%=people%><br>
 										
-										<td><%=people%>
-										</td>
 										</tr>
 										<tr>	
 											개봉일:<%=dDate%>
 										</tr>
 									</table>
 									</div>
-									</span>
-							</li>
+									
+							</td>
 						<%	 
 						 }
 						
 						%>
 						
-					</ul>
+					</tr>
 					</td>
 					
 				</div>
 				</tr>
+				
 			</table>
 			<br><br>
 		</div>

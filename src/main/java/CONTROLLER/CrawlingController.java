@@ -14,20 +14,25 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import DAO.BoxCrawlingDAO;
 import DAO.CommunityDAO;
 import DAO.CrawlingDAO;
 import DAO.MemberDAO;
+import DAO.VideoCrawlingDAO;
+import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
+import VO.VideoCrawlingVO;
 //   /Crawling/maincenter.me
 @WebServlet("/Crawling/*")
 public class CrawlingController extends HttpServlet {
 	CrawlingDAO dao;
 	CommunityDAO comDAO;
-	
+	VideoCrawlingDAO vcdao;
 	@Override
 	public void init() throws ServletException {
 		dao = new CrawlingDAO();
 		comDAO = new CommunityDAO();
+		vcdao = new VideoCrawlingDAO();
 	}
 	
 	@Override
@@ -92,6 +97,50 @@ public class CrawlingController extends HttpServlet {
 			//-------------------------------
 			nextPage = "/index.jsp";
 			
+		}else if(action.equals("/boxOffice.me")) {
+			String menuNo = request.getParameter("menu");
+			
+			List<BoxCrawlingVO> boxList = dao.getBoxDatas(menuNo);
+			
+			request.setAttribute("boxList", boxList);
+			request.setAttribute("center", "/Main/boxcenter.jsp");
+			nextPage = "/index.jsp";
+			
+		}else if(action.equals("/videocenter.me")) {
+			
+			List<VideoCrawlingVO> szmList = vcdao.getVideoDatas();
+			List<VideoCrawlingVO> sldkList = vcdao.getVideoDatas1();
+			List<VideoCrawlingVO> dobList = vcdao.getVideoDatas2();
+			List<VideoCrawlingVO> abtList = vcdao.getVideoDatas3();
+			List<VideoCrawlingVO> obmList = vcdao.getVideoDatas4();
+			List<VideoCrawlingVO> gzList = vcdao.getVideoDatas5();
+			List<VideoCrawlingVO> tgList = vcdao.getVideoDatas6();
+			List<VideoCrawlingVO> htList = vcdao.getVideoDatas7();
+			List<VideoCrawlingVO> hsList = vcdao.getVideoDatas8();
+			List<VideoCrawlingVO> bzList = vcdao.getVideoDatas9();
+			List<VideoCrawlingVO> spList = vcdao.getVideoDatas10();
+			List<VideoCrawlingVO> mnList = vcdao.getVideoDatas11();
+			List<VideoCrawlingVO> mgdsList = vcdao.getVideoDatas12();
+			List<VideoCrawlingVO> skhList = vcdao.getVideoDatas13();
+			List<VideoCrawlingVO> kkList = vcdao.getVideoDatas14();
+			
+			request.setAttribute("szmList", szmList);
+			request.setAttribute("sldkList", sldkList);
+			request.setAttribute("dobList", dobList);
+			request.setAttribute("abtList", abtList);
+			request.setAttribute("obmList", obmList);
+			request.setAttribute("gzList", gzList);
+			request.setAttribute("tgList", tgList);
+			request.setAttribute("htList", htList);
+			request.setAttribute("hsList", hsList);
+			request.setAttribute("bzList", bzList);
+			request.setAttribute("spList", spList);
+			request.setAttribute("mnList", mnList);
+			request.setAttribute("mgdsList", mgdsList);
+			request.setAttribute("skhList", skhList);
+			request.setAttribute("kkList", kkList);
+			request.setAttribute("center", "/Main/videocenter.jsp");
+			nextPage = "/index.jsp";
 		}
 		
 		//포워딩 (디스패처 방식)

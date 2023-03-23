@@ -208,10 +208,10 @@
         <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><!--3.21 li a 링크 추가 -->
             <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.03</a></li>
-            <li><a href="<%=contextPath%>/BoxCrawling/boxOffice2.me" class="link-dark d-inline-flex text-decoration-none rounded">2023.02</a></li>
-            <li><a href="<%=contextPath%>/BoxCrawling/boxOffice1.me" class="link-dark d-inline-flex text-decoration-none rounded">2023.01</a></li>
-            <li><a href="<%=contextPath%>/BoxCrawling/boxOffice22.me" class="link-dark d-inline-flex text-decoration-none rounded">2022</a></li>
-            <li><a href="<%=contextPath%>/BoxCrawling/boxOffice21.me" class="link-dark d-inline-flex text-decoration-none rounded">2021</a></li>
+            <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=2" class="link-dark d-inline-flex text-decoration-none rounded">2023.02</a></li>
+            <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=1" class="link-dark d-inline-flex text-decoration-none rounded">2023.01</a></li>
+            <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=22" class="link-dark d-inline-flex text-decoration-none rounded">2022</a></li>
+            <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=21" class="link-dark d-inline-flex text-decoration-none rounded">2021</a></li>
           </ul>
         </div>
       </li>
@@ -233,7 +233,7 @@
         </button>
         <div class="collapse" id="orders-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            	<li><a href="<%=contextPath%>/videoCrawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
+            	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
             	<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
          	</ul>
         </div>
