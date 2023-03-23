@@ -100,6 +100,8 @@
 						ArrayList list12 = (ArrayList)request.getAttribute("mgdsList");
 						ArrayList list13 = (ArrayList)request.getAttribute("skhList");
 						ArrayList list14 = (ArrayList)request.getAttribute("kkList");
+						ArrayList list15 = (ArrayList)request.getAttribute("ksList");
+						ArrayList list16 = (ArrayList)request.getAttribute("iaList");
 						
 						 VideoCrawlingVO vo = (VideoCrawlingVO)list.get(0);
 						 VideoCrawlingVO vo1 = (VideoCrawlingVO)list1.get(0);
@@ -116,6 +118,8 @@
 						 VideoCrawlingVO vo12 = (VideoCrawlingVO)list12.get(0);
 						 VideoCrawlingVO vo13 = (VideoCrawlingVO)list13.get(0);
 						 VideoCrawlingVO vo14 = (VideoCrawlingVO)list14.get(0);
+						 VideoCrawlingVO vo15 = (VideoCrawlingVO)list15.get(0);
+						 VideoCrawlingVO vo16 = (VideoCrawlingVO)list16.get(0);
 						 
 						%>	 
 									<!-- 스즈메의 문단속 -->
@@ -308,6 +312,32 @@
 										<tr>
 										<a href="https://tv.kakao.com/channel/462787/cliplink/415681475">
 											<strong><%=vo14.getTitle()%></strong><br>
+										</a>
+										</tr>
+									<div>
+									<!-- 교섭 -->
+							 		<div>
+							 		<a href="https://tv.kakao.com/channel/462787/cliplink/434627451">
+							 		<img src="<%=vo15.getImgSrc()%>" alt="" width="140px" /><br>
+									</a>
+									</div>
+									
+										<tr>
+										<a href="https://tv.kakao.com/channel/462787/cliplink/434627451">
+											<strong><%=vo15.getTitle()%></strong><br>
+										</a>
+										</tr>
+									<div>
+									<!-- 인생은 아름다워 -->
+							 		<div>
+							 		<a href="https://tv.kakao.com/channel/462787/cliplink/431942543">
+							 		<img src="<%=vo16.getImgSrc()%>" alt="" width="140px" /><br>
+									</a>
+									</div>
+									
+										<tr>
+										<a href="https://tv.kakao.com/channel/462787/cliplink/431942543">
+											<strong><%=vo16.getTitle()%></strong><br>
 										</a>
 										</tr>
 									<div>								
