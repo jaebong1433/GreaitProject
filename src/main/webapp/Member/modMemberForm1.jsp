@@ -39,19 +39,21 @@
 		닉네임<br> <input type="text" id="m_nickname" name="m_nickname"
 			value="<%=vo.getM_nickname()%>" readonly>
 		<p id="nicknameInput"></p>
+		<button type="button" id="button1"> 수정</button>
 		<button type="button" id="nickbtn">수정하기</button>
+
 		
 		
 		<br>이메일<br> <input type="text" id="m_email" name="m_email"
 			value="<%=vo.getM_email()%>" readonly>
 		<p id="emailInput"></p>
-		<button type="button" id="button2">수정하기</button>
+		<button type="button" id="button2">수정</button>
 		
 		
 		<br> 비밀번호<br> <input type="passWord" id="m_pw" name="m_pw"
 			placeholder="비밀번호를 입력하세요." readonly>
 		<p id="pwInput1"></p>
-		<button type="button" id="button3">수정하기</button>
+		<button type="button" id="button3">수정</button>
 		
 
 		<div>
@@ -71,8 +73,30 @@
     	$("#m_nickname").attr('readonly', false).focus();
     });
     
+ // readonly 해제하기
+    $("#button1").click(function(){
+     
+    	$("#m_nickname").prop("readonly", false).focus();
+   
+    });
+	
     
+    $("#button2").click(function(){
+        
+    	$("#m_email").prop("readonly", false).focus();
+   
+    });
+	
     
+    $("#button3").click(function(){
+        
+    	$("#m_pw").prop("readonly", false).focus();
+   
+    });
+	
+    
+    // 회원정보 수정 유효성 검사
+
   <%--   
   //닉네임 입력시 유효성검사 
 	$("#m_nickname").focusout(function() {
