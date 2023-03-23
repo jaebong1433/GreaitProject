@@ -35,6 +35,8 @@ public class VideoCrawlingDAO {
 	String videoUrl12 = "https://tv.kakao.com/search/cliplinks?q=%EB%AA%A8%EA%B0%80%EB%94%94%EC%8A%88&sort=Score";
 	String videoUrl13 = "https://tv.kakao.com/search/cliplinks?q=%EC%8B%B1%ED%81%AC%ED%99%80&sort=Score";
 	String videoUrl14 = "https://tv.kakao.com/search/cliplinks?q=%EA%B7%B9%EC%9E%A5%ED%8C%90%20%EA%B7%80%EB%A9%B8%EC%9D%98%20%EC%B9%BC%EB%82%A0%3A%EB%AC%B4%ED%95%9C%EC%97%B4%EC%B0%A8&sort=Score";
+	String videoUrl15 = "https://tv.kakao.com/search/cliplinks?q=%EA%B5%90%EC%84%AD&sort=Score";
+	String videoUrl16 = "https://tv.kakao.com/search/cliplinks?q=%EC%9D%B8%EC%83%9D%EC%9D%80%20%EC%95%84%EB%A6%84%EB%8B%A4%EC%9B%8C&sort=Score";
 	public List<VideoCrawlingVO> getVideoDatas() throws IOException{
 			     List<VideoCrawlingVO> szmList = new ArrayList<VideoCrawlingVO>();
 			  
@@ -307,6 +309,42 @@ public class VideoCrawlingDAO {
 		         kkList.add(vo);
 				
 		      return kkList;
+	      }
+		  public List<VideoCrawlingVO> getVideoDatas15() throws IOException{
+			     List<VideoCrawlingVO> ksList = new ArrayList<VideoCrawlingVO>();
+			  
+			    Document videoDoc = Jsoup.connect(videoUrl15).get();
+				Elements videoImg = videoDoc.select("div.video_item:nth-of-type(2) img");
+				Elements videoTitle = videoDoc.select("div.video_item:nth-of-type(2) strong");
+				
+					VideoCrawlingVO vo = new VideoCrawlingVO();
+		    	 	String imgSrc = videoImg.attr("src");
+		    		String title = videoTitle.text();
+		    		
+		    	 vo.setImgSrc(imgSrc);
+		         vo.setTitle(title);
+		        
+		         ksList.add(vo);
+				
+		      return ksList;
+	      }
+		  public List<VideoCrawlingVO> getVideoDatas16() throws IOException{
+			     List<VideoCrawlingVO> iaList = new ArrayList<VideoCrawlingVO>();
+			  
+			    Document videoDoc = Jsoup.connect(videoUrl16).get();
+				Elements videoImg = videoDoc.select("div.video_item:nth-of-type(1) img");
+				Elements videoTitle = videoDoc.select("div.video_item:nth-of-type(1) strong");
+				
+					VideoCrawlingVO vo = new VideoCrawlingVO();
+		    	 	String imgSrc = videoImg.attr("src");
+		    		String title = videoTitle.text();
+		    		
+		    	 vo.setImgSrc(imgSrc);
+		         vo.setTitle(title);
+		        
+		         iaList.add(vo);
+				
+		      return iaList;
 	      }
 	}
 	

@@ -19,14 +19,7 @@
 		<meta name="author" content="FREEHTML5.CO" />
 
 	 
-
-
-
-    
-		<link rel="stylesheet" href="<%=contextPath%>/css/style.css">
-	
 		<link rel="stylesheet" id="theme-switch" href="<%=contextPath%>/css/style.css">
-		<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
 		<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 
 	<style>
@@ -97,17 +90,26 @@
 		
 		.logsetf table{
 			text-align: center;
-			width: 90%; 
-			border: 1px solid black;
-			background-color: gray;
+			width: 98%; 
 		}
 		.logsetf td{
-			border: 1px solid black;
 			width: 50%;
 		}
 		
-		.logsetf a{
-			color:white;
+		.logsetf input{
+			background-color : white;
+			color : #5D5D5D;
+			width : 100%;
+			height: 35px;
+			border-radius: 10px;
+		}
+		
+		.logsetf input:hover{
+			background-color : #5D5D5D;
+			color : white;
+			width : 100%;
+			height: 35px;
+			border-radius: 10px;
 		}
 		
 		
@@ -172,11 +174,12 @@
 		<table>	
 		<tr>
 		<td>
-			<a href="<%=contextPath%>/member1/logout.me">logout</a>
+			<a href="<%=contextPath%>/member1/logout.me">
+				<input type="button" value="logout">
+			</a>
     	</td>
     	<td>	
     		<form action="<%=contextPath%>/member1/mypage.me" id="mypage" method="post">
-			
 			
 				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
 				<input type="submit" value="myPage">

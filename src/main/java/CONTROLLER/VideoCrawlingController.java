@@ -85,6 +85,8 @@ public class VideoCrawlingController extends HttpServlet {
 			List<VideoCrawlingVO> mgdsList = dao.getVideoDatas12();
 			List<VideoCrawlingVO> skhList = dao.getVideoDatas13();
 			List<VideoCrawlingVO> kkList = dao.getVideoDatas14();
+			List<VideoCrawlingVO> ksList = dao.getVideoDatas15();
+			List<VideoCrawlingVO> iaList = dao.getVideoDatas16();
 			
 			request.setAttribute("szmList", szmList);
 			request.setAttribute("sldkList", sldkList);
@@ -101,6 +103,8 @@ public class VideoCrawlingController extends HttpServlet {
 			request.setAttribute("mgdsList", mgdsList);
 			request.setAttribute("skhList", skhList);
 			request.setAttribute("kkList", kkList);
+			request.setAttribute("ksList", ksList);
+			request.setAttribute("iaList", iaList);
 			
 			nextPage = "/video.jsp";
 		}

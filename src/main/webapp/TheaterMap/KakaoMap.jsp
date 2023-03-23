@@ -15,7 +15,9 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.108.0">
     <title>극장지도</title>
-	<!-- 제이쿼리 사용을 위한 제이쿼리 라이이브러리 연동 -->
+    
+    
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/map.css">
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
  	<link rel="stylesheet" href="<%=contextPath%>/eq/js/jquery.bxslider.min.css">
 	<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
@@ -45,7 +47,7 @@
 		    </div>
 		</div><br><br>
         <!-- 부트스트랩 primary 버튼 -->
-		<button type="button" class="btn btn-lg btn-primary" onclick="getCurrentPosBtn()">내 위치 가져오기</button>
+		<button type="button" class="btn btn-lg btn-outline-secondary" onclick="getCurrentPosBtn()">내 위치 가져오기</button>
 		<br><br>
 		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=03ee57845e2ad12c56c633932350ce12&libraries=services"></script>
 		<script>

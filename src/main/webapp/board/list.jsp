@@ -170,7 +170,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									content = content.substring(0, 20) + "...";
 								}
 				%>
-								<tr align="center" bgcolor="red" height="120%">
+								<tr align="center" bgcolor="#FAF4C0" height="120%">
 									<td align="left"><%=vo.getC_idx()%></td>
 									<td align="left">
 								<%
