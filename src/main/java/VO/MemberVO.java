@@ -6,6 +6,7 @@ public class MemberVO {
 	
 	private String m_nickname, m_id, m_pw, m_name, m_email;
 	private Date m_date;
+	private int m_exp;
 	
 	public MemberVO() {
 	}
@@ -17,6 +18,28 @@ public class MemberVO {
 		this.m_name = m_name;
 		this.m_email = m_email;
 	}
+	
+	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, Date m_date,
+			int m_exp) {
+		super();
+		this.m_nickname = m_nickname;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.m_name = m_name;
+		this.m_email = m_email;
+		this.m_date = m_date;
+		this.m_exp = m_exp;
+	}
+
+	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, int m_exp) {
+		super();
+		this.m_nickname = m_nickname;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.m_name = m_name;
+		this.m_email = m_email;
+		this.m_exp = m_exp;
+	}
 
 	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, Date m_date) {
 		this.m_nickname = m_nickname;
@@ -26,6 +49,8 @@ public class MemberVO {
 		this.m_email = m_email;
 		this.m_date = m_date;
 	}
+	
+	
 
 	public String getM_nickname() {
 		return m_nickname;
@@ -73,6 +98,14 @@ public class MemberVO {
 
 	public void setM_date(Date m_date) {
 		this.m_date = m_date;
+	}
+
+	public int getM_exp() {
+		return m_exp;
+	}
+
+	public void setM_exp(int m_exp) {
+		this.m_exp = m_exp;
 	}
 	
 	

@@ -333,6 +333,47 @@ public class CommunityDAO {
 		return vo;
 	}
 	
+	public CommunityVO noticeRead(String c_idx) {
+		System.out.println(1);
+		CommunityVO vo = null;
+		String sql = null;
+ 	try {
+			con = ds.getConnection();
+			sql = "update noticeboard set c_views = c_views + 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.executeUpdate();
+			
+			
+			//--------------------------------------------
+			sql = "select * from noticeboard where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+									rs.getString("c_title"),
+									rs.getString("c_nickname"),
+									rs.getString("c_password"),
+									rs.getString("c_content"), 
+									rs.getDate("c_date"),
+									rs.getInt("c_views"),
+									rs.getInt("c_like"),
+									rs.getInt("c_group"),
+									rs.getInt("c_level"));
+			}
+			
+		} catch(Exception e) {
+			System.out.println("noticeRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return vo;
+	}
+	
 	//좋아요 눌렀을 때
 	//정태영
 	public BoardLikeVO addLike(String c_idx, String nickname) {
@@ -425,6 +466,97 @@ public class CommunityDAO {
 		}
 		return boardLikeVO;
 	}
+	//0323 정태영 : 공지 좋아요
+	public BoardLikeVO addNoticeLike(String c_idx, String nickname) {
+		String sql = null;
+		BoardLikeVO boardLikeVO = null;
+		
+		try {
+			//조회수를 1 감소시키는 방법, 안 쓸 거임
+//			con = ds.getConnection();
+//			sql = "update community set c_views = c_views - 1 where c_idx = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, c_idx);
+//			pstmt.executeQuery();
+			
+			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
+			con = ds.getConnection();
+			sql = "insert into noticelike values (?, ?, 'yes')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			pstmt.executeUpdate();
+			
+			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
+			sql = "select * from noticelike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+			
+			sql = "update noticeboard set c_like = c_like + 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.executeUpdate();
+			
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return boardLikeVO;
+	}
+	
+	//좋아요 취소 기능
+	//정태영
+	public BoardLikeVO CancelNoticeLike(String c_idx, String nickname) {
+		String sql = null;
+		BoardLikeVO boardLikeVO = null;
+		
+		try {
+			
+			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
+			con = ds.getConnection();
+			sql = "delete from noticelike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			pstmt.executeUpdate();
+			
+			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
+			sql = "select * from noticelike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+			
+			sql = "update noticeboard set c_like = c_like - 1 where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return boardLikeVO;
+	}
 	
 	
 	//게시글을 vo로 얻는 기능
@@ -434,6 +566,38 @@ public class CommunityDAO {
 		try {
 			con = ds.getConnection();
 			String sql = "select * from community where c_idx = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+			}
+			
+			
+		} catch(Exception e) {
+			System.out.println("boardRead");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
+	
+	public CommunityVO getNoticeVO(String c_idx) {
+		CommunityVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from noticeboard where c_idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
 			rs = pstmt.executeQuery();
@@ -716,7 +880,36 @@ public class CommunityDAO {
 		return boardLikeVO;
 	}	
 	
+	public BoardLikeVO getnoticeLikeVO(String c_idx, String nickname) {
+		BoardLikeVO boardLikeVO = null;
+		String sql = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			sql = "select * from noticelike where c_idx=? and m_nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_idx);
+			pstmt.setString(2, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
+												rs.getString("m_nickname"),
+												rs.getString("likecheck"));
+			}
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		
+		return boardLikeVO;
+	}	
+	
+	
 }
+
+
 
 
 

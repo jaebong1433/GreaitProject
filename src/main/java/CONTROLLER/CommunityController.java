@@ -225,7 +225,6 @@ public class CommunityController extends HttpServlet {
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
 			
 			System.out.println("3");
-			request.setAttribute("two", "10");
 			request.setAttribute("boardLikeVO", boardLikeVO);
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
@@ -234,6 +233,28 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("center","/board/detail.jsp");
 			
 //			nextPage = "/board/detail.jsp";
+			nextPage = "/index.jsp";
+		}
+		//0323 정태영 : 공지 클릭했을 때
+		else if(action.equals("/noticeRead.bo")) {
+			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
+			String nowPage_ = request.getParameter("nowPage");
+			String nowBlock_ = request.getParameter("nowBlock");
+			String nickname = (String)session.getAttribute("m_nickname");
+			System.out.println("read.bo 닉네임: " + nickname);
+			//20230321 정태영 : 로그인 하지 않았을 경우 닉네임에 아이피 주소를 대입함
+			if(nickname == null) {
+				nickname = ip;
+			}
+			vo = comDAO.noticeRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
+			boardLikeVO = comDAO.getnoticeLikeVO(c_idx, nickname);
+			request.setAttribute("boardLikeVO", boardLikeVO);
+			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
+			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
+			request.setAttribute("nowBlock", nowBlock_);
+			request.setAttribute("c_idx", c_idx);
+			request.setAttribute("center","/board/noticeDetail.jsp");
+			
 			nextPage = "/index.jsp";
 		}
 		
@@ -267,6 +288,41 @@ public class CommunityController extends HttpServlet {
 			
 			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			System.out.println(vo);
+			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
+			out.write(like);//ajax가 success하였으므로 data로 전송
+			return;
+		}
+		
+		// 0323 정태영 : 공지 좋아요
+		else if(action.equals("/noticeLike.bo")) {
+			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
+			String nickname = (String)session.getAttribute("m_nickname");
+			if(nickname == null) {
+				System.out.println("like.bo ip주소 : " + ip);
+				nickname = ip;
+			}
+			
+			
+			boardLikeVO = comDAO.addNoticeLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
+			vo = comDAO.getNoticeVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
+			out.write(like);//ajax가 success하였으므로 data로 전송
+			
+			return;
+		}
+		//좋아요 취소를 클릭했을 때
+		//정태영
+		else if(action.equals("/noticeLikeCancel.bo")) {
+			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
+			String nickname = (String)session.getAttribute("m_nickname");
+			if(nickname == null) {
+				System.out.println("likeCancel.bo ip주소 : " + ip);
+				nickname = ip;
+			}
+			
+			boardLikeVO = comDAO.CancelNoticeLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
+			vo = comDAO.getNoticeVO(c_idx); //CommunityVO에 게시글 정보를 저장함
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			
