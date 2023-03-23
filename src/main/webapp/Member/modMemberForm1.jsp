@@ -22,7 +22,7 @@
 </head>
 <body>
 	<form action="<%=contextPath%>/member1/update.me" class="form">
-
+		
 
 		<br> 이름<br> <input type="text" id="m_name" name="m_name"
 			value="<%=vo.getM_name()%>" readonly>
@@ -39,7 +39,7 @@
 		닉네임<br> <input type="text" id="m_nickname" name="m_nickname"
 			value="<%=vo.getM_nickname()%>" readonly>
 		<p id="nicknameInput"></p>
-		<button type="button" id="button1">수정하기</button>
+		<button type="button" id="nickbtn">수정하기</button>
 		
 		
 		<br>이메일<br> <input type="text" id="m_email" name="m_email"
@@ -67,8 +67,13 @@
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>	    
     <script type="text/javascript">
     
+    $("#nickbtn").click(function(){
+    	$("#m_nickname").attr('readonly', false).focus();
+    });
     
     
+    
+  <%--   
   //닉네임 입력시 유효성검사 
 	$("#m_nickname").focusout(function() {
 		var m_nickname = $("#m_nickname");
@@ -198,7 +203,7 @@
     		}
 
 	});
-    
+     --%>
 
 </script>	
 
