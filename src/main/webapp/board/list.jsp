@@ -105,10 +105,7 @@ if(request.getAttribute("nowBlock") != null){
 totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock ); 
 
 %>
-
-<%= totalRecord %>
-<%= nowBlock %>
-<%= nowPage %>
+<p>참고. 닉네임이 admin인 계정으로 로그인 하면 공지글을 쓸 수 있습니다.</p>
 <center>
 <form name="frmRead">
 		<input type="hidden" name="c_idx">
@@ -118,14 +115,14 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 
 <table class="listtext">
 	<tr height="40"> 
-		<td width="46%" style="text-align: left;"> 
-			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" height="100">
+		<td style="text-align: center;"> 
+			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" width="50%">
 		</td>
 	</tr>
 	<tr> 
 		<td colspan="3">
 			<div align="center">
-				<img src="<%=contextPath%>/board/images/line_870.gif" width="870" height="4">
+			<hr border="2px solid gray">
 			</div>
 		</td>
 	</tr>
@@ -175,7 +172,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 				%>
 								<tr align="center" bgcolor="red" height="120%">
 									<td align="left"><%=vo.getC_idx()%></td>
-									<td>
+									<td align="left">
 								<%
 // 								    int level = vo.getB_level();
 																		
@@ -308,12 +305,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 		             		   src="<%=contextPath%>/board/images/write.gif" 
 		             		   onclick="location.href='<%=contextPath%>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'"/>
 		        	</td>
-		        	<c:if test="${ m_nickname == 'admin' }">
-		        		<td width="38%" style="text-align: left">
-		        			<button onclick="javascript:location.href='<%= contextPath %>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'">공지 쓰기</button>
-		        		</td> 
-		        	</c:if>
-		        	
 		        </tr>
 	       		<tr>
 	       			<td colspan="4">&nbsp;</td>
@@ -330,7 +321,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 					
 				if(nowBlock > 0){//현재 클릭한 페이지번호가 속한 블럭위치가 0 보다 크다면?
 		%>			
-					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock-1%>&nowPage=<%=((nowBlock-1) * pagePerBlock)%>">
+					<a href="<%=contextPath%>/com/listByRecent.bo?nowBlock=<%=nowBlock-1%>&nowPage=<%=((nowBlock-1) * pagePerBlock)%>">
 						◀ 이전<%=pagePerBlock%>개
 					</a>
 		<%		}//안쪽 if %>
@@ -340,7 +331,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 				for(int i=0; i<pagePerBlock; i++){
 		%>			
 					&nbsp;&nbsp;
-					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock%>&nowPage=<%=(nowBlock * pagePerBlock)+i%>">
+					<a href="<%=contextPath%>/com/listByRecent.bo?nowBlock=<%=nowBlock%>&nowPage=<%=(nowBlock * pagePerBlock)+i%>">
 						<%=(nowBlock * pagePerBlock)+i+1 %>	
 						<%if((nowBlock * pagePerBlock)+i+1 == totalPage) break; %>
 					</a>
@@ -354,7 +345,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 				if(totalBlock > nowBlock + 1){
 		%>			
 					
-					<a href="<%=contextPath%>/com/list.bo?nowBlock=<%=nowBlock+1%>&nowPage=<%=((nowBlock+1) * pagePerBlock)%>">
+					<a href="<%=contextPath%>/com/listByRecent.bo?nowBlock=<%=nowBlock+1%>&nowPage=<%=((nowBlock+1) * pagePerBlock)%>">
 						  ▶ 다음 <%=pagePerBlock%>개
 					</a>
 				

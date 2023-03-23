@@ -14,6 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import DAO.CommunityDAO;
 import DAO.CrawlingDAO;
 import DAO.MemberDAO;
 import VO.CrawlingVO;
@@ -21,11 +22,12 @@ import VO.CrawlingVO;
 @WebServlet("/Crawling/*")
 public class CrawlingController extends HttpServlet {
 	CrawlingDAO dao;
+	CommunityDAO comDAO;
 	
 	@Override
 	public void init() throws ServletException {
 		dao = new CrawlingDAO();
-	
+		comDAO = new CommunityDAO();
 	}
 	
 	@Override
@@ -65,6 +67,7 @@ public class CrawlingController extends HttpServlet {
 		// 요청한 중앙화면  뷰 주소를 저장할 변수 
 		String center = null;
 		
+		
 		//메인화면 요청주소/Crawling/maincenter.me
 		if(action.equals("/maincenter.me")) {
 			
@@ -76,6 +79,17 @@ public class CrawlingController extends HttpServlet {
 			request.setAttribute("mainClipList", mainClipList);
 			request.setAttribute("mainPhotoList", mainPhotoList);
 			
+			//------------------------------
+			//3022 정태영 : 메인화면 게시판 기능을 위해 추가하는 기능
+			List list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
+			int count = comDAO.getTotalRecord();
+			request.setAttribute("boardList", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+			request.setAttribute("boardCount", count);
+			
+			
+			
+			
+			//-------------------------------
 			nextPage = "/index.jsp";
 			
 		}

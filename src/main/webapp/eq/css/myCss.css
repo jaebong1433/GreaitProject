@@ -127,5 +127,59 @@
 			transform: scale(1.1);
 		}
 		
+		.mpdiv{
+				width : 98%;
+				margin : 100px 0 0 0;
+			}
+			
+			.mptb{
+				border : 1px solid black;
+				width : 60%;
+				height : 300px;
+				float : right;
+				margin : 20px 100px 0px 0px;
+			}
+			
+			.mptb td{
+				border : 1px solid gray;
+				
+			}
+			
+			.profiletb{
+				width : 20%;
+				height : 300px;
+				float : left;
+				border : 3px solid gray;
+				margin : 20px 0px 0px 100px;
+				text-align: center;
+			}
+			
+			
+			.profimg {
+			    width: 200px;
+			    height: 200px; 
+			    border-radius: 70%;
+			    overflow: hidden;
+			    margin: auto;
+			}
+			.profimg img{
+			    width: 100%;
+			    height: 100%;
+			    object-fit: cover;
+			}
+			
+			.btnbtn{
+				margin : auto;
+				width : 200px;
+				height : 500px;
+			}
+			
+			.btnbtn input{
+				margin-top: 10px;
+				width : 150px;
+				height: 40px;
+				background-color: gray;
+			}
+		
 		
 	

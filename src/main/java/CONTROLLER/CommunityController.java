@@ -91,14 +91,14 @@ public class CommunityController extends HttpServlet {
 			//수정사항. 로그인 하지 않은 경우 반드시 ip주소를 새로 얻어 오므로 딜레이가 발생하여
 			//		세션값이 ip주소를 저장하여 ip주소가 없는 경우에만 받아오게 변경함
 			try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("https://api64.ipify.org").openStream(), "UTF-8").useDelimiter("\\A")) {
-				System.out.println("세션값에 저장된 ip주소가 없으므로 새로 생성함");
+				System.out.println("세션값에 저장된 ip주소가 없으므로 새로 생성함 : " + String.valueOf(ip));
 				ip = s.next();
 				session.setAttribute("ip", ip);
 			} catch (java.io.IOException e) {
 			    e.printStackTrace();
 			}
 		}
-		
+		System.out.println("ip 주소 : " + ip);
 		
 		PrintWriter out = response.getWriter();
 		
@@ -219,10 +219,12 @@ public class CommunityController extends HttpServlet {
 			if(nickname == null) {
 				nickname = ip;
 			}
+			System.out.println("1");
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
+			System.out.println("2");
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
 			
-			
+			System.out.println("3");
 			request.setAttribute("two", "10");
 			request.setAttribute("boardLikeVO", boardLikeVO);
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
@@ -230,7 +232,6 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowBlock", nowBlock_);
 			request.setAttribute("c_idx", c_idx);
 			request.setAttribute("center","/board/detail.jsp");
-			
 			
 //			nextPage = "/board/detail.jsp";
 			nextPage = "/index.jsp";
@@ -363,10 +364,13 @@ public class CommunityController extends HttpServlet {
 
 		//검색 기능을 사용했을때 //한성준 03-14
 		else if (action.equals("/searchlist.bo")) {
-			
+			List noticeList = comDAO.getAllNotice();
+			int noticeCount = comDAO.getTotalNoticeRecord();
 			String key = request.getParameter("key");//제목 + 내용 or 작성자
 			String word = request.getParameter("word");//검색어
 			
+			request.setAttribute("noticeList", noticeList);
+			request.setAttribute("noticeCount", noticeCount);
 			//(글조회)
 			list = comDAO.boardList(key,word);
 			//(글 개수 조회)
@@ -374,10 +378,11 @@ public class CommunityController extends HttpServlet {
 			System.out.println(key);
 			System.out.println(word);
 			
+			request.setAttribute("center","/board/list.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("count", count);
 			
-			nextPage = "/board/list.jsp";
+			nextPage = "/index.jsp";
 		}
 		
 		System.out.println(nextPage);

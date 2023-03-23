@@ -180,8 +180,6 @@
 			
 				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
 				<input type="submit" value="myPage">
-<!-- 			<a href="javascript:void(0);" onclick="check();"> 
-				myPage</a>-->
 			</form>		
 			</td>	
 		</tr>		
