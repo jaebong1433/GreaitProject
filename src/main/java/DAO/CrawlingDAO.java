@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
 
 import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
+import VO.VideoCrawlingVO;
 
 
 
@@ -140,7 +141,29 @@ public class CrawlingDAO {
 		      }   
 		      return BoxList;
 	      }
-		  
+		  public List<VideoCrawlingVO> getVideoDatas() throws IOException{
+				String videoUrl = "https://tv.kakao.com/search/cliplinks?q=%EC%98%88%EA%B3%A0%ED%8E%B8&sort=PlayCount";
+					     List<VideoCrawlingVO> videoList = new ArrayList<VideoCrawlingVO>();
+					  
+					    Document videoDoc = Jsoup.connect(videoUrl).get();
+						Elements videoImg = videoDoc.select("div.video_item img");
+						Elements videoTitle = videoDoc.select("div.video_item strong");
+						Elements videoPlayCnt = videoDoc.select("div.video_item span.info_play span.info_append");
+						Elements videoSrc = videoDoc.select("div.video_item a");
+						for (int i = 0; i < 20; i++) {
+							VideoCrawlingVO vo = new VideoCrawlingVO();
+				    	 	String imgSrc = videoImg.get(i).attr("src");
+				    		String title = videoTitle.get(i).text();
+				    		String playCnt = videoPlayCnt.get(i).text();
+				    	    String src = videoSrc.get(i).attr("href");
+				    	 vo.setImgSrc(imgSrc);
+				         vo.setTitle(title);
+				         vo.setPlayCnt(playCnt);
+				         vo.setSrc(src);
+				         videoList.add(vo);
+						 }   
+				      return videoList;
+			      }
 	}
 	
 

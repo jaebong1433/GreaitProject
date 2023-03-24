@@ -359,7 +359,6 @@
 		
 		if(!resultM_nickname){
 			$("#nicknameInput").text("닉네임 형식이 올바르지 않습니다.").css("color","red");
-			
 			m_nickname.focus();
 			
 			return false;
@@ -375,7 +374,7 @@
 		
 		var m_idReg = /^[a-z0-9]{4,12}$/;
 		
-		var resultM_id = m_idReg.test(m_idlValue);
+		var resultM_id = m_idReg.test(m_idValue);
 		
 		if(!resultM_id){
 			$("#idInput").text("아이디 형식이 올바르지 않습니다.").css("color","red");
@@ -427,7 +426,7 @@
 		if(pass1.val() !== pass2.val()){
 			$("#pwInput2").text("비밀번호가 일치하지 않습니다.").css("color","red");
 			
-			pass2.select();
+			pass2.focus();
 			
 			return false;
 		}
