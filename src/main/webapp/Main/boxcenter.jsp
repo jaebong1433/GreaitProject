@@ -25,45 +25,27 @@
 	<script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 
 	<style type="text/css">
-		.centertb1{
+		.boxo{
 			width: 98%;
-			height: 350px;
+			height: 120%;
 			text-align: center;
 			margin: auto;
 		}
-		
-		
-		
-		.centertb2{
-			width: 98%;
-			text-align: center;
-			height: 400px;
-			margin: auto;
-		}
-		
-		.centertb3{
-			width: 98%;
-			text-align: center;
-			margin-top: 20px;
-			height : 400px;
-		}
-		
-		
-		
-		a{
-			text-decoration: none;
-			color : black;
-		}
-		
-		hr{
+		.boxo hr{
 			width: 90%;
 			border: 1.5px gray solid;
-			
 		}
 		
-		.fonttb{
+		
+		.boxtb{
+			width: 95%;
+			height: 500px;
 			font-size: 0.8em;
 			text-align: left;
+		}
+		
+		.test{
+			height:400px;
 		}
 		
 		
@@ -72,18 +54,7 @@
   
 </head>
 <body>
-<center>
-<!-- 영화 슬라이드 구역 -->
-	<div>
-	<br>
-	<h2>BoxOffice</h2>
-	<hr>
-	<div>
-		<table class="centertb1">
-			<tr>
-				<td>	
-				<div>
-					<tr>
+
 						<%
 						ArrayList list = (ArrayList)request.getAttribute("boxList");
 						
@@ -93,251 +64,249 @@
 						 String title; 
 						 String dDate;
 						 String people; 
-						 for (int i = 0; i < 5; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <td>	
-							 <div class="fonttb">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<br>
-									
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%><br>
-										</tr>
-										<tr>
-										
-										<%=people%><br>
-										
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
-									
-							</td>
-						<%	 
-						 }
-						
-						%>
-						
-					</tr>
-					</td>
-					
-				</div>
-				</tr>
-				<tr>
+						 %>
+<center>
+	<div class="boxo">
+	<h2><b>BoxOffice</b></h2>
+	<hr>
+	<div>
+		<table class="boxtb">
+			<tr>
 				<td>	
-				<div>
-					<tr>
-						<%
-						
-						 for (int i = 5; i < 10; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <td>	
-							 <div class="fonttb">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<br>
+				<%
+					for (int i = 0; i < 5; i++) {
+						vo= (BoxCrawlingVO)list.get(i);
+						imgSrc = vo.getImgSrc();
+						age = vo.getAge();
+						title = vo.getTitle();
+						dDate = vo.getdDate();
+						people = vo.getPeople();
+				%>	 
+					<td>	
+						<div class="test">
+							<img src="<%=imgSrc%>" alt="" width="200px" />
+							<br>
+							<table> 
+								<tr>
+									<td width="200px">
+									<h5><b><%=title %></b></h5>
+									</td>
+								</tr>
+								<tr>
+									<td>	
+									영화 관람가:<%=age%>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<%=people%>
+									</td>
+								</tr>
+								<tr>	
+								<td>
+									개봉일:<%=dDate%>
+									</td>
+								</tr>
+							</table>
+						</div>
 									
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%><br>
-										</tr>
-										<tr>
-										
-										<%=people%><br>
-										
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
-									
-							</td>
-						<%	 
-						 }
+				</td>
+			<%	 
+				}
 						
-						%>
-						
-					</tr>
-					</td>
-					
-				</div>
-				</tr>
-				<tr>
+			%>
+			</tr>
+		</table>
+		<table class="boxtb">
+			<tr>
 				<td>	
-				<div>
-					<tr>
-						<%
-						
-						 for (int i = 10; i < 15; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <td>	
-							 <div class="fonttb">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<br>
+				<%
+					for (int i = 5; i < 10; i++) {
+						vo= (BoxCrawlingVO)list.get(i);
+						imgSrc = vo.getImgSrc();
+						age = vo.getAge();
+						title = vo.getTitle();
+						dDate = vo.getdDate();
+						people = vo.getPeople();
+				%>	 
+					<td>	
+						<div class="test">
+							<img src="<%=imgSrc%>" alt="" width="200px" />
+							<br>
+							<table> 
+								<tr>
+									<td width="200px">
+									<h5><b><%=title %></b></h5>
+									</td>
+								</tr>
+								<tr>
+									<td>	
+									영화 관람가:<%=age%>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<%=people%>
+									</td>
+								</tr>
+								<tr>	
+								<td>
+									개봉일:<%=dDate%>
+									</td>
+								</tr>
+							</table>
+						</div>
 									
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%><br>
-										</tr>
-										<tr>
-										
-										<%=people%><br>
-										
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
-									
-							</td>
-						<%	 
-						 }
+				</td>
+			<%	 
+				}
 						
-						%>
-						
-					</tr>
-					</td>
-					
-				</div>
-				</tr>
-				<tr>
+			%>
+			</tr>
+		</table>
+		<table class="boxtb">
+			<tr>
 				<td>	
-				<div>
-					<tr>
-						<%
-						
-						 for (int i = 15; i < 20; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <td>	
-							 <div class="fonttb">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<br>
+				<%
+					for (int i = 10; i < 15; i++) {
+						vo= (BoxCrawlingVO)list.get(i);
+						imgSrc = vo.getImgSrc();
+						age = vo.getAge();
+						title = vo.getTitle();
+						dDate = vo.getdDate();
+						people = vo.getPeople();
+				%>	 
+					<td>	
+						<div class="test">
+							<img src="<%=imgSrc%>" alt="" width="200px" />
+							<br>
+							<table> 
+								<tr>
+									<td width="200px">
+									<h5><b><%=title %></b></h5>
+									</td>
+								</tr>
+								<tr>
+									<td>	
+									영화 관람가:<%=age%>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<%=people%>
+									</td>
+								</tr>
+								<tr>	
+								<td>
+									개봉일:<%=dDate%>
+									</td>
+								</tr>
+							</table>
+						</div>
 									
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%><br>
-										</tr>
-										<tr>
-										
-										<%=people%><br>
-										
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
-									
-							</td>
-						<%	 
-						 }
+				</td>
+			<%	 
+				}
 						
-						%>
-						
-					</tr>
-					</td>
-					
-				</div>
-				</tr>
-				<tr>
+			%>
+			</tr>
+		</table>
+		<table class="boxtb">
+			<tr>
 				<td>	
-				<div>
-					<tr>
-						<%
-						
-						 for (int i = 20; i < 25; i++) {
-						
-							 vo= (BoxCrawlingVO)list.get(i);
-							 imgSrc = vo.getImgSrc();
-							 age = vo.getAge();
-							 title = vo.getTitle();
-							 dDate = vo.getdDate();
-							 people = vo.getPeople();
-						%>	 
-							 <td>	
-							 <div class="fonttb">
-									<img src="<%=imgSrc%>" alt="" width="140px" />
-									<br>
+				<%
+					for (int i = 15; i < 20; i++) {
+						vo= (BoxCrawlingVO)list.get(i);
+						imgSrc = vo.getImgSrc();
+						age = vo.getAge();
+						title = vo.getTitle();
+						dDate = vo.getdDate();
+						people = vo.getPeople();
+				%>	 
+					<td>	
+						<div class="test">
+							<img src="<%=imgSrc%>" alt="" width="200px" />
+							<br>
+							<table> 
+								<tr>
+									<td width="200px">
+									<h5><b><%=title %></b></h5>
+									</td>
+								</tr>
+								<tr>
+									<td>	
+									영화 관람가:<%=age%>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<%=people%>
+									</td>
+								</tr>
+								<tr>	
+								<td>
+									개봉일:<%=dDate%>
+									</td>
+								</tr>
+							</table>
+						</div>
 									
-									<table> 
-										<tr>
-											<strong><%=title %></strong><br>
-										</tr>
-										<tr>	
-											영화 관람가:<%=age%><br>
-										</tr>
-										<tr>
-										
-										<%=people%><br>
-										
-										</tr>
-										<tr>	
-											개봉일:<%=dDate%>
-										</tr>
-									</table>
-									</div>
+				</td>
+			<%	 
+				}
+						
+			%>
+			</tr>
+			
+			<table class="boxtb">
+			<tr>
+				<td>	
+				<%
+					for (int i = 20; i < 25; i++) {
+						vo= (BoxCrawlingVO)list.get(i);
+						imgSrc = vo.getImgSrc();
+						age = vo.getAge();
+						title = vo.getTitle();
+						dDate = vo.getdDate();
+						people = vo.getPeople();
+				%>	 
+					<td>	
+						<div class="test">
+							<img src="<%=imgSrc%>" alt="" width="200px" />
+							<br>
+							<table> 
+								<tr>
+									<td width="200px">
+									<h5><b><%=title %></b></h5>
+									</td>
+								</tr>
+								<tr>
+									<td>	
+									영화 관람가:<%=age%>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									<%=people%>
+									</td>
+								</tr>
+								<tr>	
+								<td>
+									개봉일:<%=dDate%>
+									</td>
+								</tr>
+							</table>
+						</div>
 									
-							</td>
-						<%	 
-						 }
+				</td>
+			<%	 
+				}
 						
-						%>
-						
-					</tr>
-					</td>
-					
-				</div>
-				</tr>
-				
-			</table>
-			<br><br>
-		</div>
-		</div>
-		<!-- 영화 슬라이드 구역 끝-->
-	</center>
+			%>
+			</tr>
+		</table>
+		
+	</div>
+</center>
 </body>
 </html>

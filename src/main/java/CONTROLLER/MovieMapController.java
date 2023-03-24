@@ -54,7 +54,30 @@ public class MovieMapController extends HttpServlet{
 				request.setAttribute("center","/TheaterMap/KakaoMap.jsp");
 				
 				nextPage = "/index.jsp";
-			}
+			
+				
+			//	심심해서 만든 미니 지뢰찾기
+			//	이용우
+			}else if(action.equals("/minigame.mo")) {
+				
+				
+				request.setAttribute("center","/Main/minigame.jsp");
+				
+				nextPage = "/index.jsp";
+				
+				
+			//	심심해서 만든게임 2	
+			}else if(action.equals("/minigame2.mo")) {
+						
+						
+					request.setAttribute("center","/Main/minigame2.jsp");
+						
+					nextPage = "/index.jsp";
+						
+				}
+			
+			
+			
 			
 			//포워딩 (디스패처 방식)
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
