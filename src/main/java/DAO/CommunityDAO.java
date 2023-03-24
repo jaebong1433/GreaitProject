@@ -62,6 +62,7 @@ public class CommunityDAO {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -99,6 +100,7 @@ public class CommunityDAO {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -135,6 +137,7 @@ public class CommunityDAO {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -168,6 +171,7 @@ public class CommunityDAO {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -203,6 +207,7 @@ public class CommunityDAO {
 				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -314,6 +319,7 @@ public class CommunityDAO {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 									rs.getString("c_title"),
 									rs.getString("c_nickname"),
+									rs.getString("c_uniqueid"),
 									rs.getString("c_password"),
 									rs.getString("c_content"), 
 									rs.getDate("c_date"),
@@ -355,6 +361,7 @@ public class CommunityDAO {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 									rs.getString("c_title"),
 									rs.getString("c_nickname"),
+									rs.getString("c_uniqueid"),
 									rs.getString("c_password"),
 									rs.getString("c_content"), 
 									rs.getDate("c_date"),
@@ -406,7 +413,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+												);
 			}
 			
 			sql = "update community set c_like = c_like + 1 where c_idx = ?";
@@ -450,7 +459,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+						);
 			}
 			
 			sql = "update community set c_like = c_like - 1 where c_idx = ?";
@@ -497,7 +508,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+												);
 			}
 			
 			sql = "update noticeboard set c_like = c_like + 1 where c_idx = ?";
@@ -541,7 +554,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+												);
 			}
 			
 			sql = "update noticeboard set c_like = c_like - 1 where c_idx = ?";
@@ -574,6 +589,7 @@ public class CommunityDAO {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -606,6 +622,7 @@ public class CommunityDAO {
 				vo = new CommunityVO(rs.getInt("c_idx"),
 												rs.getString("c_title"),
 												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
 												rs.getString("c_password"),
 												rs.getString("c_content"), 
 												rs.getDate("c_date"),
@@ -788,6 +805,7 @@ public class CommunityDAO {
 					CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
 													rs.getString("c_title"),
 													rs.getString("c_nickname"),
+													rs.getString("c_uniqueid"),
 													rs.getString("c_password"),
 													rs.getString("c_content"), 
 													rs.getDate("c_date"),
@@ -869,7 +887,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+												);
 			}
 		} catch(Exception e) {
 			
@@ -895,7 +915,9 @@ public class CommunityDAO {
 			if(rs.next()) {
 				boardLikeVO = new BoardLikeVO(	rs.getInt("c_idx"),
 												rs.getString("m_nickname"),
-												rs.getString("likecheck"));
+												rs.getString("m_uniqueid"),
+												rs.getString("likecheck")
+												);
 			}
 		} catch(Exception e) {
 			
@@ -904,9 +926,8 @@ public class CommunityDAO {
 		}
 		
 		return boardLikeVO;
-	}	
-	
-	
+	}
+
 }
 
 

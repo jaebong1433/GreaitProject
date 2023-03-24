@@ -1,3 +1,4 @@
+<%@page import="VO.GradeVO"%>
 <%@page import="VO.MemberVO"%>
 <%@ page
 language="java" 
@@ -10,7 +11,7 @@ pageEncoding="UTF-8"
 	
 	String m_nickname = (String)session.getAttribute("m_nickname");
 	MemberVO vo = (MemberVO)request.getAttribute("vo");
-	
+	GradeVO gradevo = (GradeVO)request.getAttribute("gradevo");
 %>	
 
 <!DOCTYPE html>
@@ -109,6 +110,10 @@ pageEncoding="UTF-8"
 						<td>가입일자</td>
 						<td><%=vo.getM_date() %></td>
 					</tr>
+					<tr>
+						<td>LV.<%= gradevo.getM_level() %></td>
+						<td><%= vo.getM_exp() %></td>
+					</tr>
 				</table>
 				
 				<table class="profiletb">
@@ -132,11 +137,19 @@ pageEncoding="UTF-8"
 			</div>
 		</center>
 		
-	</form>	
+	</form>
+	<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
+	
+	<form action="${  }"></form>
+	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
     	function check(){
-    		$("form").submit();
+    		$(".form").submit();
+    	}
+    	
+    	function levelUp(nickname, exp){
+    		
     	}
     </script>
 		
