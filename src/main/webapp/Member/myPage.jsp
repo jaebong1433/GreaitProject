@@ -138,6 +138,16 @@ pageEncoding="UTF-8"
     	function check(){
     		$("form").submit();
     	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     </script>
 		
 	</body>
