@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import VO.GradeVO;
 import VO.MemberVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
@@ -197,7 +198,13 @@ public class MemberDAO {
 			//PreparedStatement실행객체메모리에 설정된 inser2t전체 문장을 
 			//DB의 테이블에 실행!
 			pstmt.executeUpdate();
-						
+			
+			//0324 정태영 레벨업 시스템을 위해 회원가입시 grade테이블을 생성함.
+			sql = "insert into grade values (1, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, vo.getM_nickname());
+			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			System.out.println("insertMember메소드 내부에서 SQL실행 오류 " + e);
 			e.printStackTrace();
@@ -378,6 +385,7 @@ public class MemberDAO {
 					vo.setM_name(rs.getString("m_name"));
 					vo.setM_email(rs.getString("m_email"));
 					vo.setM_date(rs.getDate("m_date"));
+					vo.setM_exp(rs.getInt("m_exp"));
 				}		
 			}catch(Exception e) {
 				System.out.println("findMember메소드 에서  SQL오류 : " + e);
@@ -470,11 +478,15 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				vo = new MemberVO(	rs.getString("m_nickname"),
+				vo = new MemberVO(	
+									rs.getString("m_uniqueid"),
+									rs.getString("m_nickname"),
 									rs.getString("m_id"), 
 									rs.getString("m_pw"), 
 									rs.getString("m_name"),
-									rs.getString("m_email"));
+									rs.getString("m_email"),
+									rs.getInt("m_exp")
+									);
 			}
 		} catch(Exception e) {
 			System.out.println("getMemVO");
@@ -484,8 +496,47 @@ public class MemberDAO {
 		}
 		return vo;	
 	}
-
-
+	
+	//0324 정태영 : 닉네임을 통해 GradeVO를 받을 수 있는 메서드
+	public GradeVO getGradeVO(String m_nickname) {
+		GradeVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from grade where m_nickname = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_nickname);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new GradeVO(	
+									rs.getInt("m_level"),
+									rs.getString("m_nickname"),
+									rs.getString("m_uniqueid"));
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
+	
+	//0324 정태영 : 닉네임과 경험치 증가량을 매개변수로 받아 해당 닉네임의 사용자의 경험치를 해당 정수만큼 증가시켜 줌
+	public void updateExp(String nickname, int exp) {
+		try {
+				con = ds.getConnection();
+				String sql = "update m_member set m_exp = m_exp + ? where m_nickname = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, exp);
+				pstmt.setString(2, nickname);
+				pstmt.executeUpdate();
+				
+			} catch(Exception e) {
+				System.out.println("updateExp");
+			} finally {
+				closeResource();
+			}
+	}
 
 }
 
