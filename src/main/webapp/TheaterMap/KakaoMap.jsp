@@ -141,13 +141,9 @@
 			        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 			        // mouseout 했을 때는 인포윈도우를 닫습니다
 			        (function(marker, title) {
-			            kakao.maps.event.addListener(marker, 'mouseover', function() {
-			                displayInfowindow(marker, title);
-			            });
-			
-			            kakao.maps.event.addListener(marker, 'mouseout', function() {
-			                infowindow.close();
-			            });
+			        	 kakao.maps.event.addListener(marker, 'click', function() {
+				                displayInfowindow(marker, title)
+				         });
 			
 			            itemEl.onmouseover =  function () {
 			                displayInfowindow(marker, title);
@@ -256,10 +252,12 @@
 			// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 			// 인포윈도우에 장소명을 표시합니다
 			function displayInfowindow(marker, title) {
-			    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-			
+			    var content = '<div style="padding:5px;z-index:1;">' + title + '<br>'
+			    			+ '<a href="https://map.kakao.com/link/to/title"style="color:blue" target="_blank">길찾기</a></div>';
+			    			
 			    infowindow.setContent(content);
 			    infowindow.open(map, marker);
+			    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 			}
 			
 			 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
