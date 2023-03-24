@@ -4,53 +4,43 @@ import java.sql.Date;
 
 public class MemberVO {
 	
-	private String m_nickname, m_id, m_pw, m_name, m_email;
+	private String m_uniqueid ,m_nickname, m_id, m_pw, m_name, m_email;
 	private Date m_date;
 	private int m_exp;
 	
 	public MemberVO() {
 	}
 
-	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email) {
-		this.m_nickname = m_nickname;
-		this.m_id = m_id;
-		this.m_pw = m_pw;
-		this.m_name = m_name;
-		this.m_email = m_email;
-	}
 	
-	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, Date m_date,
+
+	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
 			int m_exp) {
 		super();
+		this.m_uniqueid = m_uniqueid;
 		this.m_nickname = m_nickname;
 		this.m_id = m_id;
 		this.m_pw = m_pw;
 		this.m_name = m_name;
 		this.m_email = m_email;
-		this.m_date = m_date;
 		this.m_exp = m_exp;
 	}
 
-	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, int m_exp) {
+
+
+	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
+			Date m_date, int m_exp) {
 		super();
-		this.m_nickname = m_nickname;
-		this.m_id = m_id;
-		this.m_pw = m_pw;
-		this.m_name = m_name;
-		this.m_email = m_email;
-		this.m_exp = m_exp;
-	}
-
-	public MemberVO(String m_nickname, String m_id, String m_pw, String m_name, String m_email, Date m_date) {
+		this.m_uniqueid = m_uniqueid;
 		this.m_nickname = m_nickname;
 		this.m_id = m_id;
 		this.m_pw = m_pw;
 		this.m_name = m_name;
 		this.m_email = m_email;
 		this.m_date = m_date;
+		this.m_exp = m_exp;
 	}
-	
-	
+
+
 
 	public String getM_nickname() {
 		return m_nickname;
@@ -106,6 +96,14 @@ public class MemberVO {
 
 	public void setM_exp(int m_exp) {
 		this.m_exp = m_exp;
+	}
+
+	public String getM_uniqueid() {
+		return m_uniqueid;
+	}
+
+	public void setM_uniqueid(String m_uniqueid) {
+		this.m_uniqueid = m_uniqueid;
 	}
 	
 	

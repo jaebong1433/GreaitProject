@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
 import DAO.MemberDAO;
+import VO.GradeVO;
 import VO.MemberVO;
 
 @WebServlet("/member1/*") 
@@ -313,9 +314,11 @@ public class MemberController extends HttpServlet {
 				String m_nickname = request.getParameter("m_nickname");
 					
 				MemberVO vo = memberdao.findMember(m_nickname);
+				GradeVO gradevo = memberdao.getGradeVO(m_nickname);
 				
 				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 				request.setAttribute("vo", vo);
+				request.setAttribute("gradevo", gradevo);
 				
 				request.setAttribute("center", "/Member/myPage.jsp");
 				
@@ -382,7 +385,9 @@ public class MemberController extends HttpServlet {
 							+ " history.back();"
 							+ "</script>");
 					return;
+					
 				}
+				
 				
 				
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 

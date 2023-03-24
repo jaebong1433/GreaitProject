@@ -116,7 +116,7 @@
 							  <li>
 								<a href="#">
 								<div class="hover">
-									<img src="<%=imgSrc%>" alt="" width="300px" />
+									<img src="<%=imgSrc%>" alt="" width="280px" />
 								</div>	
 									<span>
 									<div class="fonttb">

@@ -6,6 +6,7 @@ public class CommunityVO {
 	private int c_idx;
 	private String c_title;
 	private String c_nickname;
+	private String c_uniqueid;
 	private String c_password;
 	private String c_content;
 	private Date c_date;
@@ -13,12 +14,14 @@ public class CommunityVO {
 	private int c_like;
 	private int c_group;
 	private int c_level;
-	
-	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_password, String c_content, Date c_date,
-			int c_views, int c_like, int c_group, int c_level) {
+
+	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_uniqueid, String c_password,
+			String c_content, Date c_date, int c_views, int c_like, int c_group, int c_level) {
+		super();
 		this.c_idx = c_idx;
 		this.c_title = c_title;
 		this.c_nickname = c_nickname;
+		this.c_uniqueid = c_uniqueid;
 		this.c_password = c_password;
 		this.c_content = c_content;
 		this.c_date = c_date;
@@ -28,30 +31,6 @@ public class CommunityVO {
 		this.c_level = c_level;
 	}
 
-	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_password, String c_content, int c_group,
-			int c_level) {
-		this.c_idx = c_idx;
-		this.c_title = c_title;
-		this.c_nickname = c_nickname;
-		this.c_password = c_password;
-		this.c_content = c_content;
-		this.c_group = c_group;
-		this.c_level = c_level;
-	}
-
-	public CommunityVO(int c_idx, String c_title, String c_nickname, String c_password, String c_content, int c_views,
-			int c_like, int c_group, int c_level) {
-		this.c_idx = c_idx;
-		this.c_title = c_title;
-		this.c_nickname = c_nickname;
-		this.c_password = c_password;
-		this.c_content = c_content;
-		this.c_views = c_views;
-		this.c_like = c_like;
-		this.c_group = c_group;
-		this.c_level = c_level;
-	}
-	
 	public CommunityVO() {}
 
 	public int getC_idx() {
@@ -132,6 +111,14 @@ public class CommunityVO {
 
 	public void setC_level(int c_level) {
 		this.c_level = c_level;
+	}
+
+	public String getC_uniqueid() {
+		return c_uniqueid;
+	}
+
+	public void setC_uniqueid(String c_uniqueid) {
+		this.c_uniqueid = c_uniqueid;
 	}
 	
 	
