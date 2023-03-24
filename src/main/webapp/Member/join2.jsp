@@ -347,7 +347,6 @@
      
      
      function check(event) {
-
         //닉네임
         var m_nickname = $("#m_nickname");
         
@@ -385,9 +384,6 @@
         }else{
            $("#idInput").text("올바르게 입력되었습니다.").css("color","blue");
         }
-        
-        
-
          //비밀번호
          var pass1 = $("#m_pw");
             var passValue1 = pass1.val();
@@ -412,7 +408,6 @@
             
             var passReg2 = RegExp(/^[A-Za-z0-9_\-]{4,20}$/);
             var resultPass2 = passReg2.test(passValue2);
-
         if(!resultPass2){
            $("#pwInput2").text("한글,특수문자 없이 4글자 이상으로 작성해 주세요!").css("color","red");
            pass2.focus();
