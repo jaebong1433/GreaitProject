@@ -382,7 +382,9 @@ public class MemberController extends HttpServlet {
 							+ " history.back();"
 							+ "</script>");
 					return;
+					
 				}
+				
 				
 				
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 
