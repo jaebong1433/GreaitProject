@@ -501,6 +501,39 @@ public class MemberDAO {
 		return vo;	
 	}
 	
+	//0327 정태영 : 고유id로 vo를 얻는 메서드
+	public MemberVO getMemVOByUniqueID(String m_uniqueID) {
+		
+		MemberVO vo = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member where m_uniqueID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_uniqueID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO(	
+									rs.getString("m_uniqueid"),
+									rs.getString("m_nickname"),
+									rs.getString("m_id"), 
+									rs.getString("m_pw"), 
+									rs.getString("m_name"),
+									rs.getString("m_email"),
+									rs.getInt("m_exp")
+									);
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
+	
 	//0324 정태영 : 닉네임을 통해 GradeVO를 받을 수 있는 메서드
 	public GradeVO getGradeVO(String m_nickname) {
 		GradeVO vo = null;
@@ -514,7 +547,9 @@ public class MemberDAO {
 				vo = new GradeVO(	
 									rs.getInt("m_level"),
 									rs.getString("m_nickname"),
-									rs.getString("m_uniqueid"));
+									rs.getString("m_uniqueid"),
+									rs.getInt("m_exp")
+						);
 			}
 		} catch(Exception e) {
 			System.out.println("getMemVO");
@@ -577,6 +612,66 @@ public class MemberDAO {
 			closeResource();
 		}
 		return uniqueID;
+	}
+	
+	public int getLevel() {
+		ArrayList list = new ArrayList();
+		int uniqueID = 0;
+		int check = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select m_uniqueid from m_member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(rs.getInt("m_uniqueid"));
+			}
+			
+			while(check == 0) {
+				uniqueID = (int)(Math.random()*9000 + 1000);
+				check++;
+				for(int i = 0; i < list.size(); i++) {
+					int oldID = (int)list.get(i);
+					System.out.println("리스트의 값과 동일한지 확인하는 중입니다. 기존 고유 id : " + oldID + " 새로운 : " + uniqueID);
+					if(uniqueID == oldID) {
+						System.out.println("이미 존재하는 고유id입니다. 새로운 고유 id를 생성합니다.");
+						check = 0;
+					}
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return uniqueID;
+	}
+
+	public String updateLevel(int m_exp, String uniqueID) {
+		int insert_level = 1 + m_exp/100;
+		System.out.println("레벨 : " + insert_level);
+		String level = String.valueOf(insert_level);
+		try {
+			con = ds.getConnection();
+			String sql = "update grade set m_level = ? where m_uniqueid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, insert_level);
+			pstmt.setString(2, uniqueID);
+			pstmt.executeUpdate();
+			
+			level = String.valueOf(insert_level);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("updateLevel");
+		} finally {
+			closeResource();
+		}
+		
+		return level;
 	}
 
 }

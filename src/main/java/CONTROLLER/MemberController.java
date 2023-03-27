@@ -445,11 +445,22 @@ public class MemberController extends HttpServlet {
 				}
 				
 				
-			}		
+			}
+			
+			else if(action.equals("/levelUp.me")) {
+				HttpSession session = request.getSession();
+				String uniqueID = (String)session.getAttribute("m_uniqueID");
+				MemberVO membervo = memberdao.getMemVOByUniqueID(uniqueID);
+				String level = memberdao.updateLevel(membervo.getM_exp(), uniqueID);
+				
+				System.out.println("levelUp, 레벨 : "+level);
+				
+				out.print(level);
+				return;
+			}
 		
 			//포워딩 (디스패처 방식)
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-		
 			dispatch.forward(request, response);
 			}
 	

@@ -112,7 +112,7 @@ pageEncoding="UTF-8"
 					</tr>
 					<tr>
 						<td>LV.<%= gradevo.getM_level() %></td>
-						<td><%= vo.getM_exp() %></td>
+						<td>경험치 : <%= vo.getM_exp() %></td>
 					</tr>
 				</table>
 				
@@ -140,7 +140,6 @@ pageEncoding="UTF-8"
 	</form>
 	<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
 	
-	<form action="${  }"></form>
 	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
@@ -149,7 +148,21 @@ pageEncoding="UTF-8"
     	}
     	
     	function levelUp(nickname, exp){
-    		
+//     		alert(nickname + ", " + exp);
+    		$.ajax({
+				type: "post",
+				async : true,
+				url : "${pageContext.request.contextPath}/member1/levelUp.me",
+				data : {},
+				dataType : "text",
+				success : function(data) {
+					if(${gradevo.m_level} == data) {
+						alert("레벨업을 할 수 없습니다!");
+					} else {
+						alert("레벨업 하였습니다." + ${gradevo.m_level} + "->" + data);
+					}
+				}
+			});
     	}
     	
     	
