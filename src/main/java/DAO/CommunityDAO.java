@@ -383,7 +383,7 @@ public class CommunityDAO {
 	
 	//좋아요 눌렀을 때
 	//정태영
-	public BoardLikeVO addLike(String c_idx, String nickname) {
+	public BoardLikeVO addLike(String c_idx, String nickname, String uniqueID) {
 		String sql = null;
 		BoardLikeVO boardLikeVO = null;
 		
@@ -397,10 +397,11 @@ public class CommunityDAO {
 			
 			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
 			con = ds.getConnection();
-			sql = "insert into boardlike values (?, ?, 'yes')";
+			sql = "insert into boardlike values (?, ?, ?, 'yes')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
-			pstmt.setString(2, nickname);
+			pstmt.setString(2, uniqueID);
+			pstmt.setString(3, nickname);
 			pstmt.executeUpdate();
 			
 			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
@@ -478,24 +479,18 @@ public class CommunityDAO {
 		return boardLikeVO;
 	}
 	//0323 정태영 : 공지 좋아요
-	public BoardLikeVO addNoticeLike(String c_idx, String nickname) {
+	public BoardLikeVO addNoticeLike(String c_idx, String nickname, String uniqueID) {
 		String sql = null;
 		BoardLikeVO boardLikeVO = null;
 		
 		try {
-			//조회수를 1 감소시키는 방법, 안 쓸 거임
-//			con = ds.getConnection();
-//			sql = "update community set c_views = c_views - 1 where c_idx = ?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setInt(1, c_idx);
-//			pstmt.executeQuery();
-			
 			//유저의 추천여부를 확인하기 위해 boardlike 테이블에 유저 추가
 			con = ds.getConnection();
-			sql = "insert into noticelike values (?, ?, 'yes')";
+			sql = "insert into noticelike values (?, ?, ?, 'yes')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
-			pstmt.setString(2, nickname);
+			pstmt.setString(2, uniqueID);
+			pstmt.setString(3, nickname);
 			pstmt.executeUpdate();
 			
 			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
@@ -641,10 +636,10 @@ public class CommunityDAO {
 		}
 		return vo;	
 	}
-	
+	//0325
 	//답글 달기 기능
 	//정태영
-	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content, String pass) {
+	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content, String pass, String uniqueID) {
 		String sql = null;
 		try {
 			con = ds.getConnection();
@@ -666,6 +661,7 @@ public class CommunityDAO {
 												+ "?,"
 												+ "?,"
 												+ "?,"
+												+ "?,"
 												+ "sysdate,"
 												+ "0,"
 												+ "0,"
@@ -674,10 +670,11 @@ public class CommunityDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, nickname);
-			pstmt.setString(3, pass);
-			pstmt.setString(4, content);
-			pstmt.setInt(5, Integer.parseInt(c_group)+1);
-			pstmt.setInt(6, Integer.parseInt(c_level)+1);
+			pstmt.setString(3, uniqueID);
+			pstmt.setString(4, pass);
+			pstmt.setString(5, content);
+			pstmt.setInt(6, Integer.parseInt(c_group)+1);
+			pstmt.setInt(7, Integer.parseInt(c_level)+1);
 			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
@@ -703,14 +700,15 @@ public class CommunityDAO {
 			
 			//insert SQL문 만들기 //c_group , c_level 0 0 으로 insert 규칙3
 			
-			sql = "insert into community (c_idx, c_title, c_nickname, c_password, c_content, "
+			sql = "insert into community (c_idx, c_title, c_nickname, c_uniqueid, c_password, c_content, "
 					+ "c_date, c_views, c_like, c_group, c_level) "
-					+ " values (community_idx.nextVal, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+					+ " values (community_idx.nextVal, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getC_title());
 			pstmt.setString(2, vo.getC_nickname());
-			pstmt.setString(3, vo.getC_password());
-			pstmt.setString(4, vo.getC_content());
+			pstmt.setString(3, vo.getC_uniqueid());
+			pstmt.setString(4, vo.getC_password());
+			pstmt.setString(5, vo.getC_content());
 			
 			result = pstmt.executeUpdate();
 			
@@ -738,14 +736,15 @@ public class CommunityDAO {
 			
 			//insert SQL문 만들기 //c_group , c_level 0 0 으로 insert 규칙3
 			
-			sql = "insert into noticeboard (c_idx, c_title, c_nickname, c_password, c_content, "
+			sql = "insert into noticeboard (c_idx, c_title, c_nickname, c_uniqueid, c_password, c_content, "
 					+ "c_date, c_views, c_like, c_group, c_level) "
-					+ " values (noticeboard_idx.nextVal, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+					+ " values (community_idx.nextVal, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getC_title());
 			pstmt.setString(2, vo.getC_nickname());
-			pstmt.setString(3, vo.getC_password());
-			pstmt.setString(4, vo.getC_content());
+			pstmt.setString(3, vo.getC_uniqueid());
+			pstmt.setString(4, vo.getC_password());
+			pstmt.setString(5, vo.getC_content());
 			
 			result = pstmt.executeUpdate();
 			

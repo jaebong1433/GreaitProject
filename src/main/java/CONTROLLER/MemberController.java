@@ -95,14 +95,19 @@ public class MemberController extends HttpServlet {
 				String m_pw = request.getParameter("m_pw");
 				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
-			
+				int uniqueID = memberdao.getUniqueid();
+				String m_uniqueID = String.valueOf(uniqueID);
+				System.out.println("joinPro.me 고유 아이디 : " + m_uniqueID);
 				
 				MemberVO vo = new MemberVO(
+											m_uniqueID,
 											m_nickname,
 											m_id,
 											m_pw,
 											m_name,
-											m_email);
+											m_email,
+											0	
+											);
 				
 				
 				memberdao.insertMember(vo);
@@ -181,6 +186,7 @@ public class MemberController extends HttpServlet {
 				String m_id = request.getParameter("m_id");
 				String m_pw = request.getParameter("m_pw");
 				String nickname = null;
+				MemberVO memberVO = new MemberVO();
 				
 				int check = memberdao.loginCheck(m_id, m_pw);
 
@@ -198,12 +204,16 @@ public class MemberController extends HttpServlet {
 					return;				
 				}else if(check == 1){
 					nickname = memberdao.logName(m_id);
+					memberVO = memberdao.getMemVO(nickname);
 				}
 				//session메모리생성
 				HttpSession session = request.getSession();
 				
 				//session메모리에 입력한 아이디 바인딩(저장)
 				session.setAttribute("m_nickname", nickname);
+				
+				//0325 정태영 : session에 고유 id 저장
+				session.setAttribute("m_uniqueID", memberVO.getM_uniqueid());
 				
 				//메인화면 VIEW 주소
 				nextPage = "/Crawling/maincenter.me";
@@ -312,7 +322,8 @@ public class MemberController extends HttpServlet {
 			}else if(action.equals("/mypage.me")) { 
 				//요청한 값 얻기
 				String m_nickname = request.getParameter("m_nickname");
-					
+				
+				
 				MemberVO vo = memberdao.findMember(m_nickname);
 				GradeVO gradevo = memberdao.getGradeVO(m_nickname);
 				

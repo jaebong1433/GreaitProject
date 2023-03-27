@@ -98,6 +98,12 @@ public class CommunityController extends HttpServlet {
 			    e.printStackTrace();
 			}
 		}
+		String uniqueID = (String)session.getAttribute("m_uniqueID");
+		if(uniqueID == null) {
+			System.out.println("세션값에 저장된 고유 아이디가 없으므로 ip주소를 대입합니다.");
+			uniqueID = ip;
+		}
+		System.out.println("고유 아이디 : " + uniqueID);
 		System.out.println("ip 주소 : " + ip);
 		
 		PrintWriter out = response.getWriter();
@@ -139,29 +145,29 @@ public class CommunityController extends HttpServlet {
 		
 		//20230321 정태영 : 내부클래스를 만듦으로써 기존 list.bo의 역할은 listByRecent가 대신하게 되었음.
 		//현재로써는 필요없는 데이터, 일단 내부클래스에 문제가 있을 수도 있으므로 남겨둘 것임.
-		else if(action.equals("/list.bo")) {
-			list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
-			
-			String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
-			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
-			
-			String nowPage = request.getParameter("nowPage");
-			String nowBlock = request.getParameter("nowBlock");
-			System.out.println(nowPage + "페이지번호");
-			System.out.println(nowBlock + "블럭위치번호");	
-			
-			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
-			request.setAttribute("count", count);
-			request.setAttribute("center","/board/list.jsp");
-			
-			//페이징 처리 를 위해 담는다.
-			request.setAttribute("nowPage", nowPage);
-			request.setAttribute("nowBlock", nowBlock);
-//			nextPage = "/board/list.jsp";
-			nextPage = "/index.jsp";
-		}
+//		else if(action.equals("/list.bo")) {
+//			list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
+//			
+//			String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
+//			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
+//			
+//			String nowPage = request.getParameter("nowPage");
+//			String nowBlock = request.getParameter("nowBlock");
+//			System.out.println(nowPage + "페이지번호");
+//			System.out.println(nowBlock + "블럭위치번호");	
+//			
+//			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
+//			request.setAttribute("count", count);
+//			request.setAttribute("center","/board/list.jsp");
+//			
+//			//페이징 처리 를 위해 담는다.
+//			request.setAttribute("nowPage", nowPage);
+//			request.setAttribute("nowBlock", nowBlock);
+////			nextPage = "/board/list.jsp";
+//			nextPage = "/index.jsp";
+//		}
 		
-		
+		//0325
 		//20230321 정태영 : 개념글 버튼을 눌렀을 때
 		else if(action.equals("/bestPost.bo")) {
 			EasyList easyList = new EasyList();
@@ -173,6 +179,7 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("count", count);
 			nextPage = "/index.jsp";
 		}
+		//0325
 		//20230321 정태영 : 좋아요 순 버튼을 눌렀을 때
 		else if(action.equals("/listByLike.bo")) {
 			EasyList easyList = new EasyList();
@@ -184,6 +191,7 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("count", count);
 			nextPage = "/index.jsp";
 		}
+		//0325
 		//20230321 정태영 : 조회수 순 버튼을 눌렀을 때
 		else if(action.equals("/listByViews.bo")) {
 			EasyList easyList = new EasyList();
@@ -195,6 +203,7 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("count", count);
 			nextPage = "/index.jsp";
 		}
+		//0325
 		//20230321 정태영 : 최신순 버튼을 눌렀을 때
 		else if(action.equals("/listByRecent.bo")) {
 			EasyList easyList = new EasyList();
@@ -207,6 +216,7 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/index.jsp";
 		}
 		
+		//0325
 		//게시글을 클릭하였을 때 게시글 읽기
 		//정태영
 		else if(action.equals("/read.bo")) {
@@ -215,16 +225,14 @@ public class CommunityController extends HttpServlet {
 			String nowBlock_ = request.getParameter("nowBlock");
 			String nickname = (String)session.getAttribute("m_nickname");
 			System.out.println("read.bo 닉네임: " + nickname);
+			System.out.println("read.bo 고유아이디: " + uniqueID);
 			//20230321 정태영 : 로그인 하지 않았을 경우 닉네임에 아이피 주소를 대입함
 			if(nickname == null) {
 				nickname = ip;
 			}
-			System.out.println("1");
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
-			System.out.println("2");
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
 			
-			System.out.println("3");
 			request.setAttribute("boardLikeVO", boardLikeVO);
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
@@ -235,6 +243,7 @@ public class CommunityController extends HttpServlet {
 //			nextPage = "/board/detail.jsp";
 			nextPage = "/index.jsp";
 		}
+		//0325
 		//0323 정태영 : 공지 클릭했을 때
 		else if(action.equals("/noticeRead.bo")) {
 			String c_idx = request.getParameter("c_idx"); //게시글의 c_idx를 받아온다.
@@ -257,7 +266,7 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/index.jsp";
 		}
-		
+		//0325
 		//좋아요 버튼 눌렀을 때
 		//정태영
 		else if(action.equals("/like.bo")) {
@@ -268,9 +277,9 @@ public class CommunityController extends HttpServlet {
 				nickname = ip;
 			}
 			
+			boardLikeVO = comDAO.addLike(c_idx, nickname, uniqueID); //게시글 DB의 c_like에 1을 추가하는 메서드
 			
-			boardLikeVO = comDAO.addLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
-			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			vo = comDAO.getComVO(c_idx);//좋아요 받는 사람의 vo
 			
 			if(!vo.getC_nickname().equals(nickname)) {
 				//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
@@ -284,6 +293,7 @@ public class CommunityController extends HttpServlet {
 			
 			return;
 		}
+		//0325
 		//좋아요 취소를 클릭했을 때
 		//정태영
 		else if(action.equals("/likeCancel.bo")) {
@@ -309,7 +319,7 @@ public class CommunityController extends HttpServlet {
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			return;
 		}
-		
+		//0325
 		// 0323 정태영 : 공지 좋아요
 		else if(action.equals("/noticeLike.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
@@ -319,14 +329,23 @@ public class CommunityController extends HttpServlet {
 				nickname = ip;
 			}
 			
+			boardLikeVO = comDAO.addNoticeLike(c_idx, nickname, uniqueID); //게시글 DB의 c_like에 1을 추가하는 메서드
 			
-			boardLikeVO = comDAO.addNoticeLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
-			vo = comDAO.getNoticeVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			vo = comDAO.getNoticeVO(c_idx);//좋아요 받는 사람의 vo
+			
+			if(!vo.getC_nickname().equals(nickname)) {
+				//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
+				System.out.println(nickname);
+				System.out.println(vo.getC_nickname());
+				memberDAO.updateExp(vo.getC_nickname(), 3);
+			}
+			
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			
 			return;
 		}
+		//0325
 		//좋아요 취소를 클릭했을 때
 		//정태영
 		else if(action.equals("/noticeLikeCancel.bo")) {
@@ -345,7 +364,7 @@ public class CommunityController extends HttpServlet {
 			return;
 		}
 		
-		
+		//0325
 		//답글 버튼을 눌렀을 때
 		//정태영
 		else if(action.equals("/replyBoard.bo")) {
@@ -359,6 +378,7 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/board/reply.jsp";
 		}
+		//0325
 		//글 작성 화면 요청을 했을때
 		else if(action.equals("/write.bo")) {
 			
@@ -369,6 +389,7 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/board/write.jsp";
 
 		}
+		//0325
 		//글 작성 버튼을 눌러 글 작성 요청을 했을때
 		else if(action.equals("/writePro.bo")) {
 			String nick = request.getParameter("w");
@@ -376,10 +397,12 @@ public class CommunityController extends HttpServlet {
 			String content = request.getParameter("c");
 			String pass = request.getParameter("p");
 			vo = new CommunityVO();
+			
 			vo.setC_nickname(nick);
 			vo.setC_title(title);
 			vo.setC_content(content);
 			vo.setC_password(pass);
+			vo.setC_uniqueid(uniqueID);
 			int result = comDAO.insertBoard(vo);
 			
 			String nickname = (String)session.getAttribute("m_nickname");
@@ -400,20 +423,29 @@ public class CommunityController extends HttpServlet {
 			}
 			return;
 		}
+		//0325
 		//0321 정태영 : write.jsp에서 공지글로 쓰기 체크하고 등록을 눌렀을 때
 		else if(action.equals("/noticePro.bo")) {
-			System.out.println(true);
-			
 			String nick = request.getParameter("w");
 			String title = request.getParameter("t");
 			String content = request.getParameter("c");
 			String pass = request.getParameter("p");
 			vo = new CommunityVO();
+			
 			vo.setC_nickname(nick);
 			vo.setC_title(title);
 			vo.setC_content(content);
 			vo.setC_password(pass);
+			vo.setC_uniqueid(uniqueID);
 			int result = comDAO.insertNoticeBoard(vo);
+			
+			String nickname = (String)session.getAttribute("m_nickname");
+			//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
+			if(nickname != null) {
+				System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
+				memberDAO.updateExp(nickname, 2);
+			}
+			
 			// "1" 또는 "0"
 			String go = String.valueOf(result);
 			
@@ -425,6 +457,7 @@ public class CommunityController extends HttpServlet {
 			}
 			return;
 		}
+		//0325
 		//답글 달기 버튼을 눌렀을 때
 		//정태영
 		else if(action.equals("/replyPro.bo")) {
@@ -435,7 +468,6 @@ public class CommunityController extends HttpServlet {
 			String pass = request.getParameter("pass");
 			String super_c_idx = request.getParameter("c_idx"); //답글화면에서 입력한 title, writer, content를 받아오고, super_c_idx도 받음
 			
-			
 			String nickname_ = (String)session.getAttribute("m_nickname");
 			//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
 			if(nickname_ != null) {
@@ -443,11 +475,11 @@ public class CommunityController extends HttpServlet {
 				memberDAO.updateExp(nickname_, 2);
 			}
 			
-			comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
+			comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass, uniqueID); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
 			
 			nextPage="/com/listByRecent.bo?nowPage=0&nowBlock=0";
 		}
-
+		//0325
 		//검색 기능을 사용했을때 //한성준 03-14
 		else if (action.equals("/searchlist.bo")) {
 			List noticeList = comDAO.getAllNotice();

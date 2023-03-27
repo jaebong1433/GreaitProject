@@ -11,6 +11,7 @@ pageEncoding="UTF-8"
 	String contextPath = request.getContextPath();
 	String nickname = (String)session.getAttribute("m_nickname");
 %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -113,6 +114,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 
 %>
 <p>참고. 닉네임이 admin인 계정으로 로그인 하면 공지글을 쓸 수 있습니다.</p>
+당신의 고유 ID : ${ m_uniqueID }
 <center>
 <form name="frmRead">
 		<input type="hidden" name="c_idx">

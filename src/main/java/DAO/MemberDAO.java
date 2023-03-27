@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Vector;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -184,15 +186,16 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO M_MEMBER (m_nickname, m_id, m_pw, m_name, m_email, m_date) " 
-									+ "values(   ?,          ?,    ?,    ?,      ?,      sysdate) ";
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email) " 
+						+ "values(?, ?, ?, ?, ?, ?)";
                          
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getM_nickname());
-			pstmt.setString(2, vo.getM_id());
-			pstmt.setString(3, vo.getM_pw());
-			pstmt.setString(4, vo.getM_name());
-			pstmt.setString(5, vo.getM_email());
+			pstmt.setString(1, vo.getM_uniqueid());
+			pstmt.setString(2, vo.getM_nickname());
+			pstmt.setString(3, vo.getM_id());
+			pstmt.setString(4, vo.getM_pw());
+			pstmt.setString(5, vo.getM_name());
+			pstmt.setString(6, vo.getM_email());
 			
 			
 			//PreparedStatement실행객체메모리에 설정된 inser2t전체 문장을 
@@ -200,9 +203,10 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 			
 			//0324 정태영 레벨업 시스템을 위해 회원가입시 grade테이블을 생성함.
-			sql = "insert into grade values (1, ?)";
+			sql = "insert into grade values (1, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getM_nickname());
+			pstmt.setString(2, vo.getM_uniqueid());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -536,6 +540,43 @@ public class MemberDAO {
 			} finally {
 				closeResource();
 			}
+	}
+	
+	//0325 정태영 : 회원가입 시 고유 id를 발급받는 메소드, 중복 체크 포함
+	public int getUniqueid() {
+		ArrayList list = new ArrayList();
+		int uniqueID = 0;
+		int check = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select m_uniqueid from m_member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(rs.getInt("m_uniqueid"));
+			}
+			
+			while(check == 0) {
+				uniqueID = (int)(Math.random()*9000 + 1000);
+				check++;
+				for(int i = 0; i < list.size(); i++) {
+					int oldID = (int)list.get(i);
+					System.out.println("리스트의 값과 동일한지 확인하는 중입니다. 기존 고유 id : " + oldID + " 새로운 : " + uniqueID);
+					if(uniqueID == oldID) {
+						System.out.println("이미 존재하는 고유id입니다. 새로운 고유 id를 생성합니다.");
+						check = 0;
+					}
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return uniqueID;
 	}
 
 }

@@ -72,7 +72,7 @@
                     	<div align="center">Á¦&nbsp;&nbsp;&nbsp;¸ñ</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="text" name="title" size="70"/>
+                    	<input type="text" name="title" size="70" id="title_"/>
                     </td>
                   </tr>
                   <tr> 
