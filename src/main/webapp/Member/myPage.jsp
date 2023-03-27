@@ -39,6 +39,15 @@ pageEncoding="UTF-8"
 				
 			}
 			
+			.mptb button{
+				background-color: gray;
+				color: white;
+				margin-left: 10px;
+				width: 80px;
+				height: 30px;
+				border-radius: 10px;
+			}
+			
 			.profiletb{
 				width : 20%;
 				height : 300px;
@@ -73,6 +82,8 @@ pageEncoding="UTF-8"
 				width : 150px;
 				height: 40px;
 				background-color: gray;
+				color : white;
+				border-radius : 10px;
 			}
 			
 			
@@ -111,8 +122,12 @@ pageEncoding="UTF-8"
 						<td><%=vo.getM_date() %></td>
 					</tr>
 					<tr>
-						<td>LV.<%= gradevo.getM_level() %></td>
-						<td><%= vo.getM_exp() %></td>
+						<td>레벨</td>
+						<td>
+							LV.<%= gradevo.getM_level() %> &nbsp;&nbsp;
+						exp. [<%= vo.getM_exp() %>]
+							<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
+						</td>
 					</tr>
 				</table>
 				
@@ -138,9 +153,8 @@ pageEncoding="UTF-8"
 		</center>
 		
 	</form>
-	<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
 	
-	<form action="${  }"></form>
+	
 	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">

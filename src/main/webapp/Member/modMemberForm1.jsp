@@ -16,57 +16,169 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
-
+<style type="text/css">
+			.mpdiv{
+				width : 98%;
+				margin : 100px 0 0 0;
+			}
+			
+			.mpdiv input{
+				margin : 5px 0 0 20px;
+				height : 20px;
+				width : 150px;
+			}
+			
+			.mptb{
+				border : 1px solid black;
+				width : 60%;
+				height : 400px;
+				float : right;
+				margin : 20px 100px 0px 0px;
+			}
+			
+			.mptb td{
+				border : 1px solid gray;
+				height : 19%;
+			}
+			
+			.mptb button{
+				background-color: gray;
+				color: white;
+				margin-left: 10px;
+				width: 80px;
+				height: 30px;
+				border-radius: 10px;
+			}
+			
+			.profiletb{
+				width : 20%;
+				height : 400px;
+				float : left;
+				border : 3px solid gray;
+				margin : 20px 0px 0px 100px;
+				text-align: center;
+			}
+			
+			
+			.profimg {
+			    width: 200px;
+			    height: 200px; 
+			    border-radius: 70%;
+			    overflow: hidden;
+			    margin: auto;
+			}
+			.profimg img{
+			    width: 100%;
+			    height: 100%;
+			    object-fit: cover;
+			}
+			
+			.btnbtn{
+				margin : auto;
+				width : 500px;
+				height : 500px;
+			}
+			
+			.btnbtn input{
+				margin-top: 10px;
+				width : 150px;
+				height: 40px;
+				background-color: gray;
+				color : white;
+				border-radius : 10px;
+			}
+			
+			
+		</style>
 
 
 </head>
 <body>
+<center>
 	<form action="<%=contextPath%>/member1/update.me" class="form">
+		<div class="mpdiv">
+			<h1>회원 정보 수정</h1>
+			<hr>
+			<table class="mptb">
+			<tr>
+				<td width="10%">이름</td>
+				<td width="40%">
+				<input type="text" id="m_name" name="m_name"
+					value="<%=vo.getM_name()%>" readonly>
+				<p id="nameInput"></p>
+				</td>
+				
+			<tr>
+				<td>ID</td>
+				<td>
+					<input type="text" id="m_id" name="m_id"
+						value="<%=vo.getM_id()%>" readonly>
+					<p id="idInput"></p>
+				</td>
+			</tr>	
+				
+			<tr>
+				<td>닉네임</td>
+				<td>
+					<input type="text" id="m_nickname" name="m_nickname"
+						value="<%=vo.getM_nickname()%>" readonly>
+					<p id="nicknameInput"></p>
+					<button type="button" id="button1"> 수정</button>
+					<button type="button" id="check_ok1">확인</button>
+				</td>
+			</tr>
+		 
+		 	<tr>	
+				<td>Email</td>
+				<td>
+					<input type="text" id="m_email" name="m_email"
+						value="<%=vo.getM_email()%>" readonly>
+					<p id="emailInput"></p>
+					<button type="button" id="button2">수정</button>
+					<button type="button" id="check_ok1">확인</button>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>비밀번호</td>
+				<td>
+					<input type="passWord" id="m_pw" name="m_pw"
+						placeholder="비밀번호를 입력하세요." readonly>
+					<p id="pwInput1"></p>
+					<button type="button" id="button3">수정</button>
+					<button type="button" id="check_ok1">확인</button>
+				</td>
+			</tr>
+		</table>
+			
+			<table class="profiletb">
+					<tr>
+						<td class="proftt">
+						<div class="profimg">
+							<img src="<%=contextPath%>/eq/img/pps.png">
+						</div>
+						</td>
+					</tr>
+					<tr>
+						<td height="19%">
+							<b><%=vo.getM_nickname()%></b>님
+						</td>
+					</tr>
+				</table>
+			
+		 
 		
 
-		<br> 이름<br> <input type="text" id="m_name" name="m_name"
-			value="<%=vo.getM_name()%>" readonly>
-		<p id="nameInput"></p>
-
-
-		
-		<br> 아이디<br> <input type="text" id="m_id" name="m_id"
-			value="<%=vo.getM_id()%>" readonly>
-		<p id="idInput"></p>
-
-
-
-		닉네임<br> <input type="text" id="m_nickname" name="m_nickname"
-			value="<%=vo.getM_nickname()%>" readonly>
-		<p id="nicknameInput"></p>
-		<button type="button" id="button1"> 수정</button>
-		<button type="button" id="check_ok1">확인</button>
-
-		
-		
-		<br>이메일<br> <input type="text" id="m_email" name="m_email"
-			value="<%=vo.getM_email()%>" readonly>
-		<p id="emailInput"></p>
-		<button type="button" id="button2">수정</button>
-		<button type="button" id="check_ok1">확인</button>
-		
-		
-		<br> 비밀번호<br> <input type="passWord" id="m_pw" name="m_pw"
-			placeholder="비밀번호를 입력하세요." readonly>
-		<p id="pwInput1"></p>
-		<button type="button" id="button3">수정</button>
-		<button type="button" id="check_ok1">확인</button>
-		
-
-		<div>
-			<br> <a href="#" onclick="check(); return false;"
-				class="btn btn-common">수정완료</a><br>
-				<input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath%>/member1/delete.me'">
-			<br>
+		<div class="btnbtn">
+			<a href="#" onclick="check(); return false;">
+				<input type="button" value="수정완료">
+			</a>
+			<input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath%>/member1/delete.me'">
+			
 		</div>
-
+	</div>
 	</form>	
-
+</center>
 
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>	    
     <script type="text/javascript">
