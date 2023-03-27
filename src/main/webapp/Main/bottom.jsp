@@ -17,7 +17,7 @@
 			
 		}
 		
-		a{
+		.bbbot a{
 			text-decoration: none;
 			color: lightgray;
 		}

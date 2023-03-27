@@ -50,6 +50,15 @@ pageEncoding="UTF-8"
 				width : 97%;
 				height : 1000px;
 			}
+		
+			a{
+				color: black;
+				text-decoration: none;
+			}
+			
+			
+			
+		
 		</style>
 		
 		
@@ -150,14 +159,14 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        	<tr> 
 	        		<td colspan="4">
 						<table border="0" width="100%" cellpadding="2" cellspacing="0">
-							<tr align="center" bgcolor="#D0D0D0" height="120%">
-								<td align="left">번호</td>
-								<td align="left">제목</td>
-								<td align="left">내용</td>
-								<td align="left">작성자</td>
-								<td align="left">작성일</td>
-								<td align="left">조회수</td>
-								<td align="left">추천</td>
+							<tr align="center" bgcolor="#D0D0D0" height="40px">
+								<td align="left" width="10%">번호</td>
+								<td align="left" width="40%">제목</td>
+								<td align="left" width="10%">내용</td>
+								<td align="left" width="20%">작성자</td>
+								<td align="left" width="10%">작성일</td>
+								<td align="left" width="5%">조회수</td>
+								<td align="left" width="5%">추천</td>
 							</tr>	
 				<%
 					//게시판 board테이블에서 조회된 글이 없다면?
@@ -177,7 +186,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									content = content.substring(0, 20) + "...";
 								}
 				%>
-								<tr align="center" bgcolor="#FAF4C0" height="120%">
+								<tr align="center" bgcolor="#FAF4C0" height="40px">
 									<td align="left"><%=vo.getC_idx()%></td>
 									<td align="left">
 								<%
@@ -202,7 +211,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									</a>
 								</td>
 								<td align="left">
-									<img width="5%" alt="프로필 사진" src="<%= contextPath %>/board/images/profile.png">
+									<img width="20%" alt="프로필 사진" src="<%= contextPath %>/board/images/profile.png">
 									<%=vo.getC_nickname()%>
 								</td>
 								<td align="left"><%=vo.getC_date()%></td>
@@ -229,7 +238,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								}
 				%>			
 								
-							<tr>
+							<tr height="40px">
 								<td align="left"><%=vo.getC_idx()%></td>				
 								<td>
 								<%
