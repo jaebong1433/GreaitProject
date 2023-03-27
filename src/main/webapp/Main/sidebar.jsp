@@ -234,7 +234,7 @@
         <div class="collapse" id="orders-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
-            	<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
+            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
          	</ul>
         </div>
       </li>
