@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import VO.GradeVO;
 import VO.MemberVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
@@ -186,8 +185,8 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email) " 
-						+ "values(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_level) " 
+						+ "values(?, ?, ?, ?, ?, ?, 1)";
                          
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getM_uniqueid());
@@ -203,11 +202,11 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 			
 			//0324 정태영 레벨업 시스템을 위해 회원가입시 grade테이블을 생성함.
-			sql = "insert into grade values (1, ?, ?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getM_nickname());
-			pstmt.setString(2, vo.getM_uniqueid());
-			pstmt.executeUpdate();
+//			sql = "insert into grade values (1, ?, ?)";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, vo.getM_nickname());
+//			pstmt.setString(2, vo.getM_uniqueid());
+//			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			System.out.println("insertMember메소드 내부에서 SQL실행 오류 " + e);
@@ -489,7 +488,43 @@ public class MemberDAO {
 									rs.getString("m_pw"), 
 									rs.getString("m_name"),
 									rs.getString("m_email"),
-									rs.getInt("m_exp")
+									rs.getInt("m_exp"),
+									rs.getInt("m_level")
+									);
+			}
+		} catch(Exception e) {
+			System.out.println("getMemVO");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return vo;	
+	}
+	
+	//0327 정태영 : 고유id로 vo를 얻는 메서드
+	public MemberVO getMemVOByUniqueID(String m_uniqueID) {
+		
+		MemberVO vo = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member where m_uniqueID = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_uniqueID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO(	
+									rs.getString("m_uniqueid"),
+									rs.getString("m_nickname"),
+									rs.getString("m_id"), 
+									rs.getString("m_pw"), 
+									rs.getString("m_name"),
+									rs.getString("m_email"),
+									rs.getDate("m_date"),
+									rs.getInt("m_exp"),
+									rs.getInt("m_level")
 									);
 			}
 		} catch(Exception e) {
@@ -502,28 +537,31 @@ public class MemberDAO {
 	}
 	
 	//0324 정태영 : 닉네임을 통해 GradeVO를 받을 수 있는 메서드
-	public GradeVO getGradeVO(String m_nickname) {
-		GradeVO vo = null;
-		try {
-			con = ds.getConnection();
-			String sql = "select * from grade where m_nickname = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, m_nickname);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				vo = new GradeVO(	
-									rs.getInt("m_level"),
-									rs.getString("m_nickname"),
-									rs.getString("m_uniqueid"));
-			}
-		} catch(Exception e) {
-			System.out.println("getMemVO");
-			e.printStackTrace();
-		} finally {
-			closeResource();
-		}
-		return vo;	
-	}
+	//gradevo 삭제해서 안 쓸 거임
+//	public GradeVO getGradeVO(String m_nickname) {
+//		GradeVO vo = null;
+//		try {
+//			con = ds.getConnection();
+//			String sql = "select * from grade where m_nickname = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, m_nickname);
+//			rs = pstmt.executeQuery();
+//			while(rs.next()) {
+//				vo = new GradeVO(	
+//									rs.getInt("m_level"),
+//									rs.getString("m_nickname"),
+//									rs.getString("m_uniqueid"),
+//									rs.getInt("m_exp")
+//						);
+//			}
+//		} catch(Exception e) {
+//			System.out.println("getMemVO");
+//			e.printStackTrace();
+//		} finally {
+//			closeResource();
+//		}
+//		return vo;	
+//	}
 	
 	//0324 정태영 : 닉네임과 경험치 증가량을 매개변수로 받아 해당 닉네임의 사용자의 경험치를 해당 정수만큼 증가시켜 줌
 	public void updateExp(String nickname, int exp) {
@@ -577,6 +615,66 @@ public class MemberDAO {
 			closeResource();
 		}
 		return uniqueID;
+	}
+	
+	public int getUniqueID() {
+		ArrayList list = new ArrayList();
+		int uniqueID = 0;
+		int check = 0;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select m_uniqueid from m_member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(rs.getInt("m_uniqueid"));
+			}
+			
+			while(check == 0) {
+				uniqueID = (int)(Math.random()*9000 + 1000);
+				check++;
+				for(int i = 0; i < list.size(); i++) {
+					int oldID = (int)list.get(i);
+					System.out.println("리스트의 값과 동일한지 확인하는 중입니다. 기존 고유 id : " + oldID + " 새로운 : " + uniqueID);
+					if(uniqueID == oldID) {
+						System.out.println("이미 존재하는 고유id입니다. 새로운 고유 id를 생성합니다.");
+						check = 0;
+					}
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return uniqueID;
+	}
+
+	public String updateLevel(int m_exp, String uniqueID) {
+		int insert_level = 1 + m_exp/100;
+		System.out.println("레벨 : " + insert_level);
+		String level = String.valueOf(insert_level);
+		try {
+			con = ds.getConnection();
+			String sql = "update m_member set m_level = ? where m_uniqueid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, insert_level);
+			pstmt.setString(2, uniqueID);
+			pstmt.executeUpdate();
+			
+			level = String.valueOf(insert_level);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("updateLevel");
+		} finally {
+			closeResource();
+		}
+		
+		return level;
 	}
 
 }
