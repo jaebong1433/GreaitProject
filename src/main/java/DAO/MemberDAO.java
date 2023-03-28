@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import VO.GradeVO;
 import VO.MemberVO;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
@@ -186,8 +185,8 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email) " 
-						+ "values(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_level) " 
+						+ "values(?, ?, ?, ?, ?, ?, 1)";
                          
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getM_uniqueid());
@@ -203,11 +202,11 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 			
 			//0324 정태영 레벨업 시스템을 위해 회원가입시 grade테이블을 생성함.
-			sql = "insert into grade values (1, ?, ?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, vo.getM_nickname());
-			pstmt.setString(2, vo.getM_uniqueid());
-			pstmt.executeUpdate();
+//			sql = "insert into grade values (1, ?, ?)";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, vo.getM_nickname());
+//			pstmt.setString(2, vo.getM_uniqueid());
+//			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			System.out.println("insertMember메소드 내부에서 SQL실행 오류 " + e);
@@ -489,7 +488,8 @@ public class MemberDAO {
 									rs.getString("m_pw"), 
 									rs.getString("m_name"),
 									rs.getString("m_email"),
-									rs.getInt("m_exp")
+									rs.getInt("m_exp"),
+									rs.getInt("m_level")
 									);
 			}
 		} catch(Exception e) {
@@ -522,7 +522,9 @@ public class MemberDAO {
 									rs.getString("m_pw"), 
 									rs.getString("m_name"),
 									rs.getString("m_email"),
-									rs.getInt("m_exp")
+									rs.getDate("m_date"),
+									rs.getInt("m_exp"),
+									rs.getInt("m_level")
 									);
 			}
 		} catch(Exception e) {
@@ -535,30 +537,31 @@ public class MemberDAO {
 	}
 	
 	//0324 정태영 : 닉네임을 통해 GradeVO를 받을 수 있는 메서드
-	public GradeVO getGradeVO(String m_nickname) {
-		GradeVO vo = null;
-		try {
-			con = ds.getConnection();
-			String sql = "select * from grade where m_nickname = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, m_nickname);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				vo = new GradeVO(	
-									rs.getInt("m_level"),
-									rs.getString("m_nickname"),
-									rs.getString("m_uniqueid"),
-									rs.getInt("m_exp")
-						);
-			}
-		} catch(Exception e) {
-			System.out.println("getMemVO");
-			e.printStackTrace();
-		} finally {
-			closeResource();
-		}
-		return vo;	
-	}
+	//gradevo 삭제해서 안 쓸 거임
+//	public GradeVO getGradeVO(String m_nickname) {
+//		GradeVO vo = null;
+//		try {
+//			con = ds.getConnection();
+//			String sql = "select * from grade where m_nickname = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, m_nickname);
+//			rs = pstmt.executeQuery();
+//			while(rs.next()) {
+//				vo = new GradeVO(	
+//									rs.getInt("m_level"),
+//									rs.getString("m_nickname"),
+//									rs.getString("m_uniqueid"),
+//									rs.getInt("m_exp")
+//						);
+//			}
+//		} catch(Exception e) {
+//			System.out.println("getMemVO");
+//			e.printStackTrace();
+//		} finally {
+//			closeResource();
+//		}
+//		return vo;	
+//	}
 	
 	//0324 정태영 : 닉네임과 경험치 증가량을 매개변수로 받아 해당 닉네임의 사용자의 경험치를 해당 정수만큼 증가시켜 줌
 	public void updateExp(String nickname, int exp) {
@@ -614,7 +617,7 @@ public class MemberDAO {
 		return uniqueID;
 	}
 	
-	public int getLevel() {
+	public int getUniqueID() {
 		ArrayList list = new ArrayList();
 		int uniqueID = 0;
 		int check = 0;
@@ -656,7 +659,7 @@ public class MemberDAO {
 		String level = String.valueOf(insert_level);
 		try {
 			con = ds.getConnection();
-			String sql = "update grade set m_level = ? where m_uniqueid = ?";
+			String sql = "update m_member set m_level = ? where m_uniqueid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, insert_level);
 			pstmt.setString(2, uniqueID);
