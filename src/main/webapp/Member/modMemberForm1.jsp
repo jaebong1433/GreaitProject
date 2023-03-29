@@ -192,6 +192,7 @@
     });
 	
  
+ 
  //닉네임 입력시 유효성검사
     $("#m_nickname").focusout(function(){
     	

@@ -21,6 +21,7 @@ import DAO.MemberDAO;
 import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
 import VO.VideoCrawlingVO;
+import VO.YoutubeCrawlingVO;
 //   /Crawling/maincenter.me
 @WebServlet("/Crawling/*")
 public class CrawlingController extends HttpServlet {
@@ -72,14 +73,14 @@ public class CrawlingController extends HttpServlet {
 		
 		//메인화면 요청주소/Crawling/maincenter.me
 		if(action.equals("/maincenter.me")) {
-			
+			//3.27 재봉 수정
 			List<CrawlingVO> mainList = dao.getMainDatas();
 			List<CrawlingVO> mainClipList = dao.getMainClipDatas();
-			List<CrawlingVO> mainPhotoList = dao.getMainPhotoDatas();
+			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
 			
 			request.setAttribute("mainList", mainList);
 			request.setAttribute("mainClipList", mainClipList);
-			request.setAttribute("mainPhotoList", mainPhotoList);
+			request.setAttribute("youtubeList", youtubeList);
 			
 			//------------------------------
 			//3022 정태영 : 메인화면 게시판 기능을 위해 추가하는 기능
@@ -111,6 +112,15 @@ public class CrawlingController extends HttpServlet {
 			request.setAttribute("videoList", videoList);
 			
 			request.setAttribute("center", "/Main/videocenter.jsp");
+			nextPage = "/index.jsp";
+		
+		}else if(action.equals("/youtubecenter.me")) {
+			
+			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
+			
+			request.setAttribute("youtubeList", youtubeList);
+			
+			request.setAttribute("center", "/Main/youtubecenter.jsp");
 			nextPage = "/index.jsp";
 		}
 		

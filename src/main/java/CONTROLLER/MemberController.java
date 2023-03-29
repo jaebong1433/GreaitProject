@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
 
+import org.apache.catalina.tribes.UniqueId;
+
 import DAO.MemberDAO;
-import VO.GradeVO;
 import VO.MemberVO;
 
 @WebServlet("/member1/*") 
@@ -67,6 +68,10 @@ public class MemberController extends HttpServlet {
 			// 요청한 중앙화면  뷰 주소를 저장할 변수 
 			String center = null;
 			
+			HttpSession session = request.getSession();
+			
+			String uniqueID = (String)session.getAttribute("m_uniqueID");
+			
 			//메인화면 요청주소
 			if(action.equals("/main.me")) {
 				
@@ -95,9 +100,9 @@ public class MemberController extends HttpServlet {
 				String m_pw = request.getParameter("m_pw");
 				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
-				int uniqueID = memberdao.getUniqueid();
-				String m_uniqueID = String.valueOf(uniqueID);
-				System.out.println("joinPro.me 고유 아이디 : " + m_uniqueID);
+				int new_uniqueID = memberdao.getUniqueid();
+				String m_uniqueID = String.valueOf(new_uniqueID);
+				System.out.println("joinPro.me 고유 아이디 : " + new_uniqueID);
 				
 				MemberVO vo = new MemberVO(
 											m_uniqueID,
@@ -106,7 +111,8 @@ public class MemberController extends HttpServlet {
 											m_pw,
 											m_name,
 											m_email,
-											0	
+											0,
+											1
 											);
 				
 				
@@ -206,8 +212,6 @@ public class MemberController extends HttpServlet {
 					nickname = memberdao.logName(m_id);
 					memberVO = memberdao.getMemVO(nickname);
 				}
-				//session메모리생성
-				HttpSession session = request.getSession();
 				
 				//session메모리에 입력한 아이디 바인딩(저장)
 				session.setAttribute("m_nickname", nickname);
@@ -222,7 +226,6 @@ public class MemberController extends HttpServlet {
 			//로그아웃 수행	
 			}else if(action.equals("/logoutPro.me")) {//로그아웃 수행
 					//기존에 생성했던 session메모리 얻기
-				HttpSession session = request.getSession();
 				session.invalidate();
 		
 				nextPage = "/Crawling/maincenter.me";
@@ -232,7 +235,6 @@ public class MemberController extends HttpServlet {
 			//로그아웃 실행
 			}else if (action.equals("/logout.me")) {//로그아웃
 					
-				HttpSession session = request.getSession();
 					
 				session.invalidate();
 							
@@ -323,13 +325,10 @@ public class MemberController extends HttpServlet {
 				//요청한 값 얻기
 				String m_nickname = request.getParameter("m_nickname");
 				
-				
-				MemberVO vo = memberdao.findMember(m_nickname);
-				GradeVO gradevo = memberdao.getGradeVO(m_nickname);
+				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
 				
 				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 				request.setAttribute("vo", vo);
-				request.setAttribute("gradevo", gradevo);
 				
 				request.setAttribute("center", "/Member/myPage.jsp");
 				
@@ -445,11 +444,20 @@ public class MemberController extends HttpServlet {
 				}
 				
 				
-			}		
+			}
+			
+			else if(action.equals("/levelUp.me")) {
+				MemberVO membervo = memberdao.getMemVOByUniqueID(uniqueID);
+				String level = memberdao.updateLevel(membervo.getM_exp(), uniqueID);
+				
+				System.out.println("levelUp, 레벨 : " + level);
+				
+				out.print(level);
+				return;
+			}
 		
 			//포워딩 (디스패처 방식)
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
-		
 			dispatch.forward(request, response);
 			}
 	

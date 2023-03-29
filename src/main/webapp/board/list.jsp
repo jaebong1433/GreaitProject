@@ -1,3 +1,5 @@
+<%@page import="VO.MemberVO"%>
+<%@page import="DAO.MemberDAO"%>
 <%@page import="VO.CommunityVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page
@@ -219,7 +221,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							}
 						}
 							
-							
+						//게시판	
 						for(int i=beginPerPage; i<(beginPerPage+numPerPage); i++){
 							
 							//만약 각페이지마다 보여지는 시작글번호가  게시판의 총글의 개수와 같으면 
@@ -228,6 +230,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							}
 							
 								CommunityVO vo = (CommunityVO)list.get(i);
+								MemberDAO memdao = new MemberDAO();
 								
 								String content = vo.getC_content();
 								if(content.length() > 20) {
