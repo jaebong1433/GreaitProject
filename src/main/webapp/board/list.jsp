@@ -231,6 +231,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							
 								CommunityVO vo = (CommunityVO)list.get(i);
 								MemberDAO memdao = new MemberDAO();
+								MemberVO memvo = memdao.getMemVOByUniqueID(vo.getC_uniqueid());
+								
 								
 								String content = vo.getC_content();
 								if(content.length() > 20) {
@@ -265,7 +267,12 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										<%=vo.getC_title()%>
 									</a>
 								</td>
-								<td align="left"><%=vo.getC_nickname()%></td>
+								<c:if test="<%= memvo == null %>">
+									<td align="left"><%=vo.getC_nickname()%></td>
+								</c:if>
+								<c:if test="<%= memvo != null %>">
+									<td align="left">LV. <%= memvo.getM_level() %> <%=vo.getC_nickname()%></td>
+								</c:if>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
 								<td align="left"><%=vo.getC_like()%></td>

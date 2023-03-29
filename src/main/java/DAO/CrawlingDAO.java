@@ -22,21 +22,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
-import VO.InfoCrawlingVO;
+import VO.ClipCrawlingVO;
 import VO.VideoCrawlingVO;
 import VO.YoutubeCrawlingVO;
 
 
 
 public class CrawlingDAO {
-		//3.16 재봉 수정 
+		//3.29 재봉 수정 사용하지않는 링크,메소드삭제
 	  String daumRankUrl = "https://movie.daum.net/ranking/reservation";
-	  String naverCilpUrl = "https://tv.naver.com/navermovie";
-	  String daumPhotoUrl = "https://www.dureraum.org/bcc/board/list.do?rbsIdx=325";
-	  
-		 // 비즈니스로직 : 네이버, 다음 영화정보 크롤링 및 DB에 저장
-	      
-		
+	  	
 	  	public List<CrawlingVO> getMainDatas() throws IOException{
 			  List<CrawlingVO> mainList = new ArrayList<CrawlingVO>();
 			  
@@ -71,48 +66,6 @@ public class CrawlingDAO {
 		      }   
 		      return mainList;
 	      }
-		  	
-		  public List<CrawlingVO> getMainClipDatas() throws IOException{
-			  List<CrawlingVO> mainClipList = new ArrayList<CrawlingVO>();
-			  
-		      Document ClipDoc = Jsoup.connect(naverCilpUrl).get();
-		      Elements clipList = ClipDoc.select("dt.title a");
-		      Elements clipImgSrc = ClipDoc.select("a.cds_thm img");
-		      
-		      for (int i = 0; i < 4; i++) {
-		    	 CrawlingVO vo = new CrawlingVO();
-		         // 영화제목, 포스터이미지
-		    	 String clipTitle = clipList.get(i).text(); // 영화 제목
-		         String clipImg = clipImgSrc.get(i).attr("src"); // 포스터 이미지
-		         
-		         vo.setClipTitle(clipTitle);
-		         vo.setClipImg(clipImg);
-		         
-		         mainClipList.add(vo);
-		      }   
-		      return mainClipList;
-	      } 
-	      
-		  public List<CrawlingVO> getMainPhotoDatas() throws IOException{
-			  List<CrawlingVO> mainPhotoList = new ArrayList<CrawlingVO>();
-			  
-			  // 다음 영화 뉴스 포토 수집
-		      Document PhotoDoc = Jsoup.connect(daumPhotoUrl).get();
-		      Elements photoSrc = PhotoDoc.select("p.pto_img img");
-		      
-		      // 3.16 최신 영화 포토 10개 추출로 수정
-		      for (int i = 0; i < 10; i++) {
-		    	 CrawlingVO vo = new CrawlingVO();
-		         // 포스터이미지
-		    	 String photo = photoSrc.get(i).attr("src"); // 포스터 이미지
-		         
-		    	 vo.setPhoto(photo);
-		         
-		         mainPhotoList.add(vo);
-		      }   
-		      return mainPhotoList;
-	      } 
-		  
 		  
 		  public List<BoxCrawlingVO> getBoxDatas(String menuNo) throws IOException{
 			  String daumUrl = null;
@@ -203,39 +156,37 @@ public class CrawlingDAO {
 				      return youtubeList;
 			      }
 		  
-		  //셀레니움 메소드 추가 3.28
-		  public List<InfoCrawlingVO> getMainInfoDatas() throws Exception{
-			  	WebDriver driver = null;	
-				
-				//Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
+		  //셀레니움 메소드 수정 3.29
+		  public List<ClipCrawlingVO> getMainClipDatas() throws IOException{
+			  	List<ClipCrawlingVO> clipList = new ArrayList<ClipCrawlingVO>();
+			  //Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
 				//Web Driver 압축 해제 경로 입력
-				System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
-				driver = new ChromeDriver();//WebDriver 객체 생성
-				
-				//로드 웹페이지에서 특정 요소를 찾을 때까지 기다리는 시간 설정
-				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-				
-				//페이지로드가 완료 될 때까지 기다리는 시간 설정
-				driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-				
-				//브라우저 창 최대화
-				driver.manage().window().maximize();
-				
-				//웹 자동화 작업을 할 접속 사이트 명시
-				driver.get("https://movie.daum.net/moviedb/contents?movieId=164918");
-		       		
-				//페이지가 로딩될 때까지 기다립니다.
-				//WebDriverWait를 사용하여 player_iframe이 보이기를 기다립니다.
-				WebDriverWait wait = new WebDriverWait(driver, 10);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("playerContainer")));
-				  // iframe 요소의 src 속성값 가져오기
-		        WebElement playerContainer = driver.findElement(By.id("playerContainer"));
-		        WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
-		        String src = iframe.getAttribute("src");
-		        System.out.println("iframe src : " + src);
-				
-		        //브라우저 닫기
-		        driver.close();
+			   System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
+
+			   WebDriver driver = new ChromeDriver();
+		       driver.get("https://movie.daum.net/main");
+		       
+		       WebElement playerContainer = driver.findElement(By.className("player_container"));
+		       WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
+		       
+		       WebElement activeLi = driver.findElement(By.cssSelector("li.idt-161806.active"));
+		       WebElement strongTag = activeLi.findElement(By.tagName("strong"));
+		       WebElement pTag = activeLi.findElement(By.tagName("p"));
+			   
+		       ClipCrawlingVO vo = new ClipCrawlingVO();
+		       
+		       String iframeSrc = iframe.getAttribute("src");
+		       String strongText = strongTag.getText();
+		       String pText = pTag.getText();
+		       
+		       vo.setIframeSrc(iframeSrc);
+		       vo.setpText(pText);
+		       vo.setStrongText(strongText);
+		       
+		       clipList.add(vo);
+		       driver.quit();
+		       
+		       return clipList;
 		  }
 	}
 	

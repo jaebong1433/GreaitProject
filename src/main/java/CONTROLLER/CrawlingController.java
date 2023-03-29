@@ -19,6 +19,7 @@ import DAO.CommunityDAO;
 import DAO.CrawlingDAO;
 import DAO.MemberDAO;
 import VO.BoxCrawlingVO;
+import VO.ClipCrawlingVO;
 import VO.CrawlingVO;
 import VO.VideoCrawlingVO;
 import VO.YoutubeCrawlingVO;
@@ -75,11 +76,11 @@ public class CrawlingController extends HttpServlet {
 		if(action.equals("/maincenter.me")) {
 			//3.27 재봉 수정
 			List<CrawlingVO> mainList = dao.getMainDatas();
-			List<CrawlingVO> mainClipList = dao.getMainClipDatas();
+			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();
 			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
 			
 			request.setAttribute("mainList", mainList);
-			request.setAttribute("mainClipList", mainClipList);
+			request.setAttribute("ClipList", ClipList);
 			request.setAttribute("youtubeList", youtubeList);
 			
 			//------------------------------

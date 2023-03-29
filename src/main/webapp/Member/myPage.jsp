@@ -4,6 +4,7 @@ language="java"
 contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
@@ -121,7 +122,45 @@ pageEncoding="UTF-8"
 					</tr>
 					<tr>
 						<td><p id="level">LV.${ vo.m_level }</p></td>
-						<td><p id="exp">경험치 : ${ vo.m_exp }</p></td>
+						
+						<c:set var="exp" value="${ vo.m_exp - (vo.m_level - 1) * 100 }" />
+						<c:set var="exp_space" value="${ 100 - exp }" />
+						
+						<c:if test="${ exp < 0 }">
+							<c:set var="exp" value="${ 0 }" />
+						</c:if>
+						<c:if test="${ exp_space < 0 }">
+							<c:set var="exp_space" value="${ 0 }" />
+						</c:if>
+						<td>
+							<p id="exp">경험치 : ${ exp } / 100	<input type="button" value="레벨업" onClick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>'); return false;">
+							 </p>
+							<div>
+								<table>
+									<tr>
+										<c:set var="loop" value="false"/>
+										<c:forEach var="i" begin="1" end="${ exp }">
+											<c:if test="${ !loop }">
+												<td width="4px" bgcolor="yellow"><p></p></td>
+												<c:if test="${ i > 100 }">
+													<c:set var="loop" value="true"/>
+												</c:if>
+											</c:if>
+										</c:forEach>
+										<c:set var="loop" value="false"/>
+										<c:forEach var="i" begin="1" end="${ exp_space }">
+											<c:if test="${ !loop }">
+												<td width="4px"><p></p></td>
+												<c:if test="${ i > 100 }">
+													<c:set var="loop" value="true"/>
+												</c:if>
+											</c:if>
+										</c:forEach>
+										
+									</tr>
+								</table>
+							</div>
+						</td>
 					</tr>
 				</table>
 				
@@ -140,7 +179,8 @@ pageEncoding="UTF-8"
 					</tr>
 				</table>
 				<div class="btnbtn">
-					<input type="button" value="회원수정" onClick="check(); return false;">
+					<input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;">
+					<input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;">
 				</div>
 				
 			</div>
@@ -149,9 +189,6 @@ pageEncoding="UTF-8"
 	</form>	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
-    	function check(){
-    		$(".form").submit();
-    	}
     	
     	function levelUp(nickname, exp){
 //     		alert(nickname + ", " + exp);

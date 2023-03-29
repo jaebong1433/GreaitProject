@@ -1,8 +1,14 @@
+<%@page import="DAO.MemberDAO"%>
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 	String contextPath = request.getContextPath();
+
+	String uniqueID = (String)session.getAttribute("m_uniqueID");
+	MemberDAO memdao = new MemberDAO();
+	MemberVO memvo = memdao.getMemVOByUniqueID(uniqueID);
 %>
 	
 	
@@ -171,7 +177,7 @@
     	
     %>	
     	<div class="logsetf">	
-    		Lv. 1
+    		Lv. <%= memvo.getM_level() %>
     		<b><%=m_nickname%></b>님<br>
 			<a href="#">[랭킹확인]</a><br>
 		<table>	

@@ -85,6 +85,11 @@ pageEncoding="UTF-8"
 		border : none;
 		background-color : white;
 	}
+	
+	a{
+		color: black;
+		text-decoration: none;
+	}
 		</style>
 		
 	</head>
@@ -131,7 +136,8 @@ pageEncoding="UTF-8"
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
 				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 			</form>
-			<% if (loginNick.equals("admin")){%>
+			<% if (loginNick != null){%>
+			<%if (loginNick.equals("admin")){ %>
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
@@ -141,7 +147,9 @@ pageEncoding="UTF-8"
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
             </div>
-			<%}else if(!c_uniqueid.equals(viewId) ){%>	
+            	
+			<%}
+			}else if(!c_uniqueid.equals(viewId) ){%>	
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
