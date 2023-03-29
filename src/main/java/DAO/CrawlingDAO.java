@@ -2,6 +2,7 @@ package DAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
+import VO.InfoCrawlingVO;
 import VO.VideoCrawlingVO;
 import VO.YoutubeCrawlingVO;
 
@@ -195,7 +203,40 @@ public class CrawlingDAO {
 				      return youtubeList;
 			      }
 		  
-	
+		  //셀레니움 메소드 추가 3.28
+		  public List<InfoCrawlingVO> getMainInfoDatas() throws Exception{
+			  	WebDriver driver = null;	
+				
+				//Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
+				//Web Driver 압축 해제 경로 입력
+				System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
+				driver = new ChromeDriver();//WebDriver 객체 생성
+				
+				//로드 웹페이지에서 특정 요소를 찾을 때까지 기다리는 시간 설정
+				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+				
+				//페이지로드가 완료 될 때까지 기다리는 시간 설정
+				driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+				
+				//브라우저 창 최대화
+				driver.manage().window().maximize();
+				
+				//웹 자동화 작업을 할 접속 사이트 명시
+				driver.get("https://movie.daum.net/moviedb/contents?movieId=164918");
+		       		
+				//페이지가 로딩될 때까지 기다립니다.
+				//WebDriverWait를 사용하여 player_iframe이 보이기를 기다립니다.
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("playerContainer")));
+				  // iframe 요소의 src 속성값 가져오기
+		        WebElement playerContainer = driver.findElement(By.id("playerContainer"));
+		        WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
+		        String src = iframe.getAttribute("src");
+		        System.out.println("iframe src : " + src);
+				
+		        //브라우저 닫기
+		        driver.close();
+		  }
 	}
 	
 
