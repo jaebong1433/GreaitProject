@@ -15,20 +15,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <link rel="stylesheet" type="text/css" href="/MVCBoard/style.css"/>
+<script type="text/javascript" src="<%=contextPath %>/ckeditor/ckeditor.js"></script>
 <title>Insert title here</title>
+
+	<style type="text/css">
+		
+		a{
+			text-decoration: none;
+			color: black;
+		}
+		
+		.textin{
+			height: 30px;
+		}
+		
+	</style>
 </head>
 <body>
 <center>
 <table width="90%" border="0" cellspacing="0" cellpadding="0">
   <tr height="40"> 
     <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
-    	<img src="<%=contextPath%>/board/images/board02.gif" width="150" height="30">
+    	<h2>글쓰기</h2>
     </td>
     <td width="57%">&nbsp;</td>
     <td width="2%">&nbsp;</td>
   </tr>
   <tr> 
-    <td colspan="3"><div align="center"><img src="<%=contextPath%>/board/images/line_870.gif" width="870" height="4"></div></td>
+    <td colspan="3"><div align="center">
+    <hr>
+    </div></td>
   </tr>
   <tr> 
     <td colspan="3"><div align="center"> 
@@ -41,46 +57,50 @@
             <div align="center"> 
                 <table width="100%" height="373" border="0" cellpadding="0" cellspacing="1" class="border1">
                   <tr> 
-                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
+                    <td width="13%" height="40"  class="text2">
                     	<div align="center">작 성 자</div>
                     </td>
-                    <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
+                    <td width="34%"  style="text-align: left">
                     	
                     <%	if(loginNick == null){//로그인 하지 않았을경우
                     	 %>
-                    	<input type="text" name="writer" size="20" class="text2" />
+                    	<input type="text" name="writer" size="20" class="textin"/>
                     <%}else{ %>
-                    	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
+                    	<input type="text" name="writer" size="20" class="textin" value="<%=loginNick%>" readonly />
                     <%} %>
                     <!-- 0321 정태영: 관리자의 경우 공지글을 작성할 수 있는 체크박스 추가 -->
                     <c:if test="${ loginNick == 'admin' }">
-                   		&nbsp;공지글로 쓰기<input type="checkbox" name="noticeCheck" id="noticeCheck">
+                   		&nbsp;<input type="checkbox" name="noticeCheck" id="noticeCheck">공지글로 쓰기
                     </c:if>
                     </td>
-                    </tr>
-                    <tr>
-                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
+                    <td width="13%" height="40" class="text2">
                     	<div align="center">글 비밀번호</div>
                     </td>
-                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="password" name="password" size="20"/>
+                     <td width="34%" style="text-align: left">
+                    	<input type="password" name="password" class="textin" size="20"/>
                     </td>
                    </tr>
                              
                   <tr> 
-                    <td height="31" bgcolor="#e4e4e4" class="text2">
+                    <td height="40" class="text2">
                     	<div align="center">제&nbsp;&nbsp;&nbsp;목</div>
                     </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="text" name="title" size="70" id="title_"/>
+                    <td colspan="3" style="text-align: left">
+                    	<input type="text" name="title" size="70" class="textin" id="title_"/>
                     </td>
                   </tr>
                   <tr> 
-                    <td bgcolor="#e4e4e4" class="text2">
+                    <td class="text2">
                     	<div align="center">내 &nbsp;&nbsp; 용</div>
                     </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<textarea name="content" rows="15" cols="100"></textarea>
+                    <td colspan="3" style="text-align: left">
+                    	<textarea name="content" rows="20" cols="110" id="p_content"></textarea>
+                    	<script type="text/javascript">
+						 	CKEDITOR.replace('p_content'
+						                , {height: 500                                                  
+						                 });
+						</script>
+                    	
                     	<p id="resultInput"></p>
                     </td>
                   </tr>
@@ -113,12 +133,13 @@
         </table>
       </div></td>
   </tr>
-</table>
+</table><br><br>
 </form>
 </center>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 	<script type="text/javascript">
+	
 		
 		$("#list").click(function(event) {
 			event.preventDefault();

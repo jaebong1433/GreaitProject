@@ -387,7 +387,9 @@ public class CommunityController extends HttpServlet {
 			request.setAttribute("nowPage", request.getParameter("nowPage"));
 			request.setAttribute("nowBlock", request.getParameter("nowBlock"));
 			
-			nextPage = "/board/write.jsp";
+			
+			
+			nextPage = "/index.jsp";
 
 		}
 		//0325

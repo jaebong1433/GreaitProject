@@ -40,20 +40,7 @@ YoutubeCrawlingVO vo = null;
 	height: 350px;
 	text-align: center;
 	margin: auto;
-}
-
-.centertb2 {
-	width: 98%;
-	text-align: center;
-	height: 400px;
-	margin: auto;
-}
-
-.centertb3 {
-	width: 98%;
-	text-align: center;
-	margin-top: 20px;
-	height: 400px;
+	float: center;
 }
 
 a {
@@ -66,17 +53,34 @@ hr {
 	border: 1.5px gray solid;
 }
 
-.fonttb {
-	font-size: 0.8em;
-	text-align: left;
+.testtest{
+	text-align: center;
+	height: 250px;
 }
+
+.test{
+	height:50px;
+	text-align: left;
+	width: 200px;
+}
+
+
+.teste{
+	margin: auto;
+	float: center;
+}
+
+.imgbor{
+	border-radius: 15px;
+}
+
+
 </style>
 
 </head>
 <body>
 	<center>
-
-		<div>
+		<div class="container">
 			<br>
 			<h2>관련영상</h2>
 			<hr>
@@ -92,19 +96,25 @@ hr {
 								}
 						%>
 						
-						<td>
-						<div>
+						<td  class="testtest">
+							<table class="teste">
+							<tr><td height="140px">
+							<div class="imgbor">
+								<a href="<%=vo.getHref()%>">
+									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
+								</a>
+							</div>
+							</td></tr>
+							<tr><td class="test">
 							<a href="<%=vo.getHref()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+								<%=title%>
 							</a>
-						</div>
-					
-						<a href="<%=vo.getHref()%>">
-							<strong><%=title%></strong><br>
-						</a>
+							</td></tr>
+							</table>
 						</td>
 						<%} %>
 					</tr>
+					
 					<tr>
 						<%
 							for(int i=5; i<10; i++){
@@ -116,16 +126,21 @@ hr {
 								}
 						%>
 						
-						<td>
-						<div>
+						<td  class="testtest">
+							<table class="teste">
+							<tr><td height="140px">
+							<div class="imgbor">
+								<a href="<%=vo.getHref()%>">
+									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
+								</a>
+							</div>
+							</td></tr>
+							<tr><td class="test">
 							<a href="<%=vo.getHref()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+								<%=title%>
 							</a>
-						</div>
-					
-						<a href="<%=vo.getHref()%>">
-							<strong><%=title%></strong><br>
-						</a>
+							</td></tr>
+							</table>
 						</td>
 						<%} %>
 					</tr>
@@ -140,69 +155,84 @@ hr {
 								}
 						%>
 						
-						<td>
-						<div>
+						<td  class="testtest">
+							<table class="teste">
+							<tr><td height="140px">
+							<div class="imgbor">
+								<a href="<%=vo.getHref()%>">
+									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
+								</a>
+							</div>
+							</td></tr>
+							<tr><td class="test">
 							<a href="<%=vo.getHref()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+								<%=title%>
 							</a>
-						</div>
-					
-						<a href="<%=vo.getHref()%>">
-							<strong><%=title%></strong><br>
-						</a>
+							</td></tr>
+							</table>
 						</td>
-					
-					<%} %>
+						<%} %>
 					</tr>
 					<tr>
-					
-						
 						<%
 							for(int i=15; i<20; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
+								
 								String title = vo.getTitle();
 								if(title.length() > 25) {
 									title = title.substring(0, 25) + "...";
 								}
 						%>
 						
-						<td>
-						<div>
+						<td  class="testtest">
+							<table class="teste">
+							<tr><td height="140px">
+							<div class="imgbor">
+								<a href="<%=vo.getHref()%>">
+									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
+								</a>
+							</div>
+							</td></tr>
+							<tr><td class="test">
 							<a href="<%=vo.getHref()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+								<%=title%>
 							</a>
-						</div>
-					
-						<a href="<%=vo.getHref()%>">
-							<strong><%=title%></strong><br>
-						</a>
+							</td></tr>
+							</table>
 						</td>
 						<%} %>
 					</tr>
 					<tr>
-						
 						<%
 							for(int i=20; i<25; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
+								
 								String title = vo.getTitle();
 								if(title.length() > 25) {
 									title = title.substring(0, 25) + "...";
 								}
 						%>
 						
-						<td>
-						<div>
+						<td  class="testtest">
+							<table class="teste">
+							<tr><td height="140px">
+							<div class="imgbor">
+								<a href="<%=vo.getHref()%>">
+									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
+								</a>
+							</div>
+							</td></tr>
+							<tr><td class="test">
 							<a href="<%=vo.getHref()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+								<%=title%>
 							</a>
-						</div>
-					
-						<a href="<%=vo.getHref()%>">
-							<strong><%=title%></strong><br>
-						</a>
+							</td></tr>
+							</table>
 						</td>
 						<%} %>
-					</tr>	
+					</tr>
+					
+					
 				</table>
 				<br>
 				<br>

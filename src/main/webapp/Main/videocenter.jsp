@@ -168,6 +168,28 @@ String kakao = "https://tv.kakao.com";
 						</td>
 						<%} %>
 					</tr>
+					<tr>
+						<%
+							for(int i=16; i<20; i++){
+								vo = (VideoCrawlingVO) list.get(i);
+						%>
+						
+						<!-- 스즈메의 문단속 -->
+						<td class="videotab">
+						<div class="videoimg">
+							<a href="<%=kakao %><%=vo.getSrc()%>">
+								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
+							</a>
+						</div>
+						<div class="videotext">
+						<a href="<%=kakao %><%=vo.getSrc()%>">
+							<strong><%=vo.getTitle()%></strong><br>
+						</a>
+						<p><%=vo.getPlayCnt() %></p>
+						</div>
+						</td>
+						<%} %>
+					</tr>
 				</table>
 				<br>
 				<br>

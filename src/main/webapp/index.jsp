@@ -46,6 +46,7 @@
 				margin-left: 50px;
 				text-align : left;
 				position: fixed;
+				border-radius: 15px;
 			}
 			.maintext{
 				width : 79%;
