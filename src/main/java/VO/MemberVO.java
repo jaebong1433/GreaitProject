@@ -27,8 +27,12 @@ public class MemberVO {
 		this.m_exp = m_exp;
 		this.m_level = m_level;
 	}
+	
 
 
+
+
+	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
 			int m_exp, int m_level) {
 		super();
 		this.m_uniqueid = m_uniqueid;

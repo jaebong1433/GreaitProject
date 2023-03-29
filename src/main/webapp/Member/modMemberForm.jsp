@@ -1,14 +1,14 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
     <%
     
     String contextPath = request.getContextPath();
     
     String loginNick = (String)session.getAttribute("m_nickname");
-    
     %>
+    
     <style>
     	.findtb{
     		text-align: center;
@@ -56,9 +56,20 @@
 	<a href="<%= contextPath%>/member1/main.me">
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
 	</a>
-	
-		<h2>회원정보 수정</h2>
-		<form class="form-signin" action="<%=contextPath%>/member1/mypageUpdate1.me" id="modMemberForm" method="post">
+		
+		<c:if test="${ purpose eq 'update' }">
+			<h2>회원정보 수정</h2>
+		</c:if>
+		<c:if test="${ purpose != 'update' }">
+			<h2>회원 탈퇴</h2>
+		</c:if>
+		
+		<c:if test="${ purpose eq 'update' }">
+			<form class="form-signin" action="<%=contextPath%>/member1/mypageUpdate1.me" id="modMemberForm" method="post">
+		</c:if>
+		<c:if test="${ purpose != 'update' }">
+			<form class="form-signin" action="<%=contextPath%>/member1/withdrawal1.me" id="modMemberForm" method="post">
+		</c:if>
 		<table class="findtb">
 			<tr>
 				<td>
@@ -71,7 +82,12 @@
 			</tr>
 		</table>
 		<br><br>
-		<input class="findbt" type="button" value="회원정보 수정" onclick="submit();">
+		<c:if test="${ purpose eq 'update' }">
+			<input class="findbt" type="button" value="회원정보 수정" onclick="submit();">
+		</c:if>
+		<c:if test="${ purpose != 'update' }">
+			<input class="findbt" type="button" value="회원 탈퇴" onclick="submit();">
+		</c:if>
 		<input class="findbt" type="button" value="취소" onClick="history.back();">
 		</form>
 		</div>

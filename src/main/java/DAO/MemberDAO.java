@@ -676,6 +676,27 @@ public class MemberDAO {
 		
 		return level;
 	}
+	
+	//0329 정태영 : 회원탈퇴 실행 눌렀을 때 기능
+	public int withdrawalPro(String uniqueID) {
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			String sql = "delete from m_member where m_uniqueid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uniqueID);
+			result = pstmt.executeUpdate();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("withdrawalPro");
+		} finally {
+			closeResource();
+		}
+		
+		return result;
+	}
 
 }
 

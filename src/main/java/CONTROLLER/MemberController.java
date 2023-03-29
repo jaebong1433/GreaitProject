@@ -340,19 +340,49 @@ public class MemberController extends HttpServlet {
 			}else if (action.equals("/mypageUpdate.me")) {
 				
 				request.setAttribute("center", "/Member/modMemberForm.jsp");
-				
+				request.setAttribute("purpose", "update");
 				
 				nextPage = "/index.jsp";
 				
+			}
 			
+			//0329 정태영 : 마이페이지에서 회원탈퇴 버튼 눌렀을 때
+			else if (action.equals("/withdrawal.me")) {
+				
+				request.setAttribute("center", "/Member/modMemberForm.jsp");
+				request.setAttribute("purpose", "withdrawal");
+				
+				nextPage = "/index.jsp";
+				
+			}
+			//0329 정태영 : 회원탈퇴 실행
+			else if (action.equals("/withdrawal1.me")) {
+				
+				int result = memberdao.withdrawalPro(uniqueID);
+				String contextPath = request.getContextPath();
+				
+				if(result == 1) {
+					out.println("<script>");
+					out.println(" window.alert('회원 탈퇴에 성공했습니다.');");
+					session.invalidate();
+					out.println(" location.href='"+contextPath+"/Crawling/maincenter.me' ");
+					out.println("</script>");
+				} else {
+					out.println("<script>");
+					out.println(" window.alert('회원 탈퇴에 실패했습니다.');");
+					out.println(" history.go(-1);");
+					out.println("</script>");
+				}
+				
+				return;
+			}
 				
 			//회원 정보수정을 위한 회원 확인 비밀번호인증
-			}else if (action.equals("/mypageUpdate1.me")) {
+			else if (action.equals("/mypageUpdate1.me")) {
 				
-				String m_nickname = request.getParameter("m_nickname");
 				String m_pw = request.getParameter("m_pw");
 				
-				MemberVO vo = memberdao.getMemVO(m_nickname);
+				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
 				String loginPw = vo.getM_pw();
 				System.out.println(m_pw);
 				System.out.println(loginPw);
@@ -363,8 +393,6 @@ public class MemberController extends HttpServlet {
 					nextPage = "/Member/modMemberForm1.jsp";
 					
 				}else {
-					
-					
 					out.println("<script>");
 					out.println(" window.alert('비밀번호가 틀립니다 다시 입력해주세요');");
 					out.println(" history.go(-1);");
