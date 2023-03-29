@@ -16,6 +16,7 @@ import org.jsoup.select.Elements;
 import VO.BoxCrawlingVO;
 import VO.CrawlingVO;
 import VO.VideoCrawlingVO;
+import VO.YoutubeCrawlingVO;
 
 
 
@@ -23,7 +24,8 @@ public class CrawlingDAO {
 		//3.16 재봉 수정 
 	  String daumRankUrl = "https://movie.daum.net/ranking/reservation";
 	  String naverCilpUrl = "https://tv.naver.com/navermovie";
-	  String daumPhotoUrl = "https://www.dureraum.org/bcc/board/list.do?rbsIdx=325";	 
+	  String daumPhotoUrl = "https://www.dureraum.org/bcc/board/list.do?rbsIdx=325";
+	  
 		 // 비즈니스로직 : 네이버, 다음 영화정보 크롤링 및 DB에 저장
 	      
 		
@@ -164,6 +166,36 @@ public class CrawlingDAO {
 						 }   
 				      return videoList;
 			      }
+		  
+		//3.27 재봉 유튜브메소드 추가
+		  public List<YoutubeCrawlingVO> getYoutubeDatas() throws IOException{
+			  
+			  			List<YoutubeCrawlingVO> youtubeList = new ArrayList<YoutubeCrawlingVO>();
+			  			String youtubeUrl = null;
+			  					
+	  					for(int p=1; p<4; p++) {
+	  						youtubeUrl = "https://search.daum.net/search?w=vclip&enc=utf8&q=%EC%98%81%ED%99%94&sort=accuracy&period=w&sd=20230317172015&ed=20230324172015&play_time_ge=600&DA=STC&cp=youtube-video&p="+p+"&display=thumb";
+	  					
+			  			Document youtubeDoc = Jsoup.connect(youtubeUrl).get();
+
+			  			Elements youtubeImg = youtubeDoc.select("div.wrap_thumb img");
+			  			Elements youtubeA = youtubeDoc.select("div.wrap_thumb a");
+			  			Elements youtubeTitle = youtubeDoc.select("div.wrap_tit a");
+						for (int i = 0; i < 12; i++) {
+							YoutubeCrawlingVO vo = new YoutubeCrawlingVO();
+							String imgSrc = youtubeImg.get(i).attr("src");
+							String href = youtubeA.get(i).attr("href");
+							String title = youtubeTitle.get(i).text();
+				    	 vo.setImgSrc(imgSrc);
+				         vo.setTitle(title);
+				         vo.setHref(href);
+				         youtubeList.add(vo);
+						 } 
+	  					}
+				      return youtubeList;
+			      }
+		  
+	
 	}
 	
 

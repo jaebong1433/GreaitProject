@@ -7,6 +7,7 @@ public class MemberVO {
 	private String m_uniqueid ,m_nickname, m_id, m_pw, m_name, m_email;
 	private Date m_date;
 	private int m_exp;
+	private int m_level;
 	
 	public MemberVO() {
 	}
@@ -14,20 +15,8 @@ public class MemberVO {
 	
 
 	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
-			int m_exp) {
-		this.m_uniqueid = m_uniqueid;
-		this.m_nickname = m_nickname;
-		this.m_id = m_id;
-		this.m_pw = m_pw;
-		this.m_name = m_name;
-		this.m_email = m_email;
-		this.m_exp = m_exp;
-	}
-
-
-
-	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
-			Date m_date, int m_exp) {
+			Date m_date, int m_exp, int m_level) {
+		super();
 		this.m_uniqueid = m_uniqueid;
 		this.m_nickname = m_nickname;
 		this.m_id = m_id;
@@ -36,6 +25,20 @@ public class MemberVO {
 		this.m_email = m_email;
 		this.m_date = m_date;
 		this.m_exp = m_exp;
+		this.m_level = m_level;
+	}
+
+
+			int m_exp, int m_level) {
+		super();
+		this.m_uniqueid = m_uniqueid;
+		this.m_nickname = m_nickname;
+		this.m_id = m_id;
+		this.m_pw = m_pw;
+		this.m_name = m_name;
+		this.m_email = m_email;
+		this.m_exp = m_exp;
+		this.m_level = m_level;
 	}
 
 
@@ -102,6 +105,18 @@ public class MemberVO {
 
 	public void setM_uniqueid(String m_uniqueid) {
 		this.m_uniqueid = m_uniqueid;
+	}
+
+
+
+	public int getM_level() {
+		return m_level;
+	}
+
+
+
+	public void setM_level(int m_level) {
+		this.m_level = m_level;
 	}
 	
 	
