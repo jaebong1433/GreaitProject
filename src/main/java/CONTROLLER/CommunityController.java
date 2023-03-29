@@ -102,6 +102,7 @@ public class CommunityController extends HttpServlet {
 		if(uniqueID == null) {
 			System.out.println("세션값에 저장된 고유 아이디가 없으므로 ip주소를 대입합니다.");
 			uniqueID = ip;
+			session.setAttribute("m_uniqueID",uniqueID);
 		}
 		System.out.println("고유 아이디 : " + uniqueID);
 		System.out.println("ip 주소 : " + ip);

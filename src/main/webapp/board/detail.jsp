@@ -1,6 +1,7 @@
 <%@page import="VO.BoardLikeVO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="VO.CommunityVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page
 language="java" 
 contentType="text/html; charset=UTF-8"
@@ -15,17 +16,17 @@ pageEncoding="UTF-8"
 	String writer = vo.getC_nickname();
 	String content = vo.getC_content();
 	Date writeDate = vo.getC_date();
+	String c_uniqueid = vo.getC_uniqueid();
 	int views = vo.getC_views();
 	int like = vo.getC_like();
-	
 	String nowPage = (String)request.getAttribute("nowPage");
 	String nowBlock = (String)request.getAttribute("nowBlock");
 	String c_idx = (String)request.getAttribute("c_idx");
-  	String loginNick = (String)session.getAttribute("nickname");
-  
+  	String loginNick = (String)session.getAttribute("m_nickname");
+  	String viewId = (String)session.getAttribute("m_uniqueID");
 	BoardLikeVO boardLikeVO = (BoardLikeVO)request.getAttribute("boardLikeVO");
 	String check;
-	
+	System.out.println("세션값 : "+loginNick);
 	if(boardLikeVO == null) {
 		check = "no";
 	} else {
@@ -130,13 +131,39 @@ pageEncoding="UTF-8"
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
 				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 			</form>
+			<% if (loginNick.equals("admin")){%>
+			<!-- 목록버튼 03/20 허상호 -->
+			<div align="center">
+            	<a href="" id="list">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+            	<a href="" id="delete">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+            </div>
+			<%}else if(!c_uniqueid.equals(viewId) ){%>	
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
             </div>
-		
+			<%}else{%>
+			<!-- 목록버튼 03/20 허상호 -->
+			<div align="center">
+            	<a href="" id="list">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+           
+            	<a href="" id="mod">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+          
+            	<a href="" id="delete">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+            </div>
+			<%} %>
 		</div>
 	</center>
 		<script type="text/javascript">
@@ -196,7 +223,10 @@ pageEncoding="UTF-8"
 					return;
 				}
 			});
-			
+			$("#mod").click(function(event) {
+				event.preventDefault();
+				location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			})
 			
 		</script>
 	</body>
