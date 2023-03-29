@@ -166,11 +166,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							<tr align="center" bgcolor="#D0D0D0" height="40px">
 								<td align="left" width="10%">번호</td>
 								<td align="left" width="40%">제목</td>
-								<td align="left" width="10%">내용</td>
 								<td align="left" width="20%">작성자</td>
-								<td align="left" width="10%">작성일</td>
-								<td align="left" width="5%">조회수</td>
-								<td align="left" width="5%">추천</td>
+								<td align="left" width="15%">작성일</td>
+								<td align="left" width="7.5%">조회수</td>
+								<td align="left" width="7.5%">추천</td>
 							</tr>	
 				<%
 					//게시판 board테이블에서 조회된 글이 없다면?
@@ -206,14 +205,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								%>		
 									<%--글제목 나타내는 곳 --%>
 									<a href="javascript:noticeRead('<%=vo.getC_idx()%>')">
-										<%=vo.getC_title()%>
+										<b>[공지사항]&nbsp;<%=vo.getC_title()%> </b>
 									</a>
 								</td>
-								<td align="left">
-									<a href="javascript:noticeRead('<%=vo.getC_idx()%>')">
-										<%= content %>
-									</a>
-								</td>
+								
 								<td align="left">
 									<img width="20%" alt="프로필 사진" src="<%= contextPath %>/board/images/profile.png">
 									<%=vo.getC_nickname()%>
@@ -270,11 +265,6 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										<%=vo.getC_title()%>
 									</a>
 								</td>
-								<td align="left">
-									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
-										<%= content %>
-									</a>
-								</td>
 								<td align="left"><%=vo.getC_nickname()%></td>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
@@ -318,7 +308,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	            	<%-- 새글쓰기 버튼이미지 --%>
 		            <td width="38%" style="text-align: left"> 
 		             	<input type="image" 
-		             		   src="<%=contextPath%>/board/images/write.gif" 
+		             		   src="<%=contextPath%>/eq/img/newwrite.png" width="100px"
 		             		   onclick="location.href='<%=contextPath%>/com/write.bo?nowBlock=<%=nowBlock%>&nowPage=<%=nowPage%>'"/>
 		        	</td>
 		        </tr>

@@ -32,41 +32,43 @@ String kakao = "https://tv.kakao.com";
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 
 <style type="text/css">
-.centertb1 {
-	width: 98%;
-	height: 350px;
-	text-align: center;
-	margin: auto;
-}
-
-.centertb2 {
-	width: 98%;
-	text-align: center;
-	height: 400px;
-	margin: auto;
-}
-
-.centertb3 {
-	width: 98%;
-	text-align: center;
-	margin-top: 20px;
-	height: 400px;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-hr {
-	width: 90%;
-	border: 1.5px gray solid;
-}
-
-.fonttb {
-	font-size: 0.8em;
-	text-align: left;
-}
+	
+	.test{
+		text-align: center;
+		width : 90%;
+	}
+	
+	.videotab{
+		width : 20%;
+		height : 250px;
+		border : 1px pink solid;
+	}
+	
+	.videoimg{
+		height : 170px;
+		width : 100%;
+		margin : auto;
+	}
+	
+	.videotext{
+		height : 80px;
+		width : 100%;
+	}
+	
+	.videotext a{
+		text-decoration: none;
+		color : black;
+	}
+	
+	.realimg{
+		width : 230px;
+		margin : 20px 0 0 0;
+	}
+	
+	a{
+		text-decoration: none;
+	}
+	
 </style>
 
 </head>
@@ -77,91 +79,95 @@ hr {
 			<br>
 			<h2>예고편</h2>
 			<hr>
-				<table class="centertb1">
+				<table class="test">
 					<tr>
 						<%
-							for(int i=0; i<5; i++){
+							for(int i=0; i<4; i++){
 								vo = (VideoCrawlingVO) list.get(i);
 						%>
 						
 						<!-- 스즈메의 문단속 -->
-						<td>
-						<div>
+						<td class="videotab">
+						<div class="videoimg">
 							<a href="<%=kakao %><%=vo.getSrc()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="250px" height="180px" /><br>
+								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
-					
+						<div class="videotext">
 						<a href="<%=kakao %><%=vo.getSrc()%>">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
+						</div>
 						</td>
 						<%} %>
 					</tr>
 					<tr>
 						<%
-							for(int i=5; i<10; i++){
+							for(int i=4; i<8; i++){
 								vo = (VideoCrawlingVO) list.get(i);
 						%>
 						
 						<!-- 스즈메의 문단속 -->
-						<td>
-						<div>
+						<td class="videotab">
+						<div class="videoimg">
 							<a href="<%=kakao %><%=vo.getSrc()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="250px" height="180px" /><br>
+								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
-					
+						<div class="videotext">
 						<a href="<%=kakao %><%=vo.getSrc()%>">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
+						</div>
 						</td>
 						<%} %>
 					</tr>
 					<tr>
 						<%
-							for(int i=10; i<15; i++){
+							for(int i=8; i<12; i++){
 								vo = (VideoCrawlingVO) list.get(i);
 						%>
 						
 						<!-- 스즈메의 문단속 -->
-						<td>
-						<div>
+						<td class="videotab">
+						<div class="videoimg">
 							<a href="<%=kakao %><%=vo.getSrc()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="250px" height="180px" /><br>
+								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
-					
+						<div class="videotext">
 						<a href="<%=kakao %><%=vo.getSrc()%>">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
+						</div>
 						</td>
 						<%} %>
 					</tr>
 					<tr>
 						<%
-							for(int i=15; i<20; i++){
+							for(int i=12; i<16; i++){
 								vo = (VideoCrawlingVO) list.get(i);
 						%>
 						
 						<!-- 스즈메의 문단속 -->
-						<td>
-						<div>
+						<td class="videotab">
+						<div class="videoimg">
 							<a href="<%=kakao %><%=vo.getSrc()%>">
-								<img src="<%=vo.getImgSrc()%>" alt="" width="250px" height="180px" /><br>
+								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
-					
+						<div class="videotext">
 						<a href="<%=kakao %><%=vo.getSrc()%>">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
+						</div>
 						</td>
 						<%} %>
-					</tr>	
+					</tr>
 				</table>
 				<br>
 				<br>

@@ -270,17 +270,17 @@
     		<hr>
     		<table>
     			<tr>
-    				<td><a href="http://www.cgv.co.kr/ticket/">
+    				<td><a href="http://www.cgv.co.kr/ticket/"  target="_blank">
     				<button class="ticbt1">
     					<img src="<%=contextPath%>/eq/img/cgv.png" width="90%">
     				</button>
     				</a></td>
-    				<td><a href="https://megabox.co.kr/booking">
+    				<td><a href="https://megabox.co.kr/booking" target="_blank">
     				<button class="ticbt2">
     					<img src="<%=contextPath%>/eq/img/megabox.png" width="90%">
     				</button>
     				</a></td>
-    				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing">
+    				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" target="_blank">
     				<button class="ticbt3">
     					<img src="<%=contextPath%>/eq/img/lotte.png" width="90%">
     				</button>

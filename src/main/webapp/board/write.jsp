@@ -18,7 +18,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<center>
 <table width="90%" border="0" cellspacing="0" cellpadding="0">
   <tr height="40"> 
     <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
@@ -96,7 +96,7 @@
             <!-- 등록 버튼 -->
             <div align="right">
             	<a href="" id="registration1">
-            		<img src="<%=contextPath%>/board/images/confirm.gif" border="0"/>
+            		<img src="<%=contextPath%>/eq/img/okwrite.png" width="100px" border="0"/>
            		</a>
             </div>
             </td>
@@ -104,7 +104,7 @@
             <!-- 목록보기 -->
             <div align="center">
             	<a href="" id="list">
-            		<img src="<%=contextPath%>/board/images/list.gif" border="0"/>
+            		<img src="<%=contextPath%>/eq/img/listgo.png" width="100px" border="0"/>
             	</a>
             </div>
             </td>
@@ -115,6 +115,7 @@
   </tr>
 </table>
 </form>
+</center>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 	<script type="text/javascript">
