@@ -64,7 +64,7 @@
 				닉네임
 			</td><td width="300px">	
 			
-				<input type="text" placeholder="아이디로 가입할 닉네임을 적어주세요."
+				<input type="text" placeholder="닉네임을 적어주세요."
 							   id="m_nickname" name="m_nickname">
 				 <p id = "nicknameInput" />
 				
@@ -76,7 +76,7 @@
 			<td>
 				ID
 				</td><td>
-					<input type="text" placeholder="아이디로 가입할 아이디을 적어주세요."
+					<input type="text" placeholder="아이디을 적어주세요."
 							   id="m_id" name="m_id">
 					    <p id = "idInput" />
 					    
@@ -107,7 +107,7 @@
 			<td>
 				이름
 				</td><td>
-				 <input type="text" placeholder="가입할 이름을 적어주세요."
+				 <input type="text" placeholder="이름을 적어주세요."
 							   id="m_name" name="m_name"> 
 						<p id="nameInput" />
 						
@@ -117,7 +117,7 @@
 			<td>
 				이메일
 				</td><td>
-				 <input type="text" placeholder="아이디로 가입할 이메일을 적어주세요."
+				 <input type="text" placeholder="이메일을 적어주세요."
 							   id="m_email" name="m_email">
 					    <p id = "emailInput" />
 					    
