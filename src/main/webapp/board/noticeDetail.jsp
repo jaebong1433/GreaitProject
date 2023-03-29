@@ -84,6 +84,11 @@ pageEncoding="UTF-8"
 		border : none;
 		background-color : white;
 	}
+	
+	a{
+		color: black;
+		text-decoration: none;
+	}
 		</style>
 		
 	</head>

@@ -236,6 +236,7 @@ public class CrawlingDAO {
 				
 		        //브라우저 닫기
 		        driver.close();
+		        return null;
 		  }
 	}
 	
