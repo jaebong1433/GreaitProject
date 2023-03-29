@@ -1,4 +1,3 @@
-<%@page import="VO.GradeVO"%>
 <%@page import="VO.MemberVO"%>
 <%@ page
 language="java" 
@@ -11,7 +10,6 @@ pageEncoding="UTF-8"
 	
 	String m_nickname = (String)session.getAttribute("m_nickname");
 	MemberVO vo = (MemberVO)request.getAttribute("vo");
-	GradeVO gradevo = (GradeVO)request.getAttribute("gradevo");
 %>	
 
 <!DOCTYPE html>
@@ -37,6 +35,15 @@ pageEncoding="UTF-8"
 			.mptb td{
 				border : 1px solid gray;
 				
+			}
+			
+			.mptb button{
+				background-color: gray;
+				color: white;
+				margin-left: 10px;
+				width: 80px;
+				height: 30px;
+				border-radius: 10px;
 			}
 			
 			.profiletb{
@@ -73,6 +80,8 @@ pageEncoding="UTF-8"
 				width : 150px;
 				height: 40px;
 				background-color: gray;
+				color : white;
+				border-radius : 10px;
 			}
 			
 			
@@ -111,8 +120,8 @@ pageEncoding="UTF-8"
 						<td><%=vo.getM_date() %></td>
 					</tr>
 					<tr>
-						<td>LV.<%= gradevo.getM_level() %></td>
-						<td><%= vo.getM_exp() %></td>
+						<td><p id="level">LV.${ vo.m_level }</p></td>
+						<td><p id="exp">경험치 : ${ vo.m_exp }</p></td>
 					</tr>
 				</table>
 				
@@ -137,10 +146,7 @@ pageEncoding="UTF-8"
 			</div>
 		</center>
 		
-	</form>
-	<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
-	
-	
+	</form>	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
     	function check(){
@@ -148,7 +154,22 @@ pageEncoding="UTF-8"
     	}
     	
     	function levelUp(nickname, exp){
-    		
+//     		alert(nickname + ", " + exp);
+    		$.ajax({
+				type: "post",
+				async : true,
+				url : "${pageContext.request.contextPath}/member1/levelUp.me",
+				data : {},
+				dataType : "text",
+				success : function(data) {
+					if(${vo.m_level} >= data) {
+						alert("레벨업을 할 수 없습니다!");
+					} else {
+						alert("레벨업 하였습니다." + ${vo.m_level} + "->" + data);
+						$("#level").text("LV." + data);
+					}
+				}
+			});
     	}
     	
     	

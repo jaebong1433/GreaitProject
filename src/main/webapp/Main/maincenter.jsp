@@ -1,3 +1,4 @@
+<%@page import="VO.YoutubeCrawlingVO"%>
 <%@page import="VO.CrawlingVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,6 +8,8 @@
 	String contextPath = request.getContextPath();
 	ArrayList boardList = (ArrayList)request.getAttribute("list");
 	int boardCount = (Integer)request.getAttribute("count");
+	ArrayList list2 = (ArrayList) request.getAttribute("youtubeList");//3.27 재봉 추가
+	YoutubeCrawlingVO vo2 = null;
 %>    
    
 <!DOCTYPE html>
@@ -208,44 +211,57 @@
 			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
 		<div>
-			<h2><b>영화관련영상</b></h2>
+			<h2><b>영화관련영상</b></h2> <!-- 3.27 재봉 수정 -->
 			<hr>
 			 <table class="centertb3">
 				<tr>
-					<%
-					// 3.16 재봉 수정 불필요한 출력 삭제 및 for문 갯수 축소
-						ArrayList list3 = (ArrayList)request.getAttribute("mainPhotoList");
-						CrawlingVO vo3 = null;
-						String photo; // 포스터 이미지
-						
-						for (int i = 0; i < 5; i++) {
-							
-							 vo3 = (CrawlingVO)list3.get(i);
-							 photo = vo3.getPhoto();
-				     %>			
-							<td>
-								<img src="<%=photo%>" width="200px" height="150px"><br>
-							</td>
-						<%	 
-						 }
-						
+						<%
+							for(int i=0; i<5; i++){
+								vo2 = (YoutubeCrawlingVO) list2.get(i);
+								
+								String title2 = vo2.getTitle();
+								if(title2.length() > 24) {
+									title2 = title2.substring(0, 24) + "...";
+								}
 						%>
-				</tr>
-				<tr>
-				 		<%
-						 for (int i = 5; i < 10; i++) {
 						
-							 vo3 = (CrawlingVO)list3.get(i);
-							 photo = vo3.getPhoto();
-						%>	 
-							<td>
-								<img src="<%=photo%>" width="200px" height="150px"><br>
-							</td>
-						<%	 
-						 }	
-						
+						<td>
+						<div>
+							<a href="<%=vo2.getHref()%>">
+								<img src="<%=vo2.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+							</a>
+						</div>
+					
+						<a href="<%=vo2.getHref()%>">
+							<strong><%=title2%></strong><br>
+						</a>
+						</td>
+						<%} %>
+					</tr>
+					<tr>
+						<%
+							for(int i=5; i<10; i++){
+								vo2 = (YoutubeCrawlingVO) list2.get(i);
+								
+								String title2 = vo2.getTitle();
+								if(title2.length() > 30) {
+									title2 = title2.substring(0, 30) + "...";
+								}
 						%>
-				</tr>
+						
+						<td>
+						<div>
+							<a href="<%=vo2.getHref()%>">
+								<img src="<%=vo2.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
+							</a>
+						</div>
+					
+						<a href="<%=vo2.getHref()%>">
+							<strong><%=title2%></strong><br>
+						</a>
+						</td>
+						<%} %>
+					</tr>
 			</table> 
 			
 		</div>
@@ -254,17 +270,17 @@
     		<hr>
     		<table>
     			<tr>
-    				<td><a href="http://www.cgv.co.kr/ticket/">
+    				<td><a href="http://www.cgv.co.kr/ticket/"  target="_blank">
     				<button class="ticbt1">
     					<img src="<%=contextPath%>/eq/img/cgv.png" width="90%">
     				</button>
     				</a></td>
-    				<td><a href="https://megabox.co.kr/booking">
+    				<td><a href="https://megabox.co.kr/booking" target="_blank">
     				<button class="ticbt2">
     					<img src="<%=contextPath%>/eq/img/megabox.png" width="90%">
     				</button>
     				</a></td>
-    				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing">
+    				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" target="_blank">
     				<button class="ticbt3">
     					<img src="<%=contextPath%>/eq/img/lotte.png" width="90%">
     				</button>

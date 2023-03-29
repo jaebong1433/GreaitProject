@@ -121,6 +121,10 @@ pageEncoding="UTF-8"
 			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)" class="repl">
 				<img src="<%=contextPath%>/eq/img/ment.png" width="100px">
 			</button>
+			
+			<button class="repl">
+				<img src="<%=contextPath%>/eq/img/revive.png" width="100px">
+			</button>
 			<br><br>
 			<form name="reply">
 				<input type="hidden" name="c_idx">

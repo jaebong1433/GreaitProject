@@ -83,7 +83,7 @@
 		}
 		
 		.logsetf{
-			height: 70px;
+			height: 80px;
 			text-align: left;
 			margin-left: 10px;
 		}
@@ -170,7 +170,9 @@
     	
     %>	
     	<div class="logsetf">	
-    		<b><%=m_nickname%></b>님<br><br>
+    		Lv. 1
+    		<b><%=m_nickname%></b>님<br>
+			<a href="#">[랭킹확인]</a><br>
 		<table>	
 		<tr>
 		<td>
@@ -221,9 +223,9 @@
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="http://www.cgv.co.kr/ticket/" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
-            <li><a href="https://megabox.co.kr/booking" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
-            <li><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" class="link-dark d-inline-flex text-decoration-none rounded">롯데시네마</a></li>
+            <li><a href="http://www.cgv.co.kr/ticket/" target="_blank" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
+            <li><a href="https://megabox.co.kr/booking" target="_blank" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
+            <li><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" target="_blank" class="link-dark d-inline-flex text-decoration-none rounded">롯데시네마</a></li>
           </ul>
         </div>
       </li>
@@ -234,7 +236,7 @@
         <div class="collapse" id="orders-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
-            	<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
+            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
          	</ul>
         </div>
       </li>
