@@ -404,29 +404,31 @@ public class MemberController extends HttpServlet {
 			
 			//회원정보 수정창에서 수정완료 버튼을 클릭했을 때
 			}else if(action.equals("/update.me")) {
-				int result = memberdao.updateMember(request);
+				System.out.println(true);
 				
-				if(result == 1) {//수정 성공
-					
-					
-				out.print("<script>" + "  alert('회원정보가 수정 되었습니다.');" 
-					                     + " location.href='" + request.getContextPath()
-										 + "/member1/main.me'"
-		                  + "</script>");
-
+//				int result = memberdao.updateMember(request);
+//				
+//				if(result == 1) {//수정 성공
+//					
+//					
+//				out.print("<script>" + "  alert('회원정보가 수정 되었습니다.');" 
+//					                     + " location.href='" + request.getContextPath()
+//										 + "/member1/main.me'"
+//		                  + "</script>");
+//
+//				return;
+//					
+//				}else {
+//					
+//					out.print("<script>"
+//							+ " alert('회원정보 수정 실패!');"
+//							+ " history.back();"
+//							+ "</script>");
+//					return;
+//					
+//				}
+				
 				return;
-					
-				}else {
-					
-					out.print("<script>"
-							+ " alert('회원정보 수정 실패!');"
-							+ " history.back();"
-							+ "</script>");
-					return;
-					
-				}
-				
-				
 				
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 
 			}else if(action.equals("/delete.me")) {
