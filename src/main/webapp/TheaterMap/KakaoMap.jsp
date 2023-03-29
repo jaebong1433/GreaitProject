@@ -36,7 +36,14 @@
 		        <div class="option">
 		            <div>
 		                <form onsubmit="searchPlaces(); return false;">
-		                    키워드 : <input type="text" value="양산 메가박스" id="keyword" size="15"> 
+		                    키워드 : <select value="양산 메가박스" id="keyword">
+	                    			<option value="양산 메가박스" selected>양산 메가박스</option>
+	                    			<option value="부산 메가박스">부산 메가박스</option>
+	                    			<option value="양산 CGV">양산 CGV</option>
+	                    			<option value="부산 CGV">부산 CGV</option>
+	                    			<option value="양산 롯데시네마">양산 롯데시네마</option>
+	                    			<option value="부산 롯데시네마">부산 롯데시네마</option>
+		                    	   </select>
 		                    <button type="submit">검색하기</button> 
 		                </form>
 		            </div>
@@ -53,6 +60,7 @@
 		<script>
 			// 마커를 담을 배열입니다
 			var markers = [];
+			let presentPosition;
 	
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			    mapOption = {
@@ -63,6 +71,28 @@
 			
 			// 지도를 생성한다 
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+		    if (navigator.geolocation) {
+		        
+		        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		        navigator.geolocation.getCurrentPosition(function(position) {
+		            
+		            var lat = position.coords.latitude, // 위도
+		                lon = position.coords.longitude; // 경도
+		            
+		            var locPosition = new kakao.maps.LatLng(lat, lon) // geolocation으로 얻어온 좌표
+		            presentPosition=locPosition;
+		     
+		            map.setCenter(locPosition);   
+		                
+		          });
+		        
+		    } else { // HTML5의 GeoLocation을 사용할 수 없을때 
+		        
+		        var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567)
+		        alert('현재 위치를 찾을 수 없습니다!');
+		    }
 			
 			// 장소 검색 객체를 생성합니다
 			var ps = new kakao.maps.services.Places();  
@@ -78,10 +108,10 @@
 			
 			    var keyword = document.getElementById('keyword').value;
 			
-			    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-			        alert('키워드를 입력해주세요!');
-			        return false;
-			    }
+// 			    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+// 			        alert('키워드를 입력해주세요!');
+// 			        return false;
+// 			    }
 			
 			    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 			    ps.keywordSearch( keyword, placesSearchCB); 
@@ -127,7 +157,10 @@
 			    removeMarker();
 			    
 			    for ( var i=0; i<places.length; i++ ) {
-			
+					
+			    	const lon = places[i].x;
+		            const lat = places[i].y;
+			    	
 			        // 마커를 생성하고 지도에 표시합니다
 			        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
 			            marker = addMarker(placePosition, i), 
@@ -136,14 +169,22 @@
 			        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 			        // LatLngBounds 객체에 좌표를 추가합니다
 			        bounds.extend(placePosition);
-			
-			        // 마커와 검색결과 항목에 mouseover 했을때
+					
+			     	// 마커와 검색결과 항목에 mouseover 했을때
 			        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 			        // mouseout 했을 때는 인포윈도우를 닫습니다
 			        (function(marker, title) {
-			        	 kakao.maps.event.addListener(marker, 'click', function() {
-				                displayInfowindow(marker, title)
-				         });
+			        	kakao.maps.event.addListener(marker, 'mouseover', function() {
+		                    displayInfowindow(marker, title);
+		                });
+		     
+		                kakao.maps.event.addListener(marker, 'mouseout', function() {
+		                    infowindow.close();
+		                });
+			        	
+// 			        	kakao.maps.event.addListener(marker, 'click', function() {
+// 				            displayInfowindow(marker, title)
+// 				        });
 			
 			            itemEl.onmouseover =  function () {
 			                displayInfowindow(marker, title);
@@ -155,6 +196,29 @@
 			        })(marker, places[i].place_name);
 			
 			        fragment.appendChild(itemEl);
+			        
+			        // 마커와 검색 결과를 클릭했을때 좌표를 가져온다
+		            (function(marker, title) {
+		                kakao.maps.event.addListener(marker, 'click', function() {
+		                    searchDetailAddrFromCoords(presentPosition, function(result, status) {
+		                        if (status === kakao.maps.services.Status.OK) {
+		                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+		                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+		                        }
+		                    });
+		                })
+		     
+	                itemEl.onclick =  function () {
+	                    searchDetailAddrFromCoords(presentPosition, function(result, status) {
+	                        if (status === kakao.maps.services.Status.OK) {
+	                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+	                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                          
+	                      	  }   
+		                   });
+		                };
+		            })(marker, places[i].place_name);
+		     
+		            fragment.appendChild(itemEl);
 			    }
 			
 			    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
@@ -252,12 +316,11 @@
 			// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 			// 인포윈도우에 장소명을 표시합니다
 			function displayInfowindow(marker, title) {
-			    var content = '<div style="padding:5px;z-index:1;">' + title + '<br>'
-			    			+ '<a href="https://map.kakao.com/link/to/title"style="color:blue" target="_blank">길찾기</a></div>';
+			    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>'
 			    			
 			    infowindow.setContent(content);
 			    infowindow.open(map, marker);
-			    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+//			    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 			}
 			
 			 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -306,6 +369,11 @@
 				//지도 레벨을 2으로 한뒤, 애니메이션 효과 옵션 설정
 			    map.setLevel(2, {animate: true});
 			};
+			 // 좌표 -> 주소
+		    var geocoder = new kakao.maps.services.Geocoder();
+		    function searchDetailAddrFromCoords(coords, callback) {
+		        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		    }
 		</script>
 		</center>
 	</body>
