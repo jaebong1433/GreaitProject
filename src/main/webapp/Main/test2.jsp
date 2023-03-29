@@ -1,169 +1,204 @@
-<%@page import="VO.GradeVO"%>
 <%@page import="VO.MemberVO"%>
-<%@ page
-language="java" 
-contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"
-%>
-<%
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% 
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
-	
-	String m_nickname = (String)session.getAttribute("m_nickname");
-	MemberVO vo = (MemberVO)request.getAttribute("vo");
-	GradeVO gradevo = (GradeVO)request.getAttribute("gradevo");
-%>	
-
-<!DOCTYPE html>
+	String nowPage = request.getParameter("nowPage");
+	String nowBlock = request.getParameter("nowBlock");
+	String loginNick = (String)session.getAttribute("m_nickname");
+	String noticeCheck;
+%>
+<c:set var="loginNick" value="${ m_nickname }"/>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
-		<style type="text/css">
-			.mpdiv{
-				width : 98%;
-				margin : 100px 0 0 0;
-			}
-			
-			.mptb{
-				border : 1px solid black;
-				width : 60%;
-				height : 300px;
-				float : right;
-				margin : 20px 100px 0px 0px;
-			}
-			
-			.mptb td{
-				border : 1px solid gray;
-				
-			}
-			
-			.mptb button{
-				background-color: gray;
-				color: white;
-				margin-left: 10px;
-				width: 80px;
-				height: 30px;
-				border-radius: 10px;
-			}
-			
-			.profiletb{
-				width : 20%;
-				height : 300px;
-				float : left;
-				border : 3px solid gray;
-				margin : 20px 0px 0px 100px;
-				text-align: center;
-			}
-			
-			
-			.profimg {
-			    width: 200px;
-			    height: 200px; 
-			    border-radius: 70%;
-			    overflow: hidden;
-			    margin: auto;
-			}
-			.profimg img{
-			    width: 100%;
-			    height: 100%;
-			    object-fit: cover;
-			}
-			
-			.btnbtn{
-				margin : auto;
-				width : 200px;
-				height : 500px;
-			}
-			
-			.btnbtn input{
-				margin-top: 10px;
-				width : 150px;
-				height: 40px;
-				background-color: gray;
-				color : white;
-				border-radius : 10px;
-			}
-			
-			
-		</style>
-		
-	</head>
-	<body>
-	
-	<form action="<%=contextPath%>/member1/mypageUpdate.me" class="form" method="post">
-	
-		<center>
-			<div class="mpdiv">
-				<h1>ÎßàÏù¥ÌéòÏù¥ÏßÄ</h1>
-				<hr>
-				<table class="mptb">
-					<tr>
-						<td width="10%">ÎãâÎÑ§ÏûÑ</td>
-						<td width="40%"><%=vo.getM_nickname()%></td>
-						<input type="hidden" name="m_nickname" value="<%=vo.getM_nickname()%>">
-					
-					</tr>
-					<tr>	
-						<td>Ïù¥Î¶Ñ</td>
-						<td><%=vo.getM_name()%></td>
-					</tr>
-					<tr>
-						<td>ID</td>
-						<td><%=vo.getM_id() %></td>
-					</tr>
-					<tr>	
-						<td>Email</td>
-						<td><%=vo.getM_email()%></td>
-					</tr>
-					<tr>
-						<td>Í∞ÄÏûÖÏùºÏûê</td>
-						<td><%=vo.getM_date() %></td>
-					</tr>
-					<tr>
-						<td>Î†àÎ≤®</td>
-						<td>
-							LV.<%= gradevo.getM_level() %> &nbsp;&nbsp;
-						exp. [<%= vo.getM_exp() %>]
-							<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">Î†àÎ≤®ÏóÖ</button>
-						</td>
-					</tr>
-				</table>
-				
-				<table class="profiletb">
-					<tr>
-						<td class="proftt">
-						<div class="profimg">
-							<img src="<%=contextPath%>/eq/img/pps.png">
-						</div>
-						</td>
-					</tr>
-					<tr>
-						<td height="19%">
-							<b><%=vo.getM_nickname()%></b>Îãò
-						</td>
-					</tr>
-				</table>
-				<div class="btnbtn">
-					<input type="button" value="ÌöåÏõêÏàòÏ†ï" onClick="check(); return false;">
-				</div>
-				
-			</div>
-		</center>
-		
-	</form>
-	
-	
-	
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link rel="stylesheet" type="text/css" href="/MVCBoard/style.css"/>
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+<table width="90%" border="0" cellspacing="0" cellpadding="0">
+  <tr height="40"> 
+    <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
+    	<h1>∞‘Ω√∆«</h1>
+    </td>
+    <td width="57%">&nbsp;</td>
+    <td width="2%">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td colspan="3"><div align="center"><hr></div></td>
+  </tr>
+  <tr> 
+    <td colspan="3"><div align="center"> 
+        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td height="20" colspan="3"></td>
+          </tr>
+          <tr> 
+            <td colspan="3" valign="top">
+            <div align="center"> 
+                <table width="100%" height="373" border="0" cellpadding="0" cellspacing="1" class="border1">
+                  <tr> 
+                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
+                    	<div align="center">¿€ º∫ ¿⁄</div>
+                    </td>
+                    <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
+                    	
+                    <%	if(loginNick == null){//∑Œ±◊¿Œ «œ¡ˆ æ æ“¿ª∞ÊøÏ
+                    	 %>
+                    	<input type="text" name="writer" size="20" class="text2" />
+                    <%}else{ %>
+                    	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
+                    <%} %>
+                    <!-- 0321 ¡§≈¬øµ: ∞¸∏Æ¿⁄¿« ∞ÊøÏ ∞¯¡ˆ±€¿ª ¿€º∫«“ ºˆ ¿÷¥¬ √º≈©π⁄Ω∫ √ﬂ∞° -->
+                    <c:if test="${ loginNick == 'admin' }">
+                   		&nbsp;∞¯¡ˆ±€∑Œ æ≤±‚<input type="checkbox" name="noticeCheck" id="noticeCheck">
+                    </c:if>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
+                    	<div align="center">±€ ∫Òπ–π¯»£</div>
+                    </td>
+                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
+                    	<input type="password" name="password" size="20"/>
+                    </td>
+                   </tr>
+                             
+                  <tr> 
+                    <td height="31" bgcolor="#e4e4e4" class="text2">
+                    	<div align="center">¡¶&nbsp;&nbsp;&nbsp;∏Ò</div>
+                    </td>
+                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
+                    	<input type="text" name="title" size="70" id="title_"/>
+                    </td>
+                  </tr>
+                  <tr> 
+                    <td bgcolor="#e4e4e4" class="text2">
+                    	<div align="center">≥ª &nbsp;&nbsp; øÎ</div>
+                    </td>
+                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
+                    	<textarea name="content" rows="15" cols="100"></textarea>
+                    	<p id="resultInput"></p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              </td>
+          </tr>
+          <tr> 
+            <td colspan="3">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td width="48%">
+            <!-- µÓ∑œ πˆ∆∞ -->
+            <div align="right">
+            	<a href="" id="registration1">
+            		<img src="<%=contextPath%>/eq/img/okwrite.png" width="100px" border="0"/>
+           		</a>
+            </div>
+            </td>
+            <td width="10%">
+            <!-- ∏Ò∑œ∫∏±‚ -->
+            <div align="center">
+            	<a href="" id="list">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" width="100px" border="0"/>
+            	</a>
+            </div>
+            </td>
+            <td width="42%" id="resultInsert"></td>
+          </tr>
+        </table>
+      </div></td>
+  </tr>
+</table>
+</form>
+</center>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript">
-    	function check(){
-    		$(".form").submit();
-    	}
-    	
-    	
-    </script>
+	
+	<script type="text/javascript">
 		
-	</body>
+		$("#list").click(function(event) {
+			event.preventDefault();
+			//board≈◊¿Ã∫Ìø° ¿˙¿Âµ» ±€¿ª ¡∂»∏ «œ¥¬ ø‰√ª!
+			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+			
+		})
+		
+	
+	
+		//ªı±€ ¡§∫∏∏¶ ¿‘∑¬«œ∞Ì µÓ∑œ ¿ÃπÃ¡ˆ∏¶ ∞®ΩŒ∞Ì ¿÷¥¬ <a>≈¬±◊∏¶ ≈¨∏Ø «ﬂ¿ª∂ß
+		$("#registration1").click(function(event) {
+			event.preventDefault();
+			
+			//¿€º∫¿⁄ ∏Ì¿ª ¿‘∑¬«“ <input>¿ª º±≈√«ÿ
+			var writer = $("input[name=writer]").val();
+			//±€¡¶∏Ò¿ª ¿‘∑¬πﬁæ∆ æÚ¥¬¥Ÿ.
+			var title = $("input[name=title]").val();
+			//±€≥ªøÎ¿ª ¿‘∑¬πﬁæ∆ æÚ¥¬¥Ÿ.
+			var content = $("textarea[name=content]").val();
+			//±€∫Òπ–π¯»£∏¶ ¿‘∑¬πﬁæ∆ æÚ¥¬¥Ÿ.
+			var pass = $("input[name=password]").val();
+			
+			if(writer == "" || title == "" || content == "" || pass == ""){
+				
+				$("#resultInput").text("¿€º∫∂ı¿ª ∏µŒ ¿‘∑¬«œø© ¡÷ººø‰!").css("color","red");
+				
+			}else{
+				if($("#noticeCheck").is(":checked")) {
+					$.ajax({
+						type:"post",
+						async:true,
+							url:"<%=contextPath%>/com/noticePro.bo",
+						data:{
+							w : writer,
+							t : title,
+							c : content,
+							p : pass
+						},
+						dataType : "text",
+						success:function(data){
+							console.log(data);
+							
+							if(data == "1"){
+								alert("±€ µÓ∑œ øœ∑·!");
+								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+							}else{//"0"
+								$("#resultInsert").text("±€ ¿€º∫ Ω«∆–!").css("color","red");
+							}
+						}
+						
+					});
+				} else {
+					$.ajax({
+						type:"post",
+						async:true,
+							url:"<%=contextPath%>/com/writePro.bo",
+						data:{
+							w : writer,
+							t : title,
+							c : content,
+							p : pass
+						},
+						dataType : "text",
+						success:function(data){
+							console.log(data);
+							
+							if(data == "1"){
+								alert("±€ µÓ∑œ øœ∑·!");
+								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
+							}else{//"0"
+								$("#resultInsert").text("±€ ¿€º∫ Ω«∆–!").css("color","red");
+							}
+						}
+						
+					});
+				}
+			}
+		})
+		
+	</script>
+</body>
 </html>
