@@ -140,7 +140,6 @@ pageEncoding="UTF-8"
 	</form>
 	<button onclick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>');">레벨업</button>
 	
-	<form action="${  }"></form>
 	
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
