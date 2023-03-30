@@ -8,14 +8,13 @@ public class MemberVO {
 	private Date m_date;
 	private int m_exp;
 	private int m_level;
+	private String m_gradeimage;
 	
 	public MemberVO() {
 	}
 
-	
-
 	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
-			Date m_date, int m_exp, int m_level) {
+			Date m_date, int m_exp, int m_level, String m_gradeimage) {
 		super();
 		this.m_uniqueid = m_uniqueid;
 		this.m_nickname = m_nickname;
@@ -26,14 +25,11 @@ public class MemberVO {
 		this.m_date = m_date;
 		this.m_exp = m_exp;
 		this.m_level = m_level;
+		this.m_gradeimage = m_gradeimage;
 	}
-	
-
-
-
 
 	public MemberVO(String m_uniqueid, String m_nickname, String m_id, String m_pw, String m_name, String m_email,
-			int m_exp, int m_level) {
+			int m_exp, int m_level, String m_gradeimage) {
 		super();
 		this.m_uniqueid = m_uniqueid;
 		this.m_nickname = m_nickname;
@@ -43,9 +39,8 @@ public class MemberVO {
 		this.m_email = m_email;
 		this.m_exp = m_exp;
 		this.m_level = m_level;
+		this.m_gradeimage = m_gradeimage;
 	}
-
-
 
 	public String getM_nickname() {
 		return m_nickname;
@@ -121,6 +116,18 @@ public class MemberVO {
 
 	public void setM_level(int m_level) {
 		this.m_level = m_level;
+	}
+
+
+
+	public String getM_gradeimage() {
+		return m_gradeimage;
+	}
+
+
+
+	public void setM_gradeimage(String m_gradeimage) {
+		this.m_gradeimage = m_gradeimage;
 	}
 	
 	
