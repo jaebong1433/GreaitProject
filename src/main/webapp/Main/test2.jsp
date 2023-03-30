@@ -1,4 +1,3 @@
-
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -23,7 +22,7 @@
 <table width="90%" border="0" cellspacing="0" cellpadding="0">
   <tr height="40"> 
     <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
-    	<h1>ï¿½Ô½ï¿½ï¿½ï¿½</h1>
+    	<h1>°Ô½ÃÆÇ</h1>
     </td>
     <td width="57%">&nbsp;</td>
     <td width="2%">&nbsp;</td>
@@ -43,25 +42,25 @@
                 <table width="100%" height="373" border="0" cellpadding="0" cellspacing="1" class="border1">
                   <tr> 
                     <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½</div>
+                    	<div align="center">ÀÛ ¼º ÀÚ</div>
                     </td>
                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	
-                    <%	if(loginNick == null){//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
+                    <%	if(loginNick == null){//·Î±×ÀÎ ÇÏÁö ¾Ê¾ÒÀ»°æ¿ì
                     	 %>
                     	<input type="text" name="writer" size="20" class="text2" />
                     <%}else{ %>
                     	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
                     <%} %>
-                    <!-- 0321 ï¿½ï¿½Â¿ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Ã¼Å©ï¿½Ú½ï¿½ ï¿½ß°ï¿½ -->
+                    <!-- 0321 Á¤ÅÂ¿µ: °ü¸®ÀÚÀÇ °æ¿ì °øÁö±ÛÀ» ÀÛ¼ºÇÒ ¼ö ÀÖ´Â Ã¼Å©¹Ú½º Ãß°¡ -->
                     <c:if test="${ loginNick == 'admin' }">
-                   		&nbsp;ï¿½ï¿½ï¿½ï¿½Û·ï¿½ ï¿½ï¿½ï¿½ï¿½<input type="checkbox" name="noticeCheck" id="noticeCheck">
+                   		&nbsp;°øÁö±Û·Î ¾²±â<input type="checkbox" name="noticeCheck" id="noticeCheck">
                     </c:if>
                     </td>
                     </tr>
                     <tr>
                     <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£</div>
+                    	<div align="center">±Û ºñ¹Ð¹øÈ£</div>
                     </td>
                      <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="password" name="password" size="20"/>
@@ -70,7 +69,7 @@
                              
                   <tr> 
                     <td height="31" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ï¿½&nbsp;&nbsp;&nbsp;ï¿½ï¿½</div>
+                    	<div align="center">Á¦&nbsp;&nbsp;&nbsp;¸ñ</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<input type="text" name="title" size="70" id="title_"/>
@@ -78,7 +77,7 @@
                   </tr>
                   <tr> 
                     <td bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">ï¿½ï¿½ &nbsp;&nbsp; ï¿½ï¿½</div>
+                    	<div align="center">³» &nbsp;&nbsp; ¿ë</div>
                     </td>
                     <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
                     	<textarea name="content" rows="15" cols="100"></textarea>
@@ -94,7 +93,7 @@
           </tr>
           <tr> 
             <td width="48%">
-            <!-- ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° -->
+            <!-- µî·Ï ¹öÆ° -->
             <div align="right">
             	<a href="" id="registration1">
             		<img src="<%=contextPath%>/eq/img/okwrite.png" width="100px" border="0"/>
@@ -102,7 +101,7 @@
             </div>
             </td>
             <td width="10%">
-            <!-- ï¿½ï¿½Ïºï¿½ï¿½ï¿½ -->
+            <!-- ¸ñ·Ïº¸±â -->
             <div align="center">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" width="100px" border="0"/>
@@ -123,29 +122,29 @@
 		
 		$("#list").click(function(event) {
 			event.preventDefault();
-			//boardï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½È¸ ï¿½Ï´ï¿½ ï¿½ï¿½Ã»!
+			//boardÅ×ÀÌºí¿¡ ÀúÀåµÈ ±ÛÀ» Á¶È¸ ÇÏ´Â ¿äÃ»!
 			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 			
 		})
 		
 	
 	
-		//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ö´ï¿½ <a>ï¿½Â±×¸ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+		//»õ±Û Á¤º¸¸¦ ÀÔ·ÂÇÏ°í µî·Ï ÀÌ¹ÌÁö¸¦ °¨½Î°í ÀÖ´Â <a>ÅÂ±×¸¦ Å¬¸¯ ÇßÀ»¶§
 		$("#registration1").click(function(event) {
 			event.preventDefault();
 			
-			//ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ <input>ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ÀÛ¼ºÀÚ ¸íÀ» ÀÔ·ÂÇÒ <input>À» ¼±ÅÃÇØ
 			var writer = $("input[name=writer]").val();
-			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ ï¿½ï¿½Â´ï¿½.
+			//±ÛÁ¦¸ñÀ» ÀÔ·Â¹Þ¾Æ ¾ò´Â´Ù.
 			var title = $("input[name=title]").val();
-			//ï¿½Û³ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ ï¿½ï¿½Â´ï¿½.
+			//±Û³»¿ëÀ» ÀÔ·Â¹Þ¾Æ ¾ò´Â´Ù.
 			var content = $("textarea[name=content]").val();
-			//ï¿½Ûºï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ô·Â¹Þ¾ï¿½ ï¿½ï¿½Â´ï¿½.
+			//±Ûºñ¹Ð¹øÈ£¸¦ ÀÔ·Â¹Þ¾Æ ¾ò´Â´Ù.
 			var pass = $("input[name=password]").val();
 			
 			if(writer == "" || title == "" || content == "" || pass == ""){
 				
-				$("#resultInput").text("ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¿ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½!").css("color","red");
+				$("#resultInput").text("ÀÛ¼º¶õÀ» ¸ðµÎ ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä!").css("color","red");
 				
 			}else{
 				if($("#noticeCheck").is(":checked")) {
@@ -164,10 +163,10 @@
 							console.log(data);
 							
 							if(data == "1"){
-								alert("ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!");
+								alert("±Û µî·Ï ¿Ï·á!");
 								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 							}else{//"0"
-								$("#resultInsert").text("ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½!").css("color","red");
+								$("#resultInsert").text("±Û ÀÛ¼º ½ÇÆÐ!").css("color","red");
 							}
 						}
 						
@@ -188,10 +187,10 @@
 							console.log(data);
 							
 							if(data == "1"){
-								alert("ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!");
+								alert("±Û µî·Ï ¿Ï·á!");
 								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 							}else{//"0"
-								$("#resultInsert").text("ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½!").css("color","red");
+								$("#resultInsert").text("±Û ÀÛ¼º ½ÇÆÐ!").css("color","red");
 							}
 						}
 						
@@ -203,4 +202,3 @@
 	</script>
 </body>
 </html>
-

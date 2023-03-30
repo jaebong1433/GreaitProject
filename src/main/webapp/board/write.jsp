@@ -29,17 +29,21 @@
 			height: 30px;
 		}
 		
+		.writetb{
+			margin-top: 30px;
+			width:100%;
+		}
+		
 	</style>
 </head>
 <body>
 <center>
-<table width="90%" border="0" cellspacing="0" cellpadding="0">
+<table class="writetb">
   <tr height="40"> 
-    <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
-    	<h2>글쓰기</h2>
+    <td width="100%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
+    	<img alt="글쓰기" src="<%=contextPath%>/eq/img/banner/writebanner.jpg" width="98%">
+
     </td>
-    <td width="57%">&nbsp;</td>
-    <td width="2%">&nbsp;</td>
   </tr>
   <tr> 
     <td colspan="3"><div align="center">

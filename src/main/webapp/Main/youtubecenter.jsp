@@ -56,6 +56,7 @@ hr {
 .testtest{
 	text-align: center;
 	height: 250px;
+	border-bottom: 1px black dotted;
 }
 
 .test{
@@ -82,7 +83,8 @@ hr {
 	<center>
 		<div class="container">
 			<br>
-			<h2>관련영상</h2>
+			<img alt="영상" src="<%=contextPath%>/eq/img/banner/videobanner.jpg" width="98%">
+
 			<hr>
 				<table class="centertb1">
 					<tr>

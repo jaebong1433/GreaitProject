@@ -29,7 +29,7 @@
 			width: 98%;
 			height: 120%;
 			text-align: center;
-			margin: auto;
+			margin-top: 30px;
 		}
 		.boxo hr{
 			width: 90%;
@@ -38,20 +38,26 @@
 		
 		
 		.boxtb{
-			width: 95%;
+			width: 100%;
 			height: 500px;
 			font-size: 0.8em;
-			text-align: left;
 		}
 		
 		.test{
-			height:400px;
+			height:450px;
+			text-align: center;
+		}
+		
+		.tab{
+			text-align: left;
+			margin: auto;
 		}
 		
 		a{
 			color: black;
 			text-decoration: none;
 		}
+		
 	
 	</style>
   
@@ -69,8 +75,10 @@
 						 String people; 
 						 %>
 <center>
+
 	<div class="boxo">
-	<h2><b>BoxOffice</b></h2>
+	<img alt="박스오피스" src="<%=contextPath%>/eq/img/banner/boxofficebanner.jpg" width="98%">
+
 	<hr>
 	<div>
 		<table class="boxtb">
@@ -89,7 +97,7 @@
 						<div class="test">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
-							<table> 
+							<table class="tab"> 
 								<tr>
 									<td width="200px">
 									<h5><b><%=title %></b></h5>
@@ -136,7 +144,7 @@
 						<div class="test">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
-							<table> 
+							<table class="tab"> 
 								<tr>
 									<td width="200px">
 									<h5><b><%=title %></b></h5>
@@ -183,7 +191,7 @@
 						<div class="test">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
-							<table> 
+							<table class="tab"> 
 								<tr>
 									<td width="200px">
 									<h5><b><%=title %></b></h5>
@@ -230,7 +238,7 @@
 						<div class="test">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
-							<table> 
+							<table class="tab"> 
 								<tr>
 									<td width="200px">
 									<h5><b><%=title %></b></h5>
@@ -277,7 +285,7 @@
 						<div class="test">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
-							<table> 
+							<table class="tab"> 
 								<tr>
 									<td width="200px">
 									<h5><b><%=title %></b></h5>

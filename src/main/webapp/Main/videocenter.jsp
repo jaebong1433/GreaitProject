@@ -41,7 +41,6 @@ String kakao = "https://tv.kakao.com";
 	.videotab{
 		width : 20%;
 		height : 250px;
-		border : 1px pink solid;
 	}
 	
 	.videoimg{
@@ -77,7 +76,8 @@ String kakao = "https://tv.kakao.com";
 
 		<div>
 			<br>
-			<h2>예고편</h2>
+			<img alt="예고편" src="<%=contextPath%>/eq/img/banner/trailerbanner.jpg" width="98%">
+
 			<hr>
 				<table class="test">
 					<tr>

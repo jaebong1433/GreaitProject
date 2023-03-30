@@ -22,7 +22,7 @@ pageEncoding="UTF-8"
 		<style type="text/css">
 			.mpdiv{
 				width : 98%;
-				margin : 100px 0 0 0;
+				margin : 30px 0 0 0;
 			}
 			
 			.mptb{
@@ -95,7 +95,8 @@ pageEncoding="UTF-8"
 	
 		<center>
 			<div class="mpdiv">
-				<h1>마이페이지</h1>
+				<img alt="마이페이지" src="<%=contextPath%>/eq/img/banner/mypagebanner.jpg" width="98%">
+
 				<hr>
 				<table class="mptb">
 					<tr>

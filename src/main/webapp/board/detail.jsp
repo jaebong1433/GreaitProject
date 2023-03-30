@@ -90,12 +90,20 @@ pageEncoding="UTF-8"
 		color: black;
 		text-decoration: none;
 	}
+	
+	.banner{
+		margin-top: 30px;
+	}
 		</style>
 		
 	</head>
 	<body>
 	<center>
+		<div class="banner">
+			<img alt="컨텐츠" src="<%=contextPath%>/eq/img/banner/contentsbanner.jpg" width="98%">
+		</div>
 		<div class="boarddiv">
+			
 			<div class="titlez">
 				<%= title %>
 			</div>	
@@ -130,6 +138,11 @@ pageEncoding="UTF-8"
 			<button class="repl">
 				<img src="<%=contextPath%>/eq/img/revive.png" width="100px">
 			</button>
+			
+			<button class="repl">
+				<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
+			</button>
+			
 			<br><br>
 			<form name="reply">
 				<input type="hidden" name="c_idx">
