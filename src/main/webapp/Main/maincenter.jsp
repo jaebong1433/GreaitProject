@@ -33,13 +33,7 @@
 
 	<script type="text/javascript">
 	$(function(){
-		/*  
-		주제 : 자동 슬라이드 배너 를 이용한 베스트 Book영역   
-			 https://bxslider.com/ 접속하여 사용법 보기 
-		*/
-		  /* 베스트북 슬라이더 */
-		  //$("#best_bg ul")로 베스트BOOK 목록 태그인 <ul>태그를 선택하여
-		  //bxSlider()메서드 적용 하고 슬라이드 옵션을 지정 
+		
 		  var mySlider=$("#best_bg ul").bxSlider({
 										       mode:"horizontal", //수평(horizontal) 방향으로 이동 시키기
 										        speed:500, //이동속도(500:0.5초)
@@ -51,8 +45,6 @@
 										        slideMargin:20,//슬라이드 간의 간격 입니다.
 										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
 	  										});
-		  //  https://bxslider.com/options/
-		  
 		  
 		  
 		  //< 이전 버튼을 클릭 할때마다 
@@ -80,7 +72,7 @@
 <!-- 영화 슬라이드 구역 -->
 	<div>
 	<br>
-	<h2><b>박스오피스</b></h2>
+	<img alt="박스오피스" src="<%=contextPath%>/eq/img/banner/boxofficebanner.jpg" width="98%">
 	<hr>
 	<div>
 		<table class="centertb1">
@@ -172,10 +164,11 @@
 		<!-- 영화 슬라이드 구역 끝-->
 		<!-- 게시판 시작 -->
 		<div class="centertb2">
-			<h2><b>게시판</b></h2>
+			<img alt="게시판" src="<%=contextPath%>/eq/img/banner/boardbanner.jpg" width="98%">
 			<!-- 0322 정태영 : 게시판 구현 -->
-			<p><a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
 			<hr>
+			
+			<p><a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
 			<table class="comut">
 				<tr align="center" bgcolor="#D0D0D0" height="120%">
 					<td align="left">번호</td>
@@ -211,10 +204,10 @@
 		</div>
 			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
-		<div class="centertb3">
-			<h2><b>핫클립</b></h2> <!-- 3.30 재봉 수정 -->
+	<div>
+	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
-			 <table align="center">
+			 <table class="centertb3">
 			 			<tr>
 						<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
@@ -238,7 +231,7 @@
 			
 		</div>
 		<div class="maintic">
-    		<h2><b>영화예매</b></h2>
+			<img alt="예매" src="<%=contextPath%>/eq/img/banner/ticketbanner.jpg" width="98%">
     		<hr>
     		<table>
     			<tr>

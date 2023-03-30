@@ -90,12 +90,20 @@ pageEncoding="UTF-8"
 		color: black;
 		text-decoration: none;
 	}
+	
+	.banner{
+		margin-top: 30px;
+	}
 		</style>
 		
 	</head>
 	<body>
 	<center>
+		<div class="banner">
+			<img alt="컨텐츠" src="<%=contextPath%>/eq/img/banner/contentsbanner.jpg" width="98%">
+		</div>
 		<div class="boarddiv">
+			
 			<div class="titlez">
 				<%= title %>
 			</div>	
@@ -141,7 +149,7 @@ pageEncoding="UTF-8"
             	</a>
             	<!--  삭제버튼 03/30 허상호 -->
             	<a href="" id="delete">
-            		<img src="test" alt="삭제" border="0" width="100"/>
+            		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
             	
@@ -157,7 +165,7 @@ pageEncoding="UTF-8"
             	</a>
           		<!--  삭제버튼 03/30 허상호 -->
             	<a href="" id="delete">
-            		<img src="test" alt="삭제" border="0" width="100"/>
+            		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
 				
@@ -180,7 +188,7 @@ pageEncoding="UTF-8"
             	</a>
           		<!--  삭제버튼 03/30 허상호 -->
             	<a href="" id="delete">
-            		<img src="test" alt="삭제" border="0" width="100"/>
+            		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
 			<%}else{ //비회원일때 다른사람이 작성한 글에 들어왔을때%>
