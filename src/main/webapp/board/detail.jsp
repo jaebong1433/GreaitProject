@@ -126,48 +126,67 @@ pageEncoding="UTF-8"
 			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)" class="repl">
 				<img src="<%=contextPath%>/eq/img/ment.png" width="100px">
 			</button>
-			
-			<button class="repl">
-				<img src="<%=contextPath%>/eq/img/revive.png" width="100px">
-			</button>
 			<br><br>
 			<form name="reply">
 				<input type="hidden" name="c_idx">
 				<input type="hidden" name="nowPage" value="<%=nowPage%>">
 				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 			</form>
-			<% if (loginNick != null){%>
-			<%if (loginNick.equals("admin")){ %>
+			<% if (loginNick != null){ //로그인을 했을경우%>
+				<%if (loginNick.equals("admin")){//닉네임이 admin인 관리자계정으로 로그인 했을때 %>
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
+            	<!--  삭제버튼 03/30 허상호 -->
             	<a href="" id="delete">
-            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            		<img src="test" alt="삭제" border="0" width="100"/>
             	</a>
             </div>
             	
-			<%}
-			}else if(!c_uniqueid.equals(viewId) ){%>	
-			<!-- 목록버튼 03/20 허상호 -->
-			<div align="center">
+			<%}else if(c_uniqueid.equals(viewId)){// 관리자계정 말고 다른 계정으로 로그인했을때 본인글%>
+				
+				<div align="center">
+            	<a href="" id="list">
+            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            	</a>
+            	<!--  수정버튼 03/30 허상호 -->
+            	<a href="" id="mod">
+            		<img src="<%=contextPath%>/eq/img/revive.png" border="0" width="100"/>
+            	</a>
+          		<!--  삭제버튼 03/30 허상호 -->
+            	<a href="" id="delete">
+            		<img src="test" alt="삭제" border="0" width="100"/>
+            	</a>
+            </div>
+				
+		    <%  }else{//로그인후 다른사람글 들어왔을때 %>
+	    	<div align="center">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
             </div>
-			<%}else{%>
+		   	 <%}
+			}else if(c_uniqueid.equals(viewId) ){ //비회원일때 본인이 작성한 글에 들어왔을때 %>	
 			<!-- 목록버튼 03/20 허상호 -->
 			<div align="center">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
-           
+            	<!--  수정버튼 03/30 허상호 -->
             	<a href="" id="mod">
-            		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
+            		<img src="<%=contextPath%>/eq/img/revive.png" border="0" width="100"/>
             	</a>
-          
+          		<!--  삭제버튼 03/30 허상호 -->
             	<a href="" id="delete">
+            		<img src="test" alt="삭제" border="0" width="100"/>
+            	</a>
+            </div>
+			<%}else{ //비회원일때 다른사람이 작성한 글에 들어왔을때%>
+			<!-- 목록버튼 03/20 허상호 -->
+			<div align="center">
+            	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
             </div>
@@ -231,10 +250,16 @@ pageEncoding="UTF-8"
 					return;
 				}
 			});
-			$("#mod").click(function(event) {
+			$("#delete").click(function(event) {
 				event.preventDefault();
-				location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
-			})
+				if( <%=loginNick%> == null || <%=loginNick%> == ""){
+					alert("null 테스트");
+				var delconfirm = confirm("삭제하시겠습니까?");
+				if(delconfirm){
+					location.href = "<%=contextPath%>/com/delBoard.bo?c_idx=<%=c_idx%>";
+				}
+				}
+			});
 			
 		</script>
 	</body>

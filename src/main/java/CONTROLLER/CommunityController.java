@@ -506,6 +506,20 @@ public class CommunityController extends HttpServlet {
 			
 			nextPage = "/index.jsp";
 		}
+		// 03/30 허상호 : 글 삭제 버튼을 눌렀을때 삭제 후 리스트화면으로 이동
+		else if(action.equals("/delBoard.bo")) {
+			String delC_idx = request.getParameter("c_idx");
+			
+			int delResult = comDAO.deleteBoard(delC_idx);
+			
+			if(delResult != 1) {//삭제 실패시
+				out.print("<script>window.alert('관리자에게 문의 해주세요.');");
+				out.print("history.go(-1);</script>");
+			}else {//삭제 성공시 
+				
+				nextPage="/com/listByRecent.bo?nowPage=0&nowBlock=0";
+			}
+		}
 		
 		System.out.println(nextPage);
 		//포워딩 (디스패처 방식)
