@@ -926,6 +926,25 @@ public class CommunityDAO {
 		
 		return boardLikeVO;
 	}
+	// 03/30 허상호 : 글번호를 받아 글 삭제하는 메소드
+	public int deleteBoard(String delC_idx) {
+		String sql = null;
+		int result = 0;
+		try {
+			
+			con = ds.getConnection();
+			sql = "delete from community where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delC_idx);
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		
+		return result;
+	}
 
 }
 

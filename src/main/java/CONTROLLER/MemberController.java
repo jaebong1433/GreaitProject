@@ -2,6 +2,7 @@ package CONTROLLER;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -239,7 +240,6 @@ public class MemberController extends HttpServlet {
 						out.write("usable");
 						return;
 					}
-			
 			}
 			
 			//로그인 수행
@@ -538,12 +538,38 @@ public class MemberController extends HttpServlet {
 			
 			else if(action.equals("/levelUp.me")) {
 				MemberVO membervo = memberdao.getMemVOByUniqueID(uniqueID);
-				String level = memberdao.updateLevel(membervo.getM_exp(), uniqueID);
+				String gradeImage = null;
+				int insert_level = 1 + membervo.getM_exp()/100;
+				if(insert_level > 10) {
+					gradeImage = "egg_fried.png";
+					if(insert_level > 20) {
+						gradeImage = "bronze-medal.png";
+						if(insert_level > 30) {
+							gradeImage = "silver-medal.png";
+							if(insert_level > 40) {
+								gradeImage = "gold-medal.png";
+							}
+						}
+					}
+				} else {
+					gradeImage = "egg.png";
+				}
+				System.out.println("levelUp, 레벨 : " + insert_level + "이미지 명 : " + gradeImage);
 				
-				System.out.println("levelUp, 레벨 : " + level);
+				String level = memberdao.updateLevel(membervo.getM_exp(), uniqueID, gradeImage);
 				
 				out.print(level);
 				return;
+			}
+			
+			else if(action.equals("/ranking.me")) {
+				System.out.println(true);
+				
+				List<MemberVO> list = memberdao.getAllMemberList();
+				
+				request.setAttribute("list", list);
+				request.setAttribute("center", "/Member/ranking.jsp");
+				nextPage = "/index.jsp";
 			}
 		
 			//포워딩 (디스패처 방식)

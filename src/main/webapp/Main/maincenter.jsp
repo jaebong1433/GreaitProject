@@ -1,3 +1,4 @@
+<%@page import="VO.ClipCrawlingVO"%>
 <%@page import="VO.YoutubeCrawlingVO"%>
 <%@page import="VO.CrawlingVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,8 +9,8 @@
 	String contextPath = request.getContextPath();
 	ArrayList boardList = (ArrayList)request.getAttribute("list");
 	int boardCount = (Integer)request.getAttribute("count");
-	ArrayList list2 = (ArrayList) request.getAttribute("youtubeList");//3.27 재봉 추가
-	YoutubeCrawlingVO vo2 = null;
+	ArrayList list2 = (ArrayList)request.getAttribute("ClipList");//3.30 재봉 추가
+	ClipCrawlingVO vo2 = null;
 %>    
    
 <!DOCTYPE html>
@@ -157,7 +158,7 @@
 				</div>
 				</tr>
 			</table>
-			<br><br>
+			
 		</div>
 		</div>
 		<!-- 영화 슬라이드 구역 끝-->
@@ -199,62 +200,33 @@
 				</c:forEach>
 				
 			</table>
-			<br><br><br>
-		</div><br><br><br>
+			
+		</div>
 			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
-		<div>
+	<div>
 	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
 			 <table class="centertb3">
-				<tr>
-						<%
-							for(int i=0; i<5; i++){
-								vo2 = (YoutubeCrawlingVO) list2.get(i);
-								
-								String title2 = vo2.getTitle();
-								if(title2.length() > 24) {
-									title2 = title2.substring(0, 24) + "...";
+			 			<tr>
+						<%				
+								vo2 = (ClipCrawlingVO)list2.get(0);
+								String ptext = vo2.getpText();
+								if(ptext.length() > 60) {
+									ptext = ptext.substring(0, 60) + "...";
 								}
 						%>
 						
-						<td>
-						<div>
-							<a href="<%=vo2.getHref()%>">
-								<img src="<%=vo2.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
-							</a>
-						</div>
-					
-						<a href="<%=vo2.getHref()%>">
-							<strong><%=title2%></strong><br>
-						</a>
-						</td>
-						<%} %>
-					</tr>
-					<tr>
-						<%
-							for(int i=5; i<10; i++){
-								vo2 = (YoutubeCrawlingVO) list2.get(i);
-								
-								String title2 = vo2.getTitle();
-								if(title2.length() > 30) {
-									title2 = title2.substring(0, 30) + "...";
-								}
-						%>
+							<td>
 						
-						<td>
-						<div>
-							<a href="<%=vo2.getHref()%>">
-								<img src="<%=vo2.getImgSrc()%>" alt="" width="200px" height="130px" /><br>
-							</a>
-						</div>
-					
-						<a href="<%=vo2.getHref()%>">
-							<strong><%=title2%></strong><br>
-						</a>
-						</td>
-						<%} %>
-					</tr>
+								<h6><b><%=vo2.getStrongText()%></b></h6>
+							<p><%=ptext%></p>
+							<div id="video-wrapper">
+<%--  							<iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px" /><br>  --%>
+							</div>
+							</td>
+						</tr>
+						
 			</table> 
 			
 		</div>

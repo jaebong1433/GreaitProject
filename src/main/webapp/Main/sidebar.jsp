@@ -179,7 +179,7 @@
     	<div class="logsetf">	
     		<img width="10%" alt="등급이미지" src="<%= contextPath %>/Member/images/<%= memvo.getM_gradeimage() %>">	Lv. <%= memvo.getM_level() %>
     		<b><%=m_nickname%></b>님<br>
-			<a href="#">[랭킹확인]</a><br>
+			<a href="<%= contextPath %>/member1/ranking.me">[랭킹확인]</a><br>
 		<table>	
 		<tr>
 		<td>

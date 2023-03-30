@@ -1,4 +1,4 @@
-<%@page import="VO.MemberVO"%>
+myPage.jsp<%@page import="VO.MemberVO"%>
 <%@ page
 language="java" 
 contentType="text/html; charset=UTF-8"

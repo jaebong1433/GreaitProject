@@ -84,7 +84,6 @@ hr {
 		<div class="container">
 			<br>
 			<img alt="영상" src="<%=contextPath%>/eq/img/banner/videobanner.jpg" width="98%">
-
 			<hr>
 				<table class="centertb1">
 					<tr>
@@ -102,13 +101,13 @@ hr {
 							<table class="teste">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>">
+								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
 								</a>
 							</div>
 							</td></tr>
 							<tr><td class="test">
-							<a href="<%=vo.getHref()%>">
+							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
 							</td></tr>
@@ -132,13 +131,13 @@ hr {
 							<table class="teste">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>">
+								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
 								</a>
 							</div>
 							</td></tr>
 							<tr><td class="test">
-							<a href="<%=vo.getHref()%>">
+							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
 							</td></tr>
@@ -161,13 +160,13 @@ hr {
 							<table class="teste">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>">
+								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
 								</a>
 							</div>
 							</td></tr>
 							<tr><td class="test">
-							<a href="<%=vo.getHref()%>">
+							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
 							</td></tr>
@@ -190,13 +189,13 @@ hr {
 							<table class="teste">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>">
+								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
 								</a>
 							</div>
 							</td></tr>
 							<tr><td class="test">
-							<a href="<%=vo.getHref()%>">
+							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
 							</td></tr>
@@ -219,13 +218,13 @@ hr {
 							<table class="teste">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>">
+								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
 								</a>
 							</div>
 							</td></tr>
 							<tr><td class="test">
-							<a href="<%=vo.getHref()%>">
+							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
 							</td></tr>

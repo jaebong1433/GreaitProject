@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -662,17 +663,46 @@ public class MemberDAO {
 		}
 		return uniqueID;
 	}
-
-	public String updateLevel(int m_exp, String uniqueID) {
+	//레벨업 버튼 눌렀을 때
+	public String updateLevel(int m_exp, String uniqueID, String gradeImage) {
 		int insert_level = 1 + m_exp/100;
 		System.out.println("레벨 : " + insert_level);
 		String level = String.valueOf(insert_level);
+		String sql = null;
 		try {
 			con = ds.getConnection();
-			String sql = "update m_member set m_level = ? where m_uniqueid = ?";
+			
+			sql = "select rownum, m_uniqueid from m_member order by m_exp desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			int i = 0;
+			while(rs.next()) {
+				i++;
+				String rankerUniqueID = rs.getString("m_uniqueid");
+				if(uniqueID.equals(rankerUniqueID)) {
+					System.out.println("DAO, updateLevel 당신은 랭커입니다. 랭킹순위 : " + i);
+					switch (i) {
+					case 1:
+						gradeImage = "gold_1.png";
+						break;
+					case 2:
+						gradeImage = "gold_2.png";
+						break;
+					case 3:
+						gradeImage = "gold_3.png";
+						break;	
+					default:
+						break;
+					}
+				}
+			}
+			
+			sql = "update m_member set m_level = ?, m_gradeimage = ? where m_uniqueid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, insert_level);
-			pstmt.setString(2, uniqueID);
+			pstmt.setString(2, gradeImage);
+			pstmt.setString(3, uniqueID);
 			pstmt.executeUpdate();
 			level = String.valueOf(insert_level);
 			
@@ -705,6 +735,40 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+	
+	//0330 정태영 : 모든 멤버의 정보를 리스트로 담아 전달하는 메서드
+	public List<MemberVO> getAllMemberList() {
+		List list = new ArrayList();
+		MemberVO vo = null;
+		try {
+			con = ds.getConnection();
+			String sql = "select * from m_member order by m_exp desc";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new MemberVO(	
+						rs.getString("m_uniqueid"),
+						rs.getString("m_nickname"),
+						rs.getString("m_id"), 
+						rs.getString("m_pw"), 
+						rs.getString("m_name"),
+						rs.getString("m_email"),
+						rs.getDate("m_date"),
+						rs.getInt("m_exp"),
+						rs.getInt("m_level"),
+						rs.getString("m_gradeimage")
+						);
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		return list;
 	}
 
 }

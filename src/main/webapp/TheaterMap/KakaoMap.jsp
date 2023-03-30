@@ -89,14 +89,27 @@
 		        <div class="option">
 		            <div>
 		                <form onsubmit="searchPlaces(); return false;">
-		                    키워드 : <select value="양산 메가박스" id="keyword">
-	                    			<option value="양산 메가박스" selected>양산 메가박스</option>
-	                    			<option value="부산 메가박스">부산 메가박스</option>
-	                    			<option value="양산 CGV">양산 CGV</option>
-	                    			<option value="부산 CGV">부산 CGV</option>
-	                    			<option value="양산 롯데시네마">양산 롯데시네마</option>
-	                    			<option value="부산 롯데시네마">부산 롯데시네마</option>
-		                    	   </select>
+		                    키워드 : <select value=" " id="key1">
+		                    		<optgroup label="경상남도">
+			                    		<option value="양산" selected>양산</option>
+		                    			<option value="거제">거제</option>
+		                    		</optgroup>
+		                    		<optgroup label="서울특별시">
+		                    			<option value="서울">서울</option>
+		                    		</optgroup>
+		                    		<optgroup label="광역시">
+	                    				<option value="부산">부산</option>
+	                    				<option value="대전">대전</option>
+	                    				<option value="울산">울산</option>
+	                    			</optgroup>
+	                    			<optgroup label="경기도">
+	                    				<option value="광주">광주</option>
+	                    			</optgroup>
+	                    			<optgroup label="제주특별자치도">
+	                    				<option value="제주도">제주도</option>
+	                    			</optgroup>
+		                    	   </select><br>
+		                    검색 : <input type="text" value="메가박스" id="key2" size="15"><br>
 		                    <button type="submit">검색하기</button> 
 		                </form>
 		            </div>
@@ -160,12 +173,15 @@
 			// 키워드 검색을 요청하는 함수입니다
 			function searchPlaces() {
 			
-			    var keyword = document.getElementById('keyword').value;
-			
-// 			    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-// 			        alert('키워드를 입력해주세요!');
-// 			        return false;
-// 			    }
+			    var key1 = document.getElementById('key1').value;
+				var key2 = document.getElementById('key2').value;
+			    
+				var keyword = key1+ key2;
+				
+			    if (!key2.replace(/^\s+|\s+$/g, '')) {
+			        alert('키워드를 입력해주세요!');
+			        return false;
+			    }
 			
 			    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 			    ps.keywordSearch( keyword, placesSearchCB); 
@@ -319,9 +335,9 @@
 			        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
 			            marker = new kakao.maps.Marker({
 			            position: position, // 마커의 위치
-			            image: markerImage 
+			            image: markerImage
 			        });
-			
+				
 			    marker.setMap(map); // 지도 위에 마커를 표출합니다
 			    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 			
