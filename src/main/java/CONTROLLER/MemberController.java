@@ -112,7 +112,8 @@ public class MemberController extends HttpServlet {
 											m_name,
 											m_email,
 											0,
-											1
+											1,
+											"egg.png"
 											);
 				
 				
@@ -125,13 +126,26 @@ public class MemberController extends HttpServlet {
 			}else if (action.equals("/joinNicknameCheck.me")) {
 				//입력한 닉네임 얻기
 				String m_nickname = request.getParameter("m_nickname");
+				MemberVO memvo = new MemberVO();
+				memvo.setM_nickname(m_nickname);
 				
+				//0329 정태영 : 
+				//modMemberForm1에서 ajax를 통해 아이디를 변경하는 경우
+				//purpose에 change를 대입해서 수정이 목적인 경우 중복체크와 
+				//수정까지 동시에 이루어지도록 함
+				String purpose = request.getParameter("purpose");
+				
+											//닉네임의 중복을 체크해주는 메서드
 				boolean result = memberdao.overlappedNickname(m_nickname);
-			
+				
+				
 				if(result == true) {
 					out.write("not_usable");
 					return;
 				}else {
+					if(purpose != null) {
+						int updateResult = memberdao.updateMember(memvo, uniqueID);
+					}
 					out.write("usable");
 					return;
 				}
@@ -141,11 +155,22 @@ public class MemberController extends HttpServlet {
 			}else if(action.equals("/joinIdCheck.me")) {
 			//입력한 아이디 얻기
 				String m_id = request.getParameter("m_id");
-			
+				
+				MemberVO memvo = new MemberVO();
+				memvo.setM_id(m_id);
+				
+				//0329 정태영 : 
+				//modMemberForm1에서 ajax를 통해 아이디를 변경하는 경우
+				//purpose에 change를 대입해서 수정이 목적인 경우 중복체크와 
+				//수정까지 동시에 이루어지도록 함
+				String purpose = request.getParameter("purpose");
+				
+				
+				
 				//입력한 아이디가 DB에 저장되어 있는지 중복 체크 작업 
 				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
 				boolean result = memberdao.overlappedId(m_id);
-			
+				
 				//아이디 중복결과를 다시 한번 확인 하여 조건값을 
 				//join.jsp파일과 연결된 join.js파일에 작성해 놓은
 				//success:function의 data매개변수로 웹브라우저를 거쳐 보냅니다!
@@ -153,6 +178,9 @@ public class MemberController extends HttpServlet {
 					out.write("not_usable");
 					return;
 				}else {
+					if(purpose != null) {
+						int updateResult = memberdao.updateMember(memvo, uniqueID);
+					}
 					out.write("usable");
 					return;
 				}
@@ -162,6 +190,15 @@ public class MemberController extends HttpServlet {
 			}else if(action.equals("/joinEmailCheck.me")) {
 			//입력한 이메일 얻기
 				String m_email = request.getParameter("m_email");
+				MemberVO memvo = new MemberVO();
+				memvo.setM_email(m_email);
+				
+				//0329 정태영 : 
+				//modMemberForm1에서 ajax를 통해 아이디를 변경하는 경우
+				//purpose에 change를 대입해서 수정이 목적인 경우 중복체크와 
+				//수정까지 동시에 이루어지도록 함
+				String purpose = request.getParameter("purpose");
+				
 				
 				//입력한 이메일이 DB에 저장되어 있는지 중복 체크 작업 
 				//true -> 중복 , false -> 중복아님  둘중 하나를 반환 받음
@@ -174,14 +211,39 @@ public class MemberController extends HttpServlet {
 					out.write("not_usable");
 					return;
 				}else {
+					if(purpose != null) {
+						int updateResult = memberdao.updateMember(memvo, uniqueID);
+					}
 					out.write("usable");
 					return;
-				}
+				} 
+			}	
+			else if(action.equals("/joinPwCheck.me")) {
+				//입력한 이메일 얻기
+					String m_pw = request.getParameter("m_pw");
+					MemberVO memvo = new MemberVO();
+					memvo.setM_pw(m_pw);
+					
+					//0329 정태영 : 
+					//modMemberForm1에서 ajax를 통해 아이디를 변경하는 경우
+					//purpose에 change를 대입해서 수정이 목적인 경우 중복체크와 
+					//수정까지 동시에 이루어지도록 함
+					String purpose = request.getParameter("purpose");
+					
+					int updateResult = memberdao.updateMember(memvo, uniqueID);
+					
+					if(updateResult == 0) {
+						out.write("not_usable");
+						return;
+					}else {
+						out.write("usable");
+						return;
+					}
 			
-				
+			}
 			
 			//로그인 수행
-			}else if(action.equals("/login.me")) {//로그인 창으로 이동
+			else if(action.equals("/login.me")) {//로그인 창으로 이동
 			
 
 				nextPage = "/Member/login.jsp";			
@@ -384,8 +446,6 @@ public class MemberController extends HttpServlet {
 				
 				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
 				String loginPw = vo.getM_pw();
-				System.out.println(m_pw);
-				System.out.println(loginPw);
 				
 				if(loginPw.equals(m_pw)) {
 					

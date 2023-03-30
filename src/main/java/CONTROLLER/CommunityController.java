@@ -406,6 +406,7 @@ public class CommunityController extends HttpServlet {
 			vo.setC_content(content);
 			vo.setC_password(pass);
 			vo.setC_uniqueid(uniqueID);
+			
 			int result = comDAO.insertBoard(vo);
 			
 			String nickname = (String)session.getAttribute("m_nickname");

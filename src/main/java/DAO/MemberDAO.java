@@ -185,8 +185,8 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			//insert문장 완성하기
-			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_level) " 
-						+ "values(?, ?, ?, ?, ?, ?, 1)";
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_gradeimage) " 
+						+ "values(?, ?, ?, ?, ?, ?, 'egg.png')";
                          
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getM_uniqueid());
@@ -400,36 +400,44 @@ public class MemberDAO {
 	
 	//회원정보수정하는 메소드
 	//입력한 회원정보를 수정하는 메소드 
-		public int updateMember(HttpServletRequest request) {
-			
+		public int updateMember(MemberVO vo, String uniqueID) {
 			int result = 0; //수정성공시 1이 저장되고 , 수정 실패하면 0이 저장될 변수 
+			String updateColumn = null;
+			String updateString = null;
+			String sql = null;
+			
+			if(vo.getM_id() != null) {
+				updateColumn = "m_id";
+				updateString = vo.getM_id();
+				sql = "update m_member set m_id = ? where m_uniqueid = ?";
+			} else if(vo.getM_nickname() != null) {
+				updateColumn = "m_nickname";
+				updateString = vo.getM_nickname();
+				sql = "update m_member set m_nickname = ? where m_uniqueid = ?";
+			} else if(vo.getM_email() != null) {
+				updateColumn = "m_email";
+				updateString = vo.getM_email();
+				sql = "update m_member set m_email = ? where m_uniqueid = ?";
+			} else {
+				updateColumn = "m_pw";
+				updateString = vo.getM_pw();
+				sql = "update m_member set m_pw = ? where m_uniqueid = ?";
+			}
+			System.out.println("dao.updateMember 변경할 행 이름 : " + updateColumn);
+			System.out.println("dao.updateMember 변경할 값 이름 : " + updateString);
 			
 			try {
-				//커넥션 풀에서 DB와 미리 연결을 맺어 만들어져 있는 Connection객체 빌려오기 
-				//요약 : DB접속
 				con = ds.getConnection();
 				
-				String sql = "UPDATE m_member set"
-						   + " m_pw=?,"
-						   + " m_nickname=?,"
-						   + " m_email=? "
-						   + " WHERE m_id=? ";
-				
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, request.getParameter("m_pw"));
-				pstmt.setString(2, request.getParameter("m_nickname"));
-				pstmt.setString(3, request.getParameter("m_email"));
-				pstmt.setString(4, request.getParameter("m_id"));
-				
+				pstmt.setString(1, updateString);
+				pstmt.setString(2, uniqueID);
 				result = pstmt.executeUpdate();
 				
 			} catch (Exception e) {
-				
-				System.out.println("updateMember메소드 내부에서 SQL실행 오류 ");
+				System.out.println("updateMember");
 				e.printStackTrace();
-				
 			} finally {
-				//자원해제
 				closeResource();
 			}
 			
@@ -489,7 +497,8 @@ public class MemberDAO {
 									rs.getString("m_name"),
 									rs.getString("m_email"),
 									rs.getInt("m_exp"),
-									rs.getInt("m_level")
+									rs.getInt("m_level"),
+									rs.getString("m_gradeimage")
 									);
 			}
 		} catch(Exception e) {
@@ -524,7 +533,8 @@ public class MemberDAO {
 									rs.getString("m_email"),
 									rs.getDate("m_date"),
 									rs.getInt("m_exp"),
-									rs.getInt("m_level")
+									rs.getInt("m_level"),
+									rs.getString("m_gradeimage")
 									);
 			}
 		} catch(Exception e) {
@@ -664,7 +674,6 @@ public class MemberDAO {
 			pstmt.setInt(1, insert_level);
 			pstmt.setString(2, uniqueID);
 			pstmt.executeUpdate();
-			
 			level = String.valueOf(insert_level);
 			
 		} catch(Exception e) {

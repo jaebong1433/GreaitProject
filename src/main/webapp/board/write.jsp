@@ -94,13 +94,12 @@
                     	<div align="center">내 &nbsp;&nbsp; 용</div>
                     </td>
                     <td colspan="3" style="text-align: left">
-                    	<textarea name="content" rows="20" cols="110" id="p_content"></textarea>
+                    	<textarea name="p_content" rows="20" cols="110" id="p_content"></textarea>
                     	<script type="text/javascript">
 						 	CKEDITOR.replace('p_content'
 						                , {height: 500                                                  
 						                 });
 						</script>
-                    	
                     	<p id="resultInput"></p>
                     </td>
                   </tr>
@@ -159,7 +158,10 @@
 			//글제목을 입력받아 얻는다.
 			var title = $("input[name=title]").val();
 			//글내용을 입력받아 얻는다.
-			var content = $("textarea[name=content]").val();
+			var content = CKEDITOR.instances.p_content.getData();
+			content = content.substr(3, content.length);
+			content = content.substr(0, content.length - 5);
+			
 			//글비밀번호를 입력받아 얻는다.
 			var pass = $("input[name=password]").val();
 			

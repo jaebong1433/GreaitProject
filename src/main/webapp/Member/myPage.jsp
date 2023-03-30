@@ -121,7 +121,9 @@ pageEncoding="UTF-8"
 						<td><%=vo.getM_date() %></td>
 					</tr>
 					<tr>
-						<td><p id="level">LV.${ vo.m_level }</p></td>
+						<td>
+							<img width="40%" alt="등급이미지" src="<%= contextPath %>/Member/images/<%= vo.getM_gradeimage() %>">
+							<p id="level">LV.${ vo.m_level }</p></td>
 						
 						<c:set var="exp" value="${ vo.m_exp - (vo.m_level - 1) * 100 }" />
 						<c:set var="exp_space" value="${ 100 - exp }" />

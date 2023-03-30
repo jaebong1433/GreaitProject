@@ -210,7 +210,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								</td>
 								
 								<td align="left">
-									<img width="20%" alt="프로필 사진" src="<%= contextPath %>/board/images/profile.png">
+									<img width="20%" alt="프로필 사진" src="<%= contextPath %>/Member/images/admin.png">
 									<%=vo.getC_nickname()%>
 								</td>
 								<td align="left"><%=vo.getC_date()%></td>
@@ -271,7 +271,9 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									<td align="left"><%=vo.getC_nickname()%></td>
 								</c:if>
 								<c:if test="<%= memvo != null %>">
-									<td align="left">LV. <%= memvo.getM_level() %> <%=vo.getC_nickname()%></td>
+									<td align="left"><img width="20%" alt="등급 이미지" src="<%= contextPath %>/Member/images/<%= memvo.getM_gradeimage() %>">
+										LV. <%= memvo.getM_level() %> <%=vo.getC_nickname()%>
+									</td>
 								</c:if>
 								<td align="left"><%=vo.getC_date()%></td>
 								<td align="left"><%=vo.getC_views()%></td>
