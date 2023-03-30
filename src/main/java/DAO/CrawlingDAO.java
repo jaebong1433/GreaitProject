@@ -14,9 +14,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -156,16 +158,27 @@ public class CrawlingDAO {
 				      return youtubeList;
 			      }
 		  
-		  //셀레니움 메소드 수정 3.29
+		  //셀레니움 메소드 수정 3.30 재봉
 		  public List<ClipCrawlingVO> getMainClipDatas() throws IOException{
 			  	List<ClipCrawlingVO> clipList = new ArrayList<ClipCrawlingVO>();
 			  //Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
 				//Web Driver 압축 해제 경로 입력
 			   System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
+			   
+			   ChromeOptions options = new ChromeOptions();
+			   options.addArguments("--headless");
+			   options.addArguments("--disable-gpu");
 
-			   WebDriver driver = new ChromeDriver();
-		       driver.get("https://movie.daum.net/main");
-		       
+			   WebDriver driver = new ChromeDriver(options);
+			   
+			   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 10초간 기다림
+			   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);//페이지로드가 완료 될 때까지 기다리는 시간 설정
+			   driver.get("https://movie.daum.net/main");
+			   
+//			   WebElement videoWrapper = driver.findElement(By.id("video-wrapper"));
+//			   JavascriptExecutor js = (JavascriptExecutor) driver;
+//			   js.executeScript("arguments[0].setAttribute('style', 'margin-top: 50px;')", videoWrapper);
+//			   
 		       WebElement playerContainer = driver.findElement(By.className("player_container"));
 		       WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
 		       
