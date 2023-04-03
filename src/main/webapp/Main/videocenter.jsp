@@ -30,6 +30,7 @@ String kakao = "https://tv.kakao.com";
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
 <style type="text/css">
 	

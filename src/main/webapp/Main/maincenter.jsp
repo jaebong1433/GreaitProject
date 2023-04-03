@@ -257,7 +257,7 @@
 			 			
 			 			
 			 			<%-- 주석 처리 됨 --%>
-						<%--				
+						<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
 								String ptext = vo2.getpText();
 								if(ptext.length() > 60) {

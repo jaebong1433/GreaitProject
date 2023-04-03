@@ -17,13 +17,10 @@
 <link rel="stylesheet" type="text/css" href="/MVCBoard/style.css"/>
 <script type="text/javascript" src="<%=contextPath %>/ckeditor/ckeditor.js"></script>
 <title>Insert title here</title>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
 	<style type="text/css">
 		
-		a{
-			text-decoration: none;
-			color: black;
-		}
 		
 		.textin{
 			height: 30px;
@@ -41,7 +38,7 @@
 <table class="writetb">
   <tr height="40"> 
     <td width="100%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
-    	<img alt="글쓰기" src="<%=contextPath%>/eq/img/banner/writebanner.jpg" width="98%">
+    	<img alt="글수정" src="<%=contextPath%>/eq/img/banner/revivebanner.jpg" width="98%">
 
     </td>
   </tr>
@@ -115,7 +112,7 @@
             <!-- 등록 버튼 -->
             <div align="right">
             	<a href="" id="registration1">
-            		<img src="<%=contextPath%>/eq/img/okwrite.png" width="100px" border="0"/>
+            		<img src="<%=contextPath%>/eq/img/revivecomplate.png" width="100px" border="0"/>
            		</a>
             </div>
             </td>

@@ -42,6 +42,7 @@ pageEncoding="UTF-8"
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 		<style type="text/css">
 	.boarddiv {
 		margin-top: 50px;
@@ -86,10 +87,6 @@ pageEncoding="UTF-8"
 		background-color : white;
 	}
 	
-	a{
-		color: black;
-		text-decoration: none;
-	}
 	
 	.banner{
 		margin-top: 30px;
