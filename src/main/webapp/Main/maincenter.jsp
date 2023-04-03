@@ -254,10 +254,7 @@
 			<hr>
 			 <table class="centertb3">
 			 			<tr>
-			 			
-			 			
-			 			<%-- 주석 처리 됨 --%>
-						<%--				
+			 			<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
 								String ptext = vo2.getpText();
 								if(ptext.length() > 60) {
@@ -272,8 +269,8 @@
 						
 							<td>
 							<div>
-							 <iframe src="<%=iframe%>" width="700px" height="400px" ></iframe>
-							</div>
+							 <iframe src="<%=iframe%>" width="690px" height="390px" ></iframe>
+							</div> 
 							<h4><b><%=vo2.getStrongText()%></b></h4>
  							<p><%=ptext%></p>
 							</td>

@@ -70,6 +70,7 @@ public class CrawlingDAO {
 		      return mainList;
 	      }
 		  
+	  	  //3월 추가 4.3
 		  public List<BoxCrawlingVO> getBoxDatas(String menuNo) throws IOException{
 			  String daumUrl = null;
 			  if(menuNo.equals("2")) {
@@ -80,6 +81,8 @@ public class CrawlingDAO {
 				  daumUrl = "https://movie.daum.net/ranking/boxoffice/yearly?date=2022";
 			  }else if(menuNo.equals("21")) {
 				  daumUrl = "https://movie.daum.net/ranking/boxoffice/yearly?date=2021";
+			  }else if(menuNo.equals("3")) {
+				  daumUrl = "https://movie.daum.net/ranking/boxoffice/monthly";
 			  }
 			  List<BoxCrawlingVO> BoxList = new ArrayList<BoxCrawlingVO>();
 			  Document daumDoc = Jsoup.connect(daumUrl).get();
@@ -107,15 +110,16 @@ public class CrawlingDAO {
 		      }   
 		      return BoxList;
 	      }
+		  //4.3 카카오티비에서 네이버예고편저장소로 변경
 		  public List<VideoCrawlingVO> getVideoDatas() throws IOException{
-				String videoUrl = "https://tv.kakao.com/search/cliplinks?q=%EC%98%88%EA%B3%A0%ED%8E%B8&sort=PlayCount";
+				String videoUrl = "https://tv.naver.com/navermovie/clips";
 					     List<VideoCrawlingVO> videoList = new ArrayList<VideoCrawlingVO>();
 					  
 					    Document videoDoc = Jsoup.connect(videoUrl).get();
-						Elements videoImg = videoDoc.select("div.video_item img");
-						Elements videoTitle = videoDoc.select("div.video_item strong");
-						Elements videoPlayCnt = videoDoc.select("div.video_item span.info_play span.info_append");
-						Elements videoSrc = videoDoc.select("div.video_item a");
+						Elements videoImg = videoDoc.select("a.cds_thm img");
+						Elements videoTitle = videoDoc.select("dt.title a");
+						Elements videoPlayCnt = videoDoc.select("dd.meta span.hit");
+						Elements videoSrc = videoDoc.select("div.cds_type a");
 						for (int i = 0; i < 20; i++) {
 							VideoCrawlingVO vo = new VideoCrawlingVO();
 				    	 	String imgSrc = videoImg.get(i).attr("src");
@@ -174,13 +178,22 @@ public class CrawlingDAO {
 			   System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
 			   
 			   ChromeOptions options = new ChromeOptions();
+			   //속도 개선을 위한 옵션 추가 4.3
 			   options.addArguments("--headless");
 			   options.addArguments("--disable-gpu");
-
+			   options.addArguments("--no-sandbox"); 
+			   options.addArguments("--disable-dev-shm-usage");
+			   options.addArguments("--disable-popup-blocking");  
+		       options.addArguments("--disable-defult-apps");
+		       options.addArguments("--blink-settings=imagesEnabled=false"); //이미지 다운 안받음
+		       options.addArguments("--disable-infobars");
+		       options.addArguments("--disable-extensions");
+		       options.addArguments("--disable-notifications");
+		       
 			   WebDriver driver = new ChromeDriver(options);
 			   
 			   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 10초간 기다림
-			   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);//페이지로드가 완료 될 때까지 기다리는 시간 설정
+//			   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);//페이지로드가 완료 될 때까지 기다리는 시간 설정
 			   driver.get("https://movie.daum.net/main");
 			   
 //			   WebElement videoWrapper = driver.findElement(By.id("video-wrapper"));
@@ -197,12 +210,12 @@ public class CrawlingDAO {
 		       ClipCrawlingVO vo = new ClipCrawlingVO();
 		       
 		       String iframeSrc = iframe.getAttribute("src");
-//		       String strongText = strongTag.getText();
-//		       String pText = pTag.getText();
+		       String strongText = strongTag.getText();
+		       String pText = pTag.getText();
 		       
 		       vo.setIframeSrc(iframeSrc);
-//		       vo.setpText(pText);
-//		       vo.setStrongText(strongText);
+		       vo.setpText(pText);
+		       vo.setStrongText(strongText);
 		       
 		       clipList.add(vo);
 		       driver.quit();
