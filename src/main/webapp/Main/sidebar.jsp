@@ -190,7 +190,7 @@
     	<td>	
     		<form action="<%=contextPath%>/member1/mypage.me" id="mypage" method="post">
 			
-				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
+				<input type="hidden" name="userUniqueID" value="<%=uniqueID%>">
 				<input type="submit" value="myPage">
 			</form>		
 			</td>	

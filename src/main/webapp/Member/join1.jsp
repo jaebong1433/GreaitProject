@@ -68,7 +68,7 @@
 			
 			
 			
-			<form action="<%= contextPath%>/Member/join2.jsp" id="joinForm" onsubmit="return chk();">
+			<form action="<%= contextPath%>/member1/join2.me" id="joinForm" onsubmit="return chk();">
            
             <ul class="join_box">
                 <li class="checkBox check01">

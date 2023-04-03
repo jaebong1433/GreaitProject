@@ -16,7 +16,9 @@ import javax.sql.rowset.serial.SerialException;
 
 import org.apache.catalina.tribes.UniqueId;
 
+import DAO.CommunityDAO;
 import DAO.MemberDAO;
+import VO.CommunityVO;
 import VO.MemberVO;
 
 @WebServlet("/member1/*") 
@@ -24,12 +26,12 @@ public class MemberController extends HttpServlet {
 	//멤버 서비스 추가
 	
 		MemberDAO memberdao;
-	
+		CommunityDAO comdao;
+		
 		@Override
 		public void init() throws ServletException {
 			memberdao = new MemberDAO();
-			//멤버 서비스 
-		
+			comdao = new CommunityDAO();
 		}
 	
 		@Override
@@ -82,15 +84,15 @@ public class MemberController extends HttpServlet {
 			//회원 가입 눌렀을때 보여주는페이지
 			}else if (action.equals("/join1.me")) {
 				
-				
-				nextPage = "/Member/join1.jsp";
+				request.setAttribute("center", "/Member/join1.jsp");
+				nextPage = "/index.jsp";
 				
 				
 			//회원가입 약관동의 했을경우 다음패이지로 확인	
-			}else if (action.equals("join2.me")) {
+			}else if (action.equals("/join2.me")) {
 				
-				
-				nextPage = "/Member/join2.jsp";
+				request.setAttribute("center", "/Member/join2.jsp");
+				nextPage = "/index.jsp";
 				
 			
 			//회원가입 실행 
@@ -120,7 +122,8 @@ public class MemberController extends HttpServlet {
 				
 				memberdao.insertMember(vo);
 
-				nextPage= "/Member/join3.jsp";
+				request.setAttribute("center", "/Member/join3.jsp");
+				nextPage = "/index.jsp";
 
 				
 			//회원가입 닉네임 얻기
@@ -245,7 +248,6 @@ public class MemberController extends HttpServlet {
 			//로그인 수행
 			else if(action.equals("/login.me")) {//로그인 창으로 이동
 			
-
 				nextPage = "/Member/login.jsp";			
 				
 			
@@ -384,14 +386,23 @@ public class MemberController extends HttpServlet {
 		
 			//회원정보 수정을 위해 회원정보 조회 요청!
 			}else if(action.equals("/mypage.me")) { 
+				String pwd = memberdao.pwdEncryption("1234");
+				pwd = memberdao.incodeBase64(pwd);
+				pwd = memberdao.decodeBase64(pwd);
+				pwd = memberdao.pwdDecryption(pwd);
+				
 				//요청한 값 얻기
-				String m_nickname = request.getParameter("m_nickname");
+//				String m_nickname = request.getParameter("m_nickname");
+				//고유아이디를 통해 회원정보를 조회하도록 요청
+				String userUniqueID = request.getParameter("userUniqueID");
 				
-				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
+				MemberVO vo = memberdao.getMemVOByUniqueID(userUniqueID);
 				
+				List<CommunityVO> list = comdao.getAllComListByUniqueID(userUniqueID);
+
 				//View중앙화면에 보여주기 위해 request에  vo를 바인딩
 				request.setAttribute("vo", vo);
-				
+				request.setAttribute("comlist", list);
 				request.setAttribute("center", "/Member/myPage.jsp");
 				
 	
@@ -450,7 +461,8 @@ public class MemberController extends HttpServlet {
 				if(loginPw.equals(m_pw)) {
 					
 					request.setAttribute("vo", vo);	
-					nextPage = "/Member/modMemberForm1.jsp";
+					request.setAttribute("center", "/Member/modMemberForm1.jsp");
+					nextPage = "/index.jsp";
 					
 				}else {
 					out.println("<script>");

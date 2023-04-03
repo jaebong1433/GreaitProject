@@ -100,9 +100,10 @@
 			<table class="mptb">
 			<tr>
 				<td width="10%">이름</td>
-				<td width="40%">
-				<input type="text" id="m_name" name="m_name"
-					value="<%=vo.getM_name()%>" readonly>
+				<td width="40%" align="left">
+				<input type="hidden" id="m_name" name="m_name"
+					value="${ vo.m_name }" readonly>
+				&nbsp;&nbsp;&nbsp;${ vo.m_name }	
 				<p id="nameInput"></p>
 				</td>
 				
@@ -110,7 +111,7 @@
 				<td>ID</td>
 				<td>
 					<input type="text" id="m_id" name="m_id"
-						value="<%=vo.getM_id()%>" >
+					value="${ vo.m_id }" >
 					<p id="idInput"></p>
 					<button type="button" onclick="updateID(); return false;">수정하기</button>
 				</td>
@@ -120,7 +121,7 @@
 				<td>닉네임</td>
 				<td>
 					<input type="text" id="m_nickname" name="m_nickname"
-						value="<%=vo.getM_nickname()%>">
+						value="${ vo.m_nickname }">
 					<p id="nicknameInput"></p>
 					<button type="button" onclick="updateNickname(); return false;">수정하기</button>
 				</td>
@@ -130,7 +131,7 @@
 				<td>Email</td>
 				<td>
 					<input type="text" id="m_email" name="m_email"
-						value="<%=vo.getM_email()%>">
+						value="${ vo.m_email }">
 					<p id="emailInput"></p>
 					<button type="button" onclick="updateEmail(); return false;">수정하기</button>
 				</td>
