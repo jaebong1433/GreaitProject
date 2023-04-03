@@ -208,7 +208,36 @@ pageEncoding="UTF-8"
             	<input type="submit" value="확인">
          	</form>
          </div>
+         <%-- 댓글 작성 --%>
+         <form method="post" id="comment_write">
+			<table>
+				<tr>
+					<td>
+					  <label for="nickname">닉네임 : </label>
+					  <% if(loginNick != null){//로그인을 했을때%>
+					  <input type="text" id="m_nickname" name="m_nickname" value="<%=loginNick%>" readonly><br>
+					   <%}else{//로그인을 하지 않았을때%>
+					   <input type="text" id="comment_nick" name="comment_nick"><br>
+					   <%}%>
+					  <label for="password">댓글비밀번호 : </label>
+					  <input type="password" id="comment_pw" name="comment_pw">
+					 </td>
+					 <td>
+						  <label for="comment">댓글</label><br>
+						  <textarea id="comment_content" name="comment_content" rows="3" cols="70"></textarea>
+						  <input type="submit" value="작성">
+					 </td>
+				 </tr>
+			 </table>
+			 <input type="hidden" name="c_idx" value="<%=c_idx%>">
+			 <input type="hidden"name="comment_uniqueid" value="<%=viewId%>">
+		  </form>
 	</center>
+	
+	
+
+	
+	
 		<script type="text/javascript">
 		<!-- 목록버튼 클릭했을때 03/20 허상호 -->
 		$("#list").click(function(event) {
