@@ -265,8 +265,7 @@
 								if(iframe.length() > 77) {
 									iframe = iframe.substring(0, 77);
 								}
-						%>
-						
+						 %>
 							<td>
 							<div>
 							 <iframe src="<%=iframe%>" width="690px" height="390px" ></iframe>

@@ -255,20 +255,6 @@
               	 	$("#pwInput2").text("올바르게 입력되었습니다.").css("color","blue");
                 }
            }
-        
-        //입력한 비밓번호와 입력한 비밀번호 확인의 데이터가 같은지 비교
-//         var pwd1 = $("#m_pw")
-//         var pwd2 = $("#pwCheck");
-        
-//         var pwdValue1 = pwd1.val();
-//         var pwdValue2 = pwd2.val();
-        
-//         if( pwd1.val() !==  pwd2.val()){
-//            $("#pwInput2").text("비밀번호가 일치하지 않습니다.").css("color","red");
-           
-//             pwd2.select();
-//             return false;
-//         }
      });
       
       

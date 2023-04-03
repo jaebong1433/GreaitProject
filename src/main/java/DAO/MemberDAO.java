@@ -363,7 +363,7 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				String sql = "select m_pw  from m_member where m_name=? and m_id=? and m_email=?";
+				String sql = "select m_pw from m_member where m_name=? and m_id=? and m_email=?";
 				
 					pstmt = con.prepareStatement(sql);	
 					
@@ -392,7 +392,10 @@ public class MemberDAO {
 			return m_pw;
 			
 		}
+	
+	public void changePW(String m_name, String m_id, String m_email, String m_pw) {
 		
+	}
 		
 	//회원 닉네임을을 이용해 회원 정보 조회
 	public MemberVO findMember(String m_nickname) {
@@ -837,6 +840,7 @@ public class MemberDAO {
     	System.out.println("Base64를 이용해 decode 된 문자열: " + decrypted);
     	return decrypted;
     }
+    //Bcrypt 라이브러리를 통해 암호화 하는 메서드
     public static String hashpw(String pwd) {
     	String salt = BCrypt.gensalt();
     	String hashedPassword = BCrypt.hashpw(pwd, salt);
@@ -847,10 +851,14 @@ public class MemberDAO {
     	
     	return hashedPassword;
     }
+    //Bcrypt 라이브러리를 이용해 암호를 확인하는 메서드
+    //Bcrypt는 단방향이므로 암호의 복호화가 불가능하므로,
+    //입력한 비밀번호가 DB에 저장된 비밀번호와 동일한지 여부만 알 수 있다.
     public static boolean checkpw(String pwd) {
     	String salt = BCrypt.gensalt();
     	String hashedPassword = BCrypt.hashpw(pwd, salt);
     	boolean passwordMatches = BCrypt.checkpw(pwd, hashedPassword);
+    	System.out.println("DB에 저장된 비밀번호: "+ hashedPassword);
     	System.out.println("비밀번호 동일 여부: "+ passwordMatches);
     	return passwordMatches;
     }
