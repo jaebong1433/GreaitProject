@@ -340,42 +340,47 @@ public class MemberController extends HttpServlet {
 					
 					
 			
-			//비밀번호 찾기수행
-			}else if (action.equals("/findPW.me")) {//비밀번호 찾기수행
+			//비밀번호 변경하기 위해 인증 페이지로 연결
+			}else if (action.equals("/changePW.me")) {//비밀번호 찾기수행
+					
+					//아이디, 이름, 이메일을 입력받는 페이지
+					nextPage = "/Member/changePW_1.jsp";
 					
 					
-					nextPage = "/Member/findPW.jsp";
-					
-					
-			//비밀번호 찾기 실행
-			}else if(action.equals("/findPwResult.me")) {//비밀번호 찾기
+			//비밀번호 찾기 위해 회원 확인 하는 기능
+			}else if(action.equals("/changePW2.me")) {//비밀번호 찾기
 					
 				String m_name = request.getParameter("m_name");
 				String m_id= request.getParameter("m_id");
 				String m_email = request.getParameter("m_email");
-
+				
 				String m_pw = memberdao.findPW(m_name,m_id,m_email);
-					
 				
-					
-				if(m_pw == null) {//
-					out.println("<script>");
-					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
-					out.println(" history.go(-1);");
-					out.println("</script>");
-					return;
+				System.out.println(m_pw);
+				
+				if(m_pw == null) {
+					out.write("false");
 				}else if (m_pw != null){
-					request.setAttribute("m_pw", m_pw);
-					
+					out.write("true");
 				}
+				return;
+			}	
+			
+			//change_1.jsp에서 입력받은 이메일, 이름, 아이디, 비밀번호, 비밀번호 확인을 통해
+			//회원의 비밀번호를 변경하는 기능
+			else if(action.equals("/changePW3.me")) {
+				String m_name = request.getParameter("m_name");
+				String m_id = request.getParameter("m_id");
+				String m_email = request.getParameter("m_email");
+				String m_pw = request.getParameter("m_pw");
 				
+				memberdao.changePW(m_name, m_id, m_email, m_pw);
 				
-				nextPage = "/Member/findPW2.jsp";
-				
-				
+				return;
+			}
 			
 			//카카오 로그인창에서 로그인 버튼을 눌렀을 때
-			}else if(action.equals("/kakaoLoginPro.me")) {
+			else if(action.equals("/kakaoLoginPro.me")) {
 				
 				//---부장
 				

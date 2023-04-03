@@ -27,56 +27,17 @@ YoutubeCrawlingVO vo = null;
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.108.0">
 <title>Center</title>
-<!-- 제이쿼리 사용을 위한 제이쿼리 라이이브러리 연동 -->
+
+<!-- 글씨체 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
-
-<style type="text/css">
-.centertb1 {
-	width: 98%;
-	height: 350px;
-	text-align: center;
-	margin: auto;
-	float: center;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-hr {
-	width: 90%;
-	border: 1.5px gray solid;
-}
-
-.testtest{
-	text-align: center;
-	height: 250px;
-	border-bottom: 1px black dotted;
-}
-
-.test{
-	height:50px;
-	text-align: left;
-	width: 200px;
-}
-
-
-.teste{
-	margin: auto;
-	float: center;
-}
-
-.imgbor{
-	border-radius: 15px;
-}
-
-
-</style>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
 </head>
 <body>
@@ -85,8 +46,12 @@ hr {
 			<br>
 			<img alt="영상" src="<%=contextPath%>/eq/img/banner/videobanner.jpg" width="98%">
 			<hr>
-				<table class="centertb1">
+				<table class="Genretb">
+					<div class="genreT">
+						<h2>액션</h2>
+					</div>
 					<tr><!-- 4.3 for문 숫자 수정  -->
+					
 						<%
 							for(int i=0; i<5; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
@@ -97,8 +62,9 @@ hr {
 								}
 						%>
 						
-						<td  class="testtest">
-							<table class="teste">
+						<td class="genrepic">
+						
+							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
 								<a href="<%=vo.getHref()%>" target="_blank">
@@ -106,7 +72,7 @@ hr {
 								</a>
 							</div>
 							</td></tr>
-							<tr><td class="test">
+							<tr><td class="genretitle">
 							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
@@ -115,7 +81,11 @@ hr {
 						</td>
 						<%} %>
 					</tr>
-					
+				</table>
+				<table class="Genretb">
+				<div class="genreT">
+						<h2>공포</h2>
+					</div>
 					<tr>
 						<%
 							for(int i=5; i<10; i++){
@@ -127,8 +97,8 @@ hr {
 								}
 						%>
 						
-						<td  class="testtest">
-							<table class="teste">
+						<td class="genrepic">
+							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
 								<a href="<%=vo.getHref()%>" target="_blank">
@@ -136,7 +106,7 @@ hr {
 								</a>
 							</div>
 							</td></tr>
-							<tr><td class="test">
+							<tr><td class="genretitle">
 							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
@@ -145,6 +115,11 @@ hr {
 						</td>
 						<%} %>
 					</tr>
+					</table>
+					<table class="Genretb">
+					<div class="genreT">
+						<h2>판타지</h2>
+					</div>
 					<tr>
 						<%
 							for(int i=10; i<15; i++){
@@ -156,8 +131,8 @@ hr {
 								}
 						%>
 						
-						<td  class="testtest">
-							<table class="teste">
+						<td class="genrepic">
+							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
 								<a href="<%=vo.getHref()%>" target="_blank">
@@ -165,7 +140,7 @@ hr {
 								</a>
 							</div>
 							</td></tr>
-							<tr><td class="test">
+							<tr><td class="genretitle">
 							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
@@ -174,6 +149,11 @@ hr {
 						</td>
 						<%} %>
 					</tr>
+					</table>
+					<table class="Genretb">
+					<div class="genreT">
+						<h2>로맨스</h2>
+					</div>
 					<tr>
 						<%
 							for(int i=15; i<20; i++){
@@ -185,8 +165,8 @@ hr {
 								}
 						%>
 						
-						<td  class="testtest">
-							<table class="teste">
+						<td class="genrepic">
+							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
 								<a href="<%=vo.getHref()%>" target="_blank">
@@ -194,7 +174,7 @@ hr {
 								</a>
 							</div>
 							</td></tr>
-							<tr><td class="test">
+							<tr><td class="genretitle">
 							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>
@@ -203,6 +183,11 @@ hr {
 						</td>
 						<%} %>
 					</tr>
+					</table>
+					<table class="Genretb">
+					<div class="genreT">
+						<h2>코믹</h2>
+					</div>
 					<tr>
 						<%
 							for(int i=20; i<25; i++){
@@ -214,8 +199,8 @@ hr {
 								}
 						%>
 						
-						<td  class="testtest">
-							<table class="teste">
+						<td class="genrepic">
+							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
 								<a href="<%=vo.getHref()%>" target="_blank">
@@ -223,7 +208,7 @@ hr {
 								</a>
 							</div>
 							</td></tr>
-							<tr><td class="test">
+							<tr><td class="genretitle">
 							<a href="<%=vo.getHref()%>" target="_blank">
 								<%=title%>
 							</a>

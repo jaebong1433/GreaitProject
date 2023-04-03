@@ -215,8 +215,8 @@
           박스오피스
         </button>
         <div class="collapse" id="box-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><!--3.21 li a 링크 추가 -->
-            <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.03</a></li>
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><!--4.3 3월 추가 -->
+            <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=3" class="link-dark d-inline-flex text-decoration-none rounded">2023.03</a></li>
             <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=2" class="link-dark d-inline-flex text-decoration-none rounded">2023.02</a></li>
             <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=1" class="link-dark d-inline-flex text-decoration-none rounded">2023.01</a></li>
             <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=22" class="link-dark d-inline-flex text-decoration-none rounded">2022</a></li>
@@ -243,7 +243,7 @@
         <div class="collapse" id="video-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
-            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
+            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">장르별 영상</a></li>
          	</ul>
         </div>
       </li>
@@ -255,7 +255,7 @@
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
             	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
-         		<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
+         		<li><a href="<%=contextPath%>/map/minigame3.mo" class="link-dark d-inline-flex text-decoration-none rounded">뱀꼬리잡기</a></li>
             	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
          	</ul>
         </div>

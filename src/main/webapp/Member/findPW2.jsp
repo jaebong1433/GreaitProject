@@ -5,9 +5,6 @@
     
     String contextPath = request.getContextPath();
     
-    String m_pw = (String)request.getAttribute("m_pw"); 
-    
-    
     %>
     <style>
     	.findtb{
@@ -52,8 +49,8 @@
 	<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br>
 	</a>
 	
-		<h2>비밀번호 찾기</h2>
-		<h3>비밀번호는 <%=m_pw %>입니다.</h3>
+		<h2>비밀번호 변경</h2>
+		<h3>비밀번호는 변경이 완료되었습니다.</h3>
 		<input type="button" value="홈으로" onclick="hone();" >		
 		<input type="button" value="로그인" onclick="login();">
 		</a>

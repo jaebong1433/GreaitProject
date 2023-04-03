@@ -74,7 +74,14 @@ public class MovieMapController extends HttpServlet{
 						
 					nextPage = "/index.jsp";
 						
-				}
+			}else if(action.equals("/minigame3.mo")) {
+				
+				
+				request.setAttribute("center","/Main/minigame3.jsp");
+					
+				nextPage = "/index.jsp";
+				
+			}
 			
 			
 			
