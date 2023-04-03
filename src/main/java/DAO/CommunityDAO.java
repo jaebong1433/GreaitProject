@@ -927,15 +927,16 @@ public class CommunityDAO {
 		return boardLikeVO;
 	}
 	// 03/30 허상호 : 글번호를 받아 글 삭제하는 메소드
-	public int deleteBoard(String delC_idx) {
+	public int deleteBoard(String delC_idx, String delC_pw) {
 		String sql = null;
 		int result = 0;
 		try {
 			
 			con = ds.getConnection();
-			sql = "delete from community where c_idx=?";
+			sql = "delete from community where c_idx=? and C_PASSWORD=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, delC_idx);
+			pstmt.setString(2, delC_pw);
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			
@@ -944,6 +945,79 @@ public class CommunityDAO {
 		}
 		
 		return result;
+	}
+	// 04/02 허상호 : 어드민계정으로 글삭제 요청시 삭제하는 메소드
+	public int adminDelBoard(String delIdx) {
+		String sql = null;
+		int result = 0;
+		try {
+			
+			con = ds.getConnection();
+			sql = "delete from community where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delIdx);
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		
+		return result;
+	}
+	
+	// 04/02 허상호 : 수정요청시 글번호와 입력한 비밀번호로 디비에 조회하여 비밀번호 체크후 글정보를 가져오는 메소드
+	public CommunityVO modPwCheck(String modIdx, String modPw) {
+		CommunityVO vo = null;
+		String sql = null;
+		try {
+			con = ds.getConnection();
+			sql = "SELECT * FROM community WHERE c_idx = ? AND C_PASSWORD = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, modIdx);
+			pstmt.setString(2, modPw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo = new CommunityVO(rs.getInt("c_idx"),
+									rs.getString("c_title"),
+									rs.getString("c_nickname"),
+									rs.getString("c_uniqueid"),
+									rs.getString("c_password"),
+									rs.getString("c_content"), 
+									rs.getDate("c_date"),
+									rs.getInt("c_views"),
+									rs.getInt("c_like"),
+									rs.getInt("c_group"),
+									rs.getInt("c_level"));
+			}
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		return vo;
+	}
+
+	public int boardModify(String modify_idx, String modWriter, String modTitle, String modContent, String modPass) {
+		int modRs = 0;
+		String sql = null;
+		try {
+			con = ds.getConnection();
+			sql = "update community set c_nickname=?,c_title=?,c_content=?,c_password=?,c_date=sysdate where c_idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, modWriter);
+			pstmt.setString(2, modTitle);
+			pstmt.setString(3, modContent);
+			pstmt.setString(4, modPass);
+			pstmt.setString(5, modify_idx);
+			modRs = pstmt.executeUpdate();
+		} catch(Exception e) {
+			
+		} finally {
+			closeResource();
+		}
+		
+		return modRs;
 	}
 
 }
