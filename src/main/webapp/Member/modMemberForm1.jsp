@@ -16,6 +16,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 <style type="text/css">
 			.mpdiv{
 				width : 98%;

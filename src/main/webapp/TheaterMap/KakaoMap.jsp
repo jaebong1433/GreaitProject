@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/map.css">
  	<link rel="stylesheet" href="<%=contextPath%>/eq/js/jquery.bxslider.min.css">
 	<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 	
 	
 	</head>

@@ -20,9 +20,16 @@
     <title>Center</title>
 	<!-- 제이쿼리 사용을 위한 제이쿼리 라이이브러리 연동 -->
 
+<!-- 글씨체 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
    
 	<script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
 	<style type="text/css">
 		.boxo{
@@ -43,7 +50,7 @@
 			font-size: 0.8em;
 		}
 		
-		.test{
+		.boxsmall{
 			height:450px;
 			text-align: center;
 		}
@@ -57,6 +64,19 @@
 			color: black;
 			text-decoration: none;
 		}
+		
+		.movierank{
+			width: 35px;
+			height: 45px;
+			background-color: yellow;
+			font-size: 2.5em;
+			position: absolute;
+			margin : 0px 0px 0px 20px;
+			font-family: 'Do Hyeon', sans-serif;
+			border: white;
+			color: black;
+		}
+		
 		
 	
 	</style>
@@ -94,7 +114,10 @@
 						people = vo.getPeople();
 				%>	 
 					<td>	
-						<div class="test">
+					<div class="movierank">
+					<b><%=i + 1%></b>
+					</div>	
+						<div class="boxsmall">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
 							<table class="tab"> 
@@ -140,8 +163,11 @@
 						dDate = vo.getdDate();
 						people = vo.getPeople();
 				%>	 
-					<td>	
-						<div class="test">
+					<td>
+					<div class="movierank">
+					<b><%=i + 1%></b>
+					</div>		
+						<div class="boxsmall">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
 							<table class="tab"> 
@@ -187,8 +213,11 @@
 						dDate = vo.getdDate();
 						people = vo.getPeople();
 				%>	 
-					<td>	
-						<div class="test">
+					<td>
+					<div class="movierank">
+					<b><%=i + 1%></b>
+					</div>		
+						<div class="boxsmall">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
 							<table class="tab"> 
@@ -234,8 +263,11 @@
 						dDate = vo.getdDate();
 						people = vo.getPeople();
 				%>	 
-					<td>	
-						<div class="test">
+					<td>
+					<div class="movierank">
+					<b><%=i + 1%></b>
+					</div>		
+						<div class="boxsmall">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
 							<table class="tab"> 
@@ -282,7 +314,10 @@
 						people = vo.getPeople();
 				%>	 
 					<td>	
-						<div class="test">
+					<div class="movierank">
+					<b><%=i + 1%></b>
+					</div>	
+						<div class="boxsmall">
 							<img src="<%=imgSrc%>" alt="" width="200px" />
 							<br>
 							<table class="tab"> 

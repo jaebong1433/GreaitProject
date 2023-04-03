@@ -18,6 +18,13 @@ pageEncoding="UTF-8"
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		
+			<!-- 글씨체 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+	
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 		<style type="text/css">
 			.mpdiv{
@@ -85,6 +92,18 @@ pageEncoding="UTF-8"
 				border-radius : 10px;
 			}
 			
+			.myContents{
+				width: 90%;
+				padding-bottom: 150px;
+			}
+			
+			.myContents h1{
+				font-family: 'Do Hyeon', sans-serif;
+			}
+			
+			.myC_tb{
+				width: 100%;
+			}
 			
 		</style>
 		
@@ -214,14 +233,15 @@ pageEncoding="UTF-8"
 				</div>
 			</div>
 			<hr>
+			<div class="myContents">
 			<h1>내가 쓴 게시글</h1>
 			작성한 게시글 개수 : ${ comlist.size() }<br>
-			<table border="1">
-				<tr width="300px" bgcolor="green" align="center">
-					<td width="25%" >제목</td>
+			<table  class="myC_tb">
+				<tr bgcolor="pink">
+					<td width="45%" >제목</td>
 					<td width="25%" >작성일</td>
-					<td width="25%" >조회수</td>
-					<td width="25%" >추천</td>
+					<td width="15%" >조회수</td>
+					<td width="15%" >추천</td>
 				</tr>
 				<c:if test="${ comlist.size() eq 0 }">
 					<tr align="center">
@@ -237,6 +257,7 @@ pageEncoding="UTF-8"
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 		</center>
 		
 	</form>	
