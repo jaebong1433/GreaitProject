@@ -46,6 +46,10 @@ pageEncoding="UTF-8"
 			document.frmRead.submit();
 		}
 		
+		function goMypage(uniqueID) {
+			document.mypage.userUniqueID.value = uniqueID;
+			document.mypage.submit();
+		}
 		
 		</script>
 		<style>
@@ -221,7 +225,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							}
 						}
 							
-						//게시판	
+						//게시판----------------------------------------------------------------------------	
 						for(int i=beginPerPage; i<(beginPerPage+numPerPage); i++){
 							
 							//만약 각페이지마다 보여지는 시작글번호가  게시판의 총글의 개수와 같으면 
@@ -267,12 +271,16 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										<%=vo.getC_title()%>
 									</a>
 								</td>
+								<!-- 비회원 게시글일 때 -->
 								<c:if test="<%= memvo == null %>">
 									<td align="left"><%=vo.getC_nickname()%></td>
 								</c:if>
+								<!-- 회원 게시글일 때 -->
 								<c:if test="<%= memvo != null %>">
 									<td align="left"><img width="20%" alt="등급 이미지" src="<%= contextPath %>/Member/images/<%= memvo.getM_gradeimage() %>">
+										<a href="#" onclick="goMypage(<%= vo.getC_uniqueid() %>);">
 										LV. <%= memvo.getM_level() %> <%=vo.getC_nickname()%>
+										</a>
 									</td>
 								</c:if>
 								<td align="left"><%=vo.getC_date()%></td>
@@ -377,5 +385,8 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	</tr>
 </table>
 </center>
+<form action="<%= contextPath %>/member1/mypage.me" method="post" name="mypage">
+	<input type="hidden" name="userUniqueID">
+</form>
 </body>
 </html>

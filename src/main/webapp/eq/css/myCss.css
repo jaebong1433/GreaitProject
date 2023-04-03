@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 			.maintic{
-			margin-top: 100px;
+			margin-top: 50px;
 				width: 95%;
 			}
 			
@@ -70,8 +70,9 @@
 		
 		.centertb2{
 			width: 98%;
+			
 			margin-top: 20px;
-			margin-bottom: 50px;
+			margin-bottom: 150px;
 		}
 		
 		.centertb2 p{
@@ -85,7 +86,7 @@
 		.centertb3{
 			width: 98%;
 			text-align: center;
-			margin-top: 20px;
+			margin-top: 100px;
 			margin-bottom: 50px;
 		}
 		

@@ -15,8 +15,13 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import VO.MemberVO;
+import encryption.BCrypt;
 
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
 public class MemberDAO {
@@ -25,9 +30,29 @@ public class MemberDAO {
 	PreparedStatement pstmt;
 	ResultSet rs;
 	DataSource ds;
+	//암호화 시키기 위한 map
+	static Map<Character, Character> replacementMap;
+	//복호화 시키기 위한 map
+	static Map<Character, Character> reverse_replacementMap;
 	
 	//커넥션풀 생성 후 커넥션 객체 얻는 생성자
 	public MemberDAO() {
+		//map에 저장시킬 문자열 배열 2개를 준비, 첫 번째는 아스키코드의 순서 33~127까지이며, 두 번째는 그것을 랜덤하게 한 것이다.
+		String[] arg = {"!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\", "]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"};
+		String[] arg2 = {"?", "v", "0", ".", ",", "9", "o", "E", "&", "2", "a", "Q", "W", "1", "-", "y", "\\", "u", "8", "n", "f", "B", "I", "]", "/", "Y", ">", "%", "7", "C", "i", "'", "<", "~", "O", "Z", "[", "N", ";", "c", "4", "T", "!", "r", "D", "h", "X", "=", "z", "K", "F", "$", "(", "G", "+", "*", "J", "k", "|", "{", "q", "w", "\"", "m", "A", "P", "}", "b", "p", "H", "S", "_", "^", ")", "@", "g", "s", "t", "j", "`", "3", "U", "x", "#", "d", "l", "M", "6", "V", "L", "e", "R", "5", ":"};
+		
+		//for문을 이용하여 hashmap에 arg 배열을 key, arg2 배열을 value로 저장한다.
+		replacementMap = new HashMap<Character, Character>();
+		for(int i = 0; i < arg.length; i++) {
+			replacementMap.put(arg[i].toCharArray()[0], arg2[i].toCharArray()[0]);
+		}
+		
+		//replacementMap의 key와 value를 반대로 하여 저장한다.
+	    reverse_replacementMap = new HashMap<Character, Character>();
+	    for(Map.Entry<Character, Character> entry : replacementMap.entrySet()) {
+	    	reverse_replacementMap.put(entry.getValue(), entry.getKey());
+        }
+		
 		//context.xml파일에 설정한
 		//Resource태그에 적힌  DataSource커넥션풀 객체 받아오기	
 		try {
@@ -179,7 +204,11 @@ public class MemberDAO {
 	
 		//회원가입 
 		public void insertMember(MemberVO vo) {
-	
+		String pw = vo.getM_pw();
+//		pw = pwdEncryption(pw);
+//		pw = incodeBase64(pw);
+		pw = hashpw(pw);
+		
 		try {
 			//커넥션 풀에 만들어져 있는 DB와 미리 연결을 맺은 Connection객체 빌려오기 
 			//요약 DB연결
@@ -193,7 +222,7 @@ public class MemberDAO {
 			pstmt.setString(1, vo.getM_uniqueid());
 			pstmt.setString(2, vo.getM_nickname());
 			pstmt.setString(3, vo.getM_id());
-			pstmt.setString(4, vo.getM_pw());
+			pstmt.setString(4, pw);
 			pstmt.setString(5, vo.getM_name());
 			pstmt.setString(6, vo.getM_email());
 			
@@ -221,7 +250,6 @@ public class MemberDAO {
 	//입력한 아이디와 비밀번호를 매개변수로 받아  DB의 테이블에 저장되어 있는지 확인하는 메소드
 	public int loginCheck(String m_id, String m_pw) {
 		int check = -1;
-		
 		try {
 			//DB접속
 			con = ds.getConnection();
@@ -234,8 +262,9 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
+				
 				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
-				if(m_pw.equals(rs.getString("m_pw")) ) {
+				if(checkpw(m_pw)) {
 					check = 1;
 				
 				}else { //아이디는 맞고 비번 틀림
@@ -770,6 +799,60 @@ public class MemberDAO {
 		
 		return list;
 	}
-
+	
+	//0403 정태영 : 유저로부터 입력받은 비밀번호를 map을 이용해 암호화하는 메서드
+	public static String pwdEncryption(String password) {
+		StringBuilder encryptedBuilder = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            char encryptedChar = replacementMap.getOrDefault(c, c);
+            encryptedBuilder.append(encryptedChar);
+        }
+        String encrypted = encryptedBuilder.toString();
+        System.out.println("입력받은 문자열: " + password);
+        System.out.println("암호화된 문자열: " + encrypted);
+        return encrypted;
+	}
+	//0403 정태영 : 유저로부터 입력받은 비밀번호를 map을 이용해 복호화하는 메서드
+	public static String pwdDecryption(String password) {
+		StringBuilder decryptedBuilder = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            char decryptedChar = reverse_replacementMap.getOrDefault(c, c);
+            decryptedBuilder.append(decryptedChar);
+        }
+        System.out.println("복호화된 문자열: " + decryptedBuilder.toString());
+    	return decryptedBuilder.toString();
+	}
+	//0403 정태영 : base64를 이용해 인코딩 하는 메서드
+	public static String incodeBase64(String pwd) {
+    	String encoded = Base64.getEncoder().encodeToString(pwd.getBytes(StandardCharsets.UTF_8));
+    	System.out.println("Base64를 이용해 incode 된 문자열: " + encoded);
+    	return encoded;
+    }
+	//0403 정태영 : base64를 이용해 디코딩 하는 메서드
+    public static String decodeBase64(String pwd) {
+    	String decrypted = new String(Base64.getDecoder().decode(pwd.toString()), StandardCharsets.UTF_8);
+    	System.out.println("DB에 저장된 비밀번호: " + pwd);
+    	System.out.println("Base64를 이용해 decode 된 문자열: " + decrypted);
+    	return decrypted;
+    }
+    public static String hashpw(String pwd) {
+    	String salt = BCrypt.gensalt();
+    	String hashedPassword = BCrypt.hashpw(pwd, salt);
+    	
+    	System.out.println("원래 비밀번호: " + pwd);
+        System.out.println("소금: " + salt);
+        System.out.println("암호화된 비밀번호: " + hashedPassword);
+    	
+    	return hashedPassword;
+    }
+    public static boolean checkpw(String pwd) {
+    	String salt = BCrypt.gensalt();
+    	String hashedPassword = BCrypt.hashpw(pwd, salt);
+    	boolean passwordMatches = BCrypt.checkpw(pwd, hashedPassword);
+    	System.out.println("비밀번호 동일 여부: "+ passwordMatches);
+    	return passwordMatches;
+    }
 }
 

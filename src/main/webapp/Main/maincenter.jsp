@@ -64,7 +64,39 @@
 		  //-----------------------------------------------------------
 	});
 </script>
+	<!-- 글씨체 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
 	
+	<style>
+		h4 {
+			font-family: 'Black Han Sans', sans-serif;
+		}
+		
+		.board1{
+			float: left;
+			width : 49%;
+			border-right : 1px solid black;
+			height : 250px;
+			margin-bottom: 50px;
+		}
+		
+		.board2{
+			float: right;
+			width : 49%;
+			border-left : 1px solid black;
+			height : 250px;
+			margin-bottom: 80px;
+		}
+	
+		h2{
+			text-align: left;
+			margin-left: 10%;
+			font-family: 'Do Hyeon', sans-serif;
+		}
+	</style>
   
 </head>
 <body>
@@ -117,8 +149,8 @@
 									<span>
 									<div class="fonttb">
 									<table>
-										<tr><h6>
-											<%=title %></h6>
+										<tr><h4>
+											<%=title %></h4>
 										</tr>
 										<tr>	
 											<%=age%><br>
@@ -169,67 +201,88 @@
 			<hr>
 			
 			<p><a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0">> 더보기</a></p>
-			<table class="comut">
-				<tr align="center" bgcolor="#D0D0D0" height="120%">
-					<td align="left">번호</td>
-					<td align="left">제목</td>
-					<td align="left">내용</td>
-					<td align="left">작성자</td>
-					<td align="left">작성일</td>
-					<td align="left">조회수</td>
-					<td align="left">추천</td>
-				</tr>
+			<div class="board1">
+			<h2>개념글</h2>
+				<table width="90%">
+					<tr bgcolor="pink" height="16%">
+						<td width="70%" align="left">제목</td>
+						<td width="20%">작성자</td>
+						<td width="10%">추천</td>
+					</tr>
 				<c:forEach end="4" var="communityVO" items="${ boardList }">
 						<tr>
-							<td align="left">${ communityVO.c_idx }</td>
 							<td align="left">
 								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
 									${ communityVO.c_title }
 								</a>
 							</td>
-							<td align="left">
-								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
-									${ communityVO.c_content }
-								</a>
-							</td>
-							<td align="left">${ communityVO.c_nickname }</td>
-							<td align="left">${ communityVO.c_date }</td>
-							<td align="left">${ communityVO.c_views }</td>
-							<td align="left">${ communityVO.c_like }</td>
+							<td>${ communityVO.c_nickname }</td>
+							<td>${ communityVO.c_like }</td>
 						</tr>
 				</c:forEach>
 				
 			</table>
+			</div>
+			<div class="board2">
+			<h2>자유게시판</h2>
+				<table width="90%">
+					<tr bgcolor="pink" height="16%">
+						<td width="70%" align="left">제목</td>
+						<td width="20%">작성자</td>
+						<td width="10%">추천</td>
+					</tr>
+				<c:forEach end="4" var="communityVO" items="${ boardList }">
+						<tr>
+							<td align="left">
+								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
+									${ communityVO.c_title }
+								</a>
+							</td>
+							<td>${ communityVO.c_nickname }</td>
+							<td>${ communityVO.c_like }</td>
+						</tr>
+				</c:forEach>
+				
+			</table>
+			</div>
 			
 		</div>
 			<!-- 게시판 끝 -->
 			<!-- 포토 구역 시작 -->
-	<div>
+	<div class="centertb3">
 	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
 			 <table class="centertb3">
 			 			<tr>
-						<%				
+			 			
+			 			
+			 			<%-- 주석 처리 됨 --%>
+						<%--				
 								vo2 = (ClipCrawlingVO)list2.get(0);
 								String ptext = vo2.getpText();
 								if(ptext.length() > 60) {
 									ptext = ptext.substring(0, 60) + "...";
 								}
+								//iframe 자동재생 방지 추가 4.3
+								String iframe = vo2.getIframeSrc();
+								if(iframe.length() > 77) {
+									iframe = iframe.substring(0, 77);
+								}
 						%>
 						
 							<td>
-						
-								<h6><b><%=vo2.getStrongText()%></b></h6>
-							<p><%=ptext%></p>
-							<div id="video-wrapper">
-<%--  							<iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px" /><br>  --%>
+							<div>
+							 <iframe src="<%=iframe%>" width="700px" height="400px" ></iframe>
 							</div>
+							<h4><b><%=vo2.getStrongText()%></b></h4>
+ 							<p><%=ptext%></p>
 							</td>
 						</tr>
 						
 			</table> 
 			
 		</div>
+		<br>
 		<div class="maintic">
 			<img alt="예매" src="<%=contextPath%>/eq/img/banner/ticketbanner.jpg" width="98%">
     		<hr>

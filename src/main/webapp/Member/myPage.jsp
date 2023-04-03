@@ -107,15 +107,30 @@ pageEncoding="UTF-8"
 					</tr>
 					<tr>	
 						<td>이름</td>
-						<td><%=vo.getM_name()%></td>
+						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
+							<td><%=vo.getM_name()%></td>
+						</c:if>
+						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
+							<td>******</td>
+						</c:if>
 					</tr>
 					<tr>
 						<td>ID</td>
-						<td><%=vo.getM_id() %></td>
+						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
+							<td><%=vo.getM_id() %></td>
+						</c:if>
+						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
+							<td>******</td>
+						</c:if>
 					</tr>
 					<tr>	
 						<td>Email</td>
-						<td><%=vo.getM_email()%></td>
+						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
+							<td><%=vo.getM_email()%></td>
+						</c:if>
+						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
+							<td>******</td>
+						</c:if>
 					</tr>
 					<tr>
 						<td>가입일자</td>
@@ -136,8 +151,12 @@ pageEncoding="UTF-8"
 							<c:set var="exp_space" value="${ 0 }" />
 						</c:if>
 						<td>
-							<p id="exp">경험치 : ${ exp } / 100	<input type="button" value="레벨업" onClick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>'); return false;">
-							 </p>
+							<p id="exp">
+								경험치 : ${ exp } / 100
+								<c:if test="${ m_uniqueID == vo.m_uniqueid }">
+									<input type="button" value="레벨업" onClick="levelUp('<%= vo.getM_nickname() %>', '<%= vo.getM_exp() %>'); return false;">
+								</c:if>
+							</p>
 							<div>
 								<table>
 									<tr>
@@ -182,11 +201,42 @@ pageEncoding="UTF-8"
 					</tr>
 				</table>
 				<div class="btnbtn">
-					<input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;">
-					<input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;">
-				</div>
 				
+					<%-- 로그인 한 사용자가 마이페이지에 접근했을 때에만 회원 수정, 탈퇴 버튼이 활성화되도록 함 --%>
+					<c:if test="${ m_uniqueID == vo.m_uniqueid }">
+					<table>
+						<tr>
+							<td><input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;"></td>
+							<td><input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;"></td>
+						</tr>
+					</table>
+					</c:if>
+				</div>
 			</div>
+			<hr>
+			<h1>내가 쓴 게시글</h1>
+			작성한 게시글 개수 : ${ comlist.size() }<br>
+			<table border="1">
+				<tr width="300px" bgcolor="green" align="center">
+					<td width="25%" >제목</td>
+					<td width="25%" >작성일</td>
+					<td width="25%" >조회수</td>
+					<td width="25%" >추천</td>
+				</tr>
+				<c:if test="${ comlist.size() eq 0 }">
+					<tr align="center">
+						<td align="center"><c:out value="작성한 게시글이 없습니다."/></td>
+					</tr>
+				</c:if>
+				<c:forEach var="comvo" items="${ comlist }">
+					<tr>
+						<td>${ comvo.c_title }</td>
+						<td>${ comvo.c_date }</td>
+						<td>${ comvo.c_views }</td>
+						<td>${ comvo.c_like }</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</center>
 		
 	</form>	
@@ -206,7 +256,8 @@ pageEncoding="UTF-8"
 						alert("레벨업을 할 수 없습니다!");
 					} else {
 						alert("레벨업 하였습니다." + ${vo.m_level} + "->" + data);
-						$("#level").text("LV." + data);
+// 						$("#level").text("LV." + data);
+						location.reload();
 					}
 				}
 			});

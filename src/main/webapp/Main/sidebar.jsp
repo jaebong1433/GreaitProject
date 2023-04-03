@@ -190,7 +190,7 @@
     	<td>	
     		<form action="<%=contextPath%>/member1/mypage.me" id="mypage" method="post">
 			
-				<input type="hidden" name="m_nickname" value="<%=m_nickname%>">
+				<input type="hidden" name="userUniqueID" value="<%=uniqueID%>">
 				<input type="submit" value="myPage">
 			</form>		
 			</td>	
@@ -211,10 +211,10 @@
         </button></a>
       </li>
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#box-collapse" aria-expanded="false">
           박스오피스
         </button>
-        <div class="collapse" id="home-collapse">
+        <div class="collapse" id="box-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><!--3.21 li a 링크 추가 -->
             <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">2023.03</a></li>
             <li><a href="<%=contextPath%>/Crawling/boxOffice.me?menu=2" class="link-dark d-inline-flex text-decoration-none rounded">2023.02</a></li>
@@ -225,10 +225,10 @@
         </div>
       </li>
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#ticket-collapse" aria-expanded="false">
           예매하기
         </button>
-        <div class="collapse" id="dashboard-collapse">
+        <div class="collapse" id="ticket-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="http://www.cgv.co.kr/ticket/" target="_blank" class="link-dark d-inline-flex text-decoration-none rounded">CGV</a></li>
             <li><a href="https://megabox.co.kr/booking" target="_blank" class="link-dark d-inline-flex text-decoration-none rounded">메가박스</a></li>
@@ -237,16 +237,30 @@
         </div>
       </li>
        <li class="mb-1">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#video-collapse" aria-expanded="false">
           영상
         </button>
-        <div class="collapse" id="orders-collapse">
+        <div class="collapse" id="video-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
             	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
          	</ul>
         </div>
       </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#game-collapse" aria-expanded="false">
+          게임
+        </button>
+        <div class="collapse" id="game-collapse">
+          	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            	<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
+            	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
+         		<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
+            	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
+         	</ul>
+        </div>
+      </li>
+      
       <!-- 경로 추가 -->
       <!-- 한성준 -->
       <li class="mb-1" style="list-style:none;">

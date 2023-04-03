@@ -8,6 +8,10 @@ public class YoutubeCrawlingVO {
 	public YoutubeCrawlingVO() {
 	}
 	
+	public YoutubeCrawlingVO(String imgSrc) {
+		this.imgSrc = imgSrc;
+	}
+
 	public YoutubeCrawlingVO(String imgSrc, String href, String title) {
 		this.imgSrc = imgSrc;
 		this.href = href;

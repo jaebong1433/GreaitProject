@@ -1,6 +1,7 @@
 package DAO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -130,21 +131,27 @@ public class CrawlingDAO {
 				      return videoList;
 			      }
 		  
-		//3.27 재봉 유튜브메소드 추가
+		  //4.3 재봉 유튜브메소드 장르별로 수정완료
 		  public List<YoutubeCrawlingVO> getYoutubeDatas() throws IOException{
 			  
 			  			List<YoutubeCrawlingVO> youtubeList = new ArrayList<YoutubeCrawlingVO>();
-			  			String youtubeUrl = null;
-			  					
-	  					for(int p=1; p<4; p++) {
-	  						youtubeUrl = "https://search.daum.net/search?w=vclip&enc=utf8&q=%EC%98%81%ED%99%94&sort=accuracy&period=w&sd=20230317172015&ed=20230324172015&play_time_ge=600&DA=STC&cp=youtube-video&p="+p+"&display=thumb";
-	  					
-			  			Document youtubeDoc = Jsoup.connect(youtubeUrl).get();
+			  			int i = 0;
+			  			String youtubeUrl[] =  {"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EC%95%A1%EC%85%98+%EC%98%81%ED%99%94&play_time_ge=300&cp=youtube-video&play_time_le=600&DA=STC&p=1",
+					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EA%B3%B5%ED%8F%AC+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
+					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%ED%8C%90%ED%83%80%EC%A7%80+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
+					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EB%A1%9C%EB%A7%A8%EC%8A%A4+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
+					 		 	  				"https://search.daum.net/search?nil_suggest=sugsch&w=vclip&m=vclip&sq=%EC%BD%94%EB%AF%B8%EB%94%94+%EC%98%81%ED%99%94&o=3&sugo=15&q=%EC%BD%94%EB%AF%B8%EB%94%94+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1"
+												};
+			  			
+			  			for(String s : youtubeUrl) {
 
+			  			Document youtubeDoc = Jsoup.connect(s).get();
+			  					
 			  			Elements youtubeImg = youtubeDoc.select("div.wrap_thumb img");
 			  			Elements youtubeA = youtubeDoc.select("div.wrap_thumb a");
 			  			Elements youtubeTitle = youtubeDoc.select("div.wrap_tit a");
-						for (int i = 0; i < 12; i++) {
+			  			
+						for (i = 0; i < 5; i++) {
 							YoutubeCrawlingVO vo = new YoutubeCrawlingVO();
 							String imgSrc = youtubeImg.get(i).attr("src");
 							String href = youtubeA.get(i).attr("href");
@@ -154,11 +161,12 @@ public class CrawlingDAO {
 				         vo.setHref(href);
 				         youtubeList.add(vo);
 						 } 
-	  					}
+			  			}
 				      return youtubeList;
+				      
 			      }
 		  
-		  //셀레니움 메소드 수정 3.30 재봉
+		  //셀레니움 메소드 수정 4.3 재봉
 		  public List<ClipCrawlingVO> getMainClipDatas() throws IOException{
 			  	List<ClipCrawlingVO> clipList = new ArrayList<ClipCrawlingVO>();
 			  //Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
@@ -181,11 +189,11 @@ public class CrawlingDAO {
 //			   
 		       WebElement playerContainer = driver.findElement(By.className("player_container"));
 		       WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
-		       
-//		       WebElement activeLi = driver.findElement(By.cssSelector("li.idt-161806.active"));
-//		       WebElement strongTag = activeLi.findElement(By.tagName("strong"));
-//		       WebElement pTag = activeLi.findElement(By.tagName("p"));
-//			   
+           
+		       WebElement activeLi = driver.findElement(By.className("movie_visual"));
+		       WebElement strongTag = activeLi.findElement(By.tagName("strong"));
+		       WebElement pTag = activeLi.findElement(By.tagName("p"));
+
 		       ClipCrawlingVO vo = new ClipCrawlingVO();
 		       
 		       String iframeSrc = iframe.getAttribute("src");
