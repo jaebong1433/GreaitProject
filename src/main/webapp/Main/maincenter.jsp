@@ -253,7 +253,7 @@
 	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
 			 <table class="centertb3">
-			 			<tr>
+			 			<tr>		
 			 			<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
 								String ptext = vo2.getpText();

@@ -243,7 +243,7 @@
         <div class="collapse" id="video-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/Crawling/videocenter.me" class="link-dark d-inline-flex text-decoration-none rounded">예고편</a></li>
-            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">괸련영상</a></li>
+            	<li><a href="<%=contextPath%>/Crawling/youtubecenter.me" class="link-dark d-inline-flex text-decoration-none rounded">장르별 영상</a></li>
          	</ul>
         </div>
       </li>
@@ -254,8 +254,6 @@
         <div class="collapse" id="game-collapse">
           	<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             	<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
-            	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
-         		<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
             	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
          	</ul>
         </div>

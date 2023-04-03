@@ -9,6 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 	<style type="text/css">
 		.game{
 			width: 98%;

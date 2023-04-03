@@ -1,5 +1,53 @@
 @charset "UTF-8";
 
+.genreT{
+	font-family: 'Black Han Sans', sans-serif;
+	text-align: left;
+	width: 1100px;
+	margin-top: 20px;
+}
+
+.Genretb {
+	width: 98%;
+	height: 300px;
+	text-align: center;
+	margin: auto;
+	float: center;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+hr {
+	width: 90%;
+	border: 1.5px gray solid;
+}
+
+.genrepic{
+	text-align: center;
+	height: 200px;
+	border-bottom: 1px black dotted;
+}
+
+.genretitle{
+	height:50px;
+	text-align: left;
+	width: 200px;
+}
+
+
+.genresmalltb{
+	margin: auto;
+	float: center;
+}
+
+.imgbor{
+	border-radius: 15px;
+}
+
+
 			.maintic{
 			margin-top: 50px;
 				width: 95%;

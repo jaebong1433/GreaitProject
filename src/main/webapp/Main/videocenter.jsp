@@ -30,6 +30,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
 <style type="text/css">
 	
