@@ -211,18 +211,23 @@
 			 			<tr>
 						<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
-// 								String ptext = vo2.getpText();
-// 								if(ptext.length() > 60) {
-// 									ptext = ptext.substring(0, 60) + "...";
-// 								}
+								String ptext = vo2.getpText();
+								if(ptext.length() > 60) {
+									ptext = ptext.substring(0, 60) + "...";
+								}
+								//iframe 자동재생 방지 추가 4.3
+								String iframe = vo2.getIframeSrc();
+								if(iframe.length() > 77) {
+									iframe = iframe.substring(0, 77);
+								}
 						%>
 						
 							<td>
 							<div>
-							 <iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px"></iframe>
+							 <iframe src="<%=iframe%>" width="700px" height="400px" ></iframe>
 							</div>
-<%-- 							<h4><b><%=vo2.getStrongText()%></b></h4> --%>
-<%--  							<p><%=ptext%></p> --%>
+							<h4><b><%=vo2.getStrongText()%></b></h4>
+ 							<p><%=ptext%></p>
 							</td>
 						</tr>
 						

@@ -86,7 +86,7 @@ hr {
 			<img alt="영상" src="<%=contextPath%>/eq/img/banner/videobanner.jpg" width="98%">
 			<hr>
 				<table class="centertb1">
-					<tr>
+					<tr><!-- 4.3 for문 숫자 수정  -->
 						<%
 							for(int i=0; i<5; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
@@ -118,7 +118,7 @@ hr {
 					
 					<tr>
 						<%
-							for(int i=0; i<5; i++){
+							for(int i=5; i<10; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
 								
 								String title = vo.getTitle();
@@ -147,7 +147,7 @@ hr {
 					</tr>
 					<tr>
 						<%
-							for(int i=0; i<5; i++){
+							for(int i=10; i<15; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
 								
 								String title = vo.getTitle();
@@ -176,7 +176,7 @@ hr {
 					</tr>
 					<tr>
 						<%
-							for(int i=0; i<5; i++){
+							for(int i=15; i<20; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
 								
 								String title = vo.getTitle();
@@ -205,7 +205,7 @@ hr {
 					</tr>
 					<tr>
 						<%
-							for(int i=0; i<5; i++){
+							for(int i=20; i<25; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
 								
 								String title = vo.getTitle();
