@@ -16,78 +16,25 @@ pageEncoding="UTF-8"
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
-		<style type="text/css">
-			.mpdiv{
-				width : 98%;
-				margin : 100px 0 0 0;
+		<style>
+		
+			.rankdiv{
+				height: 700px;
 			}
-			
-			.mptb{
-				border : 1px solid black;
-				width : 60%;
-				height : 300px;
-				float : right;
-				margin : 20px 100px 0px 0px;
+		
+			.ranktb{
+				width: 90%;
 			}
-			
-			.mptb td{
-				border : 1px solid gray;
-				
-			}
-			
-			.mptb button{
-				background-color: gray;
-				color: white;
-				margin-left: 10px;
-				width: 80px;
-				height: 30px;
-				border-radius: 10px;
-			}
-			
-			.profiletb{
-				width : 20%;
-				height : 300px;
-				float : left;
-				border : 3px solid gray;
-				margin : 20px 0px 0px 100px;
-				text-align: center;
-			}
-			
-			
-			.profimg {
-			    width: 200px;
-			    height: 200px; 
-			    border-radius: 70%;
-			    overflow: hidden;
-			    margin: auto;
-			}
-			.profimg img{
-			    width: 100%;
-			    height: 100%;
-			    object-fit: cover;
-			}
-			
-			.btnbtn{
-				margin : auto;
-				width : 200px;
-				height : 500px;
-			}
-			
-			.btnbtn input{
-				margin-top: 10px;
-				width : 150px;
-				height: 40px;
-				background-color: gray;
-				color : white;
-				border-radius : 10px;
-			}
-			
-			
 		</style>
 		
 	</head>
 	<body>
-		<table border = "1">
+	<center>
+	<br><br>
+		<div class="rankdiv">
+		<img alt="박스오피스" src="<%=contextPath%>/eq/img/banner/rankbanner.jpg" width="98%">
+		<hr>
+		<table class="ranktb">
 			<tr>
 				<td>랭킹</td>
 				<td>레벨</td>
@@ -107,6 +54,8 @@ pageEncoding="UTF-8"
 				<c:set var="rank" value="${ rank + 1 }"/>
 			</c:forEach>
 		</table>
+		</div>
+		</center>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	</body>
 </html>
