@@ -363,7 +363,7 @@ public class MemberDAO {
 				
 				con = ds.getConnection();
 				
-				String sql = "select m_pw  from m_member where m_name=? and m_id=? and m_email=?";
+				String sql = "select m_pw from m_member where m_name=? and m_id=? and m_email=?";
 				
 					pstmt = con.prepareStatement(sql);	
 					
@@ -392,7 +392,10 @@ public class MemberDAO {
 			return m_pw;
 			
 		}
+	
+	public void changePW(String m_name, String m_id, String m_email, String m_pw) {
 		
+	}
 		
 	//회원 닉네임을을 이용해 회원 정보 조회
 	public MemberVO findMember(String m_nickname) {

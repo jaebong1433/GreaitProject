@@ -70,7 +70,7 @@
    		<br>
    			<a href="<%=contextPath%>/member1/join1.me">회원가입</a><br><br>
    			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a> / 
-   			<a href="<%=contextPath%>/member1/findPW.me">비밀번호 찾기</a><br><br>		
+   			<a href="<%=contextPath%>/member1/changePW.me">비밀번호 변경</a><br><br>		
    		<p>간편로그인</p>
    		
    		
