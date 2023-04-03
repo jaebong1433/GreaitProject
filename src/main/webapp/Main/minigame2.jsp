@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +13,14 @@
 		.game{
 			width: 98%;
 			height:98%;
-			margin-top: 50px;
+			margin-top: 30px;
 		}
 	</style>
 </head>
 <body>
 	<center>
 		<div class="game">
-			<h1><b>핀볼</b></h1>
+		<img alt="핀볼" src="<%=contextPath%>/eq/img/banner/pinballbanner.jpg" width="98%">
 		<hr width="90%">
 		<iframe width="640" height="480" src="https://alula.github.io/SpaceCadetPinball/" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		<div>

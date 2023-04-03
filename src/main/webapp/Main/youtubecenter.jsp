@@ -86,7 +86,7 @@ hr {
 			<img alt="영상" src="<%=contextPath%>/eq/img/banner/videobanner.jpg" width="98%">
 			<hr>
 				<table class="centertb1">
-					<tr>
+					<tr><!-- 4.3 for문 숫자 수정  -->
 						<%
 							for(int i=0; i<5; i++){
 								vo = (YoutubeCrawlingVO) list.get(i);
