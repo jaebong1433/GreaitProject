@@ -197,12 +197,12 @@ public class CrawlingDAO {
 		       ClipCrawlingVO vo = new ClipCrawlingVO();
 		       
 		       String iframeSrc = iframe.getAttribute("src");
-//		       String strongText = strongTag.getText();
-//		       String pText = pTag.getText();
+		       String strongText = strongTag.getText();
+		       String pText = pTag.getText();
 		       
 		       vo.setIframeSrc(iframeSrc);
-//		       vo.setpText(pText);
-//		       vo.setStrongText(strongText);
+		       vo.setpText(pText);
+		       vo.setStrongText(strongText);
 		       
 		       clipList.add(vo);
 		       driver.quit();

@@ -40,23 +40,112 @@
 		            <div>
 		                <form onsubmit="searchPlaces(); return false;">
 		                    키워드 : <select value=" " id="key1">
-		                    		<optgroup label="경상남도">
-			                    		<option value="양산" selected>양산</option>
-		                    			<option value="거제">거제</option>
+		                    		<optgroup label="특별자치시">
+		                    			<option value="세종">세종</option>
 		                    		</optgroup>
 		                    		<optgroup label="서울특별시">
 		                    			<option value="서울">서울</option>
 		                    		</optgroup>
 		                    		<optgroup label="광역시">
+		                    			<option value="광주">광주</option>
+		                    			<option value="대구">대구</option>
+		                    			<option value="인천">인천</option>
 	                    				<option value="부산">부산</option>
 	                    				<option value="대전">대전</option>
 	                    				<option value="울산">울산</option>
 	                    			</optgroup>
 	                    			<optgroup label="경기도">
 	                    				<option value="광주">광주</option>
+	                    				<option value="고양">고양</option>
+	                    				<option value="광명">광명</option>
+	                    				<option value="구리">구리</option>
+	                    				<option value="군포">군포</option>
+	                    				<option value="김포">김포</option>
+	                    				<option value="남양주">남양주</option>
+	                    				<option value="동두천">동두천</option>
+	                    				<option value="부천">부천</option>
+	                    				<option value="성남">성남</option>
+	                    				<option value="수원">수원</option>
+	                    				<option value="시흥">시흥</option>
+	                    				<option value="안산">안산</option>
+	                    				<option value="안성">안성</option>
+	                    				<option value="안양">안양</option>
+	                    				<option value="양주">양주</option>
+	                    				<option value="여주">여주</option>
+	                    				<option value="오산">오산</option>
+	                    				<option value="의왕">의왕</option>
+	                    				<option value="의정부">의정부</option>
+	                    				<option value="이천">이천</option>
+	                    				<option value="파주">파주</option>
+	                    				<option value="평택">평택</option>
+	                    				<option value="포천">포천</option>
+	                    				<option value="하남">하남</option>
+	                    				<option value="화성">화성</option>
 	                    			</optgroup>
+	                    			<optgroup label="강원도">
+	                    				<option value="강릉">강릉</option>
+	                    				<option value="동해">동해</option>
+	                    				<option value="삼척">삼척</option>
+	                    				<option value="속초">속초</option>
+	                    				<option value="원주">원주</option>
+	                    				<option value="춘천">춘천</option>
+	                    				<option value="태백">태백</option>
+	                    			</optgroup>
+	                    			<optgroup label="충청북도">
+	                    				<option value="제천">제천</option>
+	                    				<option value="청주">청주</option>
+	                    				<option value="충주">충주</option>
+	                    			</optgroup>
+	                    			<optgroup label="충청남도">
+	                    				<option value="계룡">계룡</option>
+	                    				<option value="공주">공주</option>
+	                    				<option value="논산">논산</option>
+	                    				<option value="당진">당진</option>
+	                    				<option value="보령">보령</option>
+	                    				<option value="서산">서산</option>
+	                    				<option value="아산">아산</option>
+	                    				<option value="천안">천안</option>
+	                    			</optgroup>
+	                    			<optgroup label="경상북도">
+			                    		<option value="경산">경산</option>
+		                    			<option value="경주">경주</option>
+		                    			<option value="구미">구미</option>
+		                    			<option value="김천">김천</option>
+		                    			<option value="문경">문경</option>
+		                    			<option value="상주">상주</option>
+		                    			<option value="안동">안동</option>
+		                    			<option value="영주">영주</option>
+		                    			<option value="영천">영천</option>
+		                    			<option value="포항">포항</option>
+		                    		</optgroup>
+	                    			<optgroup label="경상남도">
+			                    		<option value="양산" selected>양산</option>
+		                    			<option value="거제">거제</option>
+		                    			<option value="김해">김해</option>
+		                    			<option value="밀양">밀양</option>
+		                    			<option value="사천">사천</option>
+		                    			<option value="진주">진주</option>
+		                    			<option value="창원">창원</option>
+		                    			<option value="통영">통영</option>
+		                    		</optgroup>
+		                    		<optgroup label="전라북도">
+			                    		<option value="군산">군산</option>
+		                    			<option value="김제">김제</option>
+		                    			<option value="남원">남원</option>
+		                    			<option value="익산">익산</option>
+		                    			<option value="진주">진주</option>
+		                    			<option value="정읍">정읍</option>
+		                    		</optgroup>
+		                    		<optgroup label="전라남도">
+			                    		<option value="광양">광양</option>
+		                    			<option value="나주">나주</option>
+		                    			<option value="목포">목포</option>
+		                    			<option value="순천">순천</option>
+		                    			<option value="여수">여수</option>
+		                    		</optgroup>
 	                    			<optgroup label="제주특별자치도">
-	                    				<option value="제주도">제주도</option>
+	                    				<option value="제주">제주</option>
+	                    				<option value="서귀포">서귀포</option>
 	                    			</optgroup>
 		                    	   </select><br>
 		                    검색 : <input type="text" value="메가박스" id="key2" size="15"><br>
