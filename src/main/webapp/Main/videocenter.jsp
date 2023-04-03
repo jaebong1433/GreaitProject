@@ -11,7 +11,7 @@ ArrayList list = (ArrayList) request.getAttribute("videoList");
 
 VideoCrawlingVO vo = null;
 
-String kakao = "https://tv.kakao.com";
+String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편저장소로 변경
 %>
 
 <!DOCTYPE html>
@@ -88,12 +88,12 @@ String kakao = "https://tv.kakao.com";
 						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
-							<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
 						<div class="videotext">
-						<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
@@ -110,12 +110,12 @@ String kakao = "https://tv.kakao.com";
 						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
-							<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
 						<div class="videotext">
-						<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
@@ -132,12 +132,12 @@ String kakao = "https://tv.kakao.com";
 						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
-							<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
 						<div class="videotext">
-						<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
@@ -154,12 +154,12 @@ String kakao = "https://tv.kakao.com";
 						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
-							<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
 						<div class="videotext">
-						<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
@@ -176,12 +176,12 @@ String kakao = "https://tv.kakao.com";
 						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
-							<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 								<img src="<%=vo.getImgSrc()%>" class="realimg"/><br>
 							</a>
 						</div>
 						<div class="videotext">
-						<a href="<%=kakao %><%=vo.getSrc()%>" target="_blank">
+						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
 						<p><%=vo.getPlayCnt() %></p>
