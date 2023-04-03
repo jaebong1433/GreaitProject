@@ -509,17 +509,64 @@ public class CommunityController extends HttpServlet {
 		// 03/30 허상호 : 글 삭제 버튼을 눌렀을때 삭제 후 리스트화면으로 이동
 		else if(action.equals("/delBoard.bo")) {
 			String delC_idx = request.getParameter("c_idx");
+			String delC_pw = request.getParameter("updatePw");
 			
-			int delResult = comDAO.deleteBoard(delC_idx);
+			
+			int delResult = comDAO.deleteBoard(delC_idx,delC_pw);
 			
 			if(delResult != 1) {//삭제 실패시
-				out.print("<script>window.alert('관리자에게 문의 해주세요.');");
+				out.print("<script>window.alert('비밀번호가 다릅니다.');");
 				out.print("history.go(-1);</script>");
 			}else {//삭제 성공시 
 				
 				nextPage="/com/listByRecent.bo?nowPage=0&nowBlock=0";
 			}
 		}
+		// 04/02 허상호 관리자계정으로 글 삭제 요청시
+		else if(action.equals("/adminDel.bo")) {
+			System.out.println("이동완료");
+			String delIdx = request.getParameter("c_idx");
+			int adminDelRs = comDAO.adminDelBoard(delIdx);
+			if(adminDelRs != 1) {//삭제 실패시
+				out.print("<script>window.alert('에러가 발생하였습니다.');");
+				out.print("history.go(-1);</script>");
+			}else {//삭제 성공시 
+				nextPage="/com/listByRecent.bo?nowPage=0&nowBlock=0";
+			}
+		
+		}
+		// 04/02 허상호 글수정화면 요청을 했을때
+		else if(action.equals("/modBoard.bo")) {
+			String modIdx = request.getParameter("c_idx");
+			String modPw = request.getParameter("updatePw");
+			vo = comDAO.modPwCheck(modIdx,modPw);
+	
+
+			if(vo != null) {//입력한 글 비밀번호가 맞으면 ?
+				request.setAttribute("vo", vo);
+				request.setAttribute("nowPage", request.getParameter("nowPage"));
+				request.setAttribute("nowBlock", request.getParameter("nowBlock"));
+				request.setAttribute("center", "/board/modify.jsp");
+				nextPage = "/index.jsp";
+			}else {//입력한 글 비밀번호가 틀리면 ?
+				out.print("<script>window.alert('비밀번호가 틀립니다!');");
+				out.print("history.go(-1);</script>");
+			}
+		
+		}
+		// 04/02 허상호 : 글 수정후 수정등록 버튼을 눌렀을떄
+		else if(action.equals("/modifyPro.bo")){
+			String modify_idx = request.getParameter("c_idx");
+			String modWriter = request.getParameter("w");
+			String modTitle = request.getParameter("t");
+			String modContent = request.getParameter("c");
+			String modPass = request.getParameter("p");
+			int modRs = comDAO.boardModify(modify_idx,modWriter,modTitle,modContent,modPass);
+			String data = String.valueOf(modRs);
+			out.print(data);
+			return;
+		}
+				
 		
 		System.out.println(nextPage);
 		//포워딩 (디스패처 방식)

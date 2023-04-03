@@ -189,20 +189,20 @@ public class CrawlingDAO {
 //			   
 		       WebElement playerContainer = driver.findElement(By.className("player_container"));
 		       WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
-		       
+           
 		       WebElement activeLi = driver.findElement(By.className("movie_visual"));
 		       WebElement strongTag = activeLi.findElement(By.tagName("strong"));
 		       WebElement pTag = activeLi.findElement(By.tagName("p"));
-			   
+
 		       ClipCrawlingVO vo = new ClipCrawlingVO();
 		       
 		       String iframeSrc = iframe.getAttribute("src");
-		       String strongText = strongTag.getText();
-		       String pText = pTag.getText();
+//		       String strongText = strongTag.getText();
+//		       String pText = pTag.getText();
 		       
 		       vo.setIframeSrc(iframeSrc);
-		       vo.setpText(pText);
-		       vo.setStrongText(strongText);
+//		       vo.setpText(pText);
+//		       vo.setStrongText(strongText);
 		       
 		       clipList.add(vo);
 		       driver.quit();

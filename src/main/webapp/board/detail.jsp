@@ -147,8 +147,8 @@ pageEncoding="UTF-8"
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
-            	<!--  삭제버튼 03/30 허상호 -->
-            	<a href="" id="delete">
+            	<!--  삭제버튼 04/02 허상호 -->
+            	<a href="javascript:(0);" id="delete" onclick="boardRequest('adminDelete');">
             		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
@@ -159,12 +159,12 @@ pageEncoding="UTF-8"
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
-            	<!--  수정버튼 03/30 허상호 -->
-            	<a href="" id="mod">
+            	<!--  수정버튼 04/02 허상호 -->
+            	<a href="javascript:(0);" id="mod" onclick="boardRequest('mod');">
             		<img src="<%=contextPath%>/eq/img/revive.png" border="0" width="100"/>
             	</a>
-          		<!--  삭제버튼 03/30 허상호 -->
-            	<a href="" id="delete">
+          		<!--  삭제버튼 04/02 허상호 -->
+            	<a href="javascript:(0);" id="delete" onclick="boardRequest('delete');">
             		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
@@ -182,12 +182,12 @@ pageEncoding="UTF-8"
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
-            	<!--  수정버튼 03/30 허상호 -->
-            	<a href="" id="mod">
+            	<!--  수정버튼 04/02 허상호 -->
+            	<a href="javascript:(0);" id="mod" onclick="boardRequest('mod');">
             		<img src="<%=contextPath%>/eq/img/revive.png" border="0" width="100"/>
             	</a>
-          		<!--  삭제버튼 03/30 허상호 -->
-            	<a href="" id="delete">
+          		<!--  삭제버튼 04/02 허상호 -->
+            	<a href="javascript:(0);" id="delete" onclick="boardRequest('delete');">
             		<img src="<%=contextPath%>/eq/img/condelete.png" width="100px">
             	</a>
             </div>
@@ -199,12 +199,21 @@ pageEncoding="UTF-8"
             	</a>
             </div>
 			<%} %>
-		</div>
+			<!-- 04/02 허상호 글 수정 삭제 요청시 비밀번호 입력 받는 공간 -->
+			<form name="updateForm" align="center" style="visibility:hidden" id="updateForm" method="post">
+            	<input type="hidden" name="c_idx" value="<%=c_idx%>">
+            	<input type="hidden" name="nowPage" value="<%=nowPage%>">
+            	<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
+            	<input type="password" name="updatePw" id="updatePw">
+            	<input type="submit" value="확인">
+         	</form>
+         </div>
 	</center>
 		<script type="text/javascript">
 		<!-- 목록버튼 클릭했을때 03/20 허상호 -->
 		$("#list").click(function(event) {
 			event.preventDefault();
+			 console.log("Event object:", event);
 			//community테이블에 저장된 글을 조회 하는 요청!
 			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 			
@@ -258,16 +267,22 @@ pageEncoding="UTF-8"
 					return;
 				}
 			});
-			$("#delete").click(function(event) {
-				event.preventDefault();
-				if( <%=loginNick%> == null || <%=loginNick%> == ""){
-					alert("null 테스트");
-				var delconfirm = confirm("삭제하시겠습니까?");
-				if(delconfirm){
-					location.href = "<%=contextPath%>/com/delBoard.bo?c_idx=<%=c_idx%>";
+			
+			// 04/02 허상호 글 수정 삭제 요청시 구분 후 폼태그 액션값 변경시키는 함수
+			function boardRequest(request){
+				if(request == 'delete'){
+					$("#updateForm").css("visibility","visible");
+					document.updateForm.action = "<%=contextPath%>/com/delBoard.bo";
+				}else if(request == 'adminDelete'){
+					var adminDel = confirm("삭제하시겠습니까 ?");
+					if(adminDel){
+						location.href="<%=contextPath%>/com/adminDel.bo?c_idx=<%=c_idx%>";
+					}
+				}else{
+					$("#updateForm").css("visibility","visible");
+					document.updateForm.action = "<%=contextPath%>/com/modBoard.bo";
 				}
-				}
-			});
+			}
 			
 		</script>
 	</body>
