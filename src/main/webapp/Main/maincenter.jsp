@@ -215,15 +215,19 @@
 								if(ptext.length() > 60) {
 									ptext = ptext.substring(0, 60) + "...";
 								}
+								//iframe 자동재생 방지 추가 4.3
+								String iframe = vo2.getIframeSrc();
+								if(iframe.length() > 77) {
+									iframe = iframe.substring(0, 77);
+								}
 						%>
 						
 							<td>
-						
-								<h6><b><%=vo2.getStrongText()%></b></h6>
-							<p><%=ptext%></p>
-							<div id="video-wrapper">
-<%--  							<iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px" /><br>  --%>
+							<div>
+							 <iframe src="<%=iframe%>" width="700px" height="400px" ></iframe>
 							</div>
+							<h4><b><%=vo2.getStrongText()%></b></h4>
+ 							<p><%=ptext%></p>
 							</td>
 						</tr>
 						
