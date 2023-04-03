@@ -50,7 +50,6 @@
 			}
 			.maintext{
 				width : 79%;
-				height : 100%;
 				margin-right: 20px;
 				float : right;
 				background-color: white;

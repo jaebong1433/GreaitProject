@@ -16,189 +16,85 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <link rel="stylesheet" type="text/css" href="/MVCBoard/style.css"/>
 <title>Insert title here</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+	
+	.font1 {
+		font-family: 'Black Han Sans', sans-serif;
+	}
+	
+	.font3{
+		font-family: 'Do Hyeon', sans-serif;
+	}
+	.font2{
+		font-family: 'Sunflower', sans-serif;
+	
+	}
+	
+	.mainboard{
+		width: 90%;
+		height: 600px;
+	}
+	
+	.board1{
+		float: left;
+		width : 49%;
+		border-right : 1px solid black;
+		
+	}
+	
+	.board2{
+		float: right;
+		width : 49%;
+		border-left : 1px solid black;
+	}
+	
+	h2{
+		text-align: left;
+		margin-left: 10%;
+		font-family: 'Do Hyeon', sans-serif;
+	}
+</style>
+
 </head>
 <body>
 <center>
-<table width="90%" border="0" cellspacing="0" cellpadding="0">
-  <tr height="40"> 
-    <td width="41%" style="text-align: left"> &nbsp;&nbsp;&nbsp; 
-    	<h1>게시판</h1>
-    </td>
-    <td width="57%">&nbsp;</td>
-    <td width="2%">&nbsp;</td>
-  </tr>
-  <tr> 
-    <td colspan="3"><div align="center"><hr></div></td>
-  </tr>
-  <tr> 
-    <td colspan="3"><div align="center"> 
-        <table width="95%" border="0" cellspacing="0" cellpadding="0">
-          <tr> 
-            <td height="20" colspan="3"></td>
-          </tr>
-          <tr> 
-            <td colspan="3" valign="top">
-            <div align="center"> 
-                <table width="100%" height="373" border="0" cellpadding="0" cellspacing="1" class="border1">
-                  <tr> 
-                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">작 성 자</div>
-                    </td>
-                    <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
-                    	
-                    <%	if(loginNick == null){//로그인 하지 않았을경우
-                    	 %>
-                    	<input type="text" name="writer" size="20" class="text2" />
-                    <%}else{ %>
-                    	<input type="text" name="writer" size="20" class="text2" value="<%=loginNick%>" readonly />
-                    <%} %>
-                    <!-- 0321 정태영: 관리자의 경우 공지글을 작성할 수 있는 체크박스 추가 -->
-                    <c:if test="${ loginNick == 'admin' }">
-                   		&nbsp;공지글로 쓰기<input type="checkbox" name="noticeCheck" id="noticeCheck">
-                    </c:if>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td width="13%" height="29" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">글 비밀번호</div>
-                    </td>
-                     <td width="34%" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="password" name="password" size="20"/>
-                    </td>
-                   </tr>
-                             
-                  <tr> 
-                    <td height="31" bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">제&nbsp;&nbsp;&nbsp;목</div>
-                    </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<input type="text" name="title" size="70" id="title_"/>
-                    </td>
-                  </tr>
-                  <tr> 
-                    <td bgcolor="#e4e4e4" class="text2">
-                    	<div align="center">내 &nbsp;&nbsp; 용</div>
-                    </td>
-                    <td colspan="3" bgcolor="#f5f5f5" style="text-align: left">
-                    	<textarea name="content" rows="15" cols="100"></textarea>
-                    	<p id="resultInput"></p>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              </td>
-          </tr>
-          <tr> 
-            <td colspan="3">&nbsp;</td>
-          </tr>
-          <tr> 
-            <td width="48%">
-            <!-- 등록 버튼 -->
-            <div align="right">
-            	<a href="" id="registration1">
-            		<img src="<%=contextPath%>/eq/img/okwrite.png" width="100px" border="0"/>
-           		</a>
-            </div>
-            </td>
-            <td width="10%">
-            <!-- 목록보기 -->
-            <div align="center">
-            	<a href="" id="list">
-            		<img src="<%=contextPath%>/eq/img/listgo.png" width="100px" border="0"/>
-            	</a>
-            </div>
-            </td>
-            <td width="42%" id="resultInsert"></td>
-          </tr>
-        </table>
-      </div></td>
-  </tr>
-</table>
-</form>
+	<div class="mainboard">
+		<div class="board1">
+		<h2>개념 글</h2>
+			<table width="90%">
+				<tr bgcolor="pink">
+					<td width="70%" align="left">제목</td>
+					<td width="20%">작성자</td>
+					<td width="10%">추천</td>
+				</tr>
+				<tr>
+					<td align="left">제목</td>
+					<td>작성자</td>
+					<td>추천</td>
+				</tr>
+			</table>
+		</div>
+		<div class="board2">
+		<h2>자유게시판</h2>
+			<table width="90%">
+				<tr bgcolor="pink" height="16%">
+					<td width="70%" align="left">제목</td>
+					<td width="20%">작성자</td>
+					<td width="10%">추천</td>
+				</tr>
+				<tr>
+					<td align="left">제목</td>
+					<td>작성자</td>
+					<td>추천</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </center>
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	
-	<script type="text/javascript">
-		
-		$("#list").click(function(event) {
-			event.preventDefault();
-			//board테이블에 저장된 글을 조회 하는 요청!
-			location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
-			
-		})
-		
-	
-	
-		//새글 정보를 입력하고 등록 이미지를 감싸고 있는 <a>태그를 클릭 했을때
-		$("#registration1").click(function(event) {
-			event.preventDefault();
-			
-			//작성자 명을 입력할 <input>을 선택해
-			var writer = $("input[name=writer]").val();
-			//글제목을 입력받아 얻는다.
-			var title = $("input[name=title]").val();
-			//글내용을 입력받아 얻는다.
-			var content = $("textarea[name=content]").val();
-			//글비밀번호를 입력받아 얻는다.
-			var pass = $("input[name=password]").val();
-			
-			if(writer == "" || title == "" || content == "" || pass == ""){
-				
-				$("#resultInput").text("작성란을 모두 입력하여 주세요!").css("color","red");
-				
-			}else{
-				if($("#noticeCheck").is(":checked")) {
-					$.ajax({
-						type:"post",
-						async:true,
-							url:"<%=contextPath%>/com/noticePro.bo",
-						data:{
-							w : writer,
-							t : title,
-							c : content,
-							p : pass
-						},
-						dataType : "text",
-						success:function(data){
-							console.log(data);
-							
-							if(data == "1"){
-								alert("글 등록 완료!");
-								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
-							}else{//"0"
-								$("#resultInsert").text("글 작성 실패!").css("color","red");
-							}
-						}
-						
-					});
-				} else {
-					$.ajax({
-						type:"post",
-						async:true,
-							url:"<%=contextPath%>/com/writePro.bo",
-						data:{
-							w : writer,
-							t : title,
-							c : content,
-							p : pass
-						},
-						dataType : "text",
-						success:function(data){
-							console.log(data);
-							
-							if(data == "1"){
-								alert("글 등록 완료!");
-								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
-							}else{//"0"
-								$("#resultInsert").text("글 작성 실패!").css("color","red");
-							}
-						}
-						
-					});
-				}
-			}
-		})
-		
-	</script>
 </body>
 </html>
