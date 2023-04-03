@@ -122,6 +122,43 @@ public class CommunityDAO {
 		return list;
 	}
 	
+	
+	public ArrayList getAllComListByUniqueID(String uniqueID) {
+		ArrayList list = new ArrayList();
+		
+		try {
+			con = ds.getConnection();
+			String sql = "select * from community where c_uniqueid = ? order by c_group asc";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uniqueID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CommunityVO vo = new CommunityVO(rs.getInt("c_idx"),
+												rs.getString("c_title"),
+												rs.getString("c_nickname"),
+												rs.getString("c_uniqueid"),
+												rs.getString("c_password"),
+												rs.getString("c_content"), 
+												rs.getDate("c_date"),
+												rs.getInt("c_views"),
+												rs.getInt("c_like"),
+												rs.getInt("c_group"),
+												rs.getInt("c_level"));
+				list.add(vo);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("getAllComListByUniqueID");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		
+		
+		return list;
+	}
+	
 	//20230321 정태영 : 개념글
 	public ArrayList bestPost() {
 		ArrayList list = new ArrayList();
@@ -738,7 +775,7 @@ public class CommunityDAO {
 			
 			sql = "insert into noticeboard (c_idx, c_title, c_nickname, c_uniqueid, c_password, c_content, "
 					+ "c_date, c_views, c_like, c_group, c_level) "
-					+ " values (community_idx.nextVal, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+					+ " values (noticeboard_idx.nextVal, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, vo.getC_title());
 			pstmt.setString(2, vo.getC_nickname());
