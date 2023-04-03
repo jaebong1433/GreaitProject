@@ -211,19 +211,18 @@
 			 			<tr>
 						<%				
 								vo2 = (ClipCrawlingVO)list2.get(0);
-								String ptext = vo2.getpText();
-								if(ptext.length() > 60) {
-									ptext = ptext.substring(0, 60) + "...";
-								}
+// 								String ptext = vo2.getpText();
+// 								if(ptext.length() > 60) {
+// 									ptext = ptext.substring(0, 60) + "...";
+// 								}
 						%>
 						
 							<td>
-						
-								<h6><b><%=vo2.getStrongText()%></b></h6>
-							<p><%=ptext%></p>
-							<div id="video-wrapper">
-<%--  							<iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px" /><br>  --%>
+							<div>
+							 <iframe src="<%=vo2.getIframeSrc()%>" alt="" width="700px" height="400px"></iframe>
 							</div>
+<%-- 							<h4><b><%=vo2.getStrongText()%></b></h4> --%>
+<%--  							<p><%=ptext%></p> --%>
 							</td>
 						</tr>
 						
