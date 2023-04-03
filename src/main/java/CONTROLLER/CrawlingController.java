@@ -76,11 +76,11 @@ public class CrawlingController extends HttpServlet {
 		if(action.equals("/maincenter.me")) {
 			//3.27 재봉 수정
 			List<CrawlingVO> mainList = dao.getMainDatas();
-//			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();
+			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();
 			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
 			
 			request.setAttribute("mainList", mainList);
-//			request.setAttribute("ClipList", ClipList);
+			request.setAttribute("ClipList", ClipList);
 			request.setAttribute("youtubeList", youtubeList);
 			
 			//------------------------------
