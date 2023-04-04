@@ -386,7 +386,7 @@
     				authC = false;
     			}
     		}
-    	})
+    	});
     })
 </script>	
 </body>
