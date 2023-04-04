@@ -578,6 +578,9 @@ public class MemberController extends HttpServlet {
 				return;
 			}
 			
+			//로그인 후 sidebar.jsp에서 랭킹 보기를 눌렀을 때
+			//모든 회원 정보(MemberVO)를 List로 저장하는 getAllMemberList() 메서드를 이용해
+			//list에 저장하고, request에 바인딩 한 후 /Member/ranking.jsp를 재요청합니다.
 			else if(action.equals("/ranking.me")) {
 				System.out.println(true);
 				
@@ -589,6 +592,9 @@ public class MemberController extends HttpServlet {
 			}
 			
 			//인증메일 보내기
+			//join2.jsp에서 이메일 인증 버튼을 눌렀을 때
+			//request로 전달된 사용자의 이름과 이메일을 각 변수 m_email, m_name에 저장해
+			//sendEmail() 메서드를 이용해 이메일을 전송합니다.
 			else if(action.equals("/sendEmailAuth.me")) {
 				String m_email = request.getParameter("m_email");
 				String m_name = request.getParameter("m_name");
