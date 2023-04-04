@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>        
+    
 <!DOCTYPE html>
 <html>
     <head>
+    <meta charset="UTF-8">
+	<title>Insert title here</title>
+    
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
     	<style type="text/css">
     		#menuTable {border-collapse: collapse; display: inline-block; width: 340px;}
 			#menuTable td{width: 170px;}

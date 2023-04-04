@@ -34,10 +34,10 @@
 	<div class="bbbot">
 	<hr style="border: solid 2px lightgray">
 		<div class="bota">
-			<a href="#"><strong>영화</strong></a> |
-			<a href="#"><strong>모든영화</strong></a> |
-			<a href="#"><strong>사업자번호</strong></a> |
-			<a href="#"><strong>지도</strong></a>
+			<a href="<%=contextPath%>/Crawling/boxOffice.me?menu=3"><strong>박스오피스</strong></a> |
+			<a href="<%=contextPath%>/Crawling/youtubecenter.me"><strong>관련영상</strong></a> |
+			<a href="<%=contextPath%>/com/listByRecent.bo?nowPage=0&nowBlock=0"><strong>커뮤니티</strong></a> |
+			<a href="<%=contextPath%>/map/movieMap.mo"><strong>지도</strong></a>
 		</div><br>
 		<p>
 			(주)무드무비  사업자 등록번호 214-98754-9874 <br>
@@ -45,9 +45,9 @@
 			
 			경상남도 양산시 양산역 1길 2 양산역프라자 202호<br><br>
 			
-			대표전화 : <a href="<%=contextPath%>/map/minigame.mo">010-0000-0000</a><br>
+			대표전화 : <010-0000-0000<br>
 			
-			FAX : <a href="<%=contextPath%>/map/minigame2.mo">01-3546-9874</a>
+			FAX : 01-3546-9874
 		</p>
 		</div>
 	</center>
