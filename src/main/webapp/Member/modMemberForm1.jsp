@@ -337,16 +337,28 @@
 	    var m_emailValue = m_email.val();
 	    var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
 	    var resultM_email = m_emailReg.test(m_emailValue);
-    	
     	if(resultM_email == true) {
     		$.ajax({
     			type: "post",
     			async: true,
-    			url: "<%= contextPath %>/member1/sendEmailAuth.me",
-    			data: { m_email : email, m_name : name },
+    			url: "<%=contextPath%>/member1/joinEmailCheck.me",
+    			data: { m_email : email},
     			dataType: "text",
     			success: function(data) {
-    				alert("인증 메일이 전송되었습니다. 인증번호를 기입하여 주십시오.");
+    				if(data == "usable") {
+    					$.ajax({
+    		    			type: "post",
+    		    			async: true,
+    		    			url: "<%= contextPath %>/member1/sendEmailAuth.me",
+    		    			data: { m_email : email, m_name : name },
+    		    			dataType: "text",
+    		    			success: function(data) {
+    		    				alert("인증 메일이 전송되었습니다. 인증번호를 기입하여 주십시오.");
+    		    			}
+    		    		});
+    				} else {
+    					alert("중복되는 이메일이 있으므로 사용이 불가합니다.");
+    				}
     			}
     		});
     	} else {
@@ -354,7 +366,26 @@
     	}
     })
 
-        
+    //인증메일을 확인
+    $("#auth").on("click", function(e) {
+    	const authInput = $("#authInput").val();
+    	$.ajax ({
+    		type: "post",
+    		async: true,
+    		url: "<%= contextPath %>/member1/emailAuth.me",
+    		data: { auth : authInput },
+    		dataType: "text",
+    		success: function(data) {
+    			if(data == "true") {
+    				alert("인증이 확인되었습니다.");
+    				authC = true;
+    			} else {
+    				alert("인증번호가 동일하지 않습니다.");
+    				authC = false;
+    			}
+    		}
+    	});
+    })    
         
         
         

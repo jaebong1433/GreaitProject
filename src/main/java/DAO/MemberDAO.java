@@ -266,7 +266,7 @@ public class MemberDAO {
 			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
 				hashedPW = rs.getString("m_pw");
 				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
-				if(checkpw(m_pw, hashedPW)) { //수정필수
+				if(checkpw(m_pw, hashedPW)) {
 					check = 1;
 				
 				}else { //아이디는 맞고 비번 틀림
