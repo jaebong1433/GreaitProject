@@ -134,6 +134,10 @@
 					<input type="text" id="m_email" name="m_email"
 						value="${ vo.m_email }">
 					<p id="emailInput"></p>
+					<!-- 이메일 인증 관련 -->
+					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">		   
+					<input id="sendEmail" type="button" value="인증 메일 보내기">
+					<input id="auth" type="button" value="이메일 인증">
 					<button type="button" onclick="updateEmail(); return false;">수정하기</button>
 				</td>
 			</tr>
@@ -177,6 +181,8 @@
 
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>	    
     <script type="text/javascript">
+    let emailC = false;
+    let authC = false;
     
     //0329 정태영 : 아이디 수정 함수
     function updateID() {
@@ -259,37 +265,6 @@
  	  		$("#nicknameInput").text("닉네임을 형식에 맞게 작성해주세요!").css("color","red");
  	  	}
     }
-  	//0329 정태영 : 이메일 수정 함수
-    function updateEmail() {
-    	var m_email = $("#m_email");
-	    var m_emailValue = m_email.val();
-	    var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
-	    var resultM_email = m_emailReg.test(m_emailValue);
-	    if(resultM_email == true){
-	    	$.ajax( 
-                 {
-                    type:"post", 
-                    async:true, 
-                    url:"<%=contextPath%>/member1/joinEmailCheck.me", //요청할 주소
-                    data:{ m_email : m_emailValue, purpose : "change" },//서버페이지로 요청할 데이터 설정!
-                    dataType:"text", 
-                    success : function(data){
-                       console.log(data);
-                       if(data == 'usable'){ //아이디가 DB에 없으면?(중복아님)
-                          $("#emailInput").text("이메일 변경 완료").css("color","blue");
-                       }else{//아이디가 DB에 있으면? (입력한 아이디가  DB에 저장되어 있다는 의미)
-                          $("#emailInput").text("사용할수 없는 이메일입니다.").css("color","red");
-                       }
-                    },//success 닫기
-                    error:function(){
-                       alert("통신에러가 발생했습니다.");
-                    }
-                 }// json  {  } 닫기
-                ); // $.ajax메소드 호출 부분 끝부분  
-	    } else {
-	    	$("#emailInput").text("이메일을 형식에 맞게 작성해주세요!").css("color","red");
-	    }
-    }
   //0329 정태영 : 비밀번호 수정 함수
     function updatePW() {
     	var m_pw = $("#m_pw");
@@ -322,7 +297,62 @@
 	    }
     }
     
- 
+  //0329 정태영 : 이메일 수정 함수
+    function updateEmail() {
+    	var m_email = $("#m_email");
+	    var m_emailValue = m_email.val();
+	    var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+	    var resultM_email = m_emailReg.test(m_emailValue);
+	    if(resultM_email == true){
+	    	$.ajax( 
+                 {
+                    type:"post", 
+                    async:true, 
+                    url:"<%=contextPath%>/member1/joinEmailCheck.me", //요청할 주소
+                    data:{ m_email : m_emailValue, purpose : "change" },//서버페이지로 요청할 데이터 설정!
+                    dataType:"text", 
+                    success : function(data){
+                       console.log(data);
+                       if(data == 'usable'){ //아이디가 DB에 없으면?(중복아님)
+                          $("#emailInput").text("이메일 변경 완료").css("color","blue");
+                       }else{//아이디가 DB에 있으면? (입력한 아이디가  DB에 저장되어 있다는 의미)
+                          $("#emailInput").text("사용할수 없는 이메일입니다.").css("color","red");
+                       }
+                    },//success 닫기
+                    error:function(){
+                       alert("통신에러가 발생했습니다.");
+                    }
+                 }// json  {  } 닫기
+                ); // $.ajax메소드 호출 부분 끝부분  
+	    } else {
+	    	$("#emailInput").text("이메일을 형식에 맞게 작성해주세요!").css("color","red");
+	    }
+    }
+    
+    $("#sendEmail").on("click", () => {
+    	const email = $("#m_email").val();
+    	const name = $("#_name").val();
+    	
+    	var m_email = $("#m_email");
+	    var m_emailValue = m_email.val();
+	    var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
+	    var resultM_email = m_emailReg.test(m_emailValue);
+    	
+    	if(resultM_email == true) {
+    		$.ajax({
+    			type: "post",
+    			async: true,
+    			url: "<%= contextPath %>/member1/sendEmailAuth.me",
+    			data: { m_email : email, m_name : name },
+    			dataType: "text",
+    			success: function(data) {
+    				alert("인증 메일이 전송되었습니다. 인증번호를 기입하여 주십시오.");
+    			}
+    		});
+    	} else {
+    		alert("이메일을 양식에 맞게 작성해주세요.");
+    	}
+    })
 
         
         

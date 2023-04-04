@@ -392,7 +392,7 @@ public class MemberController extends HttpServlet {
 				nextPage ="/Crawling/maincenter.me";
 			
 		
-			//회원정보 수정을 위해 회원정보 조회 요청!
+			//마이페이지 들어가기!
 			}else if(action.equals("/mypage.me")) { 
 				
 				//요청한 값 얻기
@@ -434,9 +434,16 @@ public class MemberController extends HttpServlet {
 			}
 			//0329 정태영 : 회원탈퇴 실행
 			else if (action.equals("/withdrawal1.me")) {
-				
-				int result = memberdao.withdrawalPro(uniqueID);
 				String contextPath = request.getContextPath();
+				String m_pw = request.getParameter("m_pw");
+				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
+				String loginPw = vo.getM_pw();
+				int result = 0;
+				
+				//입력한 비밀번호와 DB에 저장된 비밀번호가 동일한지 체크!
+				if(memberdao.checkpw(m_pw, loginPw)) {
+					result = memberdao.withdrawalPro(uniqueID);
+				}
 				
 				if(result == 1) {
 					out.println("<script>");
@@ -456,14 +463,13 @@ public class MemberController extends HttpServlet {
 				
 			//회원 정보수정을 위한 회원 확인 비밀번호인증
 			else if (action.equals("/mypageUpdate1.me")) {
-				
 				String m_pw = request.getParameter("m_pw");
 				
 				MemberVO vo = memberdao.getMemVOByUniqueID(uniqueID);
+				//DB에 저장되어 있는 값
 				String loginPw = vo.getM_pw();
 				
-				if(loginPw.equals(m_pw)) {
-					
+				if(memberdao.checkpw(m_pw, loginPw)) {
 					request.setAttribute("vo", vo);	
 					request.setAttribute("center", "/Member/modMemberForm1.jsp");
 					nextPage = "/index.jsp";
@@ -475,39 +481,9 @@ public class MemberController extends HttpServlet {
 					out.println("</script>");
 					return;
 				}
-				
-				
-			
-			//회원정보 수정창에서 수정완료 버튼을 클릭했을 때
-			}else if(action.equals("/update.me")) {
-				System.out.println(true);
-				
-//				int result = memberdao.updateMember(request);
-//				
-//				if(result == 1) {//수정 성공
-//					
-//					
-//				out.print("<script>" + "  alert('회원정보가 수정 되었습니다.');" 
-//					                     + " location.href='" + request.getContextPath()
-//										 + "/member1/main.me'"
-//		                  + "</script>");
-//
-//				return;
-//					
-//				}else {
-//					
-//					out.print("<script>"
-//							+ " alert('회원정보 수정 실패!');"
-//							+ " history.back();"
-//							+ "</script>");
-//					return;
-//					
-//				}
-				
-				return;
-				
+			}	
 			//회원탈퇴를 위해 비밀번호를 입력하는 화면 요청! 
-			}else if(action.equals("/delete.me")) {
+			else if(action.equals("/delete.me")) {
 			
 				nextPage = "/Member/Delete.jsp";
 				
@@ -521,9 +497,9 @@ public class MemberController extends HttpServlet {
 				String m_pw = request.getParameter("m_pw");
 				
 				//응답할 값 마련 
-				//예약정보를 삭제(취소)하기 위해 CarDAO객체의 OrderDelete메소드 호출할떄...
+				//예약정보를 삭제(취소)하기 위해 memberDAO객체의 MemberDelete메소드 호출할떄...
 				//매개변수로 삭제할 예약아이디와 입력한 비밀번호 전달하여 DB에서 DELETE시키자
-				//삭제에 성공하면 OrderDelete메소드의 반환값은 삭제에 성공한 레코드 개수 1을 반환 받고
+				//삭제에 성공하면 MemberDelete메소드의 반환값은 삭제에 성공한 레코드 개수 1을 반환 받고
 				//실패하면 0을 반환 받습니다.
 				int result = memberdao.MemberDelete(m_id,m_pw);
 				
