@@ -27,6 +27,7 @@
     	
     </style>
     
+	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
     
     
 <!DOCTYPE html>
