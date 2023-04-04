@@ -2,31 +2,12 @@
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
-%>        
-    
+%> 
 <!DOCTYPE html>
 <html>
     <head>
-    <meta charset="UTF-8">
-	<title>Insert title here</title>
-    
-	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
-    	<style type="text/css">
-    		#menuTable {border-collapse: collapse; display: inline-block; width: 340px;}
-			#menuTable td{width: 170px;}
-			#menuTable td button{font-weight: bold; height: 30px; border: 1px solid blue;
-			                        width: 70px; background: #5AAFFF; color: white; cursor: pointer;}
-			#snakeTable {border-collapse: collapse; display: inline-block;}
-			#snakeTable td{border: 1px solid blue; width: 13px; height: 13px;}
-			.snake{background-color: #5AAFFF;}
-			.food{background-color: #CCCCCC;}
-			.center{text-align: center;}
-			#controller {border-collapse: collapse; display: inline-block; margin-top: 20px;}
-			#controller td{border: none; text-align: center; font-size: 20pt; color: white;}
-			.btn{width: 80px; height: 80px; background: #CCCCCC; border-radius: 50px;}
-			.alignLeft{text-align: left;}
-			.alignRight{text-align: right;}
-    	</style>
+		<link rel="stylesheet" href="<%=contextPath%>/eq/css/snake.css">
+		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
         <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
         <script>
             //난수 생성 함수
@@ -186,7 +167,7 @@
                 start();
             });
  
-            $(document).on('click', '.btn', function(){
+            $(document).on('click', '.btn_', function(){
                 var key = $(this).attr('data-key');
                 if(key == 'up') {
                     up();
@@ -199,7 +180,7 @@
                 }
             });
  
-            $(document).on('mouseover', '.btn', function(){
+            $(document).on('mouseover', '.btn_', function(){
                 $(this).css('background', '#5AAFFF');
  
                 var key = $(this).attr('data-key');
@@ -230,12 +211,12 @@
                 }
             });
  
-            $(document).on('mouseout', '.btn', function(){
+            $(document).on('mouseout', '.btn_', function(){
                 $(this).css('background', '#CCCCCC');
             });
  
             $(document).on('keyup', 'body', function(){
-                $('.btn').css('background', '#CCCCCC');
+                $('.btn_').css('background', '#CCCCCC');
             });
  
             function initAll() {
@@ -282,13 +263,13 @@
         <div class='center'>
             <table id='controller'>
                 <tr>
-                    <td></td><td id='up_btn' class='btn' data-key='up'>△</td><td></td>
+                    <td></td><td id='up_btn' class='btn_' data-key='up'>△</td><td></td>
                 </tr>
                 <tr>
-                    <td id='left_btn' class='btn' data-key='left'>◁</td><td></td><td id='right_btn' class='btn' data-key='right'>▷</td>
+                    <td id='left_btn' class='btn_' data-key='left'>◁</td><td></td><td id='right_btn' class='btn_' data-key='right'>▷</td>
                 </tr>
                 <tr>
-                    <td></td><td id='down_btn' class='btn' data-key='down'>▽</td><td></td>
+                    <td></td><td id='down_btn' class='btn_' data-key='down'>▽</td><td></td>
                 </tr>
             </table>
         </div>
