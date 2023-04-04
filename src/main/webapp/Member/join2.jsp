@@ -115,17 +115,12 @@
 				<td>
 				 	<input type="text" placeholder="이메일을 적어주세요."
 							   id="m_email" name="m_email">
+					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">		   
+					<input id="sendEmail" type="button" value="인증 메일 보내기">
+					<input id="auth" type="button" value="이메일 인증">			   
 				</td>
 				<td align="left" width="300px"><p id = "emailInput" /></td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td colspan="2" align="right" width="300px"> -->
-<!-- 					<a href="#" onclick="check(); return false;" class="btn btn-common"> -->
-<!-- 					<button width="300px">회원가입 하기</button> -->
-<!-- 					</a> -->
-<!-- 				</td> -->
-<!-- 				<td align="left"><button>취소</button></td> -->
-<!-- 			</tr> -->
 		</table>
 			<button href="#" type="button" href="#" onclick="check(); return false;" class="btn btn-common">회원가입 하기</button>
 		</a>
@@ -142,13 +137,13 @@
 
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
-    var idC = false;
     var	nicknameC = false;
+    var idC = false;
     var pwC = false;
     var pw2C = false;
     var nameC = false;
     var emailC = false;
-    
+    var authC = false;
     
      //닉네임 입력시 유효성검사 
      $("#m_nickname").focusout(function() {
@@ -214,6 +209,7 @@
                              idC = true;
                         		$("#idInput").text("사용할수 있는 id입니다.").css("color","blue");
                            }else{//아이디가 DB에 있으면? (입력한 아이디가  DB에 저장되어 있다는 의미)
+                        	   idC = false;
                               $("#idInput").text("사용할수 없는 id입니다.").css("color","red");
                            }
                         },//success 닫기
@@ -229,6 +225,7 @@
      //비밀번호 입력시 
      $("#m_pw").focusout(function(){
         if($("#m_pw").val().length < 4 ){
+        	pwC = false;
               $("#pwInput1").text("한글,특수문자 없이 4글자 이상으로 작성해 주세요!").css("color","red");
            }else{
               pwC = true;
@@ -248,6 +245,7 @@
                var pwdValue2 = pwd2.val();
         	   
                if( pwd1.val() !==  pwd2.val()){
+            	   pw2C = false;
                    $("#pwInput2").text("비밀번호가 일치하지 않습니다.").css("color","red");
                 } else {
                 	//비밀번호 정규표현식에 통과하고 비밀번호가 일치하면
@@ -267,6 +265,7 @@
            var resultM_name = m_nameReg.test(m_nameValue);
      
         if(!resultM_name){
+        	nameC = false;
         	$("#nameInput").text("이름을 2자 이상 한글 또는 영어를 사용하여 작성해주세요.").css("color","red");
            
         }else{
@@ -274,9 +273,6 @@
            $("#nameInput").text("올바르게 입력되었습니다.").css("color","blue");
         }
      });
-     
-     
-     
      
     //이메일 입력시 유효성검사 동일하게 
      $("#m_email").focusout(function() {
@@ -300,12 +296,12 @@
                         success : function(data){
                            console.log(data);
                            
-                           if(data == 'usable'){ //아이디가 DB에 없으면?(중복아님)
+                           if(data == 'usable'){ //이메일이 DB에 없으면?(중복아님)
                               emailC = true;
                               $("#emailInput").text("사용할수 있는 email입니다.").css("color","blue");
                                     
-                           }else{//아이디가 DB에 있으면? (입력한 아이디가  DB에 저장되어 있다는 의미)
-                              
+                           }else{//이메일이 DB에 있으면?
+                        	   emailC = false;
                               $("#emailInput").text("사용할수 없는 email입니다.").css("color","red");
 
                            }
@@ -331,13 +327,67 @@
     //앞서 각각의 input에서 포커스아웃 시키면 각각 별개의 변수에 true를 저장하고
     //모든 변수가 true이면 form이 submit
 	function check() {
-		if(idC && nicknameC && pwC && pw2C && nameC && emailC) {
+		if(idC && nicknameC && pwC && pw2C && nameC && emailC && authC) {
+			console.log("1"+idC);
+			console.log("2"+nicknameC);
+			console.log("3"+pwC);
+			console.log("4"+pw2C);
+			console.log("5"+nameC);
+			console.log("6"+emailC);
+			console.log("7"+authC);
 			$("form").submit();
 		} else {
+			console.log("1"+idC);
+			console.log("2"+nicknameC);
+			console.log("3"+pwC);
+			console.log("4"+pw2C);
+			console.log("5"+nameC);
+			console.log("6"+emailC);
+			console.log("7"+authC);
 			alert("제대로 입력되지 않은 부분이 있습니다.");
 		}
 		return;
-	}  
+	}
+    
+    //이메일 인증 버튼 누르면 smtp를 통해 이메일이 전송되는 버튼
+    $("#sendEmail").on("click", function(e) {
+    	const email = $("#m_email").val();
+    	const name = $("#_name").val();
+    	if(emailC) {
+    		$.ajax({
+    			type: "post",
+    			async: true,
+    			url: "<%= contextPath %>/member1/sendEmailAuth.me",
+    			data: { m_email : email, m_name : name },
+    			dataType: "text",
+    			success: function(data) {
+    				alert("인증 메일이 전송되었습니다. 인증번호를 기입하여 주십시오.");
+    			}
+    		});
+    	} else {
+    		alert("이메일을 양식에 맞게 작성해주세요.");
+    	}
+    })
+    
+    //인증메일을 확인
+    $("#auth").on("click", function(e) {
+    	const authInput = $("#authInput").val();
+    	$.ajax ({
+    		type: "post",
+    		async: true,
+    		url: "<%= contextPath %>/member1/emailAuth.me",
+    		data: { auth : authInput },
+    		dataType: "text",
+    		success: function(data) {
+    			if(data == "true") {
+    				alert(true);
+    				authC = true;
+    			} else {
+    				authC = false;
+    			}
+    		}
+    	})
+    })
 </script>	
 </body>
 </html>

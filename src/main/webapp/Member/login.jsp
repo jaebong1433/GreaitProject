@@ -55,7 +55,7 @@
 <body align="center">
 	<div class="logf">
 		
-		<a href="<%= contextPath%>/member1/main.me">	
+		<a href="<%= contextPath%>/Crawling/maincenter.me">	
    		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
    		</a>
    		

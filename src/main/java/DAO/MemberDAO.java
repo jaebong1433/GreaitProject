@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -250,6 +251,7 @@ public class MemberDAO {
 	//입력한 아이디와 비밀번호를 매개변수로 받아  DB의 테이블에 저장되어 있는지 확인하는 메소드
 	public int loginCheck(String m_id, String m_pw) {
 		int check = -1;
+		String hashedPW = null;
 		try {
 			//DB접속
 			con = ds.getConnection();
@@ -262,9 +264,9 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
-				
+				hashedPW = rs.getString("m_pw");
 				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
-				if(checkpw(m_pw)) {
+				if(checkpw(m_pw, hashedPW)) { //수정필수
 					check = 1;
 				
 				}else { //아이디는 맞고 비번 틀림
@@ -393,8 +395,26 @@ public class MemberDAO {
 			
 		}
 	
-	public void changePW(String m_name, String m_id, String m_email, String m_pw) {
-		
+	public int changePW(String m_name, String m_id, String m_email, String m_pw) {
+		m_pw = hashpw(m_pw);
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			String sql = "update m_member set m_pw = ? where m_name=? and m_id=? and m_email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m_pw);
+			pstmt.setString(2, m_name);
+			pstmt.setString(3, m_id);
+			pstmt.setString(4, m_email);
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("changePW");
+			e.printStackTrace();
+		} finally {
+			closeResource();
+		}
+		return result;
 	}
 		
 	//회원 닉네임을을 이용해 회원 정보 조회
@@ -854,13 +874,31 @@ public class MemberDAO {
     //Bcrypt 라이브러리를 이용해 암호를 확인하는 메서드
     //Bcrypt는 단방향이므로 암호의 복호화가 불가능하므로,
     //입력한 비밀번호가 DB에 저장된 비밀번호와 동일한지 여부만 알 수 있다.
-    public static boolean checkpw(String pwd) {
+    public static boolean checkpw(String pwd, String hashedPassword) {
     	String salt = BCrypt.gensalt();
-    	String hashedPassword = BCrypt.hashpw(pwd, salt);
+//    	String hashedPassword = BCrypt.hashpw(pwd, salt);
     	boolean passwordMatches = BCrypt.checkpw(pwd, hashedPassword);
     	System.out.println("DB에 저장된 비밀번호: "+ hashedPassword);
     	System.out.println("비밀번호 동일 여부: "+ passwordMatches);
     	return passwordMatches;
     }
+    
+    public String getAuthCode() {
+    	String ALLOWED_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        int STRING_LENGTH = 4;
+    	
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(STRING_LENGTH);
+        for (int i = 0; i < STRING_LENGTH; i++) {
+            int randomIndex = random.nextInt(ALLOWED_CHARACTERS.length());
+            char randomChar = ALLOWED_CHARACTERS.charAt(randomIndex);
+            sb.append(randomChar);
+        }
+        String randomString = sb.toString();
+        System.out.println("dao, getAuthCode메서드를 통해 생성된 인증번호: "+randomString);
+        
+    	return randomString;
+    }
+    
 }
 
