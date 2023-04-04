@@ -110,7 +110,7 @@ public class CrawlingDAO {
 		      }   
 		      return BoxList;
 	      }
-		  //4.3 카카오티비에서 네이버예고편저장소로 변경
+		  //4.4 재봉 좋아요 업로드 변수 추가 
 		  public List<VideoCrawlingVO> getVideoDatas() throws IOException{
 				String videoUrl = "https://tv.naver.com/navermovie/clips";
 					     List<VideoCrawlingVO> videoList = new ArrayList<VideoCrawlingVO>();
@@ -119,17 +119,23 @@ public class CrawlingDAO {
 						Elements videoImg = videoDoc.select("a.cds_thm img");
 						Elements videoTitle = videoDoc.select("dt.title a");
 						Elements videoPlayCnt = videoDoc.select("dd.meta span.hit");
+						Elements videoLike = videoDoc.select("dd.meta span.like");
+						Elements videoUpload = videoDoc.select("dd.meta span.time");
 						Elements videoSrc = videoDoc.select("div.cds_type a");
 						for (int i = 0; i < 20; i++) {
 							VideoCrawlingVO vo = new VideoCrawlingVO();
 				    	 	String imgSrc = videoImg.get(i).attr("src");
 				    		String title = videoTitle.get(i).text();
 				    		String playCnt = videoPlayCnt.get(i).text();
+				    		String like = videoLike.get(i).text();
+				    		String upload = videoUpload.get(i).text();
 				    	    String src = videoSrc.get(i).attr("href");
 				    	 vo.setImgSrc(imgSrc);
 				         vo.setTitle(title);
 				         vo.setPlayCnt(playCnt);
 				         vo.setSrc(src);
+				         vo.setLike(like);
+				         vo.setUpload(upload);
 				         videoList.add(vo);
 						 }   
 				      return videoList;
