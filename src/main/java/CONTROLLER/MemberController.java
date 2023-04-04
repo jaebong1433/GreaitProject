@@ -20,6 +20,7 @@ import DAO.CommunityDAO;
 import DAO.MemberDAO;
 import VO.CommunityVO;
 import VO.MemberVO;
+import smtp.SendEmail;
 
 @WebServlet("/member1/*") 
 public class MemberController extends HttpServlet {
@@ -374,9 +375,11 @@ public class MemberController extends HttpServlet {
 				String m_email = request.getParameter("m_email");
 				String m_pw = request.getParameter("m_pw");
 				
-				memberdao.changePW(m_name, m_id, m_email, m_pw);
+				int result = memberdao.changePW(m_name, m_id, m_email, m_pw);
 				
-				return;
+				request.setAttribute("result", result);
+				
+				nextPage = "/Member/changePWResult.jsp";
 			}
 			
 			//카카오 로그인창에서 로그인 버튼을 눌렀을 때
@@ -391,10 +394,6 @@ public class MemberController extends HttpServlet {
 		
 			//회원정보 수정을 위해 회원정보 조회 요청!
 			}else if(action.equals("/mypage.me")) { 
-				String pwd = memberdao.pwdEncryption("1234");
-				pwd = memberdao.incodeBase64(pwd);
-				pwd = memberdao.decodeBase64(pwd);
-				pwd = memberdao.pwdDecryption(pwd);
 				
 				//요청한 값 얻기
 //				String m_nickname = request.getParameter("m_nickname");
@@ -588,10 +587,45 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("center", "/Member/ranking.jsp");
 				nextPage = "/index.jsp";
 			}
+			
+			//인증메일 보내기
+			else if(action.equals("/sendEmailAuth.me")) {
+				String m_email = request.getParameter("m_email");
+				String m_name = request.getParameter("m_name");
+				String authCode = memberdao.getAuthCode();
+				String title = "Mood Movie입니다. 인증메일 확인 바랍니다.";
+				
+				SendEmail.sendEmail(m_email, m_name, title, authCode);
+				
+				authCode = memberdao.hashpw(authCode);
+				
+				session.setAttribute("authCode", authCode);
+				
+				out.write(authCode);
+				return;
+			}
+			
+			//이메일 인증
+			//join2.jsp에서 이메일 인증 버튼을 눌렀을 때
+			//세션에 저장된 인증번호(authCode)와 jsp에서 request로 전달된 인증번호 확인(auth)의 값을
+			//checkPW() 메서드를 이용하여 입력한 값이 세션에 저장된 값과 동일하면 true를 반환함.
+			else if(action.equals("/emailAuth.me")) {
+				//auth: jsp에서 받아온, 사용자가 작성한 인증번호
+				//authCode: session에 저장된 사용자의 이메일로 보내진 인증번호
+				String HashedCode = (String)session.getAttribute("authCode");
+				String InputCode = request.getParameter("auth");
+				
+				boolean result = memberdao.checkpw(InputCode, HashedCode);
+				System.out.println(result);
+				out.write(String.valueOf(result));
+				
+				session.removeAttribute("authCode");
+				
+				return;
+			}
 		
 			//포워딩 (디스패처 방식)
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 			}
-	
 		}
