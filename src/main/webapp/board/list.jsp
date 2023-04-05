@@ -19,6 +19,13 @@ pageEncoding="UTF-8"
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+					
+		
+		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
 
@@ -55,7 +62,11 @@ pageEncoding="UTF-8"
 		<style>
 			.listtext{
 				width : 97%;
-				height : 1000px;
+			}
+			
+			.listtext2{
+				width : 97%;
+				height: 800px;
 			}
 		
 			a{
@@ -63,9 +74,34 @@ pageEncoding="UTF-8"
 				text-decoration: none;
 			}
 			
+			.listbtn{
+				width: 50%;
+				height: 40px;
+			}
+			.listbtn2{
+				width: 100%;
+				height: 40px;
+				text-align: center;
+			}
+			.listbtn2 td{
+				width: 25%;
+			}
+			.listbtn2 button{
+				border: none;
+				width: 99%;
+				height: 40px;
+				background-color: white;
+				border-bottom: 2px solid black;
+				font-size: 1.4em;
+				transition: all 0.1s linear;
+				font-family: 'Do Hyeon', sans-serif;
+			}
+			
+			.listbtn2 button:hover {
+				border-bottom: 2px solid red;
+			}
 			
 			
-		
 		</style>
 		
 		
@@ -140,7 +176,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 <table class="listtext">
 	<tr height="40"> 
 		<td style="text-align: center;"> 
-			&nbsp;&nbsp;&nbsp; <img src="<%=contextPath%>/board/images/board.jpg" width="50%">
+			<img alt="게시판" src="<%=contextPath%>/eq/img/banner/boardbanner.jpg" width="98%">
 		</td>
 	</tr>
 	<tr> 
@@ -150,6 +186,22 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 			</div>
 		</td>
 	</tr>
+</table>
+<div class="listbtn">
+	<table class="listbtn2">
+	<tr><td>
+	<button onclick="javascript:location.href='<%= contextPath %>/com/bestPost.bo?nowPage=0&nowBlock=0'">개념글</button>&nbsp;
+	</td><td>
+	<button onclick="javascript:location.href='<%= contextPath %>/com/listByLike.bo?nowPage=0&nowBlock=0'">좋아요순</button>&nbsp;
+	</td><td>
+	<button onclick="javascript:location.href='<%= contextPath %>/com/listByViews.bo?nowPage=0&nowBlock=0'">조회수순</button>&nbsp;
+	</td><td>
+	<button onclick="javascript:location.href='<%= contextPath %>/com/listByRecent.bo?nowPage=0&nowBlock=0'">최신순</button>&nbsp;
+	</td></tr>
+	</table> 	
+</div>
+
+<table class="listtext2">	
 	<tr> 
 		<td colspan="3" valign="top">
 			<div align="center"> 
@@ -157,13 +209,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        	<tr> 
 	        		<td colspan="4" style="height: 19px">&nbsp;</td> 
 	        	</tr>
-	        	<tr>
-	        		<!-- //20230321 정태영 : 버튼 추가 -->
-	        		<button onclick="javascript:location.href='<%= contextPath %>/com/bestPost.bo?nowPage=0&nowBlock=0'">개념글</button>&nbsp;
-	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByLike.bo?nowPage=0&nowBlock=0'">좋아요순</button>&nbsp;
-	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByViews.bo?nowPage=0&nowBlock=0'">조회수순</button>&nbsp;
-	        		<button onclick="javascript:location.href='<%= contextPath %>/com/listByRecent.bo?nowPage=0&nowBlock=0'">최신순</button>&nbsp;
-	        	</tr>
+	        	
 	        	<tr> 
 	        		<td colspan="4">
 						<table border="0" width="100%" cellpadding="2" cellspacing="0">

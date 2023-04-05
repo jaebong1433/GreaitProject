@@ -244,7 +244,6 @@
     </head>
     <body>
         <div class='center'>
-            <h2>Snake 게임</h2>
             <table id='menuTable'>
                 <tr>
                     <td class='alignLeft'>
