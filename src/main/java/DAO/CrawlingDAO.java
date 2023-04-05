@@ -45,7 +45,8 @@ public class CrawlingDAO {
 			//요소별 선택자 사용해 수집한 데이터 변수에 저장
 			Elements daumAge = daumDoc.select("div.poster_movie span.txt_tag");
 			Elements daumImg = daumDoc.select(".item_poster .poster_movie img");
-	 		Elements daumTitle = daumDoc.select("strong.tit_item a");
+			Elements daumA = daumDoc.select(".poster_info a:nth-of-type(1)");//링크 가져오기 추가 4.5 재봉
+			Elements daumTitle = daumDoc.select("strong.tit_item a");
 	     	Elements daumScore = daumDoc.select("span.txt_grade");
 	     	Elements daumNum = daumDoc.select("span.info_txt span.txt_num");
 			Elements daumDate = daumDoc.select("span.txt_info span.txt_num");
@@ -53,19 +54,22 @@ public class CrawlingDAO {
 		      //1~10위까지 이미지는 "src", 문자열은 text로 영화정보 추출 후 각 변수에 저장
 		      for (int i = 0; i < 10; i++) {
 		    	 CrawlingVO vo = new CrawlingVO();
-		         String age = daumAge.get(i).text(); // 영화 관람가
+		        
+		    	 String age = daumAge.get(i).text(); // 영화 관람가
 	 	         String imgSrc = daumImg.get(i).attr("src"); // 포스터 이미지
-		         String title = daumTitle.get(i).text(); // 영화 제목
+		         String dA = daumA.get(i).attr("href");//영화 상세정보링크 링크 가져오기 추가 4.5 재봉
+	 	         String title = daumTitle.get(i).text(); // 영화 제목
 			     String dScore = daumScore.get(i).text(); // 영화 평점
 			     String dNum = daumNum.get(i).text(); //영화 예매율
 			     String dDate = daumDate.get(i).text(); //영화 개봉일
-	 	        
-		         vo.setAge(age);//vo에 변수저장
+
+			     vo.setAge(age);//vo에 변수저장
 		         vo.setImgSrc(imgSrc);
 		         vo.setTitle(title);
 		         vo.setdScore(dScore);
 		         vo.setdNum(dNum);
 		         vo.setdDate(dDate);
+		         vo.setdA(dA); //링크 가져오기 추가 4.5 재봉
 		         
 		         mainList.add(vo);//List에 가져온 데이터(VO)저장
 		      }   
@@ -132,7 +136,7 @@ public class CrawlingDAO {
 						Elements videoPlayCnt = videoDoc.select("dd.meta span.hit");
 						Elements videoLike = videoDoc.select("dd.meta span.like");
 						Elements videoUpload = videoDoc.select("dd.meta span.time");
-						Elements videoSrc = videoDoc.select("div.cds_type a");
+						Elements videoSrc = videoDoc.select("div.cds_type dl.cds_info a");//링크맞지않아수정 4.5 재봉
 						
 						//예고편 20편 이미지는 "src", 문자열은 text, 링크는 "href"로 영상정보 추출 후 각 변수에 저장
 						for (int i = 0; i < 20; i++) {
