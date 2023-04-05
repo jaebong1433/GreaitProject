@@ -1,6 +1,6 @@
 package VO;
 
-//최신영화 top10 크롤링데이터를 저장할 VO
+//최신영화 top10 크롤링데이터를 저장할 VO a변수 메소드 추가 4.5재봉 
 public class CrawlingVO {
 	private String age;
 	private String imgSrc; 
@@ -11,19 +11,22 @@ public class CrawlingVO {
     private String clipTitle;
     private String clipImg;
     private String photo;
-     
-	 public CrawlingVO() {
-	
-	 }
+    private String dA;
     
-	public CrawlingVO(String age, String imgSrc, String title, String dScore, String dNum, String dDate) {
+	public CrawlingVO() {
+	
+	}
+    
+	public CrawlingVO(String age, String imgSrc, String title, String dScore, String dNum, String dDate, String dA) {
 		this.age = age;
 		this.imgSrc = imgSrc;
 		this.title = title;
 		this.dScore = dScore;
 		this.dNum = dNum;
 		this.dDate = dDate;
+		this.dA = dA;
 	}
+
 
 	public CrawlingVO(String clipTitle, String clipImg) {
 		this.clipTitle = clipTitle;
@@ -33,9 +36,10 @@ public class CrawlingVO {
 	public CrawlingVO(String photo) {
 		this.photo = photo;
 	}
+	
 
 	public CrawlingVO(String age, String imgSrc, String title, String dScore, String dNum, String dDate,
-			String clipTitle, String clipImg, String photo) {
+			String clipTitle, String clipImg, String photo, String dA) {
 		this.age = age;
 		this.imgSrc = imgSrc;
 		this.title = title;
@@ -45,6 +49,16 @@ public class CrawlingVO {
 		this.clipTitle = clipTitle;
 		this.clipImg = clipImg;
 		this.photo = photo;
+		this.dA = dA;
+	}
+
+	
+	public String getdA() {
+		return dA;
+	}
+
+	public void setdA(String dA) {
+		this.dA = dA;
 	}
 
 	public String getAge() {

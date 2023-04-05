@@ -32,6 +32,7 @@ String naver = "https://tv.naver.com";
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
+<!-- 4.5 play heart 추가 -->
 <style type="text/css">
 	
 	.test{
@@ -69,6 +70,14 @@ String naver = "https://tv.naver.com";
 		text-decoration: none;
 	}
 	
+	
+	.play{
+		color:#E4E4E4;
+	}
+	
+	.heart{
+		color:#FF3636;
+	}
 </style>
 
 </head>
@@ -99,8 +108,10 @@ String naver = "https://tv.naver.com";
 						<div class="videotext">
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
-						</a>
-						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
+						</a><!-- p부분 span,strong 추가 4.5-->
+						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
+						<span class="heart">♥</span>
+						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -125,7 +136,9 @@ String naver = "https://tv.naver.com";
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
+						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
+						<span class="heart">♥</span>
+						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -150,7 +163,9 @@ String naver = "https://tv.naver.com";
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
+						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
+						<span class="heart">♥</span>
+						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -175,7 +190,9 @@ String naver = "https://tv.naver.com";
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
+						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
+						<span class="heart">♥</span>
+						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -200,7 +217,9 @@ String naver = "https://tv.naver.com";
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
+						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
+						<span class="heart">♥</span>
+						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
