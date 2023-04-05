@@ -146,12 +146,19 @@
 		}
 		
 		.chatingbtn{
-			border: 1px solid black;
 			margin : 200px 0 0 10px;
 			width: 60px;
 			height: 60px;
 			border-radius: 30px;
-			text-align: center;
+			font-size: 1.3em;
+			font-weight: bold;
+			background-color: white;
+			color:black;
+		}
+		
+		.chatingbtn:hover{
+			background-color: gray;
+			color:white;
 		}
 		
 	</style>
@@ -264,8 +271,7 @@
             	<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
             	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
          		<li><a href="<%=contextPath%>/map/minigame3.mo" class="link-dark d-inline-flex text-decoration-none rounded">뱀꼬리잡기</a></li>
-            	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
-         	</ul>
+           	</ul>
         </div>
       </li>
       
@@ -279,10 +285,10 @@
       
     </ul>
   </div>
-  	<div class="chatingbtn">
-		chat<br>
-		btn
-  	</div>
+  
+  	<button class="chatingbtn">Chat</button>
+		
+  	
 </div>	
 	<!-- Main JS (Do not remove) -->
 	<script src="<%=contextPath%>/eq/js/main.js"></script>

@@ -134,7 +134,7 @@ pageEncoding="UTF-8"
 			    <img id="likeimg" src="<%=contextPath%>/eq/img/good.png" width="100px">
 			  </button>
 			  <form name="reply" action="<%=contextPath%>/com/replyBoard.bo">
-			  	<input type="hidden" name="c_idx" value="<%=c_idx %>">
+			    <input type="hidden" name="c_idx" value="<%=c_idx%>">
 			    <input type="hidden" name="nowPage" value="<%=nowPage%>">
 			    <input type="hidden" name="nowBlock" value="<%=nowBlock%>">
 			    <button type="submit" class="repl">

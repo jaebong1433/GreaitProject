@@ -395,6 +395,12 @@ public class MemberController extends HttpServlet {
 //				nextPage ="/Crawling/maincenter.me";
 				return;
 			}
+			
+			else if(action.equals("/naverLoginPro.me")) {
+				System.out.println(true);
+				
+				return;
+			}
 		
 			//마이페이지에 들어가기 요청을 받으면
 			//request에서 해당 유저의 uniqueID를 전달받아 변수에 저장하고

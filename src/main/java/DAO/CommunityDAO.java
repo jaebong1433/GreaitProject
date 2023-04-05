@@ -686,13 +686,13 @@ public class CommunityDAO {
 			pstmt.setString(1, super_c_idx);
 			rs = pstmt.executeQuery();
 			rs.next();
-			String c_group = rs.getString("c_group");
-			String c_level = rs.getString("c_level");
+			int c_group = rs.getInt("c_group");
+			int c_level = rs.getInt("c_level");
 			
 			sql = "update community set c_group = c_group + 1 where c_group > ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, c_group);
-			result = pstmt.executeUpdate();
+			pstmt.setInt(1, c_group);
+			pstmt.executeUpdate();
 			
 			sql = "insert into community values (COMMUNITY_IDX.nextval,"
 												+ "?,"
@@ -711,9 +711,9 @@ public class CommunityDAO {
 			pstmt.setString(3, uniqueID);
 			pstmt.setString(4, pass);
 			pstmt.setString(5, content);
-			pstmt.setInt(6, Integer.parseInt(c_group)+1);
-			pstmt.setInt(7, Integer.parseInt(c_level)+1);
-			pstmt.executeUpdate();
+			pstmt.setInt(6, c_group+1);
+			pstmt.setInt(7, c_level+1);
+			result = pstmt.executeUpdate();
 			
 		} catch(Exception e) {
 			System.out.println("replyInsertBoard");

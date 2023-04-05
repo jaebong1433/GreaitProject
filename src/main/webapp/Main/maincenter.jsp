@@ -7,10 +7,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String contextPath = request.getContextPath();
-	ArrayList boardList = (ArrayList)request.getAttribute("list");
+	ArrayList list = (ArrayList)request.getAttribute("mainList");
+	ArrayList boardList = (ArrayList)request.getAttribute("list"); //최신영화 top10에서 위로 이동 4.5재봉
+	CrawlingVO vo = null;//최신영화 top10에서 위로 이동 4.5재봉
 	int boardCount = (Integer)request.getAttribute("count");
 	ArrayList list2 = (ArrayList)request.getAttribute("ClipList");//핫클립데이터 가져와 List에 저장
 	ClipCrawlingVO vo2 = null;
+	String daum = "https://movie.daum.net";// daum링크 변수에 저장 4.5재봉
 %>    
    
 <!DOCTYPE html>
@@ -43,8 +46,9 @@
 										        minSlides:5,//최소 노출 슬라이드 수 
 										        maxSlides:5,//최대 노출 슬라이드 수
 										        slideMargin:20,//슬라이드 간의 간격 입니다.
-										        controls:false// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
-	  										});
+										        controls:false,// 이전 ,다음 버튼을 숨김(true:노출, false:숨김)
+										  		touchEnabled : (navigator.maxTouchPoints > 0)//링크 이동을 위해 터치막는 옵션	4.5							    
+		  });
 		  
 		  
 		  //< 이전 버튼을 클릭 할때마다 
@@ -96,6 +100,21 @@
 			margin-left: 10%;
 			font-family: 'Do Hyeon', sans-serif;
 		}
+		
+		.movebtn{
+			width : 30px;
+			height: 60px;
+			border: 2px solid gray;
+			color : gray;
+			border-radius: 5px;
+			background-color: white;
+			font-weight: bold;
+		}
+		
+		.movebtn:hover{
+			border : 3px solid gray;
+		}
+		
 	</style>
   
 </head>
@@ -110,47 +129,38 @@
 		<table class="centertb1">
 			<tr>
 				<td width="30px">
-				<p class="prev_btn">
-						<a href="#"> 
-							<img src="<%=contextPath %>/eq/img/leftgo.png" alt="이전으로 이동" width="30px"/>
-						</a>
+					<p class="prev_btn">
+						<button class="movebtn">◀</button>
 					</p>
 				</td>
 				<td>	
 				<div id="best_bg">
 					<ul>
-						<!-- 최신영화 top10 -->
+						<!-- 최신영화 top10 --><!-- 코드 간결하게 수정 후 <a>태그에 변수추가 4.5 -->
 						<%
 						
-						ArrayList list = (ArrayList)request.getAttribute("mainList");
-						
-						 CrawlingVO vo = null;
-						 String age;
-						 String imgSrc; 
-						 String title; 
-						 String dScore; 
-						 String dNum; 
-						 String dDate;
 						 for (int i = 0; i < 10; i++) {
 						
 							 vo= (CrawlingVO)list.get(i);
-							 age = vo.getAge();
-							 imgSrc = vo.getImgSrc();
-							 title = vo.getTitle();
-							 dScore = vo.getdScore();
-							 dNum = vo.getdNum();
-							 dDate = vo.getdDate();
+							 String age = vo.getAge();
+							 String imgSrc = vo.getImgSrc();
+							 String title = vo.getTitle();
+							 String dScore = vo.getdScore();
+							 String dNum = vo.getdNum();
+							 String dDate = vo.getdDate();
+							 String dA = vo.getdA(); 
 						%>	 
 							  <li>
-								<a href="#">
+								
 								<div class="hover">
+								<a href="<%=daum%><%=dA%>" target="_blank">
 									<img src="<%=imgSrc%>" alt="" width="280px" />
 								</div>	
 									<span>
 									<div class="fonttb">
 									<table>
-										<tr><h4>
-											<%=title %></h4>
+										<tr>
+										<h4><%=title %></h4>
 										</tr>
 										<tr>	
 											<%=age%><br>
@@ -181,9 +191,7 @@
 					</td>
 					<td width="30px">
 					<p class="next_btn">
-						<a href="#"> 
-							<img src="<%=contextPath %>/eq/img/rightgo.png" alt="다음으로 이동" width="30px"/>
-						</a>
+						<button class="movebtn">▶</button>
 					</p>
 					</td>
 					
