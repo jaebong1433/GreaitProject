@@ -239,7 +239,17 @@
             $(document).ready(function(){
                 initAll();
             });
- 
+ 			
+            //방향키 스크롤 움직임 고정
+            $('html, body').css({'overflow': 'hidden', 'height': '100%'});
+            $('#element').on('scroll touchmove mousewheel', function(event) {
+              event.preventDefault();
+              event.stopPropagation();
+              return false;
+            });
+            
+            //스크롤 움직임 고정 해제
+//          $('#element').off('scroll touchmove mousewheel');
         </script>
     </head>
     <body>
