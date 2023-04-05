@@ -90,9 +90,10 @@ public class CrawlingController extends HttpServlet {
 			request.setAttribute("boardList", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
 			request.setAttribute("boardCount", count);
 			
-			
-			
-			
+			List bestPostList = comDAO.bestPost();
+			int bestPostCount = comDAO.getBestPostRecord();
+			request.setAttribute("bestPostList", bestPostList);
+			request.setAttribute("bestPostCount", bestPostCount);
 			//-------------------------------
 			nextPage = "/index.jsp";
 		

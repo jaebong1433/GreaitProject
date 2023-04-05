@@ -12,8 +12,8 @@ pageEncoding="UTF-8"
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
 	String nickname = (String)session.getAttribute("m_nickname");
+	boolean wc = (boolean)session.getAttribute("checkWeekend");
 %>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,7 +28,13 @@ pageEncoding="UTF-8"
 		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script>
-
+		let wc = "<%= wc %>";
+		if(wc == "true") {
+// 			alert("오늘은 주말입니다.");
+		} else {
+// 			alert("오늘은 주말이 아닙니다.");
+		}
+		
 		function fnSearch(){
 			var word = document.getElementById("word").value;
 			if(word == null || word == ""){
@@ -109,7 +115,8 @@ pageEncoding="UTF-8"
 		
 		
 	</head>
-<body>	
+<body>
+	
 <%
 int totalRecord = 0; //board테이블에 저장된 글의 총개수 -
 int numPerPage = 20; //한 페이지당 조회해서 보여줄 글 개수  -

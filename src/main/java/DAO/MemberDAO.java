@@ -266,7 +266,7 @@ public class MemberDAO {
 			if(rs.next()) {//입력한 아이디로 조회한 행이 있으면?
 				hashedPW = rs.getString("m_pw");
 				//입력한 비밀번호와 조화된 비밀먼호와 비교 해서 있으면?
-				if(checkpw(m_pw, hashedPW)) { //수정필수
+				if(checkpw(m_pw, hashedPW)) {
 					check = 1;
 				
 				}else { //아이디는 맞고 비번 틀림
@@ -627,21 +627,21 @@ public class MemberDAO {
 //	}
 	
 	//0324 정태영 : 닉네임과 경험치 증가량을 매개변수로 받아 해당 닉네임의 사용자의 경험치를 해당 정수만큼 증가시켜 줌
-	public void updateExp(String nickname, int exp) {
-		try {
-				con = ds.getConnection();
-				String sql = "update m_member set m_exp = m_exp + ? where m_nickname = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, exp);
-				pstmt.setString(2, nickname);
-				pstmt.executeUpdate();
-				
-			} catch(Exception e) {
-				System.out.println("updateExp");
-			} finally {
-				closeResource();
-			}
-	}
+//	public void updateExp(String nickname, int exp) {
+//		try {
+//				con = ds.getConnection();
+//				String sql = "update m_member set m_exp = m_exp + ? where m_nickname = ?";
+//				pstmt = con.prepareStatement(sql);
+//				pstmt.setInt(1, exp);
+//				pstmt.setString(2, nickname);
+//				pstmt.executeUpdate();
+//				
+//			} catch(Exception e) {
+//				System.out.println("updateExp");
+//			} finally {
+//				closeResource();
+//			}
+//	}
 	
 	//0325 정태영 : 회원가입 시 고유 id를 발급받는 메소드, 중복 체크 포함
 	public int getUniqueid() {
@@ -899,6 +899,58 @@ public class MemberDAO {
         
     	return randomString;
     }
+    
+    //유저의 고유아이디를 이용해 회원을 조회해 경험치를 업데이트한다. 주말일 경우 경험치가 2배로 추가된다.
+    public int updateExp(String uniqueID, int exp, boolean wc) {
+    	int result = 0;
+    	if(wc) {
+    		exp *= 2;
+    	}
+    	System.out.println("updateExp, "+uniqueID);
+    	System.out.println("updateExp, "+exp);
+    	System.out.println("updateExp, "+wc);
+    	try {
+    		con = ds.getConnection();
+    		String sql = "update m_member set m_exp = m_exp + ? where m_uniqueid = ?";
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setInt(1, exp);
+    		pstmt.setString(2, uniqueID);
+    		result = pstmt.executeUpdate();
+    		System.out.println("updateExp 완료");
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		closeResource();
+    	}
+    	return result;
+    }
+
+	public int insertKakaoMember(String kakao_name, String kakao_uniqueID, String kakao_email) {
+		int result = 0;
+		String kakao_id = "kakao_" + kakao_uniqueID;
+		
+		System.out.printf("%s, %s, %s, %s, %s\n", kakao_uniqueID, kakao_name, kakao_id, kakao_name, kakao_email);
+		
+		try {
+			con = ds.getConnection();
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_gradeimage) values(?, ?, ?, 'kakao_pw', ?, ?, 'egg.png')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, kakao_uniqueID);
+			pstmt.setString(2, kakao_name);
+			pstmt.setString(3, kakao_id);
+			pstmt.setString(4, kakao_name);
+			pstmt.setString(5, kakao_email);
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("insertKakaoMember");
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+		return result;
+	}
     
 }
 

@@ -30,6 +30,7 @@ import DAO.MemberDAO;
 import VO.BoardLikeVO;
 import VO.CommunityVO;
 import VO.MemberVO;
+import others.CheckWeekend;
 
 
 //http://localhost:8090/greaitProject/com/Main 
@@ -85,6 +86,12 @@ public class CommunityController extends HttpServlet {
 		BoardLikeVO boardLikeVO = null;
 		
 		HttpSession session = request.getSession();
+		
+		//오늘이 주말인지 확인하는 기능, 확인 후 세션에 저장한다.
+		boolean checkWeekend = CheckWeekend.check();
+		System.out.println("오늘의 주말 여부 : " + checkWeekend);
+		session.setAttribute("checkWeekend", checkWeekend);
+		
 		String ip = (String)session.getAttribute("ip");
 		if(ip == null) {
 			//20230321 정태영 : 로그인 안 했을 때 아이피 주소 대입, 세션값 ㄴㄴ
@@ -282,11 +289,13 @@ public class CommunityController extends HttpServlet {
 			
 			vo = comDAO.getComVO(c_idx);//좋아요 받는 사람의 vo
 			
-			if(!vo.getC_nickname().equals(nickname)) {
-				//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
-				System.out.println(nickname);
-				System.out.println(vo.getC_nickname());
-				memberDAO.updateExp(vo.getC_nickname(), 3);
+			if(boardLikeVO != null) {
+				if(!vo.getC_nickname().equals(nickname)) {
+					//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
+					System.out.println(nickname);
+					System.out.println(vo.getC_nickname());
+					memberDAO.updateExp(vo.getC_uniqueid(), 3, checkWeekend);
+				}
 			}
 			
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
@@ -305,17 +314,17 @@ public class CommunityController extends HttpServlet {
 				nickname = ip;
 			}
 			
-			boardLikeVO = comDAO.CancelLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
+			boardLikeVO = comDAO.CancelLike(c_idx, nickname, uniqueID); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getComVO(c_idx); //CommunityVO에 게시글 정보를 저장함
 
-			if(!vo.getC_nickname().equals(nickname)) {
-				System.out.println(nickname);
-				System.out.println(vo.getC_nickname());
-				//0324 정태영 : 좋아요를 받은 대상에게 경험치 -3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
-				memberDAO.updateExp(vo.getC_nickname(), -3);
+			if(boardLikeVO == null) {
+				if(!vo.getC_nickname().equals(nickname)) {
+					System.out.println(nickname);
+					System.out.println(vo.getC_nickname());
+					//0324 정태영 : 좋아요를 받은 대상에게 경험치 -3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
+					memberDAO.updateExp(vo.getC_uniqueid(), -3, checkWeekend);
+				}
 			}
-			
-			System.out.println(vo);
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			return;
@@ -334,20 +343,21 @@ public class CommunityController extends HttpServlet {
 			
 			vo = comDAO.getNoticeVO(c_idx);//좋아요 받는 사람의 vo
 			
-			if(!vo.getC_nickname().equals(nickname)) {
-				//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
-				System.out.println(nickname);
-				System.out.println(vo.getC_nickname());
-				memberDAO.updateExp(vo.getC_nickname(), 3);
+			if(boardLikeVO != null) {
+				if(!vo.getC_nickname().equals(nickname)) {
+					//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
+					System.out.println(nickname);
+					System.out.println(vo.getC_nickname());
+					memberDAO.updateExp(vo.getC_uniqueid(), 3, checkWeekend);
+				}
 			}
-			
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			
 			return;
 		}
 		//0325
-		//좋아요 취소를 클릭했을 때
+		//공지의 좋아요 취소를 클릭했을 때
 		//정태영
 		else if(action.equals("/noticeLikeCancel.bo")) {
 			String c_idx = request.getParameter("c_idx");//c_idx를 받아와서 String으로 저장
@@ -359,6 +369,16 @@ public class CommunityController extends HttpServlet {
 			
 			boardLikeVO = comDAO.CancelNoticeLike(c_idx, nickname); //게시글 DB의 c_like에 1을 추가하는 메서드
 			vo = comDAO.getNoticeVO(c_idx); //CommunityVO에 게시글 정보를 저장함
+			
+			if(boardLikeVO == null) {
+				if(!vo.getC_nickname().equals(nickname)) {
+					//0324 정태영 : 좋아요를 받은 대상에게 경험치 3을 제공, 본인 게시글에 좋아요 누르는 것으로는 경험치 못 얻음
+					System.out.println(nickname);
+					System.out.println(vo.getC_nickname());
+					memberDAO.updateExp(vo.getC_uniqueid(), -3, checkWeekend);
+				}
+			}
+			
 			String like = String.valueOf(vo.getC_like()); //out.write();에 바로 vo.getC_like를 대입하면 오류가 발생, int값을 String으로 변환시켜줌.
 			out.write(like);//ajax가 success하였으므로 data로 전송
 			
@@ -393,7 +413,7 @@ public class CommunityController extends HttpServlet {
 
 		}
 		//0325
-		//글 작성 버튼을 눌러 글 작성 요청을 했을때
+		//글 작성 버튼을 눌러 글 작성 요청을 했을때, 글쓰기
 		else if(action.equals("/writePro.bo")) {
 			String nick = request.getParameter("w");
 			String title = request.getParameter("t");
@@ -409,11 +429,11 @@ public class CommunityController extends HttpServlet {
 			
 			int result = comDAO.insertBoard(vo);
 			
-			String nickname = (String)session.getAttribute("m_nickname");
+			System.out.println(result);
 			//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
-			if(nickname != null) {
+			if(uniqueID != null) {
 				System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
-				memberDAO.updateExp(nickname, 2);
+				memberDAO.updateExp(uniqueID, 2, checkWeekend);
 			}
 			
 			// "1" 또는 "0"
@@ -443,11 +463,12 @@ public class CommunityController extends HttpServlet {
 			vo.setC_uniqueid(uniqueID);
 			int result = comDAO.insertNoticeBoard(vo);
 			
-			String nickname = (String)session.getAttribute("m_nickname");
-			//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
-			if(nickname != null) {
-				System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
-				memberDAO.updateExp(nickname, 2);
+			System.out.println(result);
+			if(result == 1) {
+				if(uniqueID != null) {
+					System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
+					memberDAO.updateExp(uniqueID, 2, checkWeekend);
+				}
 			}
 			
 			// "1" 또는 "0"
@@ -472,14 +493,15 @@ public class CommunityController extends HttpServlet {
 			String pass = request.getParameter("pass");
 			String super_c_idx = request.getParameter("c_idx"); //답글화면에서 입력한 title, writer, content를 받아오고, super_c_idx도 받음
 			
-			String nickname_ = (String)session.getAttribute("m_nickname");
-			//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
-			if(nickname_ != null) {
-				System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
-				memberDAO.updateExp(nickname_, 2);
-			}
+			int result = comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass, uniqueID); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
 			
-			comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass, uniqueID); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
+			if(result == 1) {
+				//0324 정태영 : 세션에 닉네임이 저장되어 있으면 사용자의 경험치를 증가시킴
+				if(uniqueID != null) {
+					System.out.println("writePro.bo 세션값에 닉네임이 저장되어 있습니다.");
+					memberDAO.updateExp(uniqueID, 2, checkWeekend);
+				}
+			}
 			
 			nextPage="/com/listByRecent.bo?nowPage=0&nowBlock=0";
 		}

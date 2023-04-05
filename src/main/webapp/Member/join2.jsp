@@ -296,7 +296,6 @@
                         dataType:"text", 
                         success : function(data){
                            console.log(data);
-                           
                            if(data == 'usable'){ //이메일이 DB에 없으면?(중복아님)
                               emailC = true;
                               $("#emailInput").text("사용할수 있는 email입니다.").css("color","blue");
@@ -304,20 +303,13 @@
                            }else{//이메일이 DB에 있으면?
                         	   emailC = false;
                               $("#emailInput").text("사용할수 없는 email입니다.").css("color","red");
-
                            }
                         },//success 닫기
-
-                        
                         error:function(){
                            alert("통신에러가 발생했습니다.");
                         }
-                        
-                        
                      }// json  {  } 닫기
-            
                     ); // $.ajax메소드 호출 부분 끝부분  
-               
             }else{
                $("#emailInput").text("이메일 형식이 올바르지 않습니다!").css("color","red");
             }
@@ -381,13 +373,21 @@
     		dataType: "text",
     		success: function(data) {
     			if(data == "true") {
-    				alert(true);
+    				$("#emailInput").text("인증이 완료되었습니다.").css("color","blue");
+//     				$('#m_email').prop('readonly', true);
     				authC = true;
     			} else {
+    				$("#emailInput").text("인증번호가 동일하지 않습니다.").css("color","red");
+//     				$('#m_email').prop('readonly', false);
     				authC = false;
     			}
     		}
     	});
+    })
+    
+    $("#m_email").keyup( (e) => {
+    	authC = false;
+    	$("#emailInput").val("");
     })
 </script>	
 </body>

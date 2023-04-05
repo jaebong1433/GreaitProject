@@ -120,14 +120,14 @@ pageEncoding="UTF-8"
 				<table class="mptb">
 					<tr>
 						<td width="10%">닉네임</td>
-						<td width="40%"><%=vo.getM_nickname()%></td>
-						<input type="hidden" name="m_nickname" value="<%=vo.getM_nickname()%>">
+						<td width="40%">${ vo.m_nickname }</td>
+						<input type="hidden" name="m_nickname" value="${ vo.m_nickname }">
 					
 					</tr>
 					<tr>	
 						<td>이름</td>
 						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
-							<td><%=vo.getM_name()%></td>
+							<td>${ vo.m_name }</td>
 						</c:if>
 						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
 							<td>******</td>
@@ -136,7 +136,7 @@ pageEncoding="UTF-8"
 					<tr>
 						<td>ID</td>
 						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
-							<td><%=vo.getM_id() %></td>
+							<td>${ vo.m_id }</td>
 						</c:if>
 						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
 							<td>******</td>
@@ -145,7 +145,7 @@ pageEncoding="UTF-8"
 					<tr>	
 						<td>Email</td>
 						<c:if test="${ m_uniqueID == vo.m_uniqueid }">
-							<td><%=vo.getM_email()%></td>
+							<td>${ vo.m_email }</td>
 						</c:if>
 						<c:if test="${ m_uniqueID != vo.m_uniqueid }">
 							<td>******</td>
@@ -153,7 +153,7 @@ pageEncoding="UTF-8"
 					</tr>
 					<tr>
 						<td>가입일자</td>
-						<td><%=vo.getM_date() %></td>
+						<td>${ vo.m_date }</td>
 					</tr>
 					<tr>
 						<td>
@@ -215,17 +215,19 @@ pageEncoding="UTF-8"
 					</tr>
 					<tr>
 						<td height="19%">
-							<b><%=vo.getM_nickname()%></b>님
+							<b>${ vo.m_nickname }</b>님
 						</td>
 					</tr>
 				</table>
 				<div class="btnbtn">
-				
+					<c:set var="frontID" value="<%= vo.getM_id().substring(0, 5) %>"/>
 					<%-- 로그인 한 사용자가 마이페이지에 접근했을 때에만 회원 수정, 탈퇴 버튼이 활성화되도록 함 --%>
 					<c:if test="${ m_uniqueID == vo.m_uniqueid }">
 					<table>
 						<tr>
-							<td><input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;"></td>
+							<c:if test="${ frontID != 'kakao' }">
+								<td><input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;"></td>
+							</c:if>	
 							<td><input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;"></td>
 						</tr>
 					</table>
@@ -275,6 +277,7 @@ pageEncoding="UTF-8"
 				success : function(data) {
 					if(${vo.m_level} >= data) {
 						alert("레벨업을 할 수 없습니다!");
+						location.reload();
 					} else {
 						alert("레벨업 하였습니다." + ${vo.m_level} + "->" + data);
 // 						$("#level").text("LV." + data);

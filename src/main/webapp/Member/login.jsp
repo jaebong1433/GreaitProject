@@ -22,6 +22,9 @@
 	<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 	
+<!-- 	<script src="js/ie-emulation-modes-warning.js"></script> -->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 	
 	<style>
 		
@@ -75,7 +78,7 @@
    		
    		
    		
-   		<a href="#"><img onclick="kakaologin();" src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
+   		<a href="javascript:kakaoLogin()"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
 		
 		
 		
@@ -94,8 +97,50 @@
 	</div>
 </center>
 
-
+<!-- <script src="js/ie10-viewport-bug-workaround.js"></script>	 -->
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
+	//Kakao.init()함수는 카카오 api를 사용하기 위해 인증키를 초기화합니다.
+	Kakao.init('1de5dcc9cb8ef52a2b543b50fde654cf');	
+	function kakaoLogin() {
+		//Kakao.Auth.login() 함수를 호출하여 사용자를 인증하고
+        Kakao.Auth.login({
+        	//인증 성공시
+            success: function(response) {
+            	//Kakao.API.request() 함수를 호출하여 사용자 정보를 가져옵니다.
+                Kakao.API.request({
+                	//현재 로그인 한 사용자의 정보를 가져오는 api 엔드포인트 주소이다.
+                    url: '/v2/user/me',
+                    success: function (response) {
+                    	//이후, 가져온 사용자 정보를 JSON.stringify()함수를 사용하여 문자열 형태로 변환하고 alert를 이용하여 출력합니다.
+//                     	alert(JSON.stringify(response))
+                    	$.ajax({
+                    		type: "post",
+                    		async: true,
+                    		url: "<%=contextPath%>/member1/kakaoLoginPro.me",
+                    		data:{ 	
+                    			name : response.properties.nickname,
+                    			uniqueID : response.id,
+                    			email : response.kakao_account.email
+                    			},
+                    		dataType: "text",
+                    		success: function(data) {
+                    			location.href="<%= contextPath %>/Crawling/maincenter.me";
+                    		}
+                    	});
+                    },
+                    fail: function (error) {
+                        alert(JSON.stringify(error))
+                    },
+                });
+            },
+            fail: function (error) {
+                alert(JSON.stringify(error))
+            },
+        });
+    }
+	
+	
 	
 		function login() {
 			var m_id = document.getElementById("m_id").val();
@@ -109,11 +154,6 @@
 			
 			return true;
 		}
-		
-		function kakaologin() {
-			$("#login").submit();
-		}
-		
 		function naverlogin() {
 			$("#login").submit();
 		}
