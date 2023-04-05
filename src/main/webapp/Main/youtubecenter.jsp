@@ -10,8 +10,6 @@
 String contextPath = request.getContextPath();
 
 ArrayList list = (ArrayList) request.getAttribute("youtubeList");
-// ArrayList list2 = (ArrayList) request.getAttribute("youtubeList2");
-// ArrayList list3 = (ArrayList) request.getAttribute("youtubeList3");
 
 YoutubeCrawlingVO vo = null;
 
@@ -86,7 +84,7 @@ YoutubeCrawlingVO vo = null;
 					<div class="genreT">
 						<h2>액션</h2>
 					</div>
-					<tr><!-- 4.3 for문 숫자 수정  -->
+					<tr>
 					
 						<%
 							for(int i=0; i<5; i++){
@@ -283,7 +281,7 @@ YoutubeCrawlingVO vo = null;
 				<br>
 				<br>
 		</div>
-		<!-- 영화 슬라이드 구역 끝-->
+		
 	</center>
 </body>
 </html>

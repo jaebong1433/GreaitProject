@@ -4,9 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String contextPath = request.getContextPath();
-	
-	
+	String contextPath = request.getContextPath();	
 %>    
    
 <!DOCTYPE html>
@@ -85,8 +83,7 @@
 <body>
 
 						<%
-						ArrayList list = (ArrayList)request.getAttribute("boxList");
-						
+						 ArrayList list = (ArrayList)request.getAttribute("boxList");
 						 BoxCrawlingVO vo = null;
 						 String imgSrc;
 						 String age;

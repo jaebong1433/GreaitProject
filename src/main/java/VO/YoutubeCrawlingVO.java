@@ -1,5 +1,6 @@
 package VO;
 
+//유튜브 크롤링데이터를 저장할 VO
 public class YoutubeCrawlingVO {
 	private	String imgSrc;
 	private String href;
