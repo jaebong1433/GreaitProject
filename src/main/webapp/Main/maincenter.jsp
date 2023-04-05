@@ -96,6 +96,21 @@
 			margin-left: 10%;
 			font-family: 'Do Hyeon', sans-serif;
 		}
+		
+		.movebtn{
+			width : 30px;
+			height: 60px;
+			border: 2px solid gray;
+			color : gray;
+			border-radius: 5px;
+			background-color: white;
+			font-weight: bold;
+		}
+		
+		.movebtn:hover{
+			border : 3px solid gray;
+		}
+		
 	</style>
   
 </head>
@@ -110,10 +125,8 @@
 		<table class="centertb1">
 			<tr>
 				<td width="30px">
-				<p class="prev_btn">
-						<a href="#"> 
-							<img src="<%=contextPath %>/eq/img/leftgo.png" alt="이전으로 이동" width="30px"/>
-						</a>
+					<p class="prev_btn">
+						<button class="movebtn">◀</button>
 					</p>
 				</td>
 				<td>	
@@ -181,9 +194,7 @@
 					</td>
 					<td width="30px">
 					<p class="next_btn">
-						<a href="#"> 
-							<img src="<%=contextPath %>/eq/img/rightgo.png" alt="다음으로 이동" width="30px"/>
-						</a>
+						<button class="movebtn">▶</button>
 					</p>
 					</td>
 					

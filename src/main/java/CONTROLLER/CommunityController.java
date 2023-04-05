@@ -396,8 +396,9 @@ public class CommunityController extends HttpServlet {
 			
 			request.setAttribute("membervo", membervo);
 			request.setAttribute("c_idx", c_idx);
+			request.setAttribute("center", "/board/reply.jsp");
 			
-			nextPage = "/board/reply.jsp";
+			nextPage = "/index.jsp";
 		}
 		//0325
 		//글 작성 화면 요청을 했을때

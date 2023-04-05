@@ -25,6 +25,11 @@ pageEncoding="UTF-8"
 			.ranktb{
 				width: 90%;
 			}
+			
+			.ranktb tr{
+				height: 40px;
+				border-bottom: 1px gray solid;
+			}
 		</style>
 		
 	</head>
@@ -37,18 +42,18 @@ pageEncoding="UTF-8"
 		<table class="ranktb">
 			<tr>
 				<td>랭킹</td>
+				<td>닉네임</td>
 				<td>레벨</td>
 				<td>누적 경험치</td>
-				<td>닉네임</td>
 				<td>가입일</td>				
 			</tr>
 			<c:set var="rank" value="1"/>
 			<c:forEach var="memvo" items="${ list }">
 				<tr>
 					<td>${ rank }</td>
+					<td>${ memvo.m_nickname }</td>
 					<td>${ memvo.m_level }</td>	
 					<td>${ memvo.m_exp }</td>
-					<td>${ memvo.m_nickname }</td>
 					<td>${ memvo.m_date }</td>			
 				</tr>
 				<c:set var="rank" value="${ rank + 1 }"/>
