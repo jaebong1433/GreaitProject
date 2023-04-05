@@ -91,6 +91,11 @@ pageEncoding="UTF-8"
 	.banner{
 		margin-top: 30px;
 	}
+	.button-wrapper {
+	  display: flex;
+	  justify-content: space-between;
+	  width: 20%;
+	}
 		</style>
 		
 	</head>
@@ -124,19 +129,18 @@ pageEncoding="UTF-8"
 			</textarea>
 			<p id="like">추천 수 : <%= like %></p>
 			
-			<button id="like_btn">
-				<img id="likeimg" src="<%=contextPath%>/eq/img/good.png" width="100px">
-			</button>
-			
-			<button onclick="javascript:replyBoard(<%= vo.getC_idx() %>)" class="repl">
-				<img src="<%=contextPath%>/eq/img/ment.png" width="100px">
-			</button>
-			<br><br>
-			<form name="reply">
-				<input type="hidden" name="c_idx">
-				<input type="hidden" name="nowPage" value="<%=nowPage%>">
-				<input type="hidden" name="nowBlock" value="<%=nowBlock%>">
-			</form>
+			<div class="button-wrapper">
+			  <button id="like_btn">
+			    <img id="likeimg" src="<%=contextPath%>/eq/img/good.png" width="100px">
+			  </button>
+			  <form name="reply" action="<%=contextPath%>/com/replyBoard.bo?c_idx=<%=c_idx%>">
+			    <input type="hidden" name="nowPage" value="<%=nowPage%>">
+			    <input type="hidden" name="nowBlock" value="<%=nowBlock%>">
+			    <button type="submit" class="repl">
+			      <img src="<%=contextPath%>/eq/img/ment.png" width="100px">
+			    </button>
+			  </form>
+			</div>
 			<% if (loginNick != null){ //로그인을 했을경우%>
 				<%if (loginNick.equals("admin")){//닉네임이 admin인 관리자계정으로 로그인 했을때 %>
 			<!-- 목록버튼 03/20 허상호 -->
@@ -252,12 +256,6 @@ pageEncoding="UTF-8"
 			}else{
 				$("#like_btn").css({backgroundColor : "white"});
 				$("#likeimg").attr("src","<%=contextPath%>/eq/img/good.png");
-			}
-			
-			function replyBoard(val) {
-				document.reply.action = "<%=contextPath%>/com/replyBoard.bo";
-				document.reply.c_idx.value = val;
-				document.reply.submit();
 			}
 			
 			$("#like_btn").on("click", function() {
