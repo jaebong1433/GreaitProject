@@ -1,6 +1,6 @@
 package VO;
-// 4.4 재봉 vo 좋아요 업로드 변수 생성
 
+//예고편 크롤링데이터를 저장할 VO
 public class VideoCrawlingVO {
 	private String imgSrc; 
 	private String title; 

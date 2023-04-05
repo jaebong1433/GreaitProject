@@ -1,5 +1,6 @@
 package VO;
 
+//핫클립데이터를 저장할 VO
 public class ClipCrawlingVO {
 	private String iframeSrc;
     private String strongText;

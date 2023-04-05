@@ -11,7 +11,7 @@ ArrayList list = (ArrayList) request.getAttribute("videoList");
 
 VideoCrawlingVO vo = null;
 
-String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편저장소로 변경
+String naver = "https://tv.naver.com";
 %>
 
 <!DOCTYPE html>
@@ -80,7 +80,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 			<img alt="예고편" src="<%=contextPath%>/eq/img/banner/trailerbanner.jpg" width="98%">
 			<hr>
 				<table class="test">
-					<tr><!-- 재생수 좋아요 업로드 수정 4.4  -->
+					<tr>
 						<%
 							for(int i=0; i<4; i++){
 								vo = (VideoCrawlingVO) list.get(i);

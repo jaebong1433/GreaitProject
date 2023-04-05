@@ -9,7 +9,7 @@
 	String contextPath = request.getContextPath();
 	ArrayList boardList = (ArrayList)request.getAttribute("list");
 	int boardCount = (Integer)request.getAttribute("count");
-	ArrayList list2 = (ArrayList)request.getAttribute("ClipList");//3.30 재봉 추가
+	ArrayList list2 = (ArrayList)request.getAttribute("ClipList");//핫클립데이터 가져와 List에 저장
 	ClipCrawlingVO vo2 = null;
 %>    
    
@@ -119,7 +119,7 @@
 				<td>	
 				<div id="best_bg">
 					<ul>
-						<!-- 3.16 재봉 수정 -->
+						<!-- 최신영화 top10 -->
 						<%
 						
 						ArrayList list = (ArrayList)request.getAttribute("mainList");
@@ -248,7 +248,7 @@
 			
 		</div>
 			<!-- 게시판 끝 -->
-			<!-- 포토 구역 시작 -->
+			<!-- 핫 클립 구역 시작 -->
 	<div class="centertb3">
 	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
@@ -260,7 +260,7 @@
 								if(ptext.length() > 60) {
 									ptext = ptext.substring(0, 60) + "...";
 								}
-								//iframe 자동재생 방지 추가 4.3
+								
 								String iframe = vo2.getIframeSrc();
 								if(iframe.length() > 77) {
 									iframe = iframe.substring(0, 77);

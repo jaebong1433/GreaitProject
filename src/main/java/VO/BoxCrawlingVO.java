@@ -1,5 +1,6 @@
 package VO;
 
+//박스오피스 데이터를 저장할 VO
 public class BoxCrawlingVO {
 	private String imgSrc; // 포스터 이미지
 	private String age; // 영화 관람가
