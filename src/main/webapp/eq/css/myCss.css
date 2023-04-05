@@ -27,14 +27,16 @@ hr {
 
 .genrepic{
 	text-align: center;
-	height: 200px;
+	height: 180px;
 	border-bottom: 1px black dotted;
 }
 
 .genretitle{
 	height:50px;
-	text-align: left;
+	text-align: center;
 	width: 200px;
+	margin: auto;
+	align:center;
 }
 
 

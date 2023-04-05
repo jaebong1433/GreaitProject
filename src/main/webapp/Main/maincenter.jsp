@@ -209,7 +209,12 @@
 						<td width="20%">작성자</td>
 						<td width="10%">추천</td>
 					</tr>
-				<c:forEach end="4" var="communityVO" items="${ boardList }">
+					<c:if test="${ bestPostCount == 0 }">
+						<tr>
+							<td>작성된 글이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach end="4" var="communityVO" items="${ bestPostList }">
 						<tr>
 							<td align="left">
 								<a href="javascript:void(0); fnRead(${communityVO.c_idx});">
@@ -219,7 +224,7 @@
 							<td>${ communityVO.c_nickname }</td>
 							<td>${ communityVO.c_like }</td>
 						</tr>
-				</c:forEach>
+					</c:forEach>
 				
 			</table>
 			</div>
@@ -231,6 +236,11 @@
 						<td width="20%">작성자</td>
 						<td width="10%">추천</td>
 					</tr>
+				<c:if test="${ boardCount == 0 }">
+					<tr>
+						<td>작성된 글이 없습니다.</td>
+					</tr>
+				</c:if>	
 				<c:forEach end="4" var="communityVO" items="${ boardList }">
 						<tr>
 							<td align="left">

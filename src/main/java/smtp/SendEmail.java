@@ -69,7 +69,7 @@ public class SendEmail {
          Transport.send(message);
 
          System.out.println("이메일 전송 완료");
-
+ 
       } catch (Exception e) {
          e.printStackTrace();
       }

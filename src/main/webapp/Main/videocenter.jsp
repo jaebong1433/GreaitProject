@@ -80,13 +80,16 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 			<img alt="예고편" src="<%=contextPath%>/eq/img/banner/trailerbanner.jpg" width="98%">
 			<hr>
 				<table class="test">
-					<tr>
+					<tr><!-- 재생수 좋아요 업로드 수정 4.4  -->
 						<%
 							for(int i=0; i<4; i++){
 								vo = (VideoCrawlingVO) list.get(i);
+								String playCnt = vo.getPlayCnt();
+								String play = playCnt.replaceAll("[^0-9]","");
+								String playlike = vo.getLike();
+								String like = playlike.replaceAll("[^0-9]","");
 						%>
 						
-						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
 							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
@@ -97,7 +100,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p><%=vo.getPlayCnt() %></p>
+						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -106,9 +109,12 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<%
 							for(int i=4; i<8; i++){
 								vo = (VideoCrawlingVO) list.get(i);
+								String playCnt = vo.getPlayCnt();
+								String play = playCnt.replaceAll("[^0-9]","");
+								String playlike = vo.getLike();
+								String like = playlike.replaceAll("[^0-9]","");
 						%>
 						
-						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
 							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
@@ -119,7 +125,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p><%=vo.getPlayCnt() %></p>
+						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -128,9 +134,12 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<%
 							for(int i=8; i<12; i++){
 								vo = (VideoCrawlingVO) list.get(i);
+								String playCnt = vo.getPlayCnt();
+								String play = playCnt.replaceAll("[^0-9]","");
+								String playlike = vo.getLike();
+								String like = playlike.replaceAll("[^0-9]","");
 						%>
 						
-						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
 							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
@@ -141,7 +150,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p><%=vo.getPlayCnt() %></p>
+						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -150,9 +159,12 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<%
 							for(int i=12; i<16; i++){
 								vo = (VideoCrawlingVO) list.get(i);
+								String playCnt = vo.getPlayCnt();
+								String play = playCnt.replaceAll("[^0-9]","");
+								String playlike = vo.getLike();
+								String like = playlike.replaceAll("[^0-9]","");
 						%>
 						
-						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
 							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
@@ -163,7 +175,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p><%=vo.getPlayCnt() %></p>
+						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -172,9 +184,12 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<%
 							for(int i=16; i<20; i++){
 								vo = (VideoCrawlingVO) list.get(i);
+								String playCnt = vo.getPlayCnt();
+								String play = playCnt.replaceAll("[^0-9]","");
+								String playlike = vo.getLike();
+								String like = playlike.replaceAll("[^0-9]","");
 						%>
 						
-						<!-- 스즈메의 문단속 -->
 						<td class="videotab">
 						<div class="videoimg">
 							<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
@@ -185,7 +200,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a>
-						<p><%=vo.getPlayCnt() %></p>
+						<p>▷<%=play%>&nbsp;♡<%=like%>&nbsp;&nbsp;<%=vo.getUpload()%></p>
 						</div>
 						</td>
 						<%} %>
@@ -194,7 +209,7 @@ String naver = "https://tv.naver.com";//카카오티비에서 네이버예고편
 				<br>
 				<br>
 		</div>
-		<!-- 영화 슬라이드 구역 끝-->
+		
 	</center>
 </body>
 </html>

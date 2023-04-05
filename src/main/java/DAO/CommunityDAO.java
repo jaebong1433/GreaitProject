@@ -473,7 +473,7 @@ public class CommunityDAO {
 	
 	//좋아요 취소 기능
 	//정태영
-	public BoardLikeVO CancelLike(String c_idx, String nickname) {
+	public BoardLikeVO CancelLike(String c_idx, String nickname, String uniqueID) {
 		String sql = null;
 		BoardLikeVO boardLikeVO = null;
 		
@@ -487,7 +487,7 @@ public class CommunityDAO {
 			pstmt.setString(2, nickname);
 			pstmt.executeUpdate();
 			
-			//insert한 boardlike 테이블의 값을 받아 BoardLikeVO에 저장
+			
 			sql = "select * from boardlike where c_idx=? and m_nickname=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_idx);
@@ -508,7 +508,7 @@ public class CommunityDAO {
 			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
-			System.out.println("boardRead");
+			System.out.println("CancelLike");
 			e.printStackTrace();
 		} finally {
 			closeResource();
@@ -676,7 +676,8 @@ public class CommunityDAO {
 	//0325
 	//답글 달기 기능
 	//정태영
-	public void replyInsertBoard(String super_c_idx, String title, String nickname, String content, String pass, String uniqueID) {
+	public int replyInsertBoard(String super_c_idx, String title, String nickname, String content, String pass, String uniqueID) {
+		int result = 0;
 		String sql = null;
 		try {
 			con = ds.getConnection();
@@ -691,7 +692,7 @@ public class CommunityDAO {
 			sql = "update community set c_group = c_group + 1 where c_group > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, c_group);
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			
 			sql = "insert into community values (COMMUNITY_IDX.nextval,"
 												+ "?,"
@@ -720,11 +721,13 @@ public class CommunityDAO {
 		} finally {
 			closeResource();
 		}
+		return result;
 	}
 	
 	//새글 작성 메소드
 	public int insertBoard(CommunityVO vo) {
 		int result = 0;
+		
 		String sql = null;
 		try {
 			//DB접속

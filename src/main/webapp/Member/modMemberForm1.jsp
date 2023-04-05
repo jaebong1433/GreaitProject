@@ -299,11 +299,9 @@
     
   //0329 정태영 : 이메일 수정 함수
     function updateEmail() {
-    	var m_email = $("#m_email");
-	    var m_emailValue = m_email.val();
-	    var m_emailReg = /^\w{3,12}@[a-z]{2,10}[\.][a-z]{2,3}[\.]?[a-z]{0,2}$/;
-	    var resultM_email = m_emailReg.test(m_emailValue);
-	    if(resultM_email == true){
+    	const m_email = $("#m_email");
+	    const m_emailValue = m_email.val();
+	    if(authC){
 	    	$.ajax( 
                  {
                     type:"post", 
@@ -314,9 +312,12 @@
                     success : function(data){
                        console.log(data);
                        if(data == 'usable'){ //아이디가 DB에 없으면?(중복아님)
+                    	   $('#m_email').prop('readonly', false);
                           $("#emailInput").text("이메일 변경 완료").css("color","blue");
+                          $("#authInput").val("");
                        }else{//아이디가 DB에 있으면? (입력한 아이디가  DB에 저장되어 있다는 의미)
-                          $("#emailInput").text("사용할수 없는 이메일입니다.").css("color","red");
+                    	   $('#m_email').prop('readonly', true);
+                    		$("#emailInput").text("사용할수 없는 이메일입니다.").css("color","red");
                        }
                     },//success 닫기
                     error:function(){
@@ -325,7 +326,7 @@
                  }// json  {  } 닫기
                 ); // $.ajax메소드 호출 부분 끝부분  
 	    } else {
-	    	$("#emailInput").text("이메일을 형식에 맞게 작성해주세요!").css("color","red");
+	    	$("#emailInput").text("이메일 인증 완료 후 수정이 가능합니다.").css("color","red");
 	    }
     }
     
@@ -378,9 +379,11 @@
     		success: function(data) {
     			if(data == "true") {
     				alert("인증이 확인되었습니다.");
+    				$('#m_email').prop('readonly', true);
     				authC = true;
     			} else {
     				alert("인증번호가 동일하지 않습니다.");
+    				$('#m_email').prop('readonly', false);
     				authC = false;
     			}
     		}

@@ -39,6 +39,42 @@ YoutubeCrawlingVO vo = null;
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
+<style>
+	.genrego{
+		border: 1px solid black;
+		width: 210px;
+		height: 250px;
+		border-radius: 15px;
+		transition: all 0.1s linear;
+	}
+	
+	.genrego:hover {
+		transform: scale(1.1);
+		border: 2px solid gray;
+	}
+	
+	.gogogo{
+		background-color: gray;
+		width: 40px;
+		height: 40px;
+		text-align: center;
+		border-radius: 30px;
+		font-size: 1.5em;
+		font-style: bold;
+		color: white;
+		margin: auto;
+	}
+	
+	.genretitle2{
+		width:99%;
+		height: 60px;
+		text-align: left;
+	}
+	
+	
+	
+</style>
+
 </head>
 <body>
 	<center>
@@ -63,21 +99,25 @@ YoutubeCrawlingVO vo = null;
 						%>
 						
 						<td class="genrepic">
-						
+						<a href="<%=vo.getHref()%>" target="_blank">
+							<div class="genrego">
 							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
-								</a>
 							</div>
 							</td></tr>
 							<tr><td class="genretitle">
-							<a href="<%=vo.getHref()%>" target="_blank">
-								<%=title%>
-							</a>
+							<div class="genretitle2">
+								<b><%=title%></b>
+							</div>	
+								<div class="gogogo">
+									▶
+								</div>
 							</td></tr>
 							</table>
+							</div>
+							</a>
 						</td>
 						<%} %>
 					</tr>
@@ -98,20 +138,25 @@ YoutubeCrawlingVO vo = null;
 						%>
 						
 						<td class="genrepic">
+						<a href="<%=vo.getHref()%>" target="_blank">
+							<div class="genrego">
 							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
-								</a>
 							</div>
 							</td></tr>
 							<tr><td class="genretitle">
-							<a href="<%=vo.getHref()%>" target="_blank">
-								<%=title%>
-							</a>
+							<div class="genretitle2">
+								<b><%=title%></b>
+							</div>	
+								<div class="gogogo">
+									▶
+								</div>
 							</td></tr>
 							</table>
+							</div>
+							</a>
 						</td>
 						<%} %>
 					</tr>
@@ -132,20 +177,25 @@ YoutubeCrawlingVO vo = null;
 						%>
 						
 						<td class="genrepic">
+						<a href="<%=vo.getHref()%>" target="_blank">
+							<div class="genrego">
 							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
-								</a>
 							</div>
 							</td></tr>
 							<tr><td class="genretitle">
-							<a href="<%=vo.getHref()%>" target="_blank">
-								<%=title%>
-							</a>
+							<div class="genretitle2">
+								<b><%=title%></b>
+							</div>	
+								<div class="gogogo">
+									▶
+								</div>
 							</td></tr>
 							</table>
+							</div>
+							</a>
 						</td>
 						<%} %>
 					</tr>
@@ -166,20 +216,25 @@ YoutubeCrawlingVO vo = null;
 						%>
 						
 						<td class="genrepic">
+						<a href="<%=vo.getHref()%>" target="_blank">
+							<div class="genrego">
 							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
-								</a>
 							</div>
 							</td></tr>
 							<tr><td class="genretitle">
-							<a href="<%=vo.getHref()%>" target="_blank">
-								<%=title%>
-							</a>
+							<div class="genretitle2">
+								<b><%=title%></b>
+							</div>	
+								<div class="gogogo">
+									▶
+								</div>
 							</td></tr>
 							</table>
+							</div>
+							</a>
 						</td>
 						<%} %>
 					</tr>
@@ -200,20 +255,25 @@ YoutubeCrawlingVO vo = null;
 						%>
 						
 						<td class="genrepic">
+						<a href="<%=vo.getHref()%>" target="_blank">
+							<div class="genrego">
 							<table class="genresmalltb">
 							<tr><td height="140px">
 							<div class="imgbor">
-								<a href="<%=vo.getHref()%>" target="_blank">
 									<img src="<%=vo.getImgSrc()%>" class="imgbor" width="200px" height="130px" /><br>
-								</a>
 							</div>
 							</td></tr>
 							<tr><td class="genretitle">
-							<a href="<%=vo.getHref()%>" target="_blank">
-								<%=title%>
-							</a>
+							<div class="genretitle2">
+								<b><%=title%></b>
+							</div>	
+								<div class="gogogo">
+									▶
+								</div>
 							</td></tr>
 							</table>
+							</div>
+							</a>
 						</td>
 						<%} %>
 					</tr>

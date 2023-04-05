@@ -145,6 +145,14 @@
 			list-style: none;
 		}
 		
+		.chatingbtn{
+			border: 1px solid black;
+			margin : 200px 0 0 10px;
+			width: 60px;
+			height: 60px;
+			border-radius: 30px;
+			text-align: center;
+		}
 		
 	</style>
 	
@@ -271,6 +279,10 @@
       
     </ul>
   </div>
+  	<div class="chatingbtn">
+		chat<br>
+		btn
+  	</div>
 </div>	
 	<!-- Main JS (Do not remove) -->
 	<script src="<%=contextPath%>/eq/js/main.js"></script>

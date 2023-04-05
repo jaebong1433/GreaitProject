@@ -308,22 +308,18 @@ public class MemberController extends HttpServlet {
 				
 			// 아이디 찾기 
 			}else if(action.equals("/findID.me")) {//아이디 찾기
-					
 				//request.setAttribute("center","findId.jsp");
-					
 				nextPage = "/Member/findID.jsp";
-				
-				
-			//아이디 찾기 수행	
-			}else if(action.equals("/findIdResult.me")) {//아이디 찾기
+			}	
+			//login.jsp에서 아이디 찾기 버튼을 눌렀을 경우
+			//사용자로부터 이름과 이메일을 전달받고 findId()메서드를 이용해
+			//두 값에 해당하는 사용자의 아이디를 반환받는다.
+			//	
+			else if(action.equals("/findIdResult.me")) {//아이디 찾기
 					
 				String m_name = request.getParameter("m_name");
 				String m_email = request.getParameter("m_email");
-					
-				
 				String m_id = memberdao.findId(m_name,m_email);
-					
-					
 				if( m_id == null) {//
 					out.println("<script>");
 					out.println(" window.alert('회원 정보가 틀립니다 다시 입력해주세요');");
@@ -332,24 +328,21 @@ public class MemberController extends HttpServlet {
 					return;
 				}else if (m_id != null){
 					request.setAttribute("m_id", m_id);
-					
 				}
-				
-
-				
 				nextPage = "/Member/findID2.jsp";
-					
-					
-			
-			//비밀번호 변경하기 위해 인증 페이지로 연결
-			}else if (action.equals("/changePW.me")) {//비밀번호 찾기수행
+			}
+			//login.jsp에서 비밀번호를 변경하기 위해 인증 페이지로 연결한다.
+			else if (action.equals("/changePW.me")) {//비밀번호 찾기수행
 					
 					//아이디, 이름, 이메일을 입력받는 페이지
 					nextPage = "/Member/changePW_1.jsp";
 					
-					
-			//비밀번호 찾기 위해 회원 확인 하는 기능
-			}else if(action.equals("/changePW2.me")) {//비밀번호 찾기
+			}		
+			//change_1.jsp에서 회원 인증 버튼을 눌렀을 때 request로 회원을 이름, 아이디, 이메일을
+			//각각 m_name, m_id, m_email로 전달받고 findPW() 메서드를 이용해 사용자가 입력한 3개의 값과
+			//동일한 유저의 비밀번호 문자열을 반환받고 해당하는 유저가 없을 경우(비밀번호가 비어 있을 경우)
+			//ajax의 data에 false를 전달하고, 성공하면 true를 전달한다.		
+			else if(action.equals("/changePW2.me")) {
 					
 				String m_name = request.getParameter("m_name");
 				String m_id= request.getParameter("m_id");
@@ -384,19 +377,33 @@ public class MemberController extends HttpServlet {
 			
 			//카카오 로그인창에서 로그인 버튼을 눌렀을 때
 			else if(action.equals("/kakaoLoginPro.me")) {
+				String kakao_name = request.getParameter("name");
+				String kakao_uniqueID = request.getParameter("uniqueID");
+				String kakao_email = request.getParameter("email");
+				int result = 0;
 				
-				//---부장
+				MemberVO kakao_vo = memberdao.getMemVOByUniqueID(kakao_uniqueID);
 				
-					
-				//메인화면 view 주소
-				nextPage ="/Crawling/maincenter.me";
-			
+				if(kakao_vo == null) {
+					System.out.println("kakaoLoginPro, 저장된 정보가 없으니 회원가입을 실행하겠습니다.");
+					result = memberdao.insertKakaoMember(kakao_name, kakao_uniqueID, kakao_email);
+				}
+				session.setAttribute("m_uniqueID", kakao_uniqueID);
+				session.setAttribute("m_nickname", kakao_name);
+				
+//				//메인화면 view 주소
+//				nextPage ="/Crawling/maincenter.me";
+				return;
+			}
 		
-			//마이페이지 들어가기!
-			}else if(action.equals("/mypage.me")) { 
+			//마이페이지에 들어가기 요청을 받으면
+			//request에서 해당 유저의 uniqueID를 전달받아 변수에 저장하고
+			//uniqueID를 이용해 유저의 정보를 객체로 반환받아 vo 변수에 저장한다.
+			//유저가 작성한 게시글을 확인하기 위해 유저의 uniqueID를 이용해 getAllComListByUniqueID() 메서드를 호출하여
+			//작성한 모든 게시글을 정보를 list에 저장하고 반환받은 후 vo와 list를 request로 전달한 후
+			//myPage.jsp를 재요청한다.
+			else if(action.equals("/mypage.me")) { 
 				
-				//요청한 값 얻기
-//				String m_nickname = request.getParameter("m_nickname");
 				//고유아이디를 통해 회원정보를 조회하도록 요청
 				String userUniqueID = request.getParameter("userUniqueID");
 				
@@ -413,7 +420,9 @@ public class MemberController extends HttpServlet {
 				nextPage = "/index.jsp";
 			
 				
-			//회원 정보수정을 위한 회원 확인 비밀번호인증	
+			//회원 정보수정을 위한 회원 확인 비밀번호인증
+			//myPage.jsp에서 회원 수정 버튼을 눌렀을 경우 request로 purpose에 update를 바인딩하고
+			//modMemberForm.jsp를 재요청한다.
 			}else if (action.equals("/mypageUpdate.me")) {
 				
 				request.setAttribute("center", "/Member/modMemberForm.jsp");
@@ -423,16 +432,23 @@ public class MemberController extends HttpServlet {
 				
 			}
 			
-			//0329 정태영 : 마이페이지에서 회원탈퇴 버튼 눌렀을 때
+			//회원 탈퇴를 위한 회원 확인 비밀번호인증
+			//myPage.jsp에서 회원 탈퇴 버튼을 눌렀을 경우 request로 purpose에 withdrawal를 바인딩하고
+			//modMemberForm.jsp를 재요청한다.
 			else if (action.equals("/withdrawal.me")) {
-				
 				request.setAttribute("center", "/Member/modMemberForm.jsp");
 				request.setAttribute("purpose", "withdrawal");
-				
 				nextPage = "/index.jsp";
-				
 			}
-			//0329 정태영 : 회원탈퇴 실행
+			
+			//modMemberForm에서 회원 탈퇴 버튼을 눌렀을 때
+			//입력한 비밀번호를 request로 전달받고 변수 m_pw에 저장한 후
+			//session에 저장된 uniqueID를 이용해 유저의 memberVO객체를 전달받아
+			//유저의 암호화된 비밀번호를 구한다.
+			//checkpw() 메서드를 호출하여 유저가 입력한 비밀번호와 암호화된 비밀번호를 비교하여
+			//입력값이 동일하면 withdrawalPro() 메서드를 호출하여 회원 탈퇴를 실행한 후
+			//실행의 성공여부를 int result에 저장한다.
+			//modMemberForm1.jsp을 재요청한다.
 			else if (action.equals("/withdrawal1.me")) {
 				String contextPath = request.getContextPath();
 				String m_pw = request.getParameter("m_pw");
@@ -461,7 +477,13 @@ public class MemberController extends HttpServlet {
 				return;
 			}
 				
-			//회원 정보수정을 위한 회원 확인 비밀번호인증
+			//modMemberForm에서 회원 수정 버튼을 눌렀을 때
+			//입력한 비밀번호를 request로 전달받고 변수 m_pw에 저장한 후
+			//session에 저장된 uniqueID를 이용해 유저의 memberVO객체를 전달받아
+			//유저의 암호화된 비밀번호를 구한다.
+			//checkpw() 메서드를 호출하여 유저가 입력한 비밀번호와 암호화된 비밀번호를 비교하여
+			//입력값이 동일하면 유저의 정보가 담긴 객체(vo)를 리퀘스트로 전달하고,
+			//modMemberForm1.jsp을 재요청한다.
 			else if (action.equals("/mypageUpdate1.me")) {
 				String m_pw = request.getParameter("m_pw");
 				
@@ -486,48 +508,13 @@ public class MemberController extends HttpServlet {
 			else if(action.equals("/delete.me")) {
 			
 				nextPage = "/Member/Delete.jsp";
-				
-				
+			}	
 			
-			//회원탈퇴 
-			}else if(action.equals("/signOut.me")) {
-				//요청한 값 얻기
-				//삭제할 예약아이디, 삭제를 위해 입력한 비밀번호 
-				String m_id = request.getParameter("m_id")  ;
-				String m_pw = request.getParameter("m_pw");
-				
-				//응답할 값 마련 
-				//예약정보를 삭제(취소)하기 위해 memberDAO객체의 MemberDelete메소드 호출할떄...
-				//매개변수로 삭제할 예약아이디와 입력한 비밀번호 전달하여 DB에서 DELETE시키자
-				//삭제에 성공하면 MemberDelete메소드의 반환값은 삭제에 성공한 레코드 개수 1을 반환 받고
-				//실패하면 0을 반환 받습니다.
-				int result = memberdao.MemberDelete(m_id,m_pw);
-				
-				System.out.println(result);
-				
-				if(result == 1) {//삭제 성공
-					
-					
-					out.print("<script>" 
-								+ "  alert('회원정보가 탈퇴되었습니다.');" 
-								+ " location.href='" + request.getContextPath()
-			                    + "/member1/logout.me'" 
-		                  + "</script>");
-	
-					return;
-					
-				}else {
-					
-					out.print("<script>"
-							+ " alert('회원정보 탈퇴 실패!');"
-							+ " history.back();"
-							+ "</script>");
-					return;
-				}
-				
-				
-			}
-			
+			//mypage.jsp에서 레벨업 버튼을 눌렀을 때 호출됨.
+			//ajax로부터 전달받은 uniqueID를 이용하여 getMemVOByUniqueID() 메서드를 이용해
+			//memberVO를 반환받고 반환받은 유저 객체의 경험치 / 10 하여 몫을 레벨로 설정하고
+			//나머지를 경험치로 설정한다. 레벨이 10씩 증가할 때마다 유저의 이미지가 바뀌며
+			//결과적으로 레벨을 반환한다.
 			else if(action.equals("/levelUp.me")) {
 				MemberVO membervo = memberdao.getMemVOByUniqueID(uniqueID);
 				String gradeImage = null;
@@ -605,7 +592,7 @@ public class MemberController extends HttpServlet {
 				
 				return;
 			}
-		
+			
 			//포워딩 (디스패처 방식)
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
