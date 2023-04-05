@@ -492,7 +492,7 @@ public class CommunityController extends HttpServlet {
 			String content = request.getParameter("content");
 			String pass = request.getParameter("pass");
 			String super_c_idx = request.getParameter("c_idx"); //답글화면에서 입력한 title, writer, content를 받아오고, super_c_idx도 받음
-			
+
 			int result = comDAO.replyInsertBoard(super_c_idx, title, nickname, content, pass, uniqueID); //답글달기 기능을 수행하는 메서드를 활용하여 답글을 db에 추가함
 			
 			if(result == 1) {

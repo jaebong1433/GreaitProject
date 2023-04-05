@@ -27,7 +27,7 @@ pageEncoding="UTF-8"
 		</script>
 	</head>
 	<body>
-		<form name="reply">
+		<form name="reply" action="<%=contextPath %>/com/replyPro.bo">
 			제목 : <input type="text" name="title"><br>
 			<c:choose>
 	          <c:when test="${ (membervo.m_nickname) != null}">
@@ -40,13 +40,7 @@ pageEncoding="UTF-8"
 			내용 : <input type="text" name="content"><br>
 			비밀번호 : <input type="password" name="pass">
 			<input type="hidden" name="c_idx" value="<%=c_idx%>">
-			<button onclick="javascript:replyPro()">게시</button>
+			<button type="submit">게시</button>
 		</form>
 	</body>
-	<script>
-		function replyPro() {
-			document.reply.action = "<%= contextPath %>/com/replyPro.bo";
-			document.reply.submit();
-		}
-	</script>
 </html>

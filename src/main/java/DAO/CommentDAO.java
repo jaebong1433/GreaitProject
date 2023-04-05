@@ -36,6 +36,18 @@ public class CommentDAO {
 		if(con != null)try {con.close();} catch (Exception e) {e.printStackTrace();}
 		if(pstmt != null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
+	}
+	
+	//비회원일때 댓글 등록!
+	public void addComment(String comment_nick, String comment_pw, String comment_content, String c_idx,
+			String comment_uniqueid) {
+		
+	}
+	
+	//회원로그인일때 댓글 등록!
+	public void addLoginComment(String nickname, String comment_pw, String comment_content, String c_idx,
+			String comment_uniqueid) {
+		
 	}	
 	
 	
