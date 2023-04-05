@@ -10,8 +10,6 @@
 String contextPath = request.getContextPath();
 
 ArrayList list = (ArrayList) request.getAttribute("youtubeList");
-// ArrayList list2 = (ArrayList) request.getAttribute("youtubeList2");
-// ArrayList list3 = (ArrayList) request.getAttribute("youtubeList3");
 
 YoutubeCrawlingVO vo = null;
 
@@ -41,7 +39,7 @@ YoutubeCrawlingVO vo = null;
 
 <style>
 	.genrego{
-		border: 1px solid black;
+		border: 1px solid red;
 		width: 210px;
 		height: 250px;
 		border-radius: 15px;
@@ -50,15 +48,15 @@ YoutubeCrawlingVO vo = null;
 	
 	.genrego:hover {
 		transform: scale(1.1);
-		border: 2px solid gray;
+		border: 3px solid red;
 	}
 	
 	.gogogo{
-		background-color: gray;
-		width: 40px;
+		background-color: red;
+		width: 60px;
 		height: 40px;
 		text-align: center;
-		border-radius: 30px;
+		border-radius: 15px;
 		font-size: 1.5em;
 		font-style: bold;
 		color: white;
@@ -86,7 +84,7 @@ YoutubeCrawlingVO vo = null;
 					<div class="genreT">
 						<h2>액션</h2>
 					</div>
-					<tr><!-- 4.3 for문 숫자 수정  -->
+					<tr>
 					
 						<%
 							for(int i=0; i<5; i++){
@@ -283,7 +281,7 @@ YoutubeCrawlingVO vo = null;
 				<br>
 				<br>
 		</div>
-		<!-- 영화 슬라이드 구역 끝-->
+		
 	</center>
 </body>
 </html>

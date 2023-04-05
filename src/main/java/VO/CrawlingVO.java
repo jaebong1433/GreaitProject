@@ -1,6 +1,6 @@
 package VO;
-// 3.16 재봉 VO 자체수정 
 
+//최신영화 top10 크롤링데이터를 저장할 VO
 public class CrawlingVO {
 	private String age;
 	private String imgSrc; 

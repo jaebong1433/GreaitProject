@@ -1,3 +1,6 @@
+<%@page import="org.jsoup.select.Elements"%>
+<%@page import="org.jsoup.Jsoup"%>
+<%@page import="org.jsoup.nodes.Document"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.openqa.selenium.WebElement"%>
 <%@page import="org.openqa.selenium.By"%>
@@ -17,45 +20,35 @@
 </head>
 <body>
 <%
-		List<YoutubeCrawlingVO> youtubeList = new ArrayList<YoutubeCrawlingVO>();
-	  //Selenium과 Chrome 브라우저를 사용하여 웹 페이지를 엽니다
-		//Web Driver 압축 해제 경로 입력
-	   System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
-	   
-	   ChromeOptions options = new ChromeOptions();
-	   options.addArguments("--headless");
-	   options.addArguments("--disable-gpu");
+	String daumRankUrl = "http://www.cgv.co.kr/movies/pre-movies.aspx";
+	//개봉예정 영화 25편까지 수집 후 각 변수에 저장
+	Document daumDoc = Jsoup.connect(daumRankUrl).get();//Jsoup을 사용하여 다음영화 메인화면 데이터수집
+	
+	//요소별 선택자 사용해 수집한 데이터 변수에 저장
+	Elements daumImg = daumDoc.select("div.box-image span.thumb-image img");
+	Elements daumTitle = daumDoc.select("div.box-contents strong.title");
+	Elements daumPercent = daumDoc.select("div.box-contents strong.percent span");
+ 	Elements daumDate = daumDoc.select("div.box-contents span.txt-info");
+ 	Elements daumAge = daumDoc.select("div.box-image span.thumb-image i");
+ 	
+ 	System.out.println(daumAge);
 
-	   WebDriver driver = new ChromeDriver(options);
-	   
-	   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // 10초간 기다림
-	   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);//페이지로드가 완료 될 때까지 기다리는 시간 설정
-	   driver.get("https://movie.daum.net/main");
-	   
-//	   WebElement videoWrapper = driver.findElement(By.id("video-wrapper"));
-//	   JavascriptExecutor js = (JavascriptExecutor) driver;
-//	   js.executeScript("arguments[0].setAttribute('style', 'margin-top: 50px;')", videoWrapper);
-//	   
-     WebElement playerContainer = driver.findElement(By.className("thumb_video"));
-     WebElement iframe = playerContainer.findElement(By.tagName("iframe"));
-     
-//      WebElement activeLi = driver.findElement(By.className("info"));
-//      WebElement strongTag = activeLi.findElement(By.tagName("a"));
-     
-     YoutubeCrawlingVO vo = new YoutubeCrawlingVO();
-     
-     String iframeSrc = iframe.getAttribute("src");
-//      String strongText = strongTag.getText();
-     System.out.println(iframeSrc);
-//      System.out.println(strongText);
-//      vo.setImgSrc(iframeSrc);
-//      vo.setTitle(strongText);
-     
-     youtubeList.add(vo);
-     driver.quit();
-     
-    
-
+      //개봉예정영화 25편 이미지는 "src", 문자열은 text로 영화정보 추출 후 각 변수에 저장
+      for (int i = 0; i < 25; i++) {
+	     String imgSrc = daumImg.get(i).attr("src"); //포스터 이미지
+     	 String title = daumTitle.get(i).text(); //영화 제목
+		 String percent = daumPercent.get(i).text();//영화 예매율
+	     String dDate = daumDate.get(i).text(); //영화 개봉일
+	     String age = daumAge.get(i).text();//영화 관람가
+	     
+	     System.out.println(imgSrc);
+	     System.out.println(title);
+	     System.out.println(percent);
+	     System.out.println(dDate);
+	     System.out.println(age);
+	     
+      }   
+  
 %>
 </body>
 </html>

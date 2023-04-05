@@ -74,14 +74,14 @@ public class CrawlingController extends HttpServlet {
 		
 		//메인화면 요청주소/Crawling/maincenter.me
 		if(action.equals("/maincenter.me")) {
-			//3.27 재봉 수정
-			List<CrawlingVO> mainList = dao.getMainDatas();
-			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();
-			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
 			
-			request.setAttribute("mainList", mainList);
-			request.setAttribute("ClipList", ClipList);
-			request.setAttribute("youtubeList", youtubeList);
+			List<CrawlingVO> mainList = dao.getMainDatas();//최신영화 탑10데이터 List에 저장
+			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();//핫클립 데이터 List에 저장
+			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();//유튜브데이터 List에 저장 
+			
+			request.setAttribute("mainList", mainList);//최신영화 탑10List 메인페이지로 전송
+			request.setAttribute("ClipList", ClipList);//핫클립List 메인페이지로 전송
+			request.setAttribute("youtubeList", youtubeList);//유튜브List 메인페이지로 전송
 			
 			//------------------------------
 			//3022 정태영 : 메인화면 게시판 기능을 위해 추가하는 기능
@@ -96,33 +96,35 @@ public class CrawlingController extends HttpServlet {
 			request.setAttribute("bestPostCount", bestPostCount);
 			//-------------------------------
 			nextPage = "/index.jsp";
-			
+		
+		//박스오피스 요청주소/Crawling/boxOffice.me	
 		}else if(action.equals("/boxOffice.me")) {
 			String menuNo = request.getParameter("menu");
 			
-			List<BoxCrawlingVO> boxList = dao.getBoxDatas(menuNo);
+			List<BoxCrawlingVO> boxList = dao.getBoxDatas(menuNo);//박스오피스데이터 List에 저장
 			
-			request.setAttribute("boxList", boxList);
-			request.setAttribute("center", "/Main/boxcenter.jsp");
-			nextPage = "/index.jsp";
-			
-		}else if(action.equals("/videocenter.me")) {
-			
-			List<VideoCrawlingVO> videoList = dao.getVideoDatas();
-			
-			
-			request.setAttribute("videoList", videoList);
-			
-			request.setAttribute("center", "/Main/videocenter.jsp");
+			request.setAttribute("boxList", boxList);//박스오피스 List 다음페이지로 전송
+			request.setAttribute("center", "/Main/boxcenter.jsp");//센터값 boxcenter.jsp로 변경
 			nextPage = "/index.jsp";
 		
+		//예고편 요청주소/Crawling/videocenter.me	
+		}else if(action.equals("/videocenter.me")) {
+			
+			List<VideoCrawlingVO> videoList = dao.getVideoDatas();//예고편데이터 List에 저장
+			
+			request.setAttribute("videoList", videoList);//예고편List 다음페이지로 전송
+			
+			request.setAttribute("center", "/Main/videocenter.jsp");//센터값 videocenter.jsp로 변경
+			nextPage = "/index.jsp";
+		
+		//장르별 영상 요청주소/Crawling/youtubecenter.me
 		}else if(action.equals("/youtubecenter.me")) {
 			
-			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();
+			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();//장르별 영상 데이터 List에 저장
 			
-			request.setAttribute("youtubeList", youtubeList);
+			request.setAttribute("youtubeList", youtubeList);//장르별영상List 다음페이지로 전송
 			
-			request.setAttribute("center", "/Main/youtubecenter.jsp");
+			request.setAttribute("center", "/Main/youtubecenter.jsp");//센터값 youtubecenter.jsp로 변경
 			nextPage = "/index.jsp";
 		}
 		
