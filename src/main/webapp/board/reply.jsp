@@ -78,7 +78,7 @@ pageEncoding="UTF-8"
 		<div class="replydiv">
 			<img alt="글쓰기" src="<%=contextPath%>/eq/img/banner/replybanner.jpg" width="98%">
 			<hr>
-			<form name="reply" class="replybox">
+			<form name="reply" class="replybox" action="<%=contextPath %>/com/replyPro.bo">
 			<table class="reptab">
 			<tr>
 				<td width="10%">
@@ -122,15 +122,9 @@ pageEncoding="UTF-8"
 				
 			</table>
 			<input type="hidden" name="c_idx" value="<%=c_idx%>">
-			<button onclick="javascript:replyPro()">게시</button>
+			<button type="submit">게시</button>
 			</form>
 		</div>
 	</center>	
 	</body>
-	<script>
-		function replyPro() {
-			document.reply.action = "<%= contextPath %>/com/replyPro.bo";
-			document.reply.submit();
-		}
-	</script>
 </html>

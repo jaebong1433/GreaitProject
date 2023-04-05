@@ -231,16 +231,51 @@ pageEncoding="UTF-8"
 					 </td>
 				 </tr>
 			 </table>
-			 <input type="hidden" name="c_idx" value="<%=c_idx%>">
-			 <input type="hidden"name="comment_uniqueid" value="<%=viewId%>">
+			 <input type="hidden" name="c_idx" id="c_idx" value="<%=c_idx%>">
+			 <input type="hidden" name="comment_uniqueid" id="comment_uniqueid" value="<%=viewId%>">
 		  </form>
 	</center>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $('#comment_write').submit(function(event) {
+		    event.preventDefault(); // 기본 동작 취소
+		    
+		    var nickname = $('#m_nickname').val();
+		
+		    if(nickname == null){
+		    	 var comment_nick = $('#comment_nick').val();
+		    } 
+	       
+    		var comment_pw = $('#comment_pw').val();
+		    var comment_content = $('#comment_content').val();
+		    var c_idx = $('#c_idx').val();
+		    var comment_uniqueid = $('#comment_uniqueid').val();
+				
+		    $.ajax({
+		    	type: "post",
+				async : true,
+				url : "<%=contextPath%>/comment/addComment.bo",
+		     	data: {
+	     		nickname : nickname,
+		        comment_nick : comment_nick,
+		        comment_pw: comment_pw,
+		        comment_content : comment_content,
+		        c_idx : c_idx,
+		        comment_uniqueid : comment_uniqueid
+		      },
+		      dataType : "text",
+		      success: function(response) {
+		        loadComments();
+		      }
+		    });
+		  });
+		}); 
+		 
 	
 	
-
-	
-	
-		<script type="text/javascript">
+		
+		
+		
 		<!-- 목록버튼 클릭했을때 03/20 허상호 -->
 		$("#list").click(function(event) {
 			event.preventDefault();
