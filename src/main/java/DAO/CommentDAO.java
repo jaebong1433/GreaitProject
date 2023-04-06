@@ -8,6 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import VO.CommunityVO;
+
 //DB와 연결하여 비즈니스로직 처리 하는 클래스 
 public class CommentDAO {
 	
@@ -38,17 +40,39 @@ public class CommentDAO {
 		if(rs != null)try {rs.close();} catch (Exception e) {e.printStackTrace();}		
 	}
 	
-	//비회원일때 댓글 등록!
-	public void addComment(String comment_nick, String comment_pw, String comment_content, String c_idx,
+	//댓글 등록!
+	public void addComment(String m_nickname, String comment_nick, String comment_pw, String comment_content, String c_idx,
 			String comment_uniqueid) {
-		
+			
+			String sql = null;
+			try {
+				con = ds.getConnection();
+				
+//				sql = "insert into community (c_idx, c_title, c_nickname, c_uniqueid, c_password, c_content, "
+//						+ "c_date, c_views, c_like, c_group, c_level) "
+//						+ " values (community_idx.nextVal, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0)";
+				sql = "insert into com_comment (comment_idx, c_idx, comment_pw, m_nickname, comment_nick, comment_uniqueid, comment_content) "
+						+ "values (comment_seq.nextVal,?,?,?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, c_idx);
+				pstmt.setString(2, comment_pw);
+				pstmt.setString(3, m_nickname);
+				pstmt.setString(4, comment_nick);
+				pstmt.setString(5, comment_uniqueid);
+				pstmt.setString(6, comment_content);
+				pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				System.out.println("addComment 메소드 내부에서 오류 !");
+				e.printStackTrace();
+			}finally {
+				closeResource();
+			}
+			
 	}
 	
-	//회원로그인일때 댓글 등록!
-	public void addLoginComment(String nickname, String comment_pw, String comment_content, String c_idx,
-			String comment_uniqueid) {
-		
-	}	
+	
+	
 	
 	
 	
