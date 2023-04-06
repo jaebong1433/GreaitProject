@@ -313,7 +313,8 @@
 		                    searchDetailAddrFromCoords(presentPosition, function(result, status) {
 		                        if (status === kakao.maps.services.Status.OK) {
 		                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-		                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+// 		                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+		                            window.open("https://map.kakao.com/?sName="+detailAddr+"&eName="+title,"_blank");
 		                        }
 		                    });
 		                })
@@ -322,7 +323,8 @@
 	                    searchDetailAddrFromCoords(presentPosition, function(result, status) {
 	                        if (status === kakao.maps.services.Status.OK) {
 	                            detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-	                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                          
+// 	                            location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+	                            window.open("https://map.kakao.com/?sName="+detailAddr+"&eName="+title,"_blank");
 	                      	  }   
 		                   });
 		                };
