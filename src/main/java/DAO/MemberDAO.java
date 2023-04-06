@@ -928,7 +928,7 @@ public class MemberDAO {
 	public int insertKakaoMember(String kakao_name, String kakao_uniqueID, String kakao_email) {
 		int result = 0;
 		String kakao_id = "kakao_" + kakao_uniqueID;
-		
+		String kakao_nickname = "(kakao)" + kakao_name;
 		System.out.printf("%s, %s, %s, %s, %s\n", kakao_uniqueID, kakao_name, kakao_id, kakao_name, kakao_email);
 		
 		try {
@@ -936,7 +936,7 @@ public class MemberDAO {
 			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_gradeimage) values(?, ?, ?, 'kakao_pw', ?, ?, 'egg.png')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, kakao_uniqueID);
-			pstmt.setString(2, kakao_name);
+			pstmt.setString(2, kakao_nickname);
 			pstmt.setString(3, kakao_id);
 			pstmt.setString(4, kakao_name);
 			pstmt.setString(5, kakao_email);
@@ -944,6 +944,31 @@ public class MemberDAO {
 			
 		} catch(Exception e) {
 			System.out.println("insertKakaoMember");
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+		return result;
+	}
+	
+	public int insertNaverMember(String naver_name, String naver_uniqueID, String naver_email) {
+		int result = 0;
+		String naver_id = "naver_" + naver_uniqueID;
+		String naver_nickname = "(naver)" + naver_name;
+		try {
+			con = ds.getConnection();
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_gradeimage) values(?, ?, ?, 'naver_pw', ?, ?, 'egg.png')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, naver_uniqueID);
+			pstmt.setString(2, naver_nickname);
+			pstmt.setString(3, naver_id);
+			pstmt.setString(4, naver_name);
+			pstmt.setString(5, naver_email);
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("insertNaverMember");
 			e.printStackTrace();
 		} finally {
 			
