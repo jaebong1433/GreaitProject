@@ -56,25 +56,16 @@ public class CommentController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
-		
+		// 04/06 허상호 : 댓글 작성 버튼 클릭시 
 		if(action.equals("/addComment.bo")) {
-			
 			String nickname = request.getParameter("nickname"); //로그인 했을 시 회원의 닉네임 
 			String comment_nick = request.getParameter("comment_nick"); // 비로그인시 댓글 작성 닉네임
 			String comment_pw = request.getParameter("comment_pw");
 			String comment_content = request.getParameter("comment_content");
 			String c_idx = request.getParameter("c_idx");
 			String comment_uniqueid = request.getParameter("comment_uniqueid");
-			
-			if(nickname == null) { //비로그인시
-				commentDAO.addComment(comment_nick,comment_pw,comment_content,c_idx,comment_uniqueid);
-			}else { //로그인 했을시
-				commentDAO.addLoginComment(nickname,comment_pw,comment_content,c_idx,comment_uniqueid);
-			}
-			
-				
-				
-			nextPage = "/index.jsp";
+			commentDAO.addComment(nickname,comment_nick,comment_pw,comment_content,c_idx,comment_uniqueid);
+			return;
 		}
 		
 		//포워딩 (디스패처 방식)

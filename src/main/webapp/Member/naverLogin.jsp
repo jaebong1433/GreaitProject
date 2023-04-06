@@ -55,8 +55,8 @@
 	}
 </script>
 </head>
-<body>
-	<%= token %><br><br><br><br>
-	<button onclick="javascript:login()">ㄱㄱ</button>
+<body onload="document.getElementById('myButton').click();">
+	<h1>잠시만 기다려주세요...</h1>
+	<button style="visibility:hidden" id="myButton" onclick="javascript:login()">ㄱㄱ</button>
 </body>
 </html>

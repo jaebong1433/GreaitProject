@@ -236,6 +236,7 @@ pageEncoding="UTF-8"
 		  </form>
 	</center>
 	<script type="text/javascript">
+		// 04/06 허상호 : 댓글 작성시 호출되는 함수
 		$(document).ready(function() {
 		  $('#comment_write').submit(function(event) {
 		    event.preventDefault(); // 기본 동작 취소
@@ -265,7 +266,8 @@ pageEncoding="UTF-8"
 		      },
 		      dataType : "text",
 		      success: function(response) {
-		        loadComments();
+		        $('#comment_pw').val("");
+		        $('#comment_content').val("");
 		      }
 		    });
 		  });
