@@ -79,6 +79,10 @@
 			font-family: 'Black Han Sans', sans-serif;
 		}
 		
+		h3 {
+			font-family: 'Do Hyeon', sans-serif;
+		}
+		
 		.board1{
 			float: left;
 			width : 49%;
@@ -288,7 +292,7 @@
 							<div>
 							 <iframe src="<%=iframe%>" width="690px" height="390px" ></iframe>
 							</div> 
-							<h4><b><%=vo2.getStrongText()%></b></h4>
+							<h3><b><%=vo2.getStrongText()%></b></h3>
  							<p><%=ptext%></p>
 							</td>
 						</tr>

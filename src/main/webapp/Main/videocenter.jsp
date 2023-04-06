@@ -42,8 +42,11 @@ String naver = "https://tv.naver.com";
 	
 	.videotab{
 		width : 20%;
-		height : 250px;
+		height : 300px;
+		border-bottom: 1px solid gray;
+		
 	}
+	
 	
 	.videoimg{
 		height : 170px;
@@ -52,8 +55,18 @@ String naver = "https://tv.naver.com";
 	}
 	
 	.videotext{
-		height : 80px;
+		height : 70px;
 		width : 100%;
+	}
+	
+	.videolike{
+		height : 40px;
+		width : 100%;
+		
+	}
+	
+	.videotab:hover{
+		border: 1px solid red;
 	}
 	
 	.videotext a{
@@ -63,7 +76,6 @@ String naver = "https://tv.naver.com";
 	
 	.realimg{
 		width : 230px;
-		margin : 20px 0 0 0;
 	}
 	
 	a{
@@ -83,13 +95,12 @@ String naver = "https://tv.naver.com";
 </head>
 <body>
 	<center>
-
 		<div>
 			<br>
 			<img alt="예고편" src="<%=contextPath%>/eq/img/banner/trailerbanner.jpg" width="98%">
 			<hr>
 				<table class="test">
-					<tr>
+					<tr class="videoground">
 						<%
 							for(int i=0; i<4; i++){
 								vo = (VideoCrawlingVO) list.get(i);
@@ -109,6 +120,8 @@ String naver = "https://tv.naver.com";
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
 						</a><!-- p부분 span,strong 추가 4.5-->
+						</div>
+						<div class="videolike">
 						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
 						<span class="heart">♥</span>
 						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
@@ -135,7 +148,9 @@ String naver = "https://tv.naver.com";
 						<div class="videotext">
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
-						</a>
+						</a><!-- p부분 span,strong 추가 4.5-->
+						</div>
+						<div class="videolike">
 						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
 						<span class="heart">♥</span>
 						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
@@ -162,7 +177,9 @@ String naver = "https://tv.naver.com";
 						<div class="videotext">
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
-						</a>
+						</a><!-- p부분 span,strong 추가 4.5-->
+						</div>
+						<div class="videolike">
 						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
 						<span class="heart">♥</span>
 						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
@@ -189,7 +206,9 @@ String naver = "https://tv.naver.com";
 						<div class="videotext">
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
-						</a>
+						</a><!-- p부분 span,strong 추가 4.5-->
+						</div>
+						<div class="videolike">
 						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
 						<span class="heart">♥</span>
 						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
@@ -216,7 +235,9 @@ String naver = "https://tv.naver.com";
 						<div class="videotext">
 						<a href="<%=naver %><%=vo.getSrc()%>" target="_blank">
 							<strong><%=vo.getTitle()%></strong><br>
-						</a>
+						</a><!-- p부분 span,strong 추가 4.5-->
+						</div>
+						<div class="videolike">
 						<p><span class="play">▶</span><strong><%=play%></strong>&nbsp;
 						<span class="heart">♥</span>
 						<strong><%=like%></strong>&nbsp;&nbsp;<%=vo.getUpload()%></p>
