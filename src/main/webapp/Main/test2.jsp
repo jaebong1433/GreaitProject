@@ -1,43 +1,146 @@
-<%@page import="VO.MemberVO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!DOCTYPE html PUBLIC>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String contextPath = request.getContextPath();
+%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link rel="stylesheet" type="text/css" href="/MVCBoard/style.css"/>
-<title>Insert title here</title>
-	<style type="text/css">
-		.winnerdiv{
-			
-		}
-		
-		.1st{
-			width: 38%;
-			height: 300px;
-			background-color: yellow;
-			border: 1px solid yellow;
-		}
-		
-		.2nd{
-			width: 38%;
-			height: 300px;
-			background-color: silver;
-			border: 1px solid silver;
-		} 
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author"
+	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Hugo 0.108.0">
+<title>Center</title>
+
+<style type="text/css">
+	@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+html, body {
+     min-height: 100%;
+}
+
+.box{
+	width: 100%;
+	height: 730px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  /*margin:0 -4px -5px -2px;*/
+  transition: all .2s ease;
+  background-color: gray;
+}
+
+
+/* MEDIA QUERIES */
+@media (max-width: 700px){
+  .box{
+    width: 50%;
+  }
+
+  .box:nth-child(2n-1){
+    background-color: inherit;
+  }
+
+  .box:nth-child(4n),.box:nth-child(4n-3) {
+    background-color: rgba(0,0,0,0.05);
+  }
+
+}
+
+@media (max-width: 420px){
+  .box{
+    width: 100%;
+  }
+
+  .box:nth-child(4n),.box:nth-child(4n-3){
+    background-color: inherit;
+  }
+
+  .box:nth-child(2n-1){
+    background-color:rgba(0,0,0,0.05);
+  }
+
+}
+
+
+/* -------------- Clock -------------- */
+
+.clock{
+  border-radius: 60px;
+  border: 3px solid #fff;
+  height: 80px;
+  width: 80px;
+  position: relative;
+
+  top: 28%;
+  top: -webkit-calc(50% - 43px);
+  top: calc(50% - 43px);
+  left: 35%;
+  left: -webkit-calc(50% - 43px);
+  left: calc(50% - 43px);
+}
+.clock:after{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  top:2px;
+  left: 48%;
+  height: 38px;
+  width: 4px;
+  border-radius: 5px;
+  -webkit-transform-origin: 50% 97%;
+      transform-origin: 50% 97%;
+  -webkit-animation: grdAiguille 2s linear infinite;
+      animation: grdAiguille 2s linear infinite;
+}
+
+@-webkit-keyframes grdAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes grdAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+.clock:before{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  top:6px;
+  left: 48%;
+  height: 35px;
+  width: 4px;
+  border-radius: 5px;
+  -webkit-transform-origin: 50% 94%;
+      transform-origin: 50% 94%;
+  -webkit-animation: ptAiguille 12s linear infinite;
+      animation: ptAiguille 12s linear infinite;
+}
+
+@-webkit-keyframes ptAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes ptAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+
+</style>
+
 </head>
-<body>
+	<body>
 	<center>
-		<div class="winnerdiv">
-			<div class="1st">
-				
-			</div>
-			<div class="2nd">
-				
-			</div>
-		</div>
+	   	<div class="box">
+	      	<div class="clock"></div>
+	    </div>
 	</center>
-</body>
+	</body>
 </html>
