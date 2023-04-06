@@ -1,8 +1,17 @@
 package CONTROLLER;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -396,12 +405,77 @@ public class MemberController extends HttpServlet {
 				return;
 			}
 			
+			else if(action.equals("/naverLoginAuth.me")) {
+				String code = request.getParameter("code");
+				String state = request.getParameter("state");
+				String clientId = "Kf9C_RzsFYJraczQjC3Q";//애플리케이션 클라이언트 아이디값";
+			    String client_secret = "zUvJzqCB3f";
+			    String redirectURI = URLEncoder.encode("http://localhost:8090/greaitProject/naver/login", "UTF-8");
+				String url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=Kf9C_RzsFYJraczQjC3Q&client_secret=zUvJzqCB3f&code="+code+"&state="+state;
+				System.out.println(url);
+				
+				String jo = null;
+				try (java.util.Scanner s = new java.util.Scanner(new java.net.URL(url).openStream(), "UTF-8").useDelimiter("\\A")) {
+					jo = s.next();
+				} catch (java.io.IOException e) {
+				    e.printStackTrace();
+				}
+				System.out.println(jo);
+				
+				request.setAttribute("token", jo);
+				request.setAttribute("center", "/Member/naverLogin.jsp");
+				
+				nextPage = "/index.jsp";
+			}
+			
 			else if(action.equals("/naverLoginPro.me")) {
-				System.out.println(true);
+				String token = request.getParameter("token");
+		        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+
+
+		        String apiURL = "https://openapi.naver.com/v1/nid/me";
+
+
+		        Map<String, String> requestHeaders = new HashMap<>();
+		        requestHeaders.put("Authorization", header);
+		        String responseBody = get(apiURL,requestHeaders);
+
+
+		        System.out.println(responseBody);
+				
+		        out.write(responseBody);
 				
 				return;
 			}
-		
+			
+			else if(action.equals("/naverLoginProReal.me")) {
+				String naver_uniqueID = request.getParameter("uniqueID");
+				String naver_name = request.getParameter("name");
+				String naver_email = request.getParameter("email");
+				
+				int result = 0;
+				
+				MemberVO naver_vo = memberdao.getMemVOByUniqueID(naver_uniqueID);
+				
+				if(naver_vo == null) {
+					System.out.println("naverLoginProReal, 저장된 정보가 없으니 회원가입을 실행하겠습니다.");
+					result = memberdao.insertNaverMember(naver_name, naver_uniqueID, naver_email);
+					if(result == 1) {
+						session.setAttribute("m_uniqueID", naver_uniqueID);
+						session.setAttribute("m_nickname", naver_name);
+						out.print("1");
+					}
+				} else {
+					session.setAttribute("m_uniqueID", naver_uniqueID);
+					session.setAttribute("m_nickname", naver_name);
+					out.print("1");
+				}
+				
+//				//메인화면 view 주소
+//				nextPage ="/Crawling/maincenter.me";
+				return;
+			}
+			
 			//마이페이지에 들어가기 요청을 받으면
 			//request에서 해당 유저의 uniqueID를 전달받아 변수에 저장하고
 			//uniqueID를 이용해 유저의 정보를 객체로 반환받아 vo 변수에 저장한다.
@@ -603,4 +677,59 @@ public class MemberController extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 			}
+		
+		private static String get(String apiUrl, Map<String, String> requestHeaders){
+	        HttpURLConnection con = connect(apiUrl);
+	        try {
+	            con.setRequestMethod("GET");
+	            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+	                con.setRequestProperty(header.getKey(), header.getValue());
+	            }
+
+
+	            int responseCode = con.getResponseCode();
+	            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+	                return readBody(con.getInputStream());
+	            } else { // 에러 발생
+	                return readBody(con.getErrorStream());
+	            }
+	        } catch (IOException e) {
+	            throw new RuntimeException("API 요청과 응답 실패", e);
+	        } finally {
+	            con.disconnect();
+	        }
+	    }
+		
+	    private static HttpURLConnection connect(String apiUrl){
+	        try {
+	            URL url = new URL(apiUrl);
+	            return (HttpURLConnection)url.openConnection();
+	        } catch (MalformedURLException e) {
+	            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+	        } catch (IOException e) {
+	            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+	        }
+	    }
+	    
+	    
+	    private static String readBody(InputStream body){
+	        InputStreamReader streamReader = new InputStreamReader(body);
+
+
+	        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+	            StringBuilder responseBody = new StringBuilder();
+
+
+	            String line;
+	            while ((line = lineReader.readLine()) != null) {
+	                responseBody.append(line);
+	            }
+
+
+	            return responseBody.toString();
+	        } catch (IOException e) {
+	            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+	        }
+	    }
+		
 		}

@@ -225,7 +225,7 @@ pageEncoding="UTF-8"
 					<c:if test="${ m_uniqueID == vo.m_uniqueid }">
 					<table>
 						<tr>
-							<c:if test="${ frontID != 'kakao' }">
+							<c:if test="${ frontID != 'naver' and frontID != 'kakao'}">
 								<td><input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;"></td>
 							</c:if>	
 							<td><input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;"></td>
