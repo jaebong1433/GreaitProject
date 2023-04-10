@@ -171,8 +171,6 @@ if(request.getAttribute("nowBlock") != null){
 totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock ); 
 
 %>
-<p>참고. 닉네임이 admin인 계정으로 로그인 하면 공지글을 쓸 수 있습니다.</p>
-당신의 고유 ID : ${ m_uniqueID }
 <center>
 <form name="frmRead">
 		<input type="hidden" name="c_idx">
