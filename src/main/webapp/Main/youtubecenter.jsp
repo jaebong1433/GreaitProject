@@ -239,7 +239,7 @@ YoutubeCrawlingVO vo = null;
 					</table>
 					<table class="Genretb">
 					<div class="genreT">
-						<h2>코믹</h2>
+						<h2>스릴러</h2><!-- 4.10 수정 -->
 					</div>
 					<tr>
 						<%
