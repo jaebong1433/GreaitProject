@@ -279,6 +279,7 @@
             	<li><a href="<%=contextPath%>/map/minigame.mo" class="link-dark d-inline-flex text-decoration-none rounded">지뢰찾기</a></li>
             	<li><a href="<%=contextPath%>/map/minigame2.mo" class="link-dark d-inline-flex text-decoration-none rounded">핀볼</a></li>
          		<li><a href="<%=contextPath%>/map/minigame3.mo" class="link-dark d-inline-flex text-decoration-none rounded">뱀꼬리잡기</a></li>
+         		<li><a href="<%=contextPath%>/map/minigame4.mo" class="link-dark d-inline-flex text-decoration-none rounded">숫자야구게임</a></li>
            	</ul>
         </div>
       </li>
