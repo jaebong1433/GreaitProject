@@ -129,12 +129,17 @@
 		}
 		
 		.logf button{
-			background-color : #5D5D5D;
-			color : white;
+			background-color : white;
+			color : #5D5D5D;
 			width : 95%;
 			height: 40px;
 			border-radius: 10px;
 			margin-top: 15px;
+		}
+		
+		.logf button:hover{
+			background-color : #5D5D5D;
+			color : white;
 		}
 		
 		.sidelogo{
@@ -229,7 +234,7 @@
         </button></a>
       </li>
       <li class="mb-1" style="list-style:none;">
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#box-collapse" aria-expanded="false">
+        <button class="btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#box-collapse" aria-expanded="false">
           박스오피스
         </button>
         <div class="collapse" id="box-collapse">
