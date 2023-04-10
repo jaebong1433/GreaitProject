@@ -7,8 +7,8 @@
     request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
    
-	String m_nickname = (String)session.getAttribute("m_nickname");
-	MemberVO vo = (MemberVO)request.getAttribute("vo");
+	String loginNick = (String)session.getAttribute("m_nickname");
+	
 
    
    
@@ -32,6 +32,9 @@
 
 	<script type="text/javascript">
 		
+	
+	
+	
 		// 마지막으로 불러온 채팅의 ID를 저장할 변수
 		var lastID = 0;
 		
@@ -185,12 +188,16 @@
 							<div class="portlet-footer">
 								<div class="row">
 									<div class="form-group col-xs-4">
+										<% if(loginNick != null){ //로그인 했을경우%>
+										<input style="height: 40px;" type="text" id="m_nickname" class="form-control" value="<%=loginNick%>" maxlength="8" readonly>
+										<%}else{ //로그인 하지 않았을경우 %>
 										<input style="height: 40px;" type="text" id="m_nickname" class="form-control" placeholder="이름" maxlength="8">
+										<%} %>
 									</div>
 								</div>
 								<div class="row" style="height:90px;">
 									<div class="form-group col-xs-10">
-										<textarea style="height:80px;" id="chatContent" class="form-control" placeholder="메시지를 입력해세요." maxlength="100"></textarea>
+										<textarea style="height:80px;" id="chatContent" class="form-control" placeholder="메시지를 입력해주세요." maxlength="100" onkeydown="if(event.keyCode==13){submitFunction(); return false;}"></textarea>
 									</div>
 									<div class="form-group col-xs-2">
 										<button type="button" class="btn btn-default pull-right" onclick="submitFunction();">전송</button>
