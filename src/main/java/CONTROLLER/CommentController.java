@@ -64,8 +64,8 @@ public class CommentController extends HttpServlet {
 		
 		// 04/06 허상호 : 댓글 작성 버튼 클릭시 
 		if(action.equals("/addComment.bo")) {
-			String nickname = request.getParameter("nickname").trim(); //로그인 했을 시 회원의 닉네임 
-			String comment_nick = request.getParameter("comment_nick").trim(); // 비로그인시 댓글 작성 닉네임
+			String nickname = request.getParameter("nickname"); //로그인 했을 시 회원의 닉네임 
+			String comment_nick = request.getParameter("comment_nick"); // 비로그인시 댓글 작성 닉네임
 			String comment_pw = request.getParameter("comment_pw");
 			String comment_content = request.getParameter("comment_content").trim();
 			String c_idx = request.getParameter("c_idx");
