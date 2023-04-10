@@ -45,7 +45,7 @@ public class CrawlingDAO {
 			//요소별 선택자 사용해 수집한 데이터 변수에 저장
 			Elements daumAge = daumDoc.select("div.poster_movie span.txt_tag");
 			Elements daumImg = daumDoc.select(".item_poster .poster_movie img");
-			Elements daumA = daumDoc.select(".poster_info a:nth-of-type(1)");//링크 가져오기 추가 4.5 재봉
+			Elements daumA = daumDoc.select(".poster_info a:nth-of-type(1)");
 			Elements daumTitle = daumDoc.select("strong.tit_item a");
 	     	Elements daumScore = daumDoc.select("span.txt_grade");
 	     	Elements daumNum = daumDoc.select("span.info_txt span.txt_num");
@@ -57,7 +57,7 @@ public class CrawlingDAO {
 		        
 		    	 String age = daumAge.get(i).text(); // 영화 관람가
 	 	         String imgSrc = daumImg.get(i).attr("src"); // 포스터 이미지
-		         String dA = daumA.get(i).attr("href");//영화 상세정보링크 링크 가져오기 추가 4.5 재봉
+		         String dA = daumA.get(i).attr("href");//영화 상세정보링크 
 	 	         String title = daumTitle.get(i).text(); // 영화 제목
 			     String dScore = daumScore.get(i).text(); // 영화 평점
 			     String dNum = daumNum.get(i).text(); //영화 예매율
@@ -69,7 +69,7 @@ public class CrawlingDAO {
 		         vo.setdScore(dScore);
 		         vo.setdNum(dNum);
 		         vo.setdDate(dDate);
-		         vo.setdA(dA); //링크 가져오기 추가 4.5 재봉
+		         vo.setdA(dA);
 		         
 		         mainList.add(vo);//List에 가져온 데이터(VO)저장
 		      }   
@@ -211,7 +211,7 @@ public class CrawlingDAO {
 			   System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
 			   
 			   ChromeOptions options = new ChromeOptions();//크롤링 시 속도향상을 위해 옵션기능 사용
-			   
+			  
 			   options.addArguments("--headless");//브라우저 창 띄우지 않음
 			   options.addArguments("--disable-gpu");//gpu 비활성화
 			   options.addArguments("--no-sandbox");//리눅스 환경에서 권한 문제를 해결하기 위해 추가
@@ -219,11 +219,14 @@ public class CrawlingDAO {
 			   options.addArguments("--disable-popup-blocking");//팝업 창 띄우지 않음  
 		       options.addArguments("--disable-defult-apps"); //기본앱 사용하지 않음
 		       options.addArguments("--blink-settings=imagesEnabled=false");//이미지 다운받지 않음
-		       options.addArguments("--disable-infobars");
-		       options.addArguments("--disable-extensions");
+		       options.addArguments("--disable-infobars");//경고 메세지 비활성화 4.7 주석추가
+		       options.addArguments("--disable-extensions");//브라우저 확장기능 비활성화 4.7 주석추가
 		       options.addArguments("--disable-notifications");//알림 비활성화
+		       options.addArguments("--mute-audio");//브라우저 음소거 4.7추가 
+		       options.addArguments("--start-maximized");//브라우저 창 최대화 4.7추가
+		       options.addArguments("--disable-plugins");//브라우저 플러그인 비활성화 4.7 추가
 		       
-			   WebDriver driver = new ChromeDriver(options);
+		       WebDriver driver = new ChromeDriver(options);
 			   
 			   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //암묵적 대기시간 10초 설정
 			   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS); //페이지로딩대기시간 10초 설정
