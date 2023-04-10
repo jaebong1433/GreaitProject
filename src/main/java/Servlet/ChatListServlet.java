@@ -77,7 +77,6 @@ public class ChatListServlet extends HttpServlet {
 		
 		// ChatDAO의 getChatList() 메소드를 호출하여 오늘 날짜의 채팅 목록을 가져옴
 		ArrayList<ChatVO> chatList = chatDAO.getChatList(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		//ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(new SimpleDateFormat("YYYY-MM-DD").format(new Date()));
 
 		
 		// 가져온 채팅 목록을 JSON 형태로 변환하여 result에 추가
@@ -90,7 +89,6 @@ public class ChatListServlet extends HttpServlet {
 		}
 		// JSON 형태의 결과를 반환
 		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
-//		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getM_nickname() + "\"}");
 
 		return result.toString();
 	}
@@ -107,7 +105,7 @@ public class ChatListServlet extends HttpServlet {
 		
 		// ChatDAO의 인스턴스를 생성하여 채팅 데이터를 조회
 		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(10);
+		ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(1);
 		
 		// 디버깅을 위해 조회된 채팅 메시지 수를 출력
 		System.out.println(chatList.size());

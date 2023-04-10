@@ -78,11 +78,7 @@ pageEncoding="UTF-8"
 		width : 90%;
 		height: 1000px;
 	}
-			
-	.boarddiv table{
-		width : 60%;
-		float : left;
-	}
+	
 	
 	.boardread{
 		width : 30%;
@@ -96,6 +92,7 @@ pageEncoding="UTF-8"
 		text-align : left;
 		font-size: 1.5em;
 		font-style: bold;
+		margin-left: 5%;
 	}
 	
 	.textboxz{
@@ -105,6 +102,7 @@ pageEncoding="UTF-8"
 		text-align: left;
 		border : none;
 	}
+	
 	
 	.repl{
 		border : none;
@@ -136,6 +134,10 @@ pageEncoding="UTF-8"
 	}
 	.comment_td{
 		width:30%;
+  }
+	.writeinfo{
+		width: 90%;
+		border-bottom: 2px solid gray;
 	}
 	
 		</style>
@@ -147,25 +149,26 @@ pageEncoding="UTF-8"
 			<img alt="컨텐츠" src="<%=contextPath%>/eq/img/banner/contentsbanner.jpg" width="98%">
 		</div>
 		<div class="boarddiv">
-			
 			<div class="titlez">
 				<%= title %>
-			</div>	
-		<table>
-		<tr>
-			<td width="10%">
-				<%= writer %>
-			</td>
-			<td>
-				<%= writeDate %>
-			</td>
+			</div>
+			<table class="writeinfo">
+				<tr width="100%">
+					<td width="50%">
+						<%= writer %>
+					</td>
+					<td width="20%">
+					 <%= writeDate %>
+					</td>
+					<td width="15%">
+						좋아요 : <%= like %>
+					</td>
+					<td width="15%">
+						조회수 : <%= views %>
+					</td>
+				</tr>
+			</table>
 			
-		</tr>
-		</table>
-		<div class="boardread">
-		 좋아요 : <%= like %> &nbsp;&nbsp;&nbsp; 조회수 : <%= views %>
-		</div>
-		<hr width="100%">	
 			<textarea class="textboxz" readonly>
 			<%= content %>
 			</textarea>

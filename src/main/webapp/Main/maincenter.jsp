@@ -158,7 +158,7 @@
 								
 								<div class="hover">
 								<a href="<%=daum%><%=dA%>" target="_blank">
-									<img src="<%=imgSrc%>" alt="" width="280px" />
+									<img src="<%=imgSrc%>" alt="" width="95%" />
 								</div>	
 									<span>
 									<div class="fonttb">
@@ -216,7 +216,7 @@
 			<div class="board1">
 			<h2>개념글</h2>
 				<table width="90%">
-					<tr bgcolor="pink" height="16%">
+					<tr bgcolor="lightgray" height="16%">
 						<td width="70%" align="left">제목</td>
 						<td width="20%">작성자</td>
 						<td width="10%">추천</td>
@@ -243,7 +243,7 @@
 			<div class="board2">
 			<h2>자유게시판</h2>
 				<table width="90%">
-					<tr bgcolor="pink" height="16%">
+					<tr bgcolor="lightgray" height="16%">
 						<td width="70%" align="left">제목</td>
 						<td width="20%">작성자</td>
 						<td width="10%">추천</td>
@@ -271,10 +271,11 @@
 		</div>
 			<!-- 게시판 끝 -->
 			<!-- 핫 클립 구역 시작 -->
-	<div class="centertb3">
+	<div >
 	<img alt="핫 클립" src="<%=contextPath%>/eq/img/banner/hotclipbanner.jpg" width="98%">
 			<hr>
 			 <table class="centertb3">
+			 
 			 			<tr>		
 			 			<%
 								vo2 = (ClipCrawlingVO)list2.get(0);

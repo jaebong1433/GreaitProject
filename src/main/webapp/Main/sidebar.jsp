@@ -83,14 +83,14 @@
 	
 		.mobject{
 			border: 0.5px solid gray;
-			width : 220px;
+			width : 100%;
 			height: 100%;
 			background-color: white;
 			border-radius: 25px;
 		}
 		
 		.logsetf{
-			height: 80px;
+			height: 100px;
 			text-align: left;
 			margin-left: 10px;
 		}
@@ -107,7 +107,7 @@
 			background-color : white;
 			color : #5D5D5D;
 			width : 100%;
-			height: 35px;
+			height: 20%;
 			border-radius: 10px;
 		}
 		
@@ -122,7 +122,7 @@
 		
 		.logf{
 			width : 100%;
-			height: 70px;
+			height: 100px;
 			text-align: center;
 			align: center;
 			float: center;
@@ -150,21 +150,6 @@
 			list-style: none;
 		}
 		
-		.chatingbtn{
-			margin : 200px 0 0 10px;
-			width: 60px;
-			height: 60px;
-			border-radius: 30px;
-			font-size: 1.3em;
-			font-weight: bold;
-			background-color: white;
-			color:black;
-		}
-		
-		.chatingbtn:hover{
-			background-color: gray;
-			color:white;
-		}
 		
 	</style>
 	
@@ -295,13 +280,10 @@
     </ul>
   </div>
   
-  	<button class="chatingbtn" onclick="openChat()" >Chat</button>
-		 
-				
-		
-		
+  		
   	
-</div>	
+</div>
+		
 	<!-- Main JS (Do not remove) -->
 	<script src="<%=contextPath%>/eq/js/main.js"></script>
     <script src="<%=contextPath%>/eq/js/bootstrap.bundle.min.js"></script>
@@ -309,13 +291,6 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
 
-	<script>
-	function openChat(){
-		var url = "<%=contextPath%>/Chat/chat.jsp";
-		window.open(url,'채팅 화면','width=900px, height=700px');
-		
-	}
 	
-	</script>
 
 </html>
