@@ -82,6 +82,8 @@ public class ChatDAO{
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null)pstmt.close();
+				if(con != null)con.close();// con 종료
+
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -126,6 +128,8 @@ public class ChatDAO{
 			try {
 				if(rs != null) rs.close(); // 결과셋이 null이 아닐 경우 close() 메서드 호출
 				if(pstmt != null)pstmt.close(); // PreparedStatement 객체가 null이 아닐 경우 close() 메서드 호출
+				if(con != null)con.close();// con 종료
+
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -176,6 +180,7 @@ public class ChatDAO{
 			try {
 				if(rs != null) rs.close(); // ResultSet 종료
 				if(pstmt != null)pstmt.close();// ResultSet 종료
+				if(con != null)con.close();// con 종료
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -209,6 +214,8 @@ public class ChatDAO{
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null)pstmt.close();
+				if(con != null)con.close();// con 종료
+
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
