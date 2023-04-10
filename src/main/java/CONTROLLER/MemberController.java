@@ -396,12 +396,16 @@ public class MemberController extends HttpServlet {
 				if(kakao_vo == null) {
 					System.out.println("kakaoLoginPro, 저장된 정보가 없으니 회원가입을 실행하겠습니다.");
 					result = memberdao.insertKakaoMember(kakao_name, kakao_uniqueID, kakao_email);
+					if(result == 1) {
+						session.setAttribute("m_uniqueID", kakao_uniqueID);
+						session.setAttribute("m_nickname", "(kakao)"+kakao_name);
+						out.write("1");
+					}
+				} else {
+					session.setAttribute("m_uniqueID", kakao_uniqueID);
+					session.setAttribute("m_nickname", "(kakao)"+kakao_name);
+					out.write("1");
 				}
-				session.setAttribute("m_uniqueID", kakao_uniqueID);
-				session.setAttribute("m_nickname", kakao_name);
-				
-//				//메인화면 view 주소
-//				nextPage ="/Crawling/maincenter.me";
 				return;
 			}
 			
@@ -462,17 +466,77 @@ public class MemberController extends HttpServlet {
 					result = memberdao.insertNaverMember(naver_name, naver_uniqueID, naver_email);
 					if(result == 1) {
 						session.setAttribute("m_uniqueID", naver_uniqueID);
-						session.setAttribute("m_nickname", naver_name);
+						session.setAttribute("m_nickname", "(naver)"+naver_name);
 						out.print("1");
 					}
 				} else {
 					session.setAttribute("m_uniqueID", naver_uniqueID);
-					session.setAttribute("m_nickname", naver_name);
+					session.setAttribute("m_nickname", "(naver)"+naver_name);
 					out.print("1");
 				}
 				
 //				//메인화면 view 주소
 //				nextPage ="/Crawling/maincenter.me";
+				return;
+			}
+			
+			else if(action.equals("/googleLogin.me")) {
+				String token = request.getParameter("token");
+				String url = "https://oauth2.googleapis.com/tokeninfo?id_token=" + token;
+				
+				URL obj = new URL(url);
+		        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		        con.setRequestMethod("GET");
+
+		        int responseCode = con.getResponseCode();
+		        System.out.println("Response Code : " + responseCode);
+
+		        BufferedReader in = new BufferedReader(
+		                new InputStreamReader(con.getInputStream()));
+		        String inputLine;
+		        StringBuffer response2 = new StringBuffer();
+
+		        while ((inputLine = in.readLine()) != null) {
+		            response2.append(inputLine);
+		        }
+		        in.close();
+
+		        // 사용자 정보 파싱
+		        String jsonResponse = response2.toString();
+		        Map<String, String> userData = new HashMap<String, String>();
+		        String[] keyValuePairs = jsonResponse.substring(1, jsonResponse.length() - 1).split(",");
+		        for (String pair : keyValuePairs) {
+		            String[] entry = pair.split(":");
+		            userData.put(entry[0].trim().replaceAll("\"", ""), entry[1].trim().replaceAll("\"", ""));
+		        }
+		        
+		        String googleUniqueID = userData.get("sub");
+		        String googleName = userData.get("name");
+		        String googleEmail = userData.get("email");
+		        
+		        // 사용자 정보 출력
+		        System.out.println("User ID: " + googleUniqueID);
+		        System.out.println("Name: " + googleName);
+		        System.out.println("Email: " + googleEmail);
+		        
+		        int result = 0;
+				
+				MemberVO google_vo = memberdao.getMemVOByUniqueID(googleUniqueID);
+				
+				if(google_vo == null) {
+					System.out.println("googleLogin, 저장된 정보가 없으니 회원가입을 실행하겠습니다.");
+					result = memberdao.insertGoogleMember(googleName, googleUniqueID, googleEmail);
+					if(result == 1) {
+						session.setAttribute("m_uniqueID", googleUniqueID);
+						session.setAttribute("m_nickname", "(google)"+googleName);
+						out.print("1");
+					}
+				}
+				else {
+					session.setAttribute("m_uniqueID", googleUniqueID);
+					session.setAttribute("m_nickname", "(google)"+googleName);
+					out.print("1");
+				}
 				return;
 			}
 			
