@@ -167,12 +167,12 @@ public class CrawlingDAO {
 			  			List<YoutubeCrawlingVO> youtubeList = new ArrayList<YoutubeCrawlingVO>();
 			  			int i = 0;
 			  			
-			  			//장르별 영상을 가져오기 위해 배열에 담아 저장
+			  			//장르별 영상을 가져오기 위해 배열에 담아 저장 4.10 3,5번째 링크수정
 			  			String youtubeUrl[] =  {"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EC%95%A1%EC%85%98+%EC%98%81%ED%99%94&play_time_ge=300&cp=youtube-video&play_time_le=600&DA=STC&p=1",
 					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EA%B3%B5%ED%8F%AC+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
-					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%ED%8C%90%ED%83%80%EC%A7%80+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
+					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%ED%8C%90%ED%83%80%EC%A7%80+%EC%98%81%ED%99%94&play_time_ge=600&DA=STC&cp=youtube-video&p=1",
 					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EB%A1%9C%EB%A7%A8%EC%8A%A4+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
-					 		 	  				"https://search.daum.net/search?nil_suggest=sugsch&w=vclip&m=vclip&sq=%EC%BD%94%EB%AF%B8%EB%94%94+%EC%98%81%ED%99%94&o=3&sugo=15&q=%EC%BD%94%EB%AF%B8%EB%94%94+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1"
+					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&q=%EC%8A%A4%EB%A6%B4%EB%9F%AC+%EC%98%81%ED%99%94+%EB%A6%AC%EB%B7%B0&period=m&sd=20230310160451&ed=20230410160451&play_time_ge=600&cp=youtube-video"
 												};
 			  			
 			  			for(String s : youtubeUrl) {
