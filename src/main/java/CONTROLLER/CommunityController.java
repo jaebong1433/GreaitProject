@@ -25,9 +25,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.CommentDAO;
 import DAO.CommunityDAO;
 import DAO.MemberDAO;
 import VO.BoardLikeVO;
+import VO.CommentVO;
 import VO.CommunityVO;
 import VO.MemberVO;
 import others.CheckWeekend;
@@ -41,11 +43,12 @@ public class CommunityController extends HttpServlet {
 	//CommunityDAO객체를 저장할 참조변수 선언
 	CommunityDAO comDAO;
 	MemberDAO memberDAO;
-
+	CommentDAO commentDAO;
 	@Override
 	public void init() throws ServletException {
 		comDAO = new CommunityDAO();
 		memberDAO = new MemberDAO();
+		commentDAO = new CommentDAO();
 	}
 	
 	@Override
@@ -240,7 +243,8 @@ public class CommunityController extends HttpServlet {
 			}
 			vo = comDAO.boardRead(c_idx); //게시글 하나의 정보를 CommunityVO에 저장한다.
 			boardLikeVO = comDAO.getBoardlikeVO(c_idx, nickname);
-			
+			ArrayList<CommentVO> clist = commentDAO.listComment(c_idx);
+			request.setAttribute("clist", clist);
 			request.setAttribute("boardLikeVO", boardLikeVO);
 			request.setAttribute("vo", vo);//글번호로 조회한 글하나의 정보  
 			request.setAttribute("nowPage", nowPage_); //중앙화면 read.jsp로 전달을 위해 
@@ -547,7 +551,6 @@ public class CommunityController extends HttpServlet {
 		}
 		// 04/02 허상호 관리자계정으로 글 삭제 요청시
 		else if(action.equals("/adminDel.bo")) {
-			System.out.println("이동완료");
 			String delIdx = request.getParameter("c_idx");
 			int adminDelRs = comDAO.adminDelBoard(delIdx);
 			if(adminDelRs != 1) {//삭제 실패시

@@ -85,7 +85,7 @@
 	   		<input id="m_pw" class="loginp" type="password" name="m_pw" placeholder="password"><br><br>
 	   		<button type="submit" >로그인</button><br><br>
    		<br>
-   		</form>	
+   		</form>
    		<br>
    			<a href="<%=contextPath%>/member1/join1.me">회원가입</a><br><br>
    			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a> / 
