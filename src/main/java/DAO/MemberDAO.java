@@ -976,6 +976,33 @@ public class MemberDAO {
 		
 		return result;
 	}
+	
+	public int insertGoogleMember(String google_name, String google_uniqueID, String google_email) {
+		int result = 0;
+		String google_id = "google_" + google_uniqueID;
+		String google_nickname = "(google)" + google_name;
+		System.out.printf("%s, %s, %s, %s, %s\n", google_uniqueID, google_name, google_id, google_name, google_email);
+		
+		try {
+			con = ds.getConnection();
+			String sql = "INSERT INTO M_MEMBER (m_uniqueid, m_nickname, m_id, m_pw, m_name, m_email, m_gradeimage) values(?, ?, ?, 'google_pw', ?, ?, 'egg.png')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, google_uniqueID);
+			pstmt.setString(2, google_nickname);
+			pstmt.setString(3, google_id);
+			pstmt.setString(4, google_name);
+			pstmt.setString(5, google_email);
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			System.out.println("insertGoogleMember");
+			e.printStackTrace();
+		} finally {
+			
+		}
+		
+		return result;
+	}
     
 }
 
