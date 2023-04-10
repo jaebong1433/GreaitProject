@@ -11,7 +11,9 @@
 	String clientId = "Kf9C_RzsFYJraczQjC3Q";//애플리케이션 클라이언트 아이디값";
 	String client_secret = "zUvJzqCB3f";
 	String redirectURI = URLEncoder.encode("http://localhost:8090/greaitProject/member1/naverLoginAuth.me", "UTF-8");
+	//리다이렉트 url은 애플리케이션에 등록된 리다이렉션 url과 정확히 일치해야 함 그렇지 않으면 오류 남.
 	SecureRandom random = new SecureRandom();
+	//state는 보안을 위해 만들어진 문자열
 	String state = new BigInteger(130, random).toString();
 	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
 	apiURL += "&client_id=" + clientId;
@@ -83,7 +85,7 @@
 	   		<input id="m_pw" class="loginp" type="password" name="m_pw" placeholder="password"><br><br>
 	   		<button type="submit" >로그인</button><br><br>
    		<br>
-   		</form>	
+   		</form>
    		<br>
    			<a href="<%=contextPath%>/member1/join1.me">회원가입</a><br><br>
    			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a> / 
@@ -99,8 +101,8 @@
 		<a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="50px" height="50px"></a>
 		
 		
-		
-		<a href="#"><img onclick="googlelogin();" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a>
+<!-- 		<button id="google-login-button">Google 로그인</button> -->
+		<a href="#"><img id="google-login-button" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a>
 		
 		
 		
@@ -113,6 +115,7 @@
 
 <!-- <script src="js/ie10-viewport-bug-workaround.js"></script>	 -->
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://accounts.google.com/gsi/client"></script>
 <script type="text/javascript">
 	//Kakao.init()함수는 카카오 api를 사용하기 위해 인증키를 초기화합니다.
 	Kakao.init('1de5dcc9cb8ef52a2b543b50fde654cf');	
@@ -139,7 +142,11 @@
                     			},
                     		dataType: "text",
                     		success: function(data) {
-                    			location.href="<%= contextPath %>/Crawling/maincenter.me";
+                    			if(data == "1") {
+                    				location.href="<%= contextPath %>/Crawling/maincenter.me";
+                    			} else {
+                    				alert("로그인에 실패했습니다.");
+                    			}
                     		}
                     	});
                     },
@@ -174,9 +181,39 @@
 			location.href="<%= apiURL %>";
 		}
 		
-		function googlelogin() {
-			$("#login").submit();
-		}	
+		//구글 로그인 시작
+		document.getElementById("google-login-button").addEventListener("click", function() {
+			google.accounts.id.initialize({
+				client_id: "172053655777-mjlei55v7co41ksjj9duc3vsi4p8qns8.apps.googleusercontent.com",
+				callback: handleCredentialResponse
+			});
+			google.accounts.id.prompt();
+		});
+
+		function handleCredentialResponse(response) {
+			if (response.credential) {
+				// 로그인에 성공한 경우 로직 작성
+				console.log(response.credential);
+				$.ajax({
+					type: "get",
+					async: true,
+					url: "<%= contextPath %>/member1/googleLogin.me",
+					data: { token : response.credential },
+					dataType: "text",
+					success: (data) => {
+						if(data == "1") {
+							location.href="<%= contextPath %>/Crawling/maincenter.me";
+						} else {
+							alert("로그인에 실패했습니다.");
+						}
+					}
+				})
+				
+			} else {
+				// 로그인에 실패한 경우 로직 작성
+				console.log("로그인 실패");
+			}
+		}
 		
 		function instagramlogin() {
 			$("#login").submit();

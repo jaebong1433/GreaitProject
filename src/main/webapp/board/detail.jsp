@@ -44,6 +44,35 @@ pageEncoding="UTF-8"
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 		<style type="text/css">
+		
+		
+	.tblListComment {
+    /* 댓글 리스트 div의 크기가 고정되어 있을 경우, 스크롤바를 추가하여 내용을 볼 수 있게 합니다. */
+   		 height: 400px;
+    	overflow-y: scroll; /* 세로 스크롤바를 표시합니다. */
+	}
+	#tblAddCommnet, #tblListComment { width: 700px; margin: 15px auto; }
+	
+	#tblAddComment { margin-top: 30px; }
+	#tblAddComment td:nth-child(1) { width: 600px; }
+	#tblAddComment td:nth-child(2) { width: 100px; }
+	
+	#tblListComment td:nth-child(1) { width: 600px; }
+	#tblListComment td:nth-child(2) { width: 100px; }
+	
+	#tblListComment td {
+		position: relative;
+		left: 0;
+		top: 0;
+	}
+	
+	#tblListComment td span {
+		position: absolute;
+		right: 10px;
+		bottom: 5px;
+		color: #AAA;
+		font-size: 11px;
+	}
 	.boarddiv {
 		margin-top: 50px;
 		width : 90%;
@@ -99,7 +128,7 @@ pageEncoding="UTF-8"
 		</style>
 		
 	</head>
-	<body>
+	<body onload="getListComment();">
 	<center>
 		<div class="banner">
 			<img alt="컨텐츠" src="<%=contextPath%>/eq/img/banner/contentsbanner.jpg" width="98%">
@@ -210,23 +239,24 @@ pageEncoding="UTF-8"
             	<input type="submit" value="확인">
          	</form>
          </div>
+         <hr><hr>
          <%-- 댓글 작성 --%>
          <form method="post" id="comment_write">
 			<table>
 				<tr>
 					<td>
-					  <label for="nickname">닉네임 : </label>
 					  <% if(loginNick != null){//로그인을 했을때%>
 					  <input type="text" id="m_nickname" name="m_nickname" value="<%=loginNick%>" readonly><br>
 					   <%}else{//로그인을 하지 않았을때%>
-					   <input type="text" id="comment_nick" name="comment_nick"><br>
+					   <input type="text" id="comment_nick" name="comment_nick" placeholder="닉네임"><br>
 					   <%}%>
-					  <label for="password">댓글비밀번호 : </label>
-					  <input type="password" id="comment_pw" name="comment_pw">
+					   <br>
+					  <input type="password" id="comment_pw" name="comment_pw" placeholder="댓글 비밀번호">
 					 </td>
 					 <td>
-						  <label for="comment">댓글</label><br>
-						  <textarea id="comment_content" name="comment_content" rows="3" cols="70"></textarea>
+						  <textarea id="comment_content" name="comment_content" rows="4" cols="70" placeholder="댓글을 작성하여 주세요."></textarea>
+					 </td>
+					 <td>
 						  <input type="submit" value="작성">
 					 </td>
 				 </tr>
@@ -234,8 +264,70 @@ pageEncoding="UTF-8"
 			 <input type="hidden" name="c_idx" id="c_idx" value="<%=c_idx%>">
 			 <input type="hidden" name="comment_uniqueid" id="comment_uniqueid" value="<%=viewId%>">
 		  </form>
+		 <hr><hr>
+<!-- 댓글 리스트 -->
+	<div class="tblListComment">
+		<table id="tblListComment" class="table table-bordered">
+			<c:if test="${ clist.size() == 0 }">
+				<tr>
+					<td colspan="2">댓글이 없습니다.</td>
+				</tr>
+			</c:if>
+			
+			<c:forEach items="${ clist }" var="clist">
+				<tr>
+					<td>
+						${ clist.comment_content }
+						<c:if test="${ empty clist.m_nickname }">
+						<span>${ clist.comment_nick }. ${ clist.reg_date }</span>
+						</c:if>
+						<c:if test="${ empty clist.comment_nick }">
+						<span>${ clist.m_nickname }. ${ clist.reg_date }</span>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${m_uniqueID == clist.comment_uniqueid }">
+						<input type="button" value="수정" class="btn btn-default" 
+							onclick="openPopup('mod',${clist.comment_idx},'${clist.comment_content}')"/>
+						<input type="button" value="삭제" class="btn btn-default" 
+							onclick="openPopup('delete',${clist.comment_idx},'${clist.comment_content}')"/>
+						</c:if>
+						<c:if test="${m_nickname == 'admin' }">
+						<input type="button" value="삭제" class="btn btn-default" 
+							onclick="openPopup('adminDel',${clist.comment_idx},'${clist.comment_content}')"/>
+						</c:if>
+					</td>
+				</tr>
+				
+			</c:forEach>	
+		</table>
+	</div>
+	<hr><hr>
 	</center>
 	<script type="text/javascript">
+		// 04/09 허상호 : 매개변수로 전달 받는 값에 따라 댓글 수정,삭제 또는 관리자계정으로 댓글삭제 구분하여 실행되는 함수
+		function openPopup(request,commentIdx,modContent){
+			var url = null;
+			var left = (screen.width/2)-250; 
+			var top = (screen.height/2)-250;
+			var c_idx = $("#c_idx").val();
+			if(request == 'mod'){
+				url = "<%=contextPath%>/board/commentMod.jsp?commentIdx=" + commentIdx + "&modContent=" + modContent;
+				window.open(url, '수정요청창', 'width=500, height=500, left='+left+', top='+top);
+			}else if(request == 'delete'){
+				url = "<%=contextPath%>/board/commentDel.jsp?commentIdx=" + commentIdx;
+				window.open(url, '삭제요청창', 'width=500, height=500, left='+left+', top='+top);
+			}else if(request == 'adminDel'){
+				var adminDelPro = confirm("삭제하시겠습니까 ?");
+				if(adminDelPro){
+					location.href="<%=contextPath%>/comment/adminDelPro.bo?commentIdx=" + commentIdx + "&c_idx="+c_idx;
+				}
+			}
+			
+		}
+	
+	
+		// 04/06 허상호 : 댓글 작성시 호출되는 함수
 		$(document).ready(function() {
 		  $('#comment_write').submit(function(event) {
 		    event.preventDefault(); // 기본 동작 취소
@@ -265,16 +357,13 @@ pageEncoding="UTF-8"
 		      },
 		      dataType : "text",
 		      success: function(response) {
-		        loadComments();
+		        $('#comment_pw').val("");
+		        $('#comment_content').val("");
+		        location.reload();
 		      }
 		    });
 		  });
 		}); 
-		 
-	
-	
-		
-		
 		
 		<!-- 목록버튼 클릭했을때 03/20 허상호 -->
 		$("#list").click(function(event) {
@@ -285,7 +374,7 @@ pageEncoding="UTF-8"
 			
 		})
 		
-			var check = "<%=check%>"
+			var check = "<%=check%>";
 			if(check == "yes"){
 				$("#like_btn").css({border : "red"});
 				$("#likeimg").attr("src","<%=contextPath%>/eq/img/good2.png");
