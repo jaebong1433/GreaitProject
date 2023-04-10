@@ -93,20 +93,38 @@
    		<p>간편로그인</p>
    		
    		
-   		
-   		<a href="javascript:kakaoLogin()"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="50px" height="50px"></a>
+   		<table>
+   			<tr>
+   				<td><a href="javascript:kakaoLogin()"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="40px" height="40px"></a></td>
+   				<td><a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="40px" height="40px"></a></td>
+   				<td>
+			   		<div id="g_id_onload"
+					     data-client_id="172053655777-mjlei55v7co41ksjj9duc3vsi4p8qns8.apps.googleusercontent.com"
+					     data-context="signin"
+					     data-callback="handleCredentialResponse"
+					     data-nonce=""
+					     data-itp_support="true">
+					</div>
+					<div class="g_id_signin"
+						  data-type="icon"
+						  data-size="large"
+						  data-theme="outline"
+						  data-text="signin_with"
+						  data-shape="circle"
+						  data-logo_alignment="left">
+					</div>
+   				</td>
+   			</tr>
+   		</table>
 		
 		
 		
-		<a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="50px" height="50px"></a>
 		
 		
 <!-- 		<button id="google-login-button">Google 로그인</button> -->
-		<a href="#"><img id="google-login-button" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a>
+<%-- 		<a href="#"><img id="google-login-button" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a> --%>
 		
 		
-		
-		<a href="#"><img onclick="instagramlogin();" src="<%=contextPath%>/eq/img/insta_icon.png" width="50px" height="50px"></a>
    		
    		
    		
@@ -182,14 +200,6 @@
 		}
 		
 		//구글 로그인 시작
-		document.getElementById("google-login-button").addEventListener("click", function() {
-			google.accounts.id.initialize({
-				client_id: "172053655777-mjlei55v7co41ksjj9duc3vsi4p8qns8.apps.googleusercontent.com",
-				callback: handleCredentialResponse
-			});
-			google.accounts.id.prompt();
-		});
-
 		function handleCredentialResponse(response) {
 			if (response.credential) {
 				// 로그인에 성공한 경우 로직 작성
