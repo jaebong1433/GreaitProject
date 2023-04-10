@@ -150,34 +150,6 @@ public class CommunityController extends HttpServlet {
 			nextPage = "/index.jsp";
 		}
 		
-		//http://localhost:8090/greaitProject/com/list.bo
-		//커뮤니티 버튼을 누르면 게시판으로 이동
-		//정태영
-		
-		//20230321 정태영 : 내부클래스를 만듦으로써 기존 list.bo의 역할은 listByRecent가 대신하게 되었음.
-		//현재로써는 필요없는 데이터, 일단 내부클래스에 문제가 있을 수도 있으므로 남겨둘 것임.
-//		else if(action.equals("/list.bo")) {
-//			list = comDAO.listByRecent();//모든 CommunityVO를 List에 저장
-//			
-//			String loginNick = (String)session.getAttribute("m_nickname"); //세션에 저장된 nickname을 가져옴
-//			count = comDAO.getTotalRecord(); //모든 List의 size를 count에 저장
-//			
-//			String nowPage = request.getParameter("nowPage");
-//			String nowBlock = request.getParameter("nowBlock");
-//			System.out.println(nowPage + "페이지번호");
-//			System.out.println(nowBlock + "블럭위치번호");	
-//			
-//			request.setAttribute("list", list); //list와 count를 attribute에 저장하여 다음 페이지로 전송함
-//			request.setAttribute("count", count);
-//			request.setAttribute("center","/board/list.jsp");
-//			
-//			//페이징 처리 를 위해 담는다.
-//			request.setAttribute("nowPage", nowPage);
-//			request.setAttribute("nowBlock", nowBlock);
-////			nextPage = "/board/list.jsp";
-//			nextPage = "/index.jsp";
-//		}
-		
 		//0325
 		//20230321 정태영 : 개념글 버튼을 눌렀을 때
 		else if(action.equals("/bestPost.bo")) {

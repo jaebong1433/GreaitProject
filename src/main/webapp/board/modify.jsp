@@ -183,7 +183,6 @@
 						console.log(data);
 						
 						if(data == "1"){
-							alert("글 수정 완료!");
 							location.href = "<%=contextPath%>/com/read.bo?c_idx=<%=vo.getC_idx()%>&nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 						}else{//"0"
 							$("#resultInsert").text("글 수정 실패!").css("color","red");

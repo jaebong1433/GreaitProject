@@ -191,7 +191,6 @@
 							console.log(data);
 							
 							if(data == "1"){
-								alert("글 등록 완료!");
 								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 							}else{//"0"
 								$("#resultInsert").text("글 작성 실패!").css("color","red");
@@ -215,7 +214,6 @@
 							console.log(data);
 							
 							if(data == "1"){
-								alert("글 등록 완료!");
 								location.href = "<%=contextPath%>/com/listByRecent.bo?nowPage=<%=nowPage%>&nowBlock=<%=nowBlock%>";
 							}else{//"0"
 								$("#resultInsert").text("글 작성 실패!").css("color","red");

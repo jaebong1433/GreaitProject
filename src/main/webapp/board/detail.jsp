@@ -124,6 +124,17 @@ pageEncoding="UTF-8"
 	  width: 20%;
 	}
 	
+	.commentTb{
+		width : 85%;
+		
+	}
+	#comment_submit{
+		height:100px;
+		background-color:navy;
+	}
+	.comment_td{
+		width:30%;
+  }
 	.writeinfo{
 		width: 90%;
 		border-bottom: 2px solid gray;
@@ -247,9 +258,9 @@ pageEncoding="UTF-8"
          <hr><hr>
          <%-- 댓글 작성 --%>
          <form method="post" id="comment_write">
-			<table>
+			<table class="commentTb">
 				<tr>
-					<td>
+					<td class="comment_td">
 					  <% if(loginNick != null){//로그인을 했을때%>
 					  <input type="text" id="m_nickname" name="m_nickname" value="<%=loginNick%>" readonly><br>
 					   <%}else{//로그인을 하지 않았을때%>
@@ -258,11 +269,11 @@ pageEncoding="UTF-8"
 					   <br>
 					  <input type="password" id="comment_pw" name="comment_pw" placeholder="댓글 비밀번호">
 					 </td>
-					 <td>
-						  <textarea id="comment_content" name="comment_content" rows="4" cols="70" placeholder="댓글을 작성하여 주세요."></textarea>
+					 <td width="60%">
+						  <textarea id="comment_content" name="comment_content" rows="4" cols="110" placeholder="댓글을 작성하여 주세요."></textarea>
 					 </td>
-					 <td>
-						  <input type="submit" value="작성">
+					 <td width="10%">
+						  <input id="comment_submit" type="submit" value="작성">
 					 </td>
 				 </tr>
 			 </table>
@@ -282,7 +293,12 @@ pageEncoding="UTF-8"
 			<c:forEach items="${ clist }" var="clist">
 				<tr>
 					<td>
+						<c:if test="${clist.m_nickname == 'admin' }">
+						<p><Strong>${ clist.comment_content }</Strong></p>
+						</c:if>
+						<c:if test="${clist.m_nickname != 'admin' }">
 						${ clist.comment_content }
+						</c:if>
 						<c:if test="${ empty clist.m_nickname }">
 						<span>${ clist.comment_nick }. ${ clist.reg_date }</span>
 						</c:if>
@@ -291,7 +307,7 @@ pageEncoding="UTF-8"
 						</c:if>
 					</td>
 					<td>
-						<c:if test="${m_uniqueID == clist.comment_uniqueid }">
+						<c:if test="${m_uniqueID == clist.comment_uniqueid && m_nickname != 'admin'}">
 						<input type="button" value="수정" class="btn btn-default" 
 							onclick="openPopup('mod',${clist.comment_idx},'${clist.comment_content}')"/>
 						<input type="button" value="삭제" class="btn btn-default" 
