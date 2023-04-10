@@ -75,6 +75,7 @@ public class CommentController extends HttpServlet {
 				
 				
 			nextPage = "/index.jsp";
+		
 		}
 		
 		//포워딩 (디스패처 방식)
@@ -82,4 +83,6 @@ public class CommentController extends HttpServlet {
 		dispatcher.forward(request, response);
 	
 	}//doHandle()메소드 끝 
+	
+	
 }//클래스 끝

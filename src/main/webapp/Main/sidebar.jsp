@@ -165,6 +165,9 @@
 	
 </head>
 <body>
+	
+
+
 <div class="mobject">
 	<div class="flex-shrink-0 p-3" style="width: 215px;">
     <div class="sidelogo">
@@ -286,7 +289,10 @@
     </ul>
   </div>
   
-  	<button class="chatingbtn">Chat</button>
+  	<button class="chatingbtn" onclick="openChat()" >Chat</button>
+		 
+				
+		
 		
   	
 </div>	
@@ -295,6 +301,15 @@
     <script src="<%=contextPath%>/eq/js/bootstrap.bundle.min.js"></script>
 	<script src="<%=contextPath%>/eq/js/sidebars.js"></script>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	
 </body>
+
+	<script>
+	function openChat(){
+		var url = "<%=contextPath%>/Chat/chat.jsp";
+		window.open(url,'채팅 화면','width=900px, height=700px');
+		
+	}
+	
+	</script>
+
 </html>
