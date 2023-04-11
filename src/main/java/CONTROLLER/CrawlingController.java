@@ -73,15 +73,13 @@ public class CrawlingController extends HttpServlet {
 		
 		
 		//메인화면 요청주소/Crawling/maincenter.me
-		if(action.equals("/maincenter.me")) {
+		if(action.equals("/maincenter.me")) {//쓸데없는 코드 두 줄 삭제 4.11 재봉
 			
 			List<CrawlingVO> mainList = dao.getMainDatas();//최신영화 탑10데이터 List에 저장
 			List<ClipCrawlingVO> ClipList = dao.getMainClipDatas();//핫클립 데이터 List에 저장
-			List<YoutubeCrawlingVO> youtubeList = dao.getYoutubeDatas();//유튜브데이터 List에 저장 
 			
 			request.setAttribute("mainList", mainList);//최신영화 탑10List 메인페이지로 전송
 			request.setAttribute("ClipList", ClipList);//핫클립List 메인페이지로 전송
-			request.setAttribute("youtubeList", youtubeList);//유튜브List 메인페이지로 전송
 			
 			//------------------------------
 			//3022 정태영 : 메인화면 게시판 기능을 위해 추가하는 기능

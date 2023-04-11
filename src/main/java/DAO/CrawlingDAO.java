@@ -167,7 +167,7 @@ public class CrawlingDAO {
 			  			List<YoutubeCrawlingVO> youtubeList = new ArrayList<YoutubeCrawlingVO>();
 			  			int i = 0;
 			  			
-			  			//장르별 영상을 가져오기 위해 배열에 담아 저장 4.10 3,5번째 링크수정
+			  			//장르별 영상을 가져오기 위해 배열에 담아 저장 
 			  			String youtubeUrl[] =  {"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EC%95%A1%EC%85%98+%EC%98%81%ED%99%94&play_time_ge=300&cp=youtube-video&play_time_le=600&DA=STC&p=1",
 					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%EA%B3%B5%ED%8F%AC+%EC%98%81%ED%99%94&play_time_ge=300&play_time_le=600&DA=STC&cp=youtube-video&p=1",
 					 		 	  				"https://search.daum.net/search?nil_suggest=btn&w=vclip&m=vclip&q=%ED%8C%90%ED%83%80%EC%A7%80+%EC%98%81%ED%99%94&play_time_ge=600&DA=STC&cp=youtube-video&p=1",
@@ -219,12 +219,12 @@ public class CrawlingDAO {
 			   options.addArguments("--disable-popup-blocking");//팝업 창 띄우지 않음  
 		       options.addArguments("--disable-defult-apps"); //기본앱 사용하지 않음
 		       options.addArguments("--blink-settings=imagesEnabled=false");//이미지 다운받지 않음
-		       options.addArguments("--disable-infobars");//경고 메세지 비활성화 4.7 주석추가
-		       options.addArguments("--disable-extensions");//브라우저 확장기능 비활성화 4.7 주석추가
+		       options.addArguments("--disable-infobars");//경고 메세지 비활성화 
+		       options.addArguments("--disable-extensions");//브라우저 확장기능 비활성화 
 		       options.addArguments("--disable-notifications");//알림 비활성화
-		       options.addArguments("--mute-audio");//브라우저 음소거 4.7추가 
-		       options.addArguments("--start-maximized");//브라우저 창 최대화 4.7추가
-		       options.addArguments("--disable-plugins");//브라우저 플러그인 비활성화 4.7 추가
+		       options.addArguments("--mute-audio");//브라우저 음소거  
+		       options.addArguments("--start-maximized");//브라우저 창 최대화 
+		       options.addArguments("--disable-plugins");//브라우저 플러그인 비활성화 
 		       
 		       WebDriver driver = new ChromeDriver(options);
 			   
