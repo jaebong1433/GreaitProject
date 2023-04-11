@@ -93,7 +93,7 @@
    		<p>간편로그인</p>
    		
    		
-   		<table>
+   		<table align="center">
    			<tr>
    				<td><a href="javascript:kakaoLogin()"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="40px" height="40px"></a></td>
    				<td><a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="40px" height="40px"></a></td>
