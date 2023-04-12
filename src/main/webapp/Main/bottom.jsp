@@ -19,12 +19,13 @@
 		
 		.bbbot a{
 			text-decoration: none;
-			color: lightgray;
+			color: gray;
 		}
 		
 		.bbbot p{
-			color : lightgray;
+			color : gray;
 		}
+		
 		
 	</style>
 
@@ -45,11 +46,13 @@
 			
 			경상남도 양산시 양산역 1길 2 양산역프라자 202호<br><br>
 			
-			대표전화 : <010-0000-0000<br>
+			대표전화 : 010-0000-0000<br>
 			
 			FAX : 01-3546-9874
 		</p>
+		
 		</div>
 	</center>
 </body>
+
 </html>

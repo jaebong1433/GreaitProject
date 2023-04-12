@@ -82,11 +82,12 @@
       }
 	
 		.mobject{
-			border: 0.5px solid gray;
+			border: 0.5px solid white;
 			width : 100%;
 			height: 100%;
 			background-color: white;
 			border-radius: 25px;
+			box-shadow: 1px 4px 5px gray;
 		}
 		
 		.logsetf{

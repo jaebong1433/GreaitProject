@@ -49,9 +49,6 @@ public class ChatSubmitServlet extends HttpServlet {
 		    response.getWriter().write(new ChatDAO().submit(m_nickname,chatContent) + "");
 		}
 		
-		
-		
-		
 	}
 
 }

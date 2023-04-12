@@ -27,7 +27,7 @@ public class SendEmail {
       //https://kdevkr.github.io/gmail-smtp/ 
            
       // 발신자 정보 설정
-      String fromEmail = "@naver.com";
+      String fromEmail = "isv44@naver.com";
       String fromName = "Mood Movie";
 
       // 수신자 정보 설정

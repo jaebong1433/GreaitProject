@@ -31,8 +31,6 @@
 		
 		<style type="text/css">
 			
-			
-			
 			.main{
 				width: 100%;
 				float: center;
@@ -47,7 +45,6 @@
 				position: fixed;
 				border-radius: 20px;
 				z-index: 3;
-				box-shadow: 0px 5px 15px gray;
 			}
 			.maintext{
 				width : 79%;
@@ -55,6 +52,7 @@
 				float : right;
 				background-color: white;
 				z-index: 2;
+				box-shadow: 2px 2px 2px gray;
 			}
 			
 			.mainbot{
@@ -64,12 +62,12 @@
 				z-index: 1;
 			}
 			
-			.wsd{
+			#ground{
 				position: relative;
 			    min-height: 100%;
 			    margin: 0 auto;
 			    padding-top: 7px;
-				background-color: #4B4B4B;
+				background-color: #F2F2F2;
 			}
 		
 			.chatdiv{
@@ -84,23 +82,35 @@
 			height: 60px;
 			border-radius: 30px;
 			font-size: 1.3em;
+			border: none;
 			background-color: white;
 			color: gray;
-			
+			box-shadow: 0px 1px 3px gray;
 		}
 		 
 		.chatingbtn:hover{
 			background-color: gray;
 			color:white;
 		}
-		</style>
 		
+		
+		</style>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script>
+			function openChat(){
+				var url = "<%=contextPath%>/Chat/chat.jsp";
+				window.open(url,'채팅 화면','width=400px, height=600px');
+				
+			}
+		
+				 
+			
+		</script>
 	</head>
 	<body>
-	<div class="wsd">
-		<center>
-			
-		
+	<div id="ground">
+		<input type="hidden" id="bgCol" value="write">
+ 		<center>
 		<table class="main">
 			<tr>
 				<td class="mainside"><jsp:include page="Main/sidebar.jsp"/></td>	
@@ -109,7 +119,6 @@
 			<tr>
 				<td class="mainbot"><jsp:include page="Main/bottom.jsp"/> </td>
 			</tr>
-				
 		</table>
 		<div class="chatdiv">		
 			<button onclick="openChat()" class="chatingbtn">
@@ -118,16 +127,10 @@
 				</svg>
 			</button>
 		</div>
+		
 		</center>
 	</div>	
 	
-	<script>
-	function openChat(){
-		var url = "<%=contextPath%>/Chat/chat.jsp";
-		window.open(url,'채팅 화면','width=400px, height=600px');
-		
-	}
 	
-	</script>
 	</body>
 </html>

@@ -37,42 +37,6 @@ YoutubeCrawlingVO vo = null;
 <script type="text/javascript" src="<%=contextPath%>/eq/js/main.js"></script>
 	<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 
-<style>
-	.genrego{
-		border: 1px solid red;
-		width: 210px;
-		height: 250px;
-		border-radius: 15px;
-		transition: all 0.1s linear;
-	}
-	
-	.genrego:hover {
-		transform: scale(1.1);
-		border: 3px solid red;
-	}
-	
-	.gogogo{
-		background-color: red;
-		width: 60px;
-		height: 40px;
-		text-align: center;
-		border-radius: 15px;
-		font-size: 1.5em;
-		font-style: bold;
-		color: white;
-		margin: auto;
-	}
-	
-	.genretitle2{
-		width:99%;
-		height: 60px;
-		text-align: left;
-	}
-	
-	
-	
-</style>
-
 </head>
 <body>
 	<center>

@@ -74,12 +74,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Sunflower:wght@300&display=swap" rel="stylesheet">
 
 	
-	<style>
+<style>
+
+
 		h4 {
 			font-family: 'Black Han Sans', sans-serif;
 		}
 		
 		h3 {
+			font-family: 'Do Hyeon', sans-serif;
+		}
+		
+		
+	
+		h2{
+			text-align: left;
+			margin-left: 10%;
 			font-family: 'Do Hyeon', sans-serif;
 		}
 		
@@ -91,19 +101,6 @@
 			margin-bottom: 50px;
 		}
 		
-		.board2{
-			float: right;
-			width : 49%;
-			border-left : 1px solid black;
-			height : 250px;
-			margin-bottom: 80px;
-		}
-	
-		h2{
-			text-align: left;
-			margin-left: 10%;
-			font-family: 'Do Hyeon', sans-serif;
-		}
 		
 		.movebtn{
 			width : 30px;
@@ -119,6 +116,14 @@
 			border : 3px solid gray;
 		}
 		
+		
+		.board2{
+			float: right;
+			width : 49%;
+			border-left : 1px solid black;
+			height : 250px;
+			margin-bottom: 80px;
+		}	
 	</style>
   
 </head>
@@ -158,7 +163,7 @@
 								
 								<div class="hover">
 								<a href="<%=daum%><%=dA%>" target="_blank">
-									<img src="<%=imgSrc%>" alt="" width="95%" />
+									<img src="<%=imgSrc%>" alt="" width="220px" />
 								</div>	
 									<span>
 									<div class="fonttb">
@@ -313,12 +318,12 @@
     				</button>
     				</a></td>
     				<td><a href="https://megabox.co.kr/booking" target="_blank">
-    				<button class="ticbt2">
+    				<button class="ticbt1">
     					<img src="<%=contextPath%>/eq/img/megabox.png" width="90%">
     				</button>
     				</a></td>
     				<td><a href="https://www.lottecinema.co.kr/NLCHS/Ticketing" target="_blank">
-    				<button class="ticbt3">
+    				<button class="ticbt1">
     					<img src="<%=contextPath%>/eq/img/lotte.png" width="90%">
     				</button>
     				</a></td>

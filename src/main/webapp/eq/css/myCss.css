@@ -62,39 +62,23 @@ hr {
 			}
 			
 			.maintic button{
-				border: 0.1px solid gray;
+				border: 0.3px solid black;
 				border-radius: 40px;
 				width: 70%;
 				height: 100%;
 				background: white;
+				box-shadow: 0px 3px 2px gray;
+				transition: all 0.1s linear;
 			}
 			
-			
-		.ticbt1 img{
-			transition: all 0.1s linear;
-		}
 		
-		.ticbt1:hover img{
+		.maintic button:hover {
 			transform: scale(1.1);
 		}
 		
-		.ticbt2 img{
-			transition: all 0.1s linear;
-		}
 		
-		.ticbt2:hover img{
-			transform: scale(1.1);
-		}
-		
-		.ticbt3 img{
-			transition: all 0.1s linear;
-		}
-		
-		.ticbt3:hover img{
-			transform: scale(1.1);
-		}
 			
-			
+		
 			.centertb1{
 			width: 98%;
 			height: 400px;
@@ -102,7 +86,39 @@ hr {
 			margin: auto;
 		}
 		
-		
+		.genrego{
+		border: 1px solid red;
+		width: 210px;
+		height: 250px;
+		border-radius: 15px;
+		transition: all 0.1s linear;
+	}
+	
+	.genrego:hover {
+		transform: scale(1.1);
+		border: 3px solid red;
+	}
+	
+	.gogogo{
+		background-color: red;
+		width: 60px;
+		height: 40px;
+		text-align: center;
+		border-radius: 15px;
+		font-size: 1.5em;
+		font-style: bold;
+		color: white;
+		margin: auto;
+	}
+	
+	.genretitle2{
+		width:99%;
+		height: 60px;
+		text-align: left;
+	}
+	
+	
+	
 		
 		.comut{
 				width : 90%;

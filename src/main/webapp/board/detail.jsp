@@ -44,6 +44,8 @@ pageEncoding="UTF-8"
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
+    	<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 		<style type="text/css">
 		
 		
@@ -136,9 +138,14 @@ pageEncoding="UTF-8"
 		width: 90%;
 		border-bottom: 2px solid gray;
 	}
+
 	#comment_submit{
 		height : 100px;
 		width : 80px;
+  }
+  
+	a{
+		text-decoration: none;
 	}
 	
 		</style>

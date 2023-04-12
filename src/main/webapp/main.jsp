@@ -144,7 +144,7 @@ html, body {s
 	      	<div class="clocktext">
 	      		<h2>잠시만 기다려주세요...</h2>
 	      	</div>
-	      	 <button style="visibility:hidden" id="myButton" onclick="location.href='Crawling/maincenter.me'">ㄱ</button>
+	      	 <button style="visibility:hidden" id="myButton" onclick="location.href='Crawling/maincenter.me'"></button>
 	    </div>
 	</center>
 
