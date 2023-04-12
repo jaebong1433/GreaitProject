@@ -108,16 +108,15 @@
 			background-color : white;
 			color : #5D5D5D;
 			width : 100%;
-			height: 20%;
+			height: 25%;
 			border-radius: 10px;
+			border: none;
+			box-shadow: 1px 3px 5px gray;
 		}
 		
 		.logsetf input:hover{
 			background-color : #5D5D5D;
 			color : white;
-			width : 100%;
-			height: 35px;
-			border-radius: 10px;
 		}
 		
 		
@@ -136,6 +135,8 @@
 			height: 40px;
 			border-radius: 10px;
 			margin-top: 15px;
+			border: none;
+			box-shadow: 1px 3px 5px gray;
 		}
 		
 		.logf button:hover{
