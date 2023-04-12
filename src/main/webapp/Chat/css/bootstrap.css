@@ -5211,7 +5211,7 @@ a.thumbnail.active {
 .media-object {
   display: block;
 }
-.media-object.img-thumbnail {
+.media-object, .img-thumbnail {
   max-width: 50px;
 }
 .media-right,
