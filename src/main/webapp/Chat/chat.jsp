@@ -171,7 +171,7 @@
 </head>
 <body>
 
-	<div class="container">
+	<div>
 		<div class="container bootstrap snippet">
 			<div class="row">
 				<div class="col-xs-12">
