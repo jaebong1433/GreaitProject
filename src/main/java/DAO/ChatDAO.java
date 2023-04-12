@@ -217,7 +217,7 @@ public class ChatDAO{
 		// chatID는 시퀀스를 이용하여 자동으로 증가하도록 함
 		// chatTime은 SYSDATE를 이용하여 현재 시간을 저장하도록 함
 		String SQL = "INSERT INTO CHAT(chatID,m_nickname,chatContent,chatTime) "
-					+ "VALUES (chat_chatID.NEXTVAL,? , ?,   TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS') )";
+					+ "VALUES (chat_chatID.NEXTVAL,? , ?,   TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') )";
 		
 		try {
 			pstmt = con.prepareStatement(SQL);
