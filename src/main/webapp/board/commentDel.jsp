@@ -9,15 +9,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>댓글 삭제 창</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+</style>
 </head>
 <body>
-	<div id="pwCheckDiv" >
-			<input type="password" id="comPwCheck" placeholder="비밀번호를 입력하여 주세요.">
-			<button onclick="delPwCheck()">삭제</button>
+<table class="container">
+<tr>
+	<td width="100%">
+		<div id="pwCheckDiv" class="input-group">
+			<input type="password" id="comPwCheck" style="text-align:center;" class="form-control" placeholder="댓글 비밀번호">
+			<button class="btn btn-outline-primary" onclick="delPwCheck()">삭제</button>
 			<input type="hidden" id="delCommentIdx" value="<%=delCommentIdx%>">
+		</div>
+	</td>	
+</tr>
+<tr>
+	<td>
+		<div>
 			<p id="pwCheckInput"></p>
-	</div>
+		</div>
+	</td>
+</tr>
+</table>
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
