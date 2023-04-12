@@ -45,10 +45,10 @@ public class ChatDAO{
 		ResultSet rs = null;
 		
 		// SQL문 생성
-		String sql = "SELECT * FROM CHAT WHERE chatTime > ? ORDER BY chatTime";
+		String SQL = "SELECT * FROM CHAT WHERE chatTime > ? ORDER BY chatTime";
 		try {
 			// PreparedStatement 객체 생성 및 파라미터 설정
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, nowTime);
 			// SQL문 실행 후 ResultSet 객체에 결과 저장
 			rs = pstmt.executeQuery();
@@ -62,19 +62,23 @@ public class ChatDAO{
 				chatvo.setM_nickname(rs.getString("m_nickname"));
 				
 				// 채팅 내용에서 특정 문자열 치환하여 ChatVO에 저장
-				chatvo.setChatContent(rs.getString("chatContent").replaceAll("","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
+				chatvo.setChatContent(rs.getString("chatContent").replaceAll("\\s","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
 				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
 				String timeType = "오전";// 시간 타입 변수 초기화
 				
-				// 채팅 시간의 형식 변경
-				if(Integer.parseInt(rs.getString("chatTime").substring(11,13))>= 12) {
-					timeType = "오후";
-					chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
-				}
-				chatvo.setChatTime(rs.getString("chatTime").substring(0,11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14,16)+ "" );
-				chatList.add(chatvo);
 				
-			}
+				// 채팅 시간의 형식 변경
+	            if (chatTime >= 12) {
+	                timeType = "오후";
+	                if (chatTime > 12) {
+	                    chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
+	                }
+	            }
+	            chatvo.setChatTime(rs.getString("chatTime").substring(0, 11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14, 16) + "");
+	            chatList.add(chatvo);
+
+	        }
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -99,29 +103,39 @@ public class ChatDAO{
 		ArrayList<ChatVO> chatList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM CHAT WHERE chatID > (SELECT MAX(chatID) - ? FROM CHAT) ORDER BY chatTime";
 		
+		String SQL = "SELECT * FROM CHAT WHERE chatID > (SELECT MAX(chatID) - ? FROM CHAT) ORDER BY TO_DATE(chatTime, 'YYYY-MM-DD HH24:MI:SS')";
+					 
 		try {
 			
-			pstmt = con.prepareStatement(sql); // SQL 쿼리문 실행을 위한 PreparedStatement 객체 생성
+			pstmt = con.prepareStatement(SQL); // SQL 쿼리문 실행을 위한 PreparedStatement 객체 생성
 			pstmt.setInt(1, number); // 입력받은 number 값으로 파라미터 설정
 			rs = pstmt.executeQuery(); // 쿼리 실행
 			chatList = new ArrayList<ChatVO>(); // 채팅 리스트를 저장할 ArrayList 객체 생성
+			
 			while (rs.next()) { // 쿼리 결과가 있는 동안 반복문 실행
 				ChatVO chatvo = new ChatVO();// ChatVO 객체 생성
 				chatvo.setChatID(rs.getInt("chatID"));  // ChatVO 객체에 결과값 저장
 				chatvo.setM_nickname(rs.getString("m_nickname"));
-				chatvo.setChatContent(rs.getString("chatContent").replaceAll("","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
-				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
-				String timeType = "오전"; // 시간 타입 변수 초기화
-				if(Integer.parseInt(rs.getString("chatTime").substring(11,13))>= 12) {
-					timeType = "오후";
-					chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
-				}
-				chatvo.setChatTime(rs.getString("chatTime").substring(0,11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14,16)+ "" );
-				chatList.add(chatvo); // ChatVO 객체를 ArrayList에 추가
 				
-			}
+				
+				// 채팅 내용에서 특정 문자열 치환하여 ChatVO에 저장
+				chatvo.setChatContent(rs.getString("chatContent").replaceAll("\\s","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
+				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
+				String timeType = "오전";// 시간 타입 변수 초기화
+				
+				
+				// 채팅 시간의 형식 변경
+	            if (chatTime >= 12) {
+	                timeType = "오후";
+	                if (chatTime > 12) {
+	                    chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
+	                }
+	            }
+	            chatvo.setChatTime(rs.getString("chatTime").substring(0, 11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14, 16) + "");
+	            chatList.add(chatvo);
+
+	        }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -146,10 +160,9 @@ public class ChatDAO{
 		ResultSet rs = null;
 		
 		 // 데이터베이스에서 채팅 내용을 가져오는 SQL 쿼리
-		String sql = "SELECT * FROM CHAT WHERE chatID > ? ORDER BY chatTime";
-		
+		String SQL = "SELECT * FROM CHAT WHERE chatID > ? ORDER BY chatTime";
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(SQL);
 			 // 가장 최근 채팅ID 이후의 채팅 내용을 가져오기 위해 매개변수로 전달받은 chatID를 사용하여 PreparedStatement의 매개변수를 설정
 			pstmt.setInt(1, Integer.parseInt(chatID)); 
 			
@@ -160,20 +173,24 @@ public class ChatDAO{
 				ChatVO chatvo = new ChatVO(); // 가져온 채팅 데이터를 저장할 ChatVO 객체 생성
 				chatvo.setChatID(rs.getInt("chatID"));  // 채팅 ID 설정
 				chatvo.setM_nickname(rs.getString("m_nickname"));// 채팅을 입력한 사용자의 닉네임 설정
-	            // 채팅 내용을 HTML 태그로 변환하여 ChatVO 객체의 채팅 내용 필드에 저장
+	            
+				// 채팅 내용에서 특정 문자열 치환하여 ChatVO에 저장
+				chatvo.setChatContent(rs.getString("chatContent").replaceAll("\\s","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
+				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
+				String timeType = "오전";// 시간 타입 변수 초기화
 				
-				chatvo.setChatContent(rs.getString("chatContent").replaceAll("","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
-				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13)); // 채팅 입력 시간의 시 설정
-				String timeType = "오전"; // 채팅 입력 시간의 오전/오후 설정
-				if(Integer.parseInt(    rs.getString("chatTime").substring(11,13)     )>= 12) { // 만약 채팅 입력 시간이 오후 12시 이후라면
-					timeType = "오후"; // timeType을 "오후"로 설정
-					chatTime -= 12; // chatTime에서 12를 빼서 12시간제로 변환
-				}
-				 // ChatVO 객체의 채팅 입력 시간 필드에 저장
-				chatvo.setChatTime(rs.getString("chatTime").substring(0,11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14,16)+ "" );
-				chatList.add(chatvo);// 생성된 ChatVO 객체를 리스트에 추가
 				
-			}
+				// 채팅 시간의 형식 변경
+	            if (chatTime >= 12) {
+	                timeType = "오후";
+	                if (chatTime > 12) {
+	                    chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
+	                }
+	            }
+	            chatvo.setChatTime(rs.getString("chatTime").substring(0, 11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14, 16) + "");
+	            chatList.add(chatvo);
+
+	        }
 		} catch (Exception e) {
 			e.printStackTrace(); // 예외가 발생하면 콘솔에 출력
 		}finally {
@@ -199,11 +216,11 @@ public class ChatDAO{
 	
 		// chatID는 시퀀스를 이용하여 자동으로 증가하도록 함
 		// chatTime은 SYSDATE를 이용하여 현재 시간을 저장하도록 함
-		String sql = "INSERT INTO CHAT(chatID,m_nickname,chatContent,chatTime) "
+		String SQL = "INSERT INTO CHAT(chatID,m_nickname,chatContent,chatTime) "
 					+ "VALUES (chat_chatID.NEXTVAL,? , ?,   TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS') )";
 		
 		try {
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, m_nickname);
 			pstmt.setString(2, chatContent);
 			return pstmt.executeUpdate();// 쿼리 실행 결과 반환

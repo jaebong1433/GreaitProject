@@ -64,7 +64,10 @@
 						autoClosingAlert('#warningMessage', 2000);
 
 					}
-					chatListFunction('ten');
+					
+					chatListFunction('today')
+					
+					
 				}
 				
 			});
@@ -101,7 +104,7 @@
 					if(data == "") return;
 					// JSON 형식으로 파싱하여 채팅 내용 추출	
 					//String을 아래와 같이 JSONObject객체로 변경 
-					var parsed = JSON.parse(data); // {"result":[[{"value": "정경훈"},{"value": "&nbsp;안&nbsp;녕&nbsp;"},{"value": "2023-04-06  오전 4:07"}],[{"value": "경훈이"},{"value": "&nbsp;안&nbsp;녕&nbsp;"},{"value": "2023-04-06  오전 4:22"}],[{"value": "경훈이"},{"value": "&nbsp;언&nbsp;뇽&nbsp;"},{"value": "2023-04-07  오후 0:08"}]], "last":"경훈이"}
+					var parsed = JSON.parse(data); //
 					
 					var result = parsed.result;
 					
@@ -114,7 +117,7 @@
 					
 					// 마지막으로 불러온 채팅의 ID를 업데이트
 					lastID = Number(parsed.last);
-					//lastID = parseInt(parsed.last);
+					
 					
 				},
 				
@@ -156,15 +159,15 @@
 								$('#chatList').scrollTop($("#chatList")[0].scrollHeight);	 
 							}
 		
-		// 무한 스크롤 기능을 위해 주기적으로 채팅 리스트를 갱신하는 함수
-		// chatListFunction 함수를 1초마다 호출하여 채팅 내역을 불러옴
-		// chatListFunction 함수 호출 시, 마지막으로 로드된 채팅 내역의 마지막 인덱스를 파라미터로 전달하여 이후 내역을 불러옴
-// 		function getInfiniteChat() {
-// 		setInterval(function() {
-// 		chatListFunction(lastID);
-// 			}, 1000);
+		//무한 스크롤 기능을 위해 주기적으로 채팅 리스트를 갱신하는 함수
+		//chatListFunction 함수를 1초마다 호출하여 채팅 내역을 불러옴
+		//chatListFunction 함수 호출 시, 마지막으로 로드된 채팅 내역의 마지막 인덱스를 파라미터로 전달하여 이후 내역을 불러옴
+		function getInfiniteChat() {
+		setInterval(function() {
+		chatListFunction(lastID);
+			}, 1000);
 								
-// 			}
+			}
 	</script>
 
 
@@ -227,7 +230,9 @@
 
  		<script type="text/javascript"> 
  			$(document).ready(function() {
- 				chatListFunction('ten'); // chatListFunction 호출하여 type에 'ten'을 전달
+ 				chatListFunction('today'); // chatListFunction 호출하여 type에 'ten'을 전달
+ 				getInfiniteChat();
+ 			
  			});
 		
  		</script> 

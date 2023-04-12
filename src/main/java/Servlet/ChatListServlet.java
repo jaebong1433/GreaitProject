@@ -27,13 +27,14 @@ public class ChatListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	
 		//웹브라우저로 응답할 데이터 종류 설정
-		response.setContentType("text/html; charset=utf-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		// listType 파라미터 값 추출
 		String listType = request.getParameter("listType");
 		
 		
-		System.out.println(listType);
+		System.out.println("출력:"+listType);
+		
 		
 		// listType이 null이거나 빈 문자열인 경우, 빈 문자열을 반환하여 웹브라우저로 전송
 		if(listType == null || listType.equals("")) {
@@ -43,17 +44,17 @@ public class ChatListServlet extends HttpServlet {
 		// listType이 "today"인 경우, getToday() 메소드를 실행하여 오늘 날짜의 채팅 목록을 JSON 형태로 반환하여 웹브라우저로 전송
 		}else if(listType.equals("today")) { 
 			
-			response.getWriter().write(getToday());
+			response.getWriter().write(getToday());//AJAX로 조회 요청한 chat.jsp로
+			
+			
+			System.out.println();// <------------------------- OK
 			
 		// listType이 "ten"인 경우, getTen() 메소드를 실행하여 최근 10개의 채팅 목록을 JSON 형태로 반환하여 웹브라우저로 전송
 		}else if(listType.equals("ten")) {  
 			
-	
-		
-//			System.out.println(getToday()); 
-			System.out.println(getTen());
-			System.out.println();   // <------------------------- OK
 			response.getWriter().write(getTen());  //AJAX로 조회 요청한 chat.jsp로
+			
+			System.out.println();   // <------------------------- OK
 		}	
 		
 		// listType이 숫자인 경우, getID() 메소드를 실행하여 해당 ID의 채팅 목록을 JSON 형태로 반환하여 웹브라우저로 전송
@@ -105,7 +106,7 @@ public class ChatListServlet extends HttpServlet {
 		
 		// ChatDAO의 인스턴스를 생성하여 채팅 데이터를 조회
 		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(1);
+		ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(10);
 		
 		// 디버깅을 위해 조회된 채팅 메시지 수를 출력
 		System.out.println(chatList.size());
