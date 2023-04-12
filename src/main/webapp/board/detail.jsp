@@ -43,6 +43,8 @@ pageEncoding="UTF-8"
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
+    	<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
+		<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 		<style type="text/css">
 		
 		
@@ -138,6 +140,9 @@ pageEncoding="UTF-8"
 	.writeinfo{
 		width: 90%;
 		border-bottom: 2px solid gray;
+	}
+	a{
+		text-decoration: none;
 	}
 	
 		</style>
