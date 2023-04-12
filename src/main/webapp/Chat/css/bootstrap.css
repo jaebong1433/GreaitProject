@@ -1142,6 +1142,7 @@ img {
 }
 .img-circle {
   border-radius: 50%;
+  width: 50px;
 }
 hr {
   margin-top: 20px;
@@ -5211,7 +5212,7 @@ a.thumbnail.active {
   display: block;
 }
 .media-object.img-thumbnail {
-  max-width: none;
+  max-width: 50px;
 }
 .media-right,
 .media > .pull-right {

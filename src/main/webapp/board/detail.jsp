@@ -42,6 +42,7 @@ pageEncoding="UTF-8"
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 		<link rel="stylesheet" href="<%=contextPath%>/eq/css/myCss.css">
 		<style type="text/css">
 		
@@ -128,16 +129,16 @@ pageEncoding="UTF-8"
 		width : 85%;
 		
 	}
-	#comment_submit{
-		height:100px;
-		background-color:navy;
-	}
 	.comment_td{
 		width:30%;
   }
 	.writeinfo{
 		width: 90%;
 		border-bottom: 2px solid gray;
+	}
+	#comment_submit{
+		height : 100px;
+		width : 80px;
 	}
 	
 		</style>
@@ -256,24 +257,23 @@ pageEncoding="UTF-8"
          	</form>
          </div>
          <hr><hr>
-         <%-- 댓글 작성 --%>
+        <%-- 댓글 작성 --%>
          <form method="post" id="comment_write">
 			<table class="commentTb">
 				<tr>
 					<td class="comment_td">
 					  <% if(loginNick != null){//로그인을 했을때%>
-					  <input type="text" id="m_nickname" name="m_nickname" value="<%=loginNick%>" readonly><br>
+					  <input type="text" class="form-control" id="m_nickname" name="m_nickname" value="<%=loginNick%>" readonly><br>
 					   <%}else{//로그인을 하지 않았을때%>
-					   <input type="text" id="comment_nick" name="comment_nick" placeholder="닉네임"><br>
+					   <input type="text" class="form-control" id="comment_nick" name="comment_nick" placeholder="닉네임"><br>
 					   <%}%>
-					   <br>
-					  <input type="password" id="comment_pw" name="comment_pw" placeholder="댓글 비밀번호">
+					  <input type="password" class="form-control" id="comment_pw" name="comment_pw" placeholder="댓글 비밀번호">
 					 </td>
 					 <td width="60%">
-						  <textarea id="comment_content" name="comment_content" rows="4" cols="110" placeholder="댓글을 작성하여 주세요."></textarea>
+						  <textarea id="comment_content" class="form-control" name="comment_content" rows="4" cols="110" placeholder="댓글을 남겨주세요."></textarea>
 					 </td>
 					 <td width="10%">
-						  <input id="comment_submit" type="submit" value="작성">
+						  <button id="comment_submit" type="submit" class="btn btn-outline-primary">작성</button>
 					 </td>
 				 </tr>
 			 </table>
@@ -334,10 +334,10 @@ pageEncoding="UTF-8"
 			var c_idx = $("#c_idx").val();
 			if(request == 'mod'){
 				url = "<%=contextPath%>/board/commentMod.jsp?commentIdx=" + commentIdx + "&modContent=" + modContent;
-				window.open(url, '수정요청창', 'width=500, height=500, left='+left+', top='+top);
+				window.open(url, '수정요청창', 'width=450, height=250, left='+left+', top='+top);
 			}else if(request == 'delete'){
 				url = "<%=contextPath%>/board/commentDel.jsp?commentIdx=" + commentIdx;
-				window.open(url, '삭제요청창', 'width=500, height=500, left='+left+', top='+top);
+				window.open(url, '삭제요청창', 'width=450, height=200, left='+left+', top='+top);
 			}else if(request == 'adminDel'){
 				var adminDelPro = confirm("삭제하시겠습니까 ?");
 				if(adminDelPro){
