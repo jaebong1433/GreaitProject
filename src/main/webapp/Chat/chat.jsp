@@ -45,6 +45,15 @@
 			var m_nickname = $('#m_nickname').val();
 			var chatContent = $('#chatContent').val();
 			
+			// 입력된 닉네임과 채팅 내용이 빈 공백인 경우 함수 종료
+			if(m_nickname.trim() === '' || chatContent.trim() === ''){
+				
+				// 닉네임과 내용을 모두 입력해주세요. 메시지를 보여줌
+		        autoClosingAlert('#dangerMessage', 2000);
+				
+				return;
+			}
+			
 			// ChatSubmitServlet에 입력된 데이터 전송
 			$.ajax({
 				type: "POST",
@@ -65,7 +74,7 @@
 
 					}
 					
-					chatListFunction('today')
+					chatListFunction('today');
 					
 					
 				}
@@ -133,6 +142,7 @@
 		
 		// 각 채팅 내용을 화면에 추가하는 함수
 		function addChat(m_nickname, chatContent, chatTime) {
+			if ($('#chatList').find('#chat_' + chatTime).length === 0) {
 			$('#chatList').append('<div class="row">' +
 								 '<div class="col-lg-12">' + 
 								 '<div class="media">' +
@@ -158,7 +168,7 @@
 								 '<hr>');
 								$('#chatList').scrollTop($("#chatList")[0].scrollHeight);	 
 							}
-		
+						}
 		//무한 스크롤 기능을 위해 주기적으로 채팅 리스트를 갱신하는 함수
 		//chatListFunction 함수를 1초마다 호출하여 채팅 내역을 불러옴
 		//chatListFunction 함수 호출 시, 마지막으로 로드된 채팅 내역의 마지막 인덱스를 파라미터로 전달하여 이후 내역을 불러옴
@@ -201,6 +211,7 @@
 								<div class="row" style="height:90px;">
 									<div class="form-group col-xs-10">
 										<textarea style="height:80px;" id="chatContent" class="form-control" placeholder="메시지를 입력해주세요." maxlength="100" onkeydown="if(event.keyCode==13){submitFunction(); return false;}"></textarea>
+										
 									</div>
 									<div class="form-group col-xs-2">
 										<button type="button" class="btn btn-default pull-right" onclick="submitFunction();">전송</button>
