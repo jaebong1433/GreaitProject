@@ -99,7 +99,7 @@
 		<script>
 			function openChat(){
 				var url = "<%=contextPath%>/Chat/chat.jsp";
-				window.open(url,'채팅 화면','width=400px, height=600px');
+				window.open(url,'채팅 화면','width=400px, height=690px');
 				
 			}
 		
