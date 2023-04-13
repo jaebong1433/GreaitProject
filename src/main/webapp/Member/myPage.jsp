@@ -230,8 +230,8 @@ pageEncoding="UTF-8"
 						<tr>
 							<c:if test="${ frontID != 'naver' and frontID != 'kakao' and frontID != 'googl'}">
 								<td><input type="button" value="회원수정" onClick="location.href='<%=contextPath %>/member1/mypageUpdate.me'"; return false;"></td>
+								<td><input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;"></td>
 							</c:if>	
-							<td><input type="button" value="회원탈퇴" onClick="location.href='<%=contextPath %>/member1/withdrawal.me'"; return false;"></td>
 						</tr>
 					</table>
 					</c:if>
