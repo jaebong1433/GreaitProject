@@ -570,10 +570,9 @@ public class MemberDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql = "select * from m_member where m_uniqueID = ?";
+			String sql = "select * from m_member where m_uniqueid = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m_uniqueID);
-			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

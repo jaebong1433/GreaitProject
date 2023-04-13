@@ -551,6 +551,8 @@ public class MemberController extends HttpServlet {
 				//고유아이디를 통해 회원정보를 조회하도록 요청
 				String userUniqueID = request.getParameter("userUniqueID");
 				
+				System.out.println("mypage, uniqueID: " + userUniqueID);
+				
 				MemberVO vo = memberdao.getMemVOByUniqueID(userUniqueID);
 				
 				List<CommunityVO> list = comdao.getAllComListByUniqueID(userUniqueID);
@@ -562,12 +564,12 @@ public class MemberController extends HttpServlet {
 				
 	
 				nextPage = "/index.jsp";
-			
+			}
 				
 			//회원 정보수정을 위한 회원 확인 비밀번호인증
 			//myPage.jsp에서 회원 수정 버튼을 눌렀을 경우 request로 purpose에 update를 바인딩하고
 			//modMemberForm.jsp를 재요청한다.
-			}else if (action.equals("/mypageUpdate.me")) {
+			else if (action.equals("/mypageUpdate.me")) {
 				
 				request.setAttribute("center", "/Member/modMemberForm.jsp");
 				request.setAttribute("purpose", "update");

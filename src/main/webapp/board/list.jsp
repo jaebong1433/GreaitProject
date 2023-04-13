@@ -285,6 +285,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 							}
 							
 								CommunityVO vo = (CommunityVO)list.get(i);
+								
 								MemberDAO memdao = new MemberDAO();
 								MemberVO memvo = memdao.getMemVOByUniqueID(vo.getC_uniqueid());
 								
@@ -329,7 +330,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								<!-- 회원 게시글일 때 -->
 								<c:if test="<%= memvo != null %>">
 									<td align="left"><img width="20%" alt="등급 이미지" src="<%= contextPath %>/Member/images/<%= memvo.getM_gradeimage() %>">
-										<a href="#" onclick="goMypage(<%= vo.getC_uniqueid() %>);">
+										<a href="#" onclick="goMypage('<%= vo.getC_uniqueid() %>');">
 										LV. <%= memvo.getM_level() %> <%=vo.getC_nickname()%>
 										</a>
 									</td>
