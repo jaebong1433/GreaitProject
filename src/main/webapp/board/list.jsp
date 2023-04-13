@@ -313,10 +313,10 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 										width = vo.getC_level() * 10;
 								%>
 									<img src="<%=contextPath%>/board/images/level.gif" width="<%=width%>" height="15">
-									<img src="<%=contextPath%>/board/images/re.gif">
+									<img src="<%=contextPath%>/board/images/re.png" width="50px" height="30px"> 
 								<%	
 									}
-								%>		
+								%>		 
 									<%--글제목 나타내는 곳 --%>
 									<a href="javascript:fnRead('<%=vo.getC_idx()%>')">
 										<%=vo.getC_title()%>

@@ -40,15 +40,16 @@
 			.mptb td{
 				border : 1px solid gray;
 				height : 19%;
+				
 			}
 			
 			.mptb button{
 				background-color: gray;
 				color: white;
-				margin-left: 10px;
 				width: 80px;
 				height: 30px;
 				border-radius: 10px;
+				margin: 3px 0 0 20px;
 			}
 			
 			.profiletb{
@@ -90,6 +91,31 @@
 			}
 			
 			
+			.emailcerti{
+				width : 100%;
+				height: 30px;
+				border: none;
+			}
+			
+			.emailcerti td{
+				border: none;
+			}
+			
+			.emailcerti input{
+				width : 90%;
+				height: 100%;
+				align: center;
+				margin: auto;
+			}
+			
+			#m_id, #m_nickname, #m_pw, #m_email{
+				height: 30px;
+			}
+			
+			.smallmy td{
+				border:none;
+			}
+			
 		</style>
 
 </head>
@@ -111,21 +137,37 @@
 			<tr>
 				<td>ID</td>
 				<td>
-					<input type="text" id="m_id" name="m_id"
-					value="${ vo.m_id }" >
-					<p id="idInput"></p>
-					<button type="button" onclick="updateID(); return false;">수정하기</button>
+				<table class="smallmy">
+					<tr>
+						<td>
+							<input type="text" id="m_id" name="m_id" value="${ vo.m_id }" >
+						</td>
+						<td>
+							<button type="button" onclick="updateID(); return false;">수정하기</button>
+						</td>
+						</tr>
+						<tr><td>
+						<p id="idInput"></p>
+						</td></tr>
+				</table>
 				</td>
 			</tr>	
 				
 			<tr>
 				<td>닉네임</td>
 				<td>
-					<input type="text" id="m_nickname" name="m_nickname"
-						value="${ vo.m_nickname }">
-					<p id="nicknameInput"></p>
-					<button type="button" onclick="updateNickname(); return false;">수정하기</button>
-				</td>
+					<table class="smallmy">
+					<tr>
+						<td>
+							<input type="text" id="m_nickname" name="m_nickname" value="${ vo.m_nickname }">
+						</td>
+						<td>
+							<button type="button" onclick="updateNickname(); return false;">수정하기</button>						</td>
+						</tr>
+						<tr><td>
+						<p id="nicknameInput"></p>
+						</td></tr>
+				</table></td>
 			</tr>
 		 
 		 	<tr>	
@@ -135,9 +177,13 @@
 						value="${ vo.m_email }">
 					<p id="emailInput"></p>
 					<!-- 이메일 인증 관련 -->
-					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">		   
+					<table class="emailcerti"><tr><td>
+					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">	
+					</td><td>	   
 					<input id="sendEmail" type="button" value="인증 메일 보내기">
+					</td><td>
 					<input id="auth" type="button" value="이메일 인증">
+					</td></tr></table>
 					<button type="button" onclick="updateEmail(); return false;">수정하기</button>
 				</td>
 			</tr>
@@ -145,11 +191,17 @@
 			<tr>
 				<td>비밀번호</td>
 				<td>
-					<input type="passWord" id="m_pw" name="m_pw"
-						placeholder="비밀번호를 입력하세요.">
-					<p id="pwInput"></p>
-					<button type="button" onclick="updatePW(); return false;">수정하기</button>
-				</td>
+					<table class="smallmy">
+					<tr>
+						<td>
+						<input type="passWord" id="m_pw" name="m_pw" placeholder="비밀번호를 입력하세요.">						</td>
+						<td>
+							<button type="button" onclick="updatePW(); return false;">수정하기</button>						</td>
+						</tr>
+						<tr><td>
+						<p id="pwInput"></p>
+						</td></tr>
+				</table></td>
 			</tr>
 		</table>
 			
