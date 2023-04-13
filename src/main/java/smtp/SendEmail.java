@@ -10,8 +10,8 @@ public class SendEmail {
       // Gmail 계정 정보 설정
 //      final String username = "구글 계정 아이디";
 //      final String password = "구글 계정 보안 비밀번호";
-	   final String username = "isv44";
-     final String password = "zxc331200@@@";
+	   final String username = "tart9408";
+     final String password = "godgs8279";
 
       
       
@@ -27,7 +27,7 @@ public class SendEmail {
       //https://kdevkr.github.io/gmail-smtp/ 
            
       // 발신자 정보 설정
-      String fromEmail = "isv44@naver.com";
+      String fromEmail = "tart9408@naver.com";
       String fromName = "Mood Movie";
 
       // 수신자 정보 설정
