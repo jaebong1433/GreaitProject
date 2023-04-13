@@ -107,6 +107,13 @@ pageEncoding="UTF-8"
 				border-bottom: 2px solid red;
 			}
 			
+			.selecttr:hover{
+				background-color: #F5A9BC;
+			}
+			
+			.textselect:hover{
+				background-color: #E6E6E6;
+			}
 			
 		</style>
 		
@@ -218,14 +225,14 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 	        	<tr> 
 	        		<td colspan="4">
 						<table border="0" width="100%" cellpadding="2" cellspacing="0">
-							<tr align="center" bgcolor="#D0D0D0" height="40px">
-								<td align="left" width="10%">번호</td>
-								<td align="left" width="40%">제목</td>
-								<td align="left" width="20%">작성자</td>
-								<td align="left" width="15%">작성일</td>
-								<td align="left" width="7.5%">조회수</td>
-								<td align="left" width="7.5%">추천</td>
-							</tr>	
+							<tr align="center" bgcolor="#D0D0D0" height="40px" style="border-bottom: 2px solid black;">
+								<td align="left" width="10%"><b>번호</b></td>
+								<td align="left" width="40%"><b>제목</b></td>
+								<td align="left" width="20%"><b>작성자</b></td>
+								<td align="left" width="15%"><b>작성일</b></td>
+								<td align="left" width="7.5%"><b>조회수</b></td>
+								<td align="left" width="7.5%"><b>추천</b></td>
+							</tr>
 				<%
 					//게시판 board테이블에서 조회된 글이 없다면?
 					if(list.isEmpty()){
@@ -244,7 +251,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 									content = content.substring(0, 20) + "...";
 								}
 				%>
-								<tr align="center" bgcolor="#FAF4C0" height="40px">
+								<tr align="center" bgcolor="#F8E0E6" height="40px" class="selecttr">
 									<td align="left"><%=vo.getC_idx()%></td>
 									<td align="left">
 								<%
@@ -295,7 +302,7 @@ totalBlock = (int)Math.ceil( (double)totalPage / pagePerBlock );
 								}
 				%>			
 								
-							<tr height="40px">
+							<tr height="40px" class="textselect">
 								<td align="left"><%=vo.getC_idx()%></td>				
 								<td>
 								<%

@@ -23,11 +23,11 @@
 				margin : 100px 0 0 0;
 			}
 			
-			.mpdiv input{
-				margin : 5px 0 0 20px;
-				height : 20px;
-				width : 150px;
-			}
+/* 			.mpdiv input{ */
+/* 				margin : 5px 0 0 20px; */
+/* 				height : 30px; */
+/* 				width : 150px; */
+/* 			} */
 			
 			.mptb{
 				border : 1px solid black;
@@ -97,23 +97,34 @@
 				border: none;
 			}
 			
-			.emailcerti td{
-				border: none;
-			}
+			.emailcerti td{ 
+				border: none; 
+ 			} 
 			
-			.emailcerti input{
-				width : 90%;
+			.emailText{
+				width : 250px;
 				height: 100%;
 				align: center;
 				margin: auto;
 			}
+			.emailBtn {
+				width : 170px;
+				height:30px;
+				margin: auto 0 0 20px;
+			}
 			
-			#m_id, #m_nickname, #m_pw, #m_email{
+			#m_id, #m_nickname, #m_pw, #m_email, #authInput{
 				height: 30px;
 			}
 			
-			.smallmy td{
-				border:none;
+ 			.smallmy p{ 
+				margin:auto; 
+ 			} 
+			
+			.smallmy td {
+			  display: table-cell;
+			  vertical-align: middle;
+			  border : none;
 			}
 			
 		</style>
@@ -141,14 +152,12 @@
 					<tr>
 						<td>
 							<input type="text" id="m_id" name="m_id" value="${ vo.m_id }" >
-						</td>
-						<td>
 							<button type="button" onclick="updateID(); return false;">수정하기</button>
 						</td>
-						</tr>
-						<tr><td>
-						<p id="idInput"></p>
-						</td></tr>
+						<td>
+							<p id="idInput"></p>
+						</td>
+					</tr>
 				</table>
 				</td>
 			</tr>	
@@ -160,31 +169,38 @@
 					<tr>
 						<td>
 							<input type="text" id="m_nickname" name="m_nickname" value="${ vo.m_nickname }">
+							<button type="button" onclick="updateNickname(); return false;">수정하기</button>						</td>
 						</td>
 						<td>
-							<button type="button" onclick="updateNickname(); return false;">수정하기</button>						</td>
-						</tr>
-						<tr><td>
 						<p id="nicknameInput"></p>
-						</td></tr>
-				</table></td>
+						</td>
+						</tr>
+				</table>
+				</td>
 			</tr>
 		 
 		 	<tr>	
 				<td>Email</td>
 				<td>
-					<input type="text" id="m_email" name="m_email"
-						value="${ vo.m_email }">
+				<table class="emailcerti">
+				<tr>
+					<td>
+						<input type="text" id="m_email" class="emailText" name="m_email"
+							value="${ vo.m_email }">
+						<input id="sendEmail" type="button" class="emailBtn" value="인증 메일 보내기">
+					</td>
+				</tr>
 					<p id="emailInput"></p>
 					<!-- 이메일 인증 관련 -->
-					<table class="emailcerti"><tr><td>
-					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">	
-					</td><td>	   
-					<input id="sendEmail" type="button" value="인증 메일 보내기">
-					</td><td>
-					<input id="auth" type="button" value="이메일 인증">
-					</td></tr></table>
-					<button type="button" onclick="updateEmail(); return false;">수정하기</button>
+				<tr>
+					<td>
+						<input id="authInput" type="text" class="emailText" placeholder="인증번호를 적어주세요">	
+						<input id="auth" type="button" class="emailBtn" value="이메일 인증">
+						<button type="button" onclick="updateEmail(); return false;">수정하기</button>
+					</td>
+				</tr>
+				</table>
+					
 				</td>
 			</tr>
 			
@@ -194,14 +210,14 @@
 					<table class="smallmy">
 					<tr>
 						<td>
-						<input type="passWord" id="m_pw" name="m_pw" placeholder="비밀번호를 입력하세요.">						</td>
+						<input type="passWord" id="m_pw" name="m_pw" placeholder="비밀번호를 입력하세요.">						
+						<button type="button" onclick="updatePW(); return false;">수정하기</button>						
+						</td>
 						<td>
-							<button type="button" onclick="updatePW(); return false;">수정하기</button>						</td>
-						</tr>
-						<tr><td>
 						<p id="pwInput"></p>
 						</td></tr>
-				</table></td>
+				</table>
+				</td>
 			</tr>
 		</table>
 			
@@ -256,7 +272,7 @@
                     
                     if (data == 'usable') {//닉네임이 DB에 없으면?(중복아님)
                        
-                       $("#idInput").text("아이디 변경이 완료되었습니다.").css("color","blue");
+                       $("#idInput").text("아이디 변경완료.").css("color","blue");
                        
                     }else {//닉네임이 DB에 있으면? (입력한 닉네임이  DB에 저장되어 있다는 의미)
                        
@@ -345,7 +361,7 @@
                  }// json  {  } 닫기
                 ); // $.ajax메소드 호출 부분 끝부분  
 	    } else {
-	    	$("#pwInput").text("비밀번호를 형식에 맞게 작성해주세요!").css("color","red");
+	    	$("#pwInput").text("비밀번호를 작성해주세요!").css("color","red");
 	    }
     }
     
@@ -378,7 +394,10 @@
                  }// json  {  } 닫기
                 ); // $.ajax메소드 호출 부분 끝부분  
 	    } else {
-	    	$("#emailInput").text("이메일 인증 완료 후 수정이 가능합니다.").css("color","red");
+// 	    	$("#emailInput").text("이메일 인증 완료 후 수정이 가능합니다.").css("color","red");
+			alert("이메일 인증부터 해주세요");
+	    	$("#authInput").attr("placeholder","이메일 인증부터 해주세요.");
+	    	$("#authInput").focus();
 	    }
     }
     

@@ -44,7 +44,6 @@ String naver = "https://tv.naver.com";
 		width : 20%;
 		height : 300px;
 		border-bottom: 1px solid gray;
-		
 	}
 	
 	
@@ -52,6 +51,7 @@ String naver = "https://tv.naver.com";
 		height : 170px;
 		width : 100%;
 		margin : auto;
+		
 	}
 	
 	.videotext{
@@ -66,6 +66,7 @@ String naver = "https://tv.naver.com";
 	}
 	
 	.videotab:hover{
+		border-radius: 15px;
 		border: 1px solid red;
 	}
 	
@@ -76,6 +77,7 @@ String naver = "https://tv.naver.com";
 	
 	.realimg{
 		width : 230px;
+		border-radius: 15px;
 	}
 	
 	a{

@@ -11,16 +11,28 @@
     		text-align: center;
     	}
     	
+    	.Jointb td{
+    		height:70px;
+    	}
+    	
     	.Jointb input{
     		width: 250px;
     		height: 40px;
+    	}
+    	.Jointb button {
+    		width : 160px;
+    		height:30px;	
+    		background-color : gray;
+			color : white;
+			border-radius: 10px;
+			margin : 5px 0;
     	}
     	
     	.joinf{
     		margin-top: 70px;
     	}
     	
-    	.joinf button{
+    	#sbmBtn{
 			background-color : gray;
 			color : white;
 			width : 15%;
@@ -32,6 +44,7 @@
     	.ottdiv{
     		margin: 50px 0 50px 0;
     	}
+    	
     	
     </style>
     
@@ -116,18 +129,20 @@
 				<td>
 				 	<input type="text" placeholder="이메일을 적어주세요."
 							   id="m_email" name="m_email">
-					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">		   
-					<input id="sendEmail" type="button" value="인증 메일 보내기">
-					<input id="auth" type="button" value="이메일 인증">			   
+					<input id="authInput" type="text" placeholder="인증번호를 적어주세요">
+					
 				</td>
-				<td align="left" width="300px"><p id = "emailInput" /></td>
+				<td align="left" width="300px">
+					<button id="sendEmail" type="button">인증 메일 보내기</button><br>
+					<button id="auth" type="button" >인증 확인</button>
+				</td>
+			</tr>
+			<tr>
+			<td></td>
+				<td><p id = "emailInput" /></td> 
 			</tr>
 		</table>
-			<button href="#" type="button" href="#" onclick="check(); return false;" class="btn btn-common">회원가입 하기</button>
-		</a>
-		
-		
-		
+			<button type="button" id="sbmBtn" onclick="check(); return false;" >회원가입 하기</button>
 		</div>
 	</center>
 </form>

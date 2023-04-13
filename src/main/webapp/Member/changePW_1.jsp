@@ -9,13 +9,18 @@
     <style>
     	.findtb{
     		text-align: center;
-    		width: 800px;
+    		width: 580px;
     		font-size: 1.2em;
     	}
     	
+    	
     	.findtb input{
-    		width: 250px;
+    		width: 70%;
     		height: 40px;
+    	}
+    	
+    	.findtb p{
+    		font-size : 0.7em;
     	}
     	
     	.joinf{
@@ -56,67 +61,62 @@
 		
 		<table class="findtb">
 			<tr>
-				<td align="right" width="200px">
-					아이디
+				<td width="30%" style="text-align:right;">
+					아이디&nbsp;&nbsp;
 				</td>
-				<td align="left" width="200px">
+				<td width="60%"style="text-align: left;">
 					<input type="text" id="m_id" name="m_id" placeholder="아이디">
 				</td>
-				<td align="left" width="200px">
+				<td>
 					<p id="idInput" style="color: green;"></p>
 				</td>
 			</tr>
 			<tr>
-				<td align="right" width="200px">
-					이메일
+				<td style="text-align:right;">
+					이메일&nbsp;&nbsp;
 				</td>
-				<td align="left" width="200px">
+				<td style="text-align: left;">
 					<input type="text" id="m_email" name="m_email" placeholder="이메일">
 				</td>
-				<td align="left" width="200px">
+				<td>
 					<p id="emailInput" style="color: green;"></p>
 				</td>
 			</tr>
 			<tr>
-				<td align="right" width="200px">
-					이름
+				<td style="text-align:right;">
+					이름&nbsp;&nbsp;
 				</td>
-				<td align="left" width="200px">
+				<td style="text-align: left;">
 					<input type="text" id="m_name" name="m_name" placeholder="이름">
 				</td>
-				<td align="left" width="200px">
+				<td>
 					<p id="nameInput" style="color: green;"></p>
 				</td>
 			</tr>
 			<tr id="change">
-				<td align="right" width="200px">
-					변경할 비밀번호
+				<td style="text-align:right;">
+					비밀번호 변경&nbsp;&nbsp;
 				</td>
-				<td align="left" width="200px">
+				<td height="70px" style="text-align: left;">
 					<input type="password" name="m_pw" id="m_pw" placeholder="변경할 비밀번호를 입력하세요.">
-				</td>
-				<td align="left" width="200px">
 					<p id="pwInput1" style="color: green;">비밀번호는 4자 이상 입력해주세요.</p>
 				</td>
-				
 			</tr>
 			<tr id="change2">
-				<td align="right" width="200px">
-					비밀번호 확인
+				<td style="text-align:right;">
+					비밀번호 확인&nbsp;&nbsp;
 				</td>
-				<td align="left" width="200px">
+				<td height="70px" style="text-align: left;">
 					<input type="password" name="pwCheck" id="pwCheck" placeholder="변경할 비밀번호를 다시 입력해주세요.">
-				</td>
-				<td align="left" width="200px">
+				
 					<p id="pwInput2" style="color: green;"></p>
 				</td>
 			</tr>
 		</table>
 		<input id="auth_btn" type="button" value="사용자 인증" onclick="check(); return false;">
 		<input id="change_btn" type="button" value="비밀번호 변경" onclick="changeCheck(); return false;">
-		<input type="button" value="취소" onClick="history.back();">
+		<input type="button" value="취소" onClick="window.close();">
 		</form>
-		</a>
 		</div>
 	</center>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>

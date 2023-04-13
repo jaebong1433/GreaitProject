@@ -67,7 +67,7 @@
 			    min-height: 100%;
 			    margin: 0 auto;
 			    padding-top: 7px;
-				background-color: #F2F2F2;
+				background-color: #585858;
 			}
 		
 			.chatdiv{

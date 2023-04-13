@@ -254,6 +254,8 @@
     </head>
     <body>
         <div class='center'>
+        	<img alt="뱀" src="<%=contextPath%>/eq/img/banner/snakebanner.jpg" width="98%">
+        
             <table id='menuTable'>
                 <tr>
                     <td class='alignLeft'>
