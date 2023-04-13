@@ -57,16 +57,13 @@
 		<h2>아이디 찾기</h2>
 		<h3>아이디는 <%=m_id%>입니다.</h3>
 		<input type="button" value="홈으로" onclick="hone();" >		
-		<input type="button" value="로그인" onclick="login();">
+		<input type="button" value="로그인" onclick="window.close();">
 		</div>
 	</center>
 	<script>
-	function login(){
-		location.href="<%=contextPath%>/Member/login.jsp";
-	}
-  
 	function hone() {
-		location.href="<%=contextPath%>/main.jsp";
+		window.opener.location.href="<%=contextPath%>/member1/main.me";  
+		window.close();
 	}
 	</script>
 </body>

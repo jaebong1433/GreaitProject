@@ -70,7 +70,7 @@
 			</tr>
 		</table>
 		<input type="button" value="아이디찾기" onclick="submit();">
-		<input type="button" value="취소" onClick="history.back();">
+		<input type="button" value="취소" onClick="window.close();">
 		</form>
 		</div>
 	</center>

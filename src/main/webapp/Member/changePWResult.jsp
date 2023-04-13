@@ -56,17 +56,14 @@
 		</c:if>
 		
 		<input type="button" value="홈으로" onclick="home();" >		
-		<input type="button" value="로그인" onclick="login();">
+		<input type="button" value="로그인" onclick="window.close();">
 		</a>
 		</div>
 	</center>
 	<script>
-	function login(){
-		location.href="<%=contextPath%>/Member/login.jsp";
-	}
-  
 	function home() {
-		location.href="<%=contextPath%>/main.jsp";
+		window.opener.location.href="<%=contextPath%>/member1/main.me";  
+		window.close();
 	}
 	</script>
 </body>

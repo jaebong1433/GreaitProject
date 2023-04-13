@@ -38,19 +38,18 @@
 	<link href="<%=contextPath %>/eq/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<%=contextPath %>/eq/css/sidebars.css" rel="stylesheet">
 	
-<!-- 	<script src="js/ie-emulation-modes-warning.js"></script> -->
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	
 	
 	<style>
 		
-		.logf{
+		.logfa{
 			text-align : center;
 			width : 400px;
-			margin-top : 150px;
+			margin : 200px 0;
+			
 		}
 		
-		.logf button{
+		.logfa button{
 			background-color : gray;
 			color : white;
 			width : 50%;
@@ -62,17 +61,18 @@
 			color : gray;
 			text-decoration: none;
 		}
-		
+		#easyLogin td{
+			width : 60px;
+		}
+		.googleBtn{
+			padding-left: 10px;
+		}
 		
 	</style>
-	
-
-    
- 
 </head>
 <center>
 <body align="center">
-	<div class="logf">
+	<div class="logfa">
 		
 		<a href="<%= contextPath%>/Crawling/maincenter.me">	
    		<img src="<%=contextPath%>/eq/img/mm2.png" width="200px"><br><br>
@@ -83,21 +83,21 @@
    		
 	   		<input id="m_id" class="loginp" type="text" name="m_id" placeholder="아이디"><br>
 	   		<input id="m_pw" class="loginp" type="password" name="m_pw" placeholder="password"><br><br>
-	   		<button type="submit" >로그인</button><br><br>
+	   		<button type="submit" >로그인</button><br>
    		<br>
    		</form>
-   		<br>
    			<a href="<%=contextPath%>/member1/join1.me">회원가입</a><br><br>
-   			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a> / 
-   			<a href="<%=contextPath%>/member1/changePW.me">비밀번호 변경</a><br><br>		
-   		<p>간편로그인</p>
+   			<a href="javascript:(0);" onclick="openPop('findID')">아이디 찾기</a> /
+<%--    			<a href="<%=contextPath%>/member1/findID.me">아이디 찾기</a>   --%>
+   			<a href="javascript:(0);" onclick="openPop('changePW')">비밀번호 변경</a>
+<%--    			<a href="<%=contextPath%>/member1/changePW.me">비밀번호 변경</a> --%>
+   			<br><br>		
    		
-   		
-   		<table align="center">
+   		<table align="center" id="easyLogin">
    			<tr>
    				<td><a href="javascript:kakaoLogin()"><img src="<%=contextPath%>/eq/img/kakao_icon.png" width="40px" height="40px"></a></td>
    				<td><a href="#"><img onclick="naverlogin();" src="<%=contextPath%>/eq/img/naver_icon.png" width="40px" height="40px"></a></td>
-   				<td>
+   				<td class="googleBtn">
 			   		<div id="g_id_onload"
 					     data-client_id="172053655777-mjlei55v7co41ksjj9duc3vsi4p8qns8.apps.googleusercontent.com"
 					     data-context="signin"
@@ -116,25 +116,27 @@
    				</td>
    			</tr>
    		</table>
-		
-		
-		
-		
-		
-<!-- 		<button id="google-login-button">Google 로그인</button> -->
-<%-- 		<a href="#"><img id="google-login-button" src="<%=contextPath%>/eq/img/google_icon.png" width="50px" height="50px"></a> --%>
-		
-		
-   		
-   		
-   		
 	</div>
 </center>
 
-<!-- <script src="js/ie10-viewport-bug-workaround.js"></script>	 -->
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://accounts.google.com/gsi/client"></script>
 <script type="text/javascript">
+
+		function openPop(request){
+			var url = null;
+			var left = (screen.width/2)-250; 
+			var top = (screen.height/2)-250;
+			if(request == 'findID'){
+				url = "<%=contextPath%>/member1/findID.me";
+				window.open(url, '아이디 찾기', 'width=600, height=450, left='+left+', top='+top);
+			}else if(request == 'changePW'){
+				url = "<%=contextPath%>/member1/changePW.me";
+				window.open(url, '비밀번호 변경', 'width=600, height=580, left='+left+', top='+top);
+			}
+		}
+	
+
 	//Kakao.init()함수는 카카오 api를 사용하기 위해 인증키를 초기화합니다.
 	Kakao.init('1de5dcc9cb8ef52a2b543b50fde654cf');	
 	function kakaoLogin() {
@@ -233,16 +235,3 @@
 	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

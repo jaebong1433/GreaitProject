@@ -31,7 +31,11 @@ pageEncoding="UTF-8"
 		check = "no";
 	} else {
 		check = "yes";
-	}	
+	}
+	if(nowPage == null || nowBlock == null){
+		nowPage="0";
+		nowBlock="0";
+	}
 %>
 
 <%
@@ -79,7 +83,6 @@ pageEncoding="UTF-8"
 	.boarddiv {
 		margin-top: 50px;
 		width : 90%;
-		height: 1000px;
 	}
 	
 	
@@ -104,6 +107,7 @@ pageEncoding="UTF-8"
 		width : 100%;
 		text-align: left;
 		border : none;
+		padding: 50px;
 	}
 	
 	
@@ -177,9 +181,10 @@ pageEncoding="UTF-8"
 				</tr>
 			</table>
 			
-			<textarea class="textboxz" readonly>
-			<%= content %>
-			</textarea>
+			<div class="textboxz">
+				<%= content %>
+			</div>
+			<hr>
 			<p id="like">추천 수 : <%= like %></p>
 			
 			<div class="button-wrapper">
@@ -198,7 +203,7 @@ pageEncoding="UTF-8"
 			<% if (loginNick != null){ //로그인을 했을경우%>
 				<%if (loginNick.equals("admin")){//닉네임이 admin인 관리자계정으로 로그인 했을때 %>
 			<!-- 목록버튼 03/20 허상호 -->
-			<div align="center">
+			<div align="center" style="margin: 100px 0 0 0;">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
@@ -210,7 +215,7 @@ pageEncoding="UTF-8"
             	
 			<%}else if(c_uniqueid.equals(viewId)){// 관리자계정 말고 다른 계정으로 로그인했을때 본인글%>
 				
-				<div align="center">
+				<div align="center" style="margin: 100px 0 0 0;">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
@@ -225,7 +230,7 @@ pageEncoding="UTF-8"
             </div>
 				
 		    <%  }else{//로그인후 다른사람글 들어왔을때 %>
-	    	<div align="center">
+	    	<div align="center" style="margin: 100px 0 0 0;">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
@@ -233,7 +238,7 @@ pageEncoding="UTF-8"
 		   	 <%}
 			}else if(c_uniqueid.equals(viewId) ){ //비회원일때 본인이 작성한 글에 들어왔을때 %>	
 			<!-- 목록버튼 03/20 허상호 -->
-			<div align="center">
+			<div align="center" style="margin: 100px 0 0 0;">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>
@@ -248,7 +253,7 @@ pageEncoding="UTF-8"
             </div>
 			<%}else{ //비회원일때 다른사람이 작성한 글에 들어왔을때%>
 			<!-- 목록버튼 03/20 허상호 -->
-			<div align="center">
+			<div align="center" style="margin: 100px 0 0 0;">
             	<a href="" id="list">
             		<img src="<%=contextPath%>/eq/img/listgo.png" border="0" width="100"/>
             	</a>

@@ -14,7 +14,7 @@
 	<style type="text/css">
 		.game{
 			width: 98%;
-			height:98%;
+			height:50%;
 			margin-top: 30px;
 		}
 	</style>
@@ -24,7 +24,7 @@
 		<div class="game">
 			<img alt="지뢰찾기" src="<%=contextPath%>/eq/img/banner/minbanner.jpg" width="98%">
 		<hr width="90%">
-		<iframe width="1000" height="1400" src="http://muan.github.io/emoji-minesweeper" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+		<iframe width="1000" height="700" src="http://muan.github.io/emoji-minesweeper" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 		</div>
 	</center>
 

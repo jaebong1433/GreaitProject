@@ -235,6 +235,7 @@ public class MemberController extends HttpServlet {
 			else if(action.equals("/joinPwCheck.me")) {
 				//입력한 이메일 얻기
 					String m_pw = request.getParameter("m_pw");
+					m_pw = memberdao.hashpw(m_pw);
 					MemberVO memvo = new MemberVO();
 					memvo.setM_pw(m_pw);
 					
@@ -257,8 +258,10 @@ public class MemberController extends HttpServlet {
 			
 			//로그인 수행
 			else if(action.equals("/login.me")) {//로그인 창으로 이동
-			
-				nextPage = "/Member/login.jsp";			
+				
+				request.setAttribute("center", "/Member/login.jsp");
+				
+				nextPage = "/index.jsp";			
 				
 			
 			//로그인 유효성검

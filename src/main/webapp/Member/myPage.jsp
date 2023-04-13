@@ -242,7 +242,7 @@ pageEncoding="UTF-8"
 			<h1>내가 쓴 게시글</h1>
 			작성한 게시글 개수 : ${ comlist.size() }<br>
 			<table  class="myC_tb">
-				<tr bgcolor="pink">
+				<tr bgcolor="#D0D0D0">
 					<td width="45%" >제목</td>
 					<td width="25%" >작성일</td>
 					<td width="15%" >조회수</td>
@@ -255,7 +255,7 @@ pageEncoding="UTF-8"
 				</c:if>
 				<c:forEach var="comvo" items="${ comlist }">
 					<tr>
-						<td>${ comvo.c_title }</td>
+						<td><a href="<%=contextPath%>/com/read.bo?c_idx=${comvo.c_idx}">${ comvo.c_title }</a></td>
 						<td>${ comvo.c_date }</td>
 						<td>${ comvo.c_views }</td>
 						<td>${ comvo.c_like }</td>
@@ -270,7 +270,6 @@ pageEncoding="UTF-8"
     <script type="text/javascript">
     	
     	function levelUp(nickname, exp){
-//     		alert(nickname + ", " + exp);
     		$.ajax({
 				type: "post",
 				async : true,
@@ -283,21 +282,11 @@ pageEncoding="UTF-8"
 						location.reload();
 					} else {
 						alert("레벨업 하였습니다." + ${vo.m_level} + "->" + data);
-// 						$("#level").text("LV." + data);
 						location.reload();
 					}
 				}
 			});
     	}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
     	
     </script>
 		
