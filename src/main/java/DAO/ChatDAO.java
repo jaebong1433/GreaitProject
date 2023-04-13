@@ -97,61 +97,6 @@ public class ChatDAO{
 		return chatList;
 	}
 	
-
-	public ArrayList<ChatVO> getChatListByRecent(int number) {
-		
-		ArrayList<ChatVO> chatList = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String SQL = "SELECT * FROM CHAT WHERE chatID > (SELECT MAX(chatID) - ? FROM CHAT) ORDER BY TO_DATE(chatTime, 'YYYY-MM-DD HH24:MI:SS')";
-					 
-		try {
-			
-			pstmt = con.prepareStatement(SQL); // SQL 쿼리문 실행을 위한 PreparedStatement 객체 생성
-			pstmt.setInt(1, number); // 입력받은 number 값으로 파라미터 설정
-			rs = pstmt.executeQuery(); // 쿼리 실행
-			chatList = new ArrayList<ChatVO>(); // 채팅 리스트를 저장할 ArrayList 객체 생성
-			
-			while (rs.next()) { // 쿼리 결과가 있는 동안 반복문 실행
-				ChatVO chatvo = new ChatVO();// ChatVO 객체 생성
-				chatvo.setChatID(rs.getInt("chatID"));  // ChatVO 객체에 결과값 저장
-				chatvo.setM_nickname(rs.getString("m_nickname"));
-				
-				
-				// 채팅 내용에서 특정 문자열 치환하여 ChatVO에 저장
-				chatvo.setChatContent(rs.getString("chatContent").replaceAll("\\s","&nbsp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>"));
-				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11,13));
-				String timeType = "오전";// 시간 타입 변수 초기화
-				
-				
-				// 채팅 시간의 형식 변경
-	            if (chatTime >= 12) {
-	                timeType = "오후";
-	                if (chatTime > 12) {
-	                    chatTime -= 12; // 오후 12시 이후의 경우에는 12를 뺀 시간으로 변경
-	                }
-	            }
-	            chatvo.setChatTime(rs.getString("chatTime").substring(0, 11) + " " + timeType + " " + chatTime + ":" + rs.getString("chatTime").substring(14, 16) + "");
-	            chatList.add(chatvo);
-
-	        }
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs != null) rs.close(); // 결과셋이 null이 아닐 경우 close() 메서드 호출
-				if(pstmt != null)pstmt.close(); // PreparedStatement 객체가 null이 아닐 경우 close() 메서드 호출
-				if(con != null)con.close();// con 종료
-
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return chatList;  // 생성된 ArrayList 객체 반환
-	}
-	
 	
 	public ArrayList<ChatVO> getChatListByRecent(String chatID) {
 	
@@ -205,8 +150,6 @@ public class ChatDAO{
 		
 		return chatList;
 	}
-	
-	
 	
 	
 	public int submit(String m_nickname, String chatContent) {
