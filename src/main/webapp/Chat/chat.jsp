@@ -5,13 +5,11 @@
    <%
    
     request.setCharacterEncoding("UTF-8");
-	String contextPath = request.getContextPath();
+	
+   	String contextPath = request.getContextPath();
    
 	String loginNick = (String)session.getAttribute("m_nickname");
 	
-
-   
-   
    %> 
     
 <!DOCTYPE html>
@@ -32,8 +30,6 @@
 
 	<script type="text/javascript">
 		
-	
-	
 	
 		// 마지막으로 불러온 채팅의 ID를 저장할 변수
 		var lastID = 0;
@@ -75,7 +71,7 @@
 					}
 					
 					chatListFunction('today');
-					
+					 $('#chatList').empty();
 					
 				}
 				
@@ -116,6 +112,7 @@
 					var parsed = JSON.parse(data); //
 					
 					var result = parsed.result;
+
 					
 					// 각 채팅 내용을 addChat() 함수를 사용하여 화면에 추가
 					for(var i = 0; i < result.length; i++) {
@@ -137,7 +134,6 @@
 		        
 			});
 		}
-		
 		
 		
 		// 각 채팅 내용을 화면에 추가하는 함수
@@ -169,15 +165,21 @@
 								$('#chatList').scrollTop($("#chatList")[0].scrollHeight);	 
 							}
 						}
-		//무한 스크롤 기능을 위해 주기적으로 채팅 리스트를 갱신하는 함수
-		//chatListFunction 함수를 1초마다 호출하여 채팅 내역을 불러옴
-		//chatListFunction 함수 호출 시, 마지막으로 로드된 채팅 내역의 마지막 인덱스를 파라미터로 전달하여 이후 내역을 불러옴
+
+		
 		function getInfiniteChat() {
 		setInterval(function() {
 		chatListFunction(lastID);
 			}, 1000);
 								
 			}
+		
+		$(document).ready(function() {
+				chatListFunction('today'); // chatListFunction 호출하여 type에 'ten'을 전달
+				getInfiniteChat();
+			
+			});
+		
 	</script>
 
 
@@ -237,17 +239,6 @@
 			<strong>데이터베이스 오류가 발생했습니다.</strong>
 		</div>
 	</div>								
-
-
- 		<script type="text/javascript"> 
- 			$(document).ready(function() {
- 				chatListFunction('today'); // chatListFunction 호출하여 type에 'ten'을 전달
- 				getInfiniteChat();
- 			
- 			});
-		
- 		</script> 
- 
 
 </body>
 </html>

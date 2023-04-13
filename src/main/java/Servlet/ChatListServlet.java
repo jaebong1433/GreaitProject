@@ -32,10 +32,6 @@ public class ChatListServlet extends HttpServlet {
 		// listType 파라미터 값 추출
 		String listType = request.getParameter("listType");
 		
-		
-		System.out.println("출력:"+listType);
-		
-		
 		// listType이 null이거나 빈 문자열인 경우, 빈 문자열을 반환하여 웹브라우저로 전송
 		if(listType == null || listType.equals("")) {
 			
@@ -46,15 +42,6 @@ public class ChatListServlet extends HttpServlet {
 			
 			response.getWriter().write(getToday());//AJAX로 조회 요청한 chat.jsp로
 			
-			
-			System.out.println();// <------------------------- OK
-			
-		// listType이 "ten"인 경우, getTen() 메소드를 실행하여 최근 10개의 채팅 목록을 JSON 형태로 반환하여 웹브라우저로 전송
-		}else if(listType.equals("ten")) {  
-			
-			response.getWriter().write(getTen());  //AJAX로 조회 요청한 chat.jsp로
-			
-			System.out.println();   // <------------------------- OK
 		}	
 		
 		// listType이 숫자인 경우, getID() 메소드를 실행하여 해당 ID의 채팅 목록을 JSON 형태로 반환하여 웹브라우저로 전송
@@ -79,7 +66,6 @@ public class ChatListServlet extends HttpServlet {
 		// ChatDAO의 getChatList() 메소드를 호출하여 오늘 날짜의 채팅 목록을 가져옴
 		ArrayList<ChatVO> chatList = chatDAO.getChatList(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
-		
 		// 가져온 채팅 목록을 JSON 형태로 변환하여 result에 추가
 		for (int i = 0; i < chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatList.get(i).getM_nickname() + "\"},");
@@ -92,42 +78,6 @@ public class ChatListServlet extends HttpServlet {
 		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
 
 		return result.toString();
-	}
-	
-	
-	
-	public String getTen() {
-		
-		// 결과를 저장할 StringBuffer 생성
-		StringBuffer result = new StringBuffer("");
-		
-		// 초기 JSON 문자열을 결과 버퍼에 추가
-		result.append("{\"result\":[");
-		
-		// ChatDAO의 인스턴스를 생성하여 채팅 데이터를 조회
-		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatVO> chatList = chatDAO.getChatListByRecent(10);
-		
-		// 디버깅을 위해 조회된 채팅 메시지 수를 출력
-		System.out.println(chatList.size());
-		
-		 // chatList의 각 채팅 메시지를 순회하며 결과 버퍼에 해당 데이터를 추가
-		for (int i = 0; i < chatList.size(); i++) {
-			result.append("[{\"value\": \"" + chatList.get(i).getM_nickname() + "\"},");
-			result.append("{\"value\": \"" + chatList.get(i).getChatContent() + "\"},");
-			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
-		 	
-			// 현재 채팅 메시지가 chatList의 마지막 메시지가 아닌 경우, 쉼표를 추가하여 다음 메시지와 구분
-			if(i != chatList.size() - 1) result.append(",");
-			
-		}
-		 
-		// chatList의 마지막 메시지의 닉네임을 포함한 마지막 JSON 문자열을 결과 버퍼에 추가
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getM_nickname() + "\"}");
-		
-		// 결과 버퍼를 문자열로 변환하여 반환
-		return result.toString();
-	
 	}
 	
 	
@@ -163,7 +113,5 @@ public class ChatListServlet extends HttpServlet {
 		return result.toString();
 	
 	}
-
-	
 	
 }

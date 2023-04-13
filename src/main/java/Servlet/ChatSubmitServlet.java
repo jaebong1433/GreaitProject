@@ -33,16 +33,7 @@ public class ChatSubmitServlet extends HttpServlet {
 		
 		String chatContent = URLDecoder.decode(request.getParameter("chatContent"),"UTF-8");
 		
-//		if(m_nickname == null || m_nickname.equals("") || chatContent == null || chatContent.equals("")) {
-//			
-//			response.getWriter().write("0");
-//			
-//		}else {
-//			
-//			response.getWriter().write(new ChatDAO().submit(m_nickname,chatContent) + "");
-//
-//		}
-//		
+		
 		if(m_nickname == null || m_nickname.isEmpty() || chatContent == null || chatContent.isEmpty()) {
 		    response.getWriter().write("0");
 		} else {
