@@ -5,6 +5,7 @@ contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String contextPath = request.getContextPath();
@@ -220,7 +221,9 @@ pageEncoding="UTF-8"
 					</tr>
 				</table>
 				<div class="btnbtn">
-					<c:set var="frontID" value="<%= vo.getM_id().substring(0, 5) %>"/>
+					<c:if test="${not empty vo.m_id and vo.m_id.length() > 4}">
+					    <c:set var="frontID" value="${fn:substring(vo.m_id, 0, 5)}"/>
+					</c:if>
 					<%-- 로그인 한 사용자가 마이페이지에 접근했을 때에만 회원 수정, 탈퇴 버튼이 활성화되도록 함 --%>
 					<c:if test="${ m_uniqueID == vo.m_uniqueid }">
 					<table>
