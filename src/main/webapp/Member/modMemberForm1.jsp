@@ -172,7 +172,7 @@
 		
 
 		<div class="btnbtn">
-			<a href="#" onclick="location.href='<%= contextPath %>/member1/mypage.me'"; return false;">
+			<a href="#" onclick="location.href='<%= contextPath %>/member1/mypage.me?userUniqueID=<%= vo.getM_uniqueid() %>'"; return false;">
 				<input type="button" value="수정완료">
 			</a>
 		</div>
