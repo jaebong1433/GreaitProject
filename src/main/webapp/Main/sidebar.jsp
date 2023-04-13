@@ -99,6 +99,7 @@
 		.logsetf table{
 			text-align: center;
 			width: 98%; 
+			margin-top : 15%;
 		}
 		.logsetf td{
 			width: 50%;
@@ -108,7 +109,7 @@
 			background-color : white;
 			color : #5D5D5D;
 			width : 100%;
-			height: 25%;
+			height: 35%;
 			border-radius: 10px;
 			border: none;
 			box-shadow: 1px 3px 5px gray;
