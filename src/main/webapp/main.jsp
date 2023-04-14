@@ -16,7 +16,7 @@
 	<style type="text/css">
 	@import url(https://fonts.googleapis.com/css?family=Lato:300);
 
-html, body {s
+html, body {
      min-height: 100%;
 }
 
