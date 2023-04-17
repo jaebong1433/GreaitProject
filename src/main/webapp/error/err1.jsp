@@ -57,8 +57,8 @@
 			</div>
 			<h1>요청이 많아 접속이 지연되고 있습니다.<br> 다시 시도해 주세요.</h1>
 			
-			<input type="button" value="홈으로">
-			<input type="button" value="뒤로가기">
+			<input type="button" value="홈으로" onclick="window.location.href='<%=contextPath%>/Crawling/maincenter.me'">
+			<input type="button" value="뒤로가기" onclick="history.go(-1)">
 		</div>
 	</center>
 
