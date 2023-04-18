@@ -47,7 +47,7 @@ html, body {
   }
 
 }
-
+/* asdas */
 @media (max-width: 420px){
   .box{
     width: 100%;
