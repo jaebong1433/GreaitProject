@@ -12,3 +12,4 @@
  라이브러리 : Bcrypt, Bootstrap, jQuery<br>
  프레임워크 : Tomcat9, 모델2 MVC 패턴<br>
  참고 : chat GPT
+![image](https://user-images.githubusercontent.com/125847340/232998532-cada5b3c-25f1-42f8-bf76-a519442b0898.png)
