@@ -31,7 +31,7 @@
 ![image](https://user-images.githubusercontent.com/125847340/233003442-96bf1982-75d3-4413-80fe-93f1f7d026dc.png)
 ![image](https://user-images.githubusercontent.com/125847340/233003509-4d850f6c-c80b-40bd-8085-3786c7ede448.png)
 ![image](https://user-images.githubusercontent.com/125847340/233003546-e1ebdf55-bab2-4703-a379-0d00af2af515.png)
-![image](https://user-images.githubusercontent.com/125847340/233003614-d20d99c1-8578-43c8-9e63-f7e98a94edc4.png)
+![image](https://github.com/jaebong1433/GreaitProject/assets/125847340/2c9deeaa-bc83-4d37-9329-043c86cadf9e)
 ![image](https://user-images.githubusercontent.com/125847340/233003666-1213eb65-1b41-4f2c-b385-9c2008baaea4.png)
 
 
